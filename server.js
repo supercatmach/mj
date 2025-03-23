@@ -46,7 +46,7 @@ break
         console.log(speakpled+`說: ${msg}`);
 
         // 廣播訊息給所有玩家
-        io.emit("message", JSON.stringify([speakpled,msg]));
+        io.emit("message", JSON.stringify([speakpled,msg]);
     });
 
     socket.on("disconnect", () => {
@@ -55,7 +55,7 @@ for(let i=0;i<allplayer.length;i++){
 
 if(allplayer[i].ids==socket.id){
 
-io.emit("pledoffline", allplayer[i].name));
+io.emit("pledoffline", allplayer[i].name);
 
 delete allplayer[i]
 
