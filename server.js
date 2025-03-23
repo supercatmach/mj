@@ -1,21 +1,22 @@
 const express = require('express');
-const http = require('http');
-const socketIo = require('socket.io');
-const cors = require('cors');
-
+const helmet = require('helmet');
 const app = express();
-const server = http.createServer(app);
-const io = socketIo(server);
 
-// 設置 CORS 允許來自所有來源
-app.use(cors());
+// 使用 helmet 來設置 CSP
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+    defaultSrc: ["'self'"],
+    scriptSrc: ["'self'", "'unsafe-inline'", "https://cdn.socket.io"],
+    connectSrc: ["'self'", "https://mj-5x4w.onrender.com"],
+    styleSrc: ["'self'", "'unsafe-inline'"],
+    imgSrc: ["'self'"],
+  },
+}));
 
-// 其他伺服器設定
-app.get("/", (req, res) => {
-    res.send("麻將遊戲伺服器運行中");
-});
+// 你的其他 Express 路由和設定...
 
-const PORT = process.env.PORT || 10000;
-server.listen(PORT, () => {
-    console.log(`伺服器運行在 http://localhost:${PORT}`);
+// 伺服器端口
+const port = process.env.PORT || 10000;
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });
