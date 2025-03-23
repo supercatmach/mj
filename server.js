@@ -11,11 +11,21 @@ const io = new Server(server, {
     }
 });
 
+// 儲存所有訊息
+let messages = [];
+
 io.on("connection", (socket) => {
     console.log(`玩家已連線: ${socket.id}`);
 
+    // 當有新玩家連接時，發送先前的所有訊息
+    socket.emit("previousMessages", messages);
+
+    // 監聽訊息發送事件
     socket.on("message", (msg) => {
         console.log(`收到訊息: ${msg}`);
+        // 儲存訊息
+        messages.push(msg);
+        // 廣播訊息給所有玩家
         io.emit("message", msg);
     });
 
