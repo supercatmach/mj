@@ -1,48 +1,26 @@
-// 引入所需的模組
-const express = require('express');
-const http = require('http');
-const socketIo = require('socket.io');
-const helmet = require('helmet');
-
-// 初始化應用程式
+const express = require("express");
 const app = express();
-const server = http.createServer(app);
-const io = socketIo(server);
+const http = require("http").createServer(app);
+const io = require("socket.io")(http);
 
-// 設置 Content Security Policy (CSP)
-app.use(
-  helmet({
-    contentSecurityPolicy: {
-      directives: {
-        defaultSrc: ["'self'"], // 允許網站加載自身的資源
-        scriptSrc: ["'self'", "https://cdn.socket.io", "'unsafe-inline'"], // 允許從 cdn.socket.io 加載腳本及內嵌代碼
-        connectSrc: ["'self'", "https://mj-5x4w.onrender.com"], // 允許 socket.io 連接
-      },
-    },
-  })
-);
+// 🔹 讓 Express 提供靜態檔案（如果你有前端 HTML/CSS）
+app.use(express.static("public"));
 
-// 靜態文件服務
-app.use(express.static('public'));
-
-// 當客戶端連接時
-io.on('connection', (socket) => {
-  console.log('A user connected');
-
-  // 接收訊息並發送到所有連線的客戶端
-  socket.on('message', (msg) => {
-    console.log('Received message: ' + msg);
-    io.emit('message', msg); // 將訊息發送給所有連線的用戶
-  });
-
-  // 客戶端斷開連線時的處理
-  socket.on('disconnect', () => {
-    console.log('A user disconnected');
-  });
+// 🔹 設定首頁路由，確保 Render 伺服器有回應
+app.get("/", (req, res) => {
+    res.send("伺服器運行中！🎉 你的 WebSocket 也可以使用");
 });
 
-// 設置伺服器端口
-const port = process.env.PORT || 10000;
-server.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+// 🔹 WebSocket 連線
+io.on("connection", (socket) => {
+    console.log("有新的用戶連線！", socket.id);
+    socket.on("disconnect", () => {
+        console.log("用戶已斷線");
+    });
+});
+
+// 🔹 啟動伺服器
+const PORT = process.env.PORT || 10000;
+http.listen(PORT, () => {
+    console.log(`伺服器運行在 http://localhost:${PORT}`);
 });
