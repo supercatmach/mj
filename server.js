@@ -13,7 +13,6 @@ const io = new Server(server, {
 
 // 儲存所有訊息
 let messages = [];
-allplayer=[{"name":"Arret","ids":"X0"}]
 
 io.on("connection", (socket) => {
     console.log(`玩家已連線: ${socket.id}`);
@@ -21,51 +20,22 @@ io.on("connection", (socket) => {
     // 監聽訊息發送事件
     socket.on("name", (pled) => {
 
-        allplayer.push({"name":pled,"ids":socket.id});
-        // 有玩家上線
-console.log(allplayer)
-        io.emit("pledonline", pled);
+        io.emit("pledonline", JSON.stringify([pled,socket.id]));
     });
 
     // 監聽訊息發送事件
     socket.on("message", (msg) => {
 
-speakpled=""
-
-for(let i=0;i<allplayer.length;i++){
-
-if(allplayer[i].ids==socket.id){
-
-speakpled=allplayer[i].name
-
-break
-
-}
-
-}
         console.log(speakpled+`說: ${msg}`);
 
         // 廣播訊息給所有玩家
-        io.emit("message", JSON.stringify([speakpled,msg]));
+        io.emit("message", JSON.stringify([socket.id,msg]));
     });
 
     socket.on("disconnect", () => {
 
-for(let i=0;i<allplayer.length;i++){
+io.emit("pledoffline", JSON.stringify(socket.id));
 
-if(allplayer[i].ids==socket.id){
-
-io.emit("pledoffline", allplayer[i].name);
-
-delete allplayer[i]
-
-allplayer=allplayer.filter(el => el);
-
-break
-
-}
-
-}
         console.log(`玩家已斷線: ${socket.id}`);
     });
 });
