@@ -1,26 +1,30 @@
 const express = require("express");
+const http = require("http");
+const { Server } = require("socket.io");
+
 const app = express();
-const http = require("http").createServer(app);
-const io = require("socket.io")(http);
-
-// 🔹 讓 Express 提供靜態檔案（如果你有前端 HTML/CSS）
-app.use(express.static("public"));
-
-// 🔹 設定首頁路由，確保 Render 伺服器有回應
-app.get("/", (req, res) => {
-    res.send("伺服器運行中！🎉 你的 WebSocket 也可以使用");
+const server = http.createServer(app);
+const io = new Server(server, {
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"]
+    }
 });
 
-// 🔹 WebSocket 連線
 io.on("connection", (socket) => {
-    console.log("有新的用戶連線！", socket.id);
+    console.log(`玩家已連線: ${socket.id}`);
+
+    socket.on("message", (msg) => {
+        console.log(`收到訊息: ${msg}`);
+        io.emit("message", msg);
+    });
+
     socket.on("disconnect", () => {
-        console.log("用戶已斷線");
+        console.log(`玩家已斷線: ${socket.id}`);
     });
 });
 
-// 🔹 啟動伺服器
-const PORT = process.env.PORT || 10000;
-http.listen(PORT, () => {
-console.log(`伺服器運行在 http://localhost:${PORT}`);
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+    console.log(`伺服器運行中： http://localhost:${PORT}`);
 });
