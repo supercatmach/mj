@@ -26,7 +26,7 @@ io.on("connection", (socket) => {
     // 監聽訊息發送事件
     socket.on("message", (msg) => {
 
-        console.log(speakpled+`說: ${msg}`);
+        console.log(socket.id+`說: ${msg}`);
 
         // 廣播訊息給所有玩家
         io.emit("message", JSON.stringify([socket.id,msg]));
