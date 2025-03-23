@@ -74,11 +74,13 @@ allplayer.push({"name":JSON.parse(pled)[0],"ids":JSON.parse(pled)[1],"inX":"250p
 
 socket.on("pledlined", (pled) => {
 
-$("#awam").append('<div class="cat" id="cat'+JSON.parse(pled)[1]+'"><div class="catbg"></div><div class="catname">['+JSON.parse(pled)[0]+']</div><div class="catspeak" id="cattall'+JSON.parse(pled)[1]+'"></div></div>')
+$("#awam").append('<div class="cat" id="cat'+JSON.parse(pled).ids+'"><div class="catbg"></div><div class="catname">['+JSON.parse(pled).name+']</div><div class="catspeak" id="cattall'+JSON.parse(pled).ids+'"></div></div>')
 
-$("#cat"+JSON.parse(pled)[1]).css({
-    "top": JSON.parse(pled)[2]+"px",
-    "left": JSON.parse(pled)[3]+"px"
+console.log(JSON.parse(pled))
+
+$("#cat"+JSON.parse(pled).ids).css({
+    "top": JSON.parse(pled).inX+"px",
+    "left": JSON.parse(pled).inY+"px"
 });
 
 
