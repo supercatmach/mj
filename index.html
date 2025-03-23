@@ -19,7 +19,7 @@
         });
 
         function sendMessage() {
-            socket.emit("message", "0-0");
+            socket.emit("message", "Hello, 這是一條測試訊息！");
         }
 
         socket.on("message", (msg) => {
