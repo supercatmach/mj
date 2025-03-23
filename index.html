@@ -15,7 +15,35 @@
 <input type="text" id="name" style="width:50px" value="Cat" >
 <input type="text" id="talk" onkeydown="if(event.keyCode==13){sendMessage()}" style="width:453px" value="Hello">
 </div>
-
+<style>
+.cat{
+position:absolute;
+top:50%;
+left:50%;
+margin-left:-50;
+margin-top:-50;
+width:100px;
+height:100px;
+}
+.catbg{
+position:absolute;
+top:0%;
+left:0%;
+width:100px;
+height:100px;
+background-image: url('36.png');
+}
+.catname{
+position:absolute;
+top:100%;
+left:50%;
+}
+.catspeak{
+position:absolute;
+top:-10px;
+left:0%;
+}
+</style>
 
     <script>
 
@@ -36,9 +64,11 @@ socket.emit("name", $("#name").val());
 
         socket.on("pledonline", (pled) => {
 
-$("#messages").html(JSON.parse(pled)[0]+"上線了")
+$("#messages").html(JSON.parse(pled)[0]+"上線了").show().fadeOut(5000)
 
-$("#awam").append('<div class="cat" id="cat'+JSON.parse(pled)[1]+'">'+JSON.parse(pled)[0]+'<div id="cattall'+JSON.parse(pled)[1]+'"></div><div>')
+setTimeout('$("#messages").html("")',5000)
+
+$("#awam").append('<div class="cat" id="cat'+JSON.parse(pled)[1]+'"><div class="catbg"></div><div class="catname">['+JSON.parse(pled)[0]+']</div><div class="catspeak" id="cattall'+JSON.parse(pled)[1]+'"></div></div>')
 
 allplayer.push({"name":JSON.parse(pled)[0],"ids":JSON.parse(pled)[1]})
 
@@ -46,7 +76,9 @@ allplayer.push({"name":JSON.parse(pled)[0],"ids":JSON.parse(pled)[1]})
 
         socket.on("pledoffline", (pled) => {
 
-$("#messages").html(JSON.parse(pled)+"下線了")
+$("#messages").html(JSON.parse(pled)+"下線了").show().fadeOut(5000)
+
+setTimeout('$("#messages").html("")',5000)
 
 $ ("#car"+JSON.parse(pled)).remove();
 
