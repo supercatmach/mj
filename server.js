@@ -1,21 +1,14 @@
 const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
-const helmet = require('helmet');
+const cors = require('cors');
 
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
-// 使用 Helmet 來設置 CSP
-app.use(helmet({
-    contentSecurityPolicy: {
-        directives: {
-            defaultSrc: ["'self'"], // 預設來源
-            connectSrc: ["'self'", 'https://mj-5x4w.onrender.com'] // 允許從 Render 上的伺服器連接
-        }
-    }
-}));
+// 設置 CORS 允許來自所有來源
+app.use(cors());
 
 // 其他伺服器設定
 app.get("/", (req, res) => {
