@@ -3,30 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>麻將遊戲</title>
     <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
-<script type="text/javascript" src="jquery2.min.js"></script>
 </head>
 <body>
+    <h1>歡迎來到麻將遊戲</h1>
+    <button onclick="sendMessage()">發送訊息</button>
     <ul id="messages"></ul>
-<div style="position:absolute;top:76%;left:50%;margin-left:-230px;width:700px;" >
-<input type="text" id="name" style="width:50px" value="Cat" >
-<input type="text" id="talk" onkeydown="if(event.keyCode==13){sendMessage()}" style="width:453px" value="Hello">
-</div>
-
 
     <script>
         const socket = io("https://mj-5x4w.onrender.com");
 
         socket.on("connect", () => {
-socket.emit("name", $("#name").val());
             console.log("成功連線到伺服器！");
         });
 
-
         function sendMessage() {
-            const msg = $("#talk").val() // 這裡可以改為實際要發送的訊息
-            socket.emit("message", msg);
+            socket.emit("message", "Hello, 這是一條測試訊息！");
         }
 
         socket.on("message", (msg) => {

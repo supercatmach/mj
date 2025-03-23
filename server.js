@@ -13,23 +13,56 @@ const io = new Server(server, {
 
 // 儲存所有訊息
 let messages = [];
+allplayer=[]
 
 io.on("connection", (socket) => {
     console.log(`玩家已連線: ${socket.id}`);
 
-    // 當有新玩家連接時，發送先前的所有訊息
-    socket.emit("previousMessages", messages);
+    // 監聽訊息發送事件
+    socket.on("name", (pled) => {
+
+        allplayer.push({"name":pled,"id":socket.id});
+        // 有玩家上線
+        io.emit("pledonline", pled);
+    });
 
     // 監聽訊息發送事件
     socket.on("message", (msg) => {
-        console.log(`收到訊息: ${msg}`);
-        // 儲存訊息
-        messages.push(msg);
+
+speakpled=""
+
+for(let i=0;i<allplayer.length;i++){
+
+if(allplayer[i].id==socket.id){
+
+speakpled=allplayer[i].name
+
+break
+
+}
+
+}
+        console.log(speakpled+`說: ${msg}`);
+
         // 廣播訊息給所有玩家
-        io.emit("message", msg);
+        io.emit("message", speakpled+":"+msg);
     });
 
     socket.on("disconnect", () => {
+
+for(let i=0;i<allplayer.length;i++){
+
+if(allplayer[i].id==socket.id){
+
+delete allplayer[i]
+
+allplayer.filter(el => el);
+
+break
+
+}
+
+}
         console.log(`玩家已斷線: ${socket.id}`);
     });
 });
