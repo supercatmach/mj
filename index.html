@@ -76,7 +76,7 @@ socket.on("pledlined", (pled) => {
 
 $("#awam").append('<div class="cat" id="cat'+JSON.parse(pled)[1]+'"><div class="catbg"></div><div class="catname">['+JSON.parse(pled)[0]+']</div><div class="catspeak" id="cattall'+JSON.parse(pled)[1]+'"></div></div>')
 
-$("cat'+JSON.parse(pled)[1]+'").css({
+$("#cat"+JSON.parse(pled)[1]).css({
     "top": JSON.parse(pled)[2]+"px",
     "left": JSON.parse(pled)[3]+"px"
 });
