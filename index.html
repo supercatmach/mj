@@ -38,7 +38,7 @@ socket.emit("name", $("#name").val());
 
 $("#messages").html(pled+"上線了")
 
-$("#awam").append('<div class="cat" id="cat"+allplayer.length>'+pled+'<div>')
+$("#awam").append('<div class="cat" id="cat"+'+allplayer.length+'>'+pled+'<div>')
 
 allplayer.push(pled)
 
@@ -58,8 +58,8 @@ allplayer.filter(el => el);
 
 
 
-        socket.on("message", (JSON.parse((msg)) => {
-
+        socket.on("message", (msg) => {
+///JSON.parse(
 console.log(msg)
 
 

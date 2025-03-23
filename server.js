@@ -46,7 +46,7 @@ break
         console.log(speakpled+`說: ${msg}`);
 
         // 廣播訊息給所有玩家
-        io.emit("message", JSON.stringify([speakpled,msg]);
+        io.emit("message", JSON.stringify([speakpled,msg]));
     });
 
     socket.on("disconnect", () => {
