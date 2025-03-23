@@ -22,5 +22,5 @@ io.on("connection", (socket) => {
 // 🔹 啟動伺服器
 const PORT = process.env.PORT || 10000;
 http.listen(PORT, () => {
-    console.log(`伺服器運行在 http://localhost:${PORT}`);
+    console.log(伺服器運行在 http://localhost:${PORT});
 });
