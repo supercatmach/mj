@@ -18,10 +18,8 @@
 <style>
 .cat{
 position:absolute;
-top:50%;
-left:50%;
-margin-left:-50;
-margin-top:-50;
+top:250px;
+left:250px;
 width:100px;
 height:100px;
 }
@@ -70,31 +68,51 @@ setTimeout('$("#messages").html("")',5000)
 
 $("#awam").append('<div class="cat" id="cat'+JSON.parse(pled)[1]+'"><div class="catbg"></div><div class="catname">['+JSON.parse(pled)[0]+']</div><div class="catspeak" id="cattall'+JSON.parse(pled)[1]+'"></div></div>')
 
-allplayer.push({"name":JSON.parse(pled)[0],"ids":JSON.parse(pled)[1]})
+allplayer.push({"name":JSON.parse(pled)[0],"ids":JSON.parse(pled)[1],"inX":"250px","inY":"250px"})
 
         });
 
+socket.on("pledlined", (pled) => {
+
+$("#awam").append('<div class="cat" id="cat'+JSON.parse(pled)[1]+'"><div class="catbg"></div><div class="catname">['+JSON.parse(pled)[0]+']</div><div class="catspeak" id="cattall'+JSON.parse(pled)[1]+'"></div></div>')
+
+$("cat'+JSON.parse(pled)[1]+'").css({
+    "top": JSON.parse(pled)[2]+"px",
+    "left": JSON.parse(pled)[3]+"px"
+});
+
+
+        });
         socket.on("pledoffline", (pled) => {
 
-$("#messages").html(JSON.parse(pled)+"下線了").show().fadeOut(5000)
+for(let i=0;i<allplayer.length;i++){
+
+if(allplayer[i].ids==JSON.parse(pled)){
+
+$("#messages").html(allplayer[i].name+"下線了").show().fadeOut(5000)
 
 setTimeout('$("#messages").html("")',5000)
 
 $ ("#car"+JSON.parse(pled)).remove();
+
+delete allplayer[i]
+
+allplayer=allplayer.filter(el => el);
+
+
+}
+
+}
 
         });
 
 
 
         socket.on("message", (msg) => {
-///JSON.parse(
-console.log(JSON.parse(msg)[0])
-console.log(allplayer)
+
 for(let i=0;i<allplayer.length;i++){
 
 if(allplayer[i].ids==JSON.parse(msg)[0]){
-
-
 
 $("#cattall"+JSON.parse(msg)[0]).html(JSON.parse(msg)[1])
 

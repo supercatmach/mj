@@ -14,13 +14,24 @@ const io = new Server(server, {
 // 儲存所有訊息
 let messages = [];
 
+allplayer=[]
+
 io.on("connection", (socket) => {
     console.log(`玩家已連線: ${socket.id}`);
 
     // 監聽訊息發送事件
     socket.on("name", (pled) => {
 
+for(let s=0;s<allplayer.length;s++){
+
+io.to(socket.id).emit("pledlined",JSON.stringify(allplayer[s]));
+
+}
+
         io.emit("pledonline", JSON.stringify([pled,socket.id]));
+
+allplayer.push({"name":pled,"ids":socket.id,"inX":"250px","inY":"250px"})
+
     });
 
     // 監聽訊息發送事件
@@ -34,6 +45,19 @@ io.on("connection", (socket) => {
 
     socket.on("disconnect", () => {
 
+for(let i=0;i<allplayer.length;i++){
+
+if(allplayer[i].ids==socket.id){
+
+delete allplayer[i]
+
+allplayer=allplayer.filter(el => el);
+
+break
+
+}
+
+}
 io.emit("pledoffline", JSON.stringify(socket.id));
 
         console.log(`玩家已斷線: ${socket.id}`);
