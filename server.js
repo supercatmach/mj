@@ -13,7 +13,7 @@ const io = new Server(server, {
 
 // 儲存所有訊息
 let messages = [];
-allplayer=[]
+allplayer=[{"name":"Arret","id":"X0"}]
 
 io.on("connection", (socket) => {
     console.log(`玩家已連線: ${socket.id}`);

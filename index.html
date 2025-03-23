@@ -8,7 +8,7 @@
 <script type="text/javascript" src="jquery2.min.js"></script>
 </head>
 <body>
-    <ul id="messages"></ul>
+    <div id="messages"></div>
 <div style="position:absolute;top:76%;left:50%;margin-left:-230px;width:700px;" >
 <input type="text" id="name" style="width:50px" value="Cat" >
 <input type="text" id="talk" onkeydown="if(event.keyCode==13){sendMessage()}" style="width:453px" value="Hello">
@@ -31,6 +31,7 @@ socket.emit("name", $("#name").val());
 
         socket.on("message", (msg) => {
             const li = document.createElement("li");
+console.log(msg)
             li.textContent = msg;
             document.getElementById("messages").appendChild(li);
         });
