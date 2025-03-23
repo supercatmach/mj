@@ -19,6 +19,8 @@
 
     <script>
 
+allplayer=[]
+
         const socket = io("https://mj-5x4w.onrender.com");
 
         socket.on("connect", () => {
@@ -36,7 +38,9 @@ socket.emit("name", $("#name").val());
 
 $("#messages").html(JSON.parse(pled)[0]+"上線了")
 
-$("#awam").append('<div class="cat" id="cat"+'+JSON.parse(pled)[1]+'>'+JSON.parse(pled)[0]+'<div id="cattall"+'+JSON.parse(pled)[1]+'></div><div>')
+$("#awam").append('<div class="cat" id="cat'+JSON.parse(pled)[1]+'">'+JSON.parse(pled)[0]+'<div id="cattall'+JSON.parse(pled)[1]+'"></div><div>')
+
+allplayer.push({"name":JSON.parse(pled)[0],"ids":JSON.parse(pled)[1]})
 
         });
 
@@ -52,7 +56,21 @@ $ ("#car"+JSON.parse(pled)).remove();
 
         socket.on("message", (msg) => {
 ///JSON.parse(
+console.log(JSON.parse(msg)[0])
+console.log(allplayer)
+for(let i=0;i<allplayer.length;i++){
 
+if(allplayer[i].ids==JSON.parse(msg)[0]){
+
+
+
+$("#cattall"+JSON.parse(msg)[0]).html(JSON.parse(msg)[1])
+
+break
+
+}
+
+}
 
 console.log(JSON.parse(msg))
 
