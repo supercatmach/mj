@@ -52,7 +52,7 @@ $ ("#car"+allplayer.indexOf(pled)).remove();
 
 delete allplayer[allplayer.indexOf(pled)]
 
-allplayer.filter(el => el);
+allplayer=allplayer.filter(el => el);
 
         });
 
@@ -60,7 +60,7 @@ allplayer.filter(el => el);
 
         socket.on("message", (msg) => {
 ///JSON.parse(
-console.log(msg)
+console.log(JSON.parse(msg))
 
 
         });

@@ -59,7 +59,7 @@ io.emit("pledoffline", allplayer[i].name);
 
 delete allplayer[i]
 
-allplayer.filter(el => el);
+allplayer=allplayer.filter(el => el);
 
 break
 
