@@ -23,6 +23,7 @@ io.on("connection", (socket) => {
 
         allplayer.push({"name":pled,"ids":socket.id});
         // 有玩家上線
+console.log(allplayer)
         io.emit("pledonline", pled);
     });
 
