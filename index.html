@@ -8,7 +8,9 @@
 <script type="text/javascript" src="jquery2.min.js"></script>
 </head>
 <body>
+    <div id="awam">
     <div id="messages"></div>
+</div>
 <div style="position:absolute;top:76%;left:50%;margin-left:-230px;width:700px;" >
 <input type="text" id="name" style="width:50px" value="Cat" >
 <input type="text" id="talk" onkeydown="if(event.keyCode==13){sendMessage()}" style="width:453px" value="Hello">
@@ -16,6 +18,9 @@
 
 
     <script>
+
+allplayer=[]
+
         const socket = io("https://mj-5x4w.onrender.com");
 
         socket.on("connect", () => {
@@ -29,11 +34,35 @@ socket.emit("name", $("#name").val());
             socket.emit("message", msg);
         }
 
-        socket.on("message", (msg) => {
-            const li = document.createElement("li");
+        socket.on("pledonline", (pled) => {
+
+$("#messages").html(pled+"上線了")
+
+$("#awam").append('<div class="cat" id="cat"+allplayer.length>'+pled+'<div>')
+
+allplayer.push(pled)
+
+        });
+
+        socket.on("pledoffline", (pled) => {
+
+$("#messages").html(pled+"下線了")
+
+$ ("#car"+allplayer.indexOf(pled)).remove ( ) ;
+
+delete allplayer[allplayer.indexOf(pled)]
+
+allplayer.filter(el => el);
+
+        });
+
+
+
+        socket.on("message", (JSON.parse((msg)) => {
+
 console.log(msg)
-            li.textContent = msg;
-            document.getElementById("messages").appendChild(li);
+
+
         });
     </script>
 </body>
