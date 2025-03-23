@@ -13,7 +13,7 @@ const io = new Server(server, {
 
 // 儲存所有訊息
 let messages = [];
-allplayer=[{"name":"Arret","id":"X0"}]
+allplayer=[{"name":"Arret","ids":"X0"}]
 
 io.on("connection", (socket) => {
     console.log(`玩家已連線: ${socket.id}`);
@@ -21,7 +21,7 @@ io.on("connection", (socket) => {
     // 監聽訊息發送事件
     socket.on("name", (pled) => {
 
-        allplayer.push({"name":pled,"id":socket.id});
+        allplayer.push({"name":pled,"ids":socket.id});
         // 有玩家上線
         io.emit("pledonline", pled);
     });
@@ -33,7 +33,7 @@ speakpled=""
 
 for(let i=0;i<allplayer.length;i++){
 
-if(allplayer[i].id==socket.id){
+if(allplayer[i].ids==socket.id){
 
 speakpled=allplayer[i].name
 
@@ -52,7 +52,7 @@ break
 
 for(let i=0;i<allplayer.length;i++){
 
-if(allplayer[i].id==socket.id){
+if(allplayer[i].ids==socket.id){
 
 delete allplayer[i]
 
