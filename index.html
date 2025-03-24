@@ -91,7 +91,12 @@ left:0%;
 }
 </style>
 
-    <script>let mycat = ""; // 確保這是正確設定的變數
+    <script>
+
+
+mycat = ""; // 確保這是正確設定的變數
+
+myids=""
 
 $("#awam").click(function(event) {
     let containerOffset = $(this).offset(); // 取得容器的位置
@@ -119,7 +124,7 @@ $("#awam").click(function(event) {
             let divX = $(this).position().left;
             let divY = $(this).position().top;
 
-socket.emit("move", JSON.stringify([divX,divY]));
+socket.emit("move", JSON.stringify([event.pageX,event.pageY]));
 
             let distance = Math.sqrt(Math.pow(targetX - divX, 2) + Math.pow(targetY - divY, 2));
             let speed = 5; // 每像素移動時間 (毫秒/px)，例如 0.5ms/px
@@ -132,7 +137,6 @@ socket.emit("move", JSON.stringify([divX,divY]));
         });
     }
 });
-
 
 allplayer=[]
 
@@ -150,6 +154,10 @@ socket.emit("name", $("#name").val());
         });
 
 socket.on("move", (movnew) => {
+
+if(JSON.parse(movnew)[0]!=myids){
+
+console.log(JSON.parse(movnew),myids)
 
     let containerOffset = $("#awam").offset(); // 取得容器的位置
     const containerWidth = $("#awam").width(); // 容器寬度
@@ -187,7 +195,7 @@ socket.on("move", (movnew) => {
         });
     }
 
-
+}
 
 
 
@@ -205,19 +213,25 @@ $("#awam").append('<div class="cat" id="cat'+JSON.parse(pled)[1]+'"><div class="
 
 allplayer.push({"name":JSON.parse(pled)[0],"ids":JSON.parse(pled)[1],"inX":"250px","inY":"250px"})
 
-mycat="cat"+JSON.parse(pled)[1]
+mycat=(mycat=="")?"cat"+JSON.parse(pled)[1]:mycat
+
+myids=(myids=="")?JSON.parse(pled)[1]:myids
 
         });
 
 socket.on("pledlined", (pled) => {
+
+    let containerOffset = $("#awam").offset(); // 取得容器的位置
+    const containerWidth = $("#awam").width(); // 容器寬度
+
 
 $("#awam").append('<div class="cat" id="cat'+JSON.parse(pled).ids+'"><div class="catbg"></div><div class="catname">['+JSON.parse(pled).name+']</div><div class="catspeak" id="cattall'+JSON.parse(pled).ids+'"></div></div>')
 
 allplayer.push({"name":JSON.parse(pled).name,"ids":JSON.parse(pled).ids,"inX":JSON.parse(pled).inX,"inY":JSON.parse(pled).inY})
 
 $("#cat"+JSON.parse(pled).ids).css({
-    "top": JSON.parse(pled).inX+"px",
-    "left": JSON.parse(pled).inY+"px"
+    "top": (JSON.parse(pled).inY-100)+"px",
+    "left": (JSON.parse(pled).inX-100)+"px"
 });
 
 
