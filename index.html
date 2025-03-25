@@ -439,6 +439,22 @@ $(this).css('animation', 'growShrink 0.4s infinite alternate linear');
 
 socket.on("pledonline", (pled) => {
 
+repline=0
+
+for(let i=0;i<allplayer.length;i++){
+
+if(allplayer[i].ids==JSON.parse(pled)[1]){
+
+repline=1
+
+break
+
+}
+
+}
+
+if(repline==0){
+
 $("#messages").html(JSON.parse(pled)[0]+"上線了").show().fadeOut(5000)
 
 v41.play()
@@ -494,7 +510,9 @@ $("#cat" + JSON.parse(pled)[1]).css({
     'animation': 'growShrink 0.4s infinite alternate linear'  // 用來設置 growShrink 動畫
 });
 
-        });
+}
+
+});
 
 socket.on("pledlined", (pled) => {
 
