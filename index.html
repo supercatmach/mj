@@ -8,8 +8,10 @@
 <script type="text/javascript" src="jquery2.min.js"></script>
 </head>
 <body>
+<div class="container">
     <div id="awam">
     <div id="messages"></div>
+</div>
 </div>
 <div style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 800px;">
   <input type="text" id="talk" onkeydown="if(event.keyCode==13){sendMessage()}" style="width: 100%; font-size: 16px; padding: 8px;" value="Hello">
@@ -30,18 +32,21 @@ html, body {
     height: 100vh; /* 讓整個畫面填滿 */
     overflow: hidden; /* 避免滾動條 */
 }
-
+.container {
+  display: flex;
+  justify-content: center;  /* 水平置中 */
+  align-items: center;      /* 垂直置中 */
+  height: 100vh;            /* 讓容器填滿整個視窗 */
+}
 #awam, #nameForm {
-    width: 100%;
-    height: 100%;
+    width: 1800px;
+    height: 900px;
     border: 1px solid black; /* 黑色框線 */
     position: absolute;
 display: flex;
     justify-content: center; /* 水平置中 */
     align-items: center; /* 垂直置中 */
-    height: 100%; /* 讓 `#messages` 依 `#awam` 高度置中 */
-    max-width: 100vw; /* 讓它在螢幕範圍內 */
-    max-height: 100vh; /* 限制最大高度為螢幕高度 */
+
 }
 #messages {
     width: 80%; /* 設定寬度，避免內容太窄或太寬 */
@@ -67,25 +72,20 @@ display: flex;
 
 /* 手機直式與橫式適配 */
 @media all and (min-width:320px){ 
- .cat{
-  transform:scale(0.4,0.4)
- }
+#awam, #nameForm {
+transform: scale(0.5,0.5);
+}
 }
 @media all and (min-width:1024px){ 
- .cat{
-  transform:scale(1,1)
- }
+#awam, #nameForm {
+transform: scale(1,1);
+}
 }
 @media (min-width: 481px) and (max-width: 767px) {
     html, body {
         height: auto; /* 讓內容適應螢幕 */
     }
-    #awam, #nameForm {
-        width: 100%; /* 容器寬度為 100% */
-        height: auto; /* 高度根據內容自適應 */
-        max-width: 100vw; /* 限制最大寬度為螢幕寬度 */
-        max-height: 100vh; /* 限制最大高度為螢幕高度 */
-    }
+
     input {
         font-size: 14px; /* 減小字體大小 */
         padding: 6px; /* 減小內邊距 */
@@ -320,26 +320,29 @@ mycat = ""; // 確保這是正確設定的變數
 myids=""
 
 $("#awam").click(function(event) {
-    let containerOffset = $(this).offset(); // 取得容器的位置
-    const containerWidth = $(this).width(); // 容器寬度
-
+    let containerOffset = $('#awam')[0].getBoundingClientRect(); // 取得容器的位置
+    const containerWidth = $('#awam')[0].getBoundingClientRect().width; // 容器寬度
+console.log(containerWidth)
 
     if (mycat != "") {
         $("#" + mycat).stop(true, false).each(function() {
-    const moveDistance = $("#" + mycat).position().left >= containerWidth / 2 ? 0 : containerWidth - 100; // 根據當前位置判斷目標位置
 
-    let targetX = event.pageX - containerOffset.left - 50; // 減去 50 來設置為元素的中心
-    let targetY = event.pageY - containerOffset.top - 50;  // 減去 50 來設置為元素的中心
+nemycat=$("#" + mycat)[0].getBoundingClientRect()
+
+    const moveDistance = $("#" + mycat)[0].getBoundingClientRect().left >= containerWidth / 2 ? 0 : containerWidth - nemycat.width; // 根據當前位置判斷目標位置
+
+    let targetX = event.clientX - containerOffset.left - (nemycat.width/2); // 減去 50 來設置為元素的中心
+    let targetY = event.clientY - containerOffset.top - (nemycat.width/2);  // 減去 50 來設置為元素的中心
             // 根據當前位置決定是否鏡像反轉背景圖片
-            const scaleValue = $(this).position().left >= targetX ? 1 : -1; // 如果在右邊，鏡像反轉背景
+            const scaleValue = $(this)[0].getBoundingClientRect().left >= targetX ? 1 : -1; // 如果在右邊，鏡像反轉背景
 $(this).css('animation', 'movbodypic 0.4s infinite alternate linear');
 
             // 鏡像反轉背景圖片（.catbg）
             $("#" + mycat + " .catbg").css("transform", `scaleX(${scaleValue})`);
 
             // 計算距離並移動到點擊位置
-            let divX = $(this).position().left;
-            let divY = $(this).position().top;
+            let divX = $(this)[0].getBoundingClientRect().left;
+            let divY = $(this)[0].getBoundingClientRect().top;
 
 socket.emit("move", JSON.stringify([event.pageX,event.pageY]));
 
