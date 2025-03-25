@@ -51,31 +51,57 @@ display: flex;
     background-color: white; /* 表單背景為白色 */
     text-align: center; /* 文字置中 */
 }
+
+.cat {
+    position: absolute;
+    top: 250px;
+    left: 250px;
+    width: 100px;
+    height: 100px;
+}
+
+.catbg {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100px;
+    height: 100px;
+    background-image: url('36.png');
+    background-size: 100% 100%; /* 背景圖片隨DIV大小調整 */
+    background-position: center center; /* 讓背景圖片居中 */
+    animation: growShrink 0.4s infinite alternate linear; /* 動畫設定 */
+}
+
+@keyframes growShrink {
+    0% {
+        width: 100px;
+        height: 100px;
+        margin-left: 0px;
+        margin-top: 0px;
+    }
+    100% {
+        width: 90px;
+        height: 110px;
+        margin-left: 10px;
+        margin-top: -30px;
+    }
+}
+
 .catname {
     position: absolute;
-    top: 110px;
+    top: 100%;
     left: 50%;
     margin-left: -25px;
 }
 
 .catspeak {
     position: absolute;
-    top: -30px;
+    top: -10px;
     left: 50%;
     margin-left: -25px;
 }
 
 /* 手機直式與橫式適配 */
-@media all and (min-width:320px){ 
- .cat{
-  transform:scale(0.4,0.4)
- }
-}
-@media all and (min-width:1024px){ 
- .cat{
-  transform:scale(1,1)
- }
-}
 @media (min-width: 481px) and (max-width: 767px) {
     html, body {
         height: auto; /* 讓內容適應螢幕 */
@@ -93,219 +119,6 @@ display: flex;
 
     #nameForm {
         font-size: 14px; /* 減小表單字體 */
-    }
-}
-
-.hendb{
-	transform: rotate(180deg);
-	-ms-transform: rotate(180deg); /* IE 9 */
-	-webkit-transform: rotate(180deg); /* Safari and Chrome */
-	position: absolute;
-color: #D0CBCB;
-	top: 100px ;
-	left: 50%;
-	display: flex;
-	font-size:25px;
-}
-.hend{
-	transform: rotate(180deg);
-	-ms-transform: rotate(180deg); /* IE 9 */
-	-webkit-transform: rotate(180deg); /* Safari and Chrome */
-	position: absolute;
-	color:#000000;
-	top: 115px ;
-	left: 50%;
-	display: flex;
-	font-size:25px;
-}
-.h0{
-	position: absolute;
-	left: 12px;
-}
-.h1{
-	position: absolute;
-	right: 12px ;
-}
-.h2{
-	position: absolute;
-	left: 8px;
-}
-.h3{
-	position: absolute;
-	right: 8px ;
-}
-.cat3{
-	position: absolute;
-	color:#000000;
-	left: 250px;
-	top: 250px;
-    animation: growShrink 0.4s infinite alternate linear; /* 動畫設定 */
-}
-.eiar{
-	position: absolute;
-	left: 50%;
-	color:#000000;
-	top: -10px ;
-	display: flex;
-	font-size:35px;
-}
-.ea0{
-	position: absolute;
-	left: 10px;
-	transform: rotate(30deg);
-	-ms-transform: rotate(30deg); /* IE 9 */
-	-webkit-transform: rotate(30deg); /* Safari and Chrome */
-	animation: catear1 3s;
-	-webkit-animation: catear1 3s;
-	animation-iteration-count:infinite;
-	-webkit-animation-iteration-count:infinite;
-}
-.ea1{
-	position: absolute;
-	right: 10px;
-	transform: rotate(-30deg);
-	-ms-transform: rotate(-30deg); /* IE 9 */
-	-webkit-transform: rotate(-30deg); /* Safari and Chrome */
-	animation: catear2 3s;
-	-webkit-animation: catear2 3s;
-	animation-iteration-count:infinite;
-	-webkit-animation-iteration-count:infinite;
-}
-.eyes{
-	position: absolute;
-	top: 12px ;
-	left: 50%;
-	display: flex;
-}
-.s0{
-
-	position: absolute;
-	left: 3px;
-	font-size:30px;
-}
-.s1{
-	position: absolute;
-	right: 3px ;
-	font-size:30px;
-}
-.s0,.s1 {
-	background: #FFFFFF;
-	width: 13px;
-	height: 13px;
-	border:#FFFFFF 2px solid;
-	border-radius:10em;
-	overflow:hidden;
-	display: flex;
-	justify-content: center; 
-	align-items: center; 
-}
-.e0{
-	background: #000000;
-	width: 13.5px;
-	height: 13.5px;
-	border-radius:10em;
-	position: relative;
-
-}
-.muth{
-	position: absolute;
-	top: 22px ;
-	left: -5px;
-	display: flex;
-color: white;
-}
-.s2,.s3{
-	position: absolute;
-	top: 0px;
-	font-size:20px;
-}
-.s2{
-	position: absolute;
-	right: 8px;
-	transform: rotate(-30deg);
-	-ms-transform: rotate(-30deg); /* IE 9 */
-	-webkit-transform: rotate(-30deg); /* Safari and Chrome */
-}
-.s3{
-	position: absolute;
-	left: 8px;
-	transform: rotate(30deg);
-	-ms-transform: rotate(30deg); /* IE 9 */
-	-webkit-transform: rotate(30deg); /* Safari and Chrome */
-}
-.face{
-
-	position: absolute;
-	top: 0px ;
-	left: 50%;
-	display: flex;
-
-}
-
-.catbg {
-    width: 100px;
-    height: 100px;
-    background-image: url('cat2.png');
-    background-size: 100% 100%; /* 背景圖片隨DIV大小調整 */
-    background-position: center center; /* 讓背景圖片居中 */
-
-}
-
-@keyframes growShrink {
-    0% {
-        transform: scale(0.95,1);
-        margin-left: 0px;
-        margin-top: 0px;
-    }
-    100% {
-        transform: scale(1,0.95); /* 調整為 1.05 等比例縮放 */
-        margin-left: -2.5px;
-        margin-top: -2.5px;
-    }
-}
-
-@keyframes catear1
-{
-    0%   {transform: rotate(30deg)}
-    5%  {transform: rotate(35deg)}
-    10%  {transform: rotate(30deg)}
-    15%  {transform: rotate(35deg)}
-    20%  {transform: rotate(30deg)}
-}
-@-webkit-keyframes catear1
-{
-    0%   {transform: rotate(30deg)}
-    5%  {transform: rotate(35deg)}
-    10%  {transform: rotate(30deg)}
-    15%  {transform: rotate(35deg)}
-    20%  {transform: rotate(30deg)}
-}
-@keyframes catear2
-{
-    0%   {transform: rotate(-30deg)}
-    5%  {transform: rotate(-35deg)}
-    10%  {transform: rotate(-30deg)}
-    15%  {transform: rotate(-35deg)}
-    20%  {transform: rotate(-30deg)}
-}
-@-webkit-keyframes catear2
-{
-    0%   {transform: rotate(-30deg)}
-    5%  {transform: rotate(-35deg)}
-    10%  {transform: rotate(-30deg)}
-    15%  {transform: rotate(-35deg)}
-    20%  {transform: rotate(-30deg)}
-}
-@keyframes movbodypic {
-    0% {
-        transform: scale(1,1);
-        margin-left: 0px;
-        margin-top: 0px;
-    }
-    100% {
-        transform: scale(1,0.8); /* 調整為 1.05 等比例縮放 */
-        margin-left: -2.5px;
-        margin-top: -3px;
     }
 }
 
@@ -331,7 +144,11 @@ $("#awam").click(function(event) {
     let targetY = event.pageY - containerOffset.top - 50;  // 減去 50 來設置為元素的中心
             // 根據當前位置決定是否鏡像反轉背景圖片
             const scaleValue = $(this).position().left >= targetX ? 1 : -1; // 如果在右邊，鏡像反轉背景
-$(this).css('animation', 'movbodypic 0.4s infinite alternate linear');
+
+            // 移動 .cat 元素
+            $("#" + mycat + " .cat").animate({
+                left: moveDistance
+            }, 100); // 動畫持續1秒鐘
 
             // 鏡像反轉背景圖片（.catbg）
             $("#" + mycat + " .catbg").css("transform", `scaleX(${scaleValue})`);
@@ -349,11 +166,7 @@ socket.emit("move", JSON.stringify([event.pageX,event.pageY]));
             $(this).animate({
                 left: targetX + "px",
                 top: targetY + "px"
-            }, duration,"linear", function() {
-                // 移動完成後可以進行額外處理
-$(this).css('animation', 'growShrink 0.4s infinite alternate linear');
-
-            });
+            }, duration,"linear");
         });
     }
 });
@@ -371,7 +184,6 @@ socket = io("https://mj-5x4w.onrender.com");
         socket.on("connect", () => {
 socket.emit("name", $("#name").val());
             console.log("成功連線到伺服器！");
-
         });
 
 socket.on("move", (movnew) => {
@@ -393,8 +205,6 @@ console.log(JSON.parse(movnew),myids)
             // 根據當前位置決定是否鏡像反轉背景圖片
             const scaleValue = $("#cat" + JSON.parse(movnew)[0]).position().left >= targetX ? 1 : -1; // 如果在右邊，鏡像反轉背景
 
-$(this).css('animation', 'movbodypic 0.4s infinite alternate linear');
-
             // 移動 .cat 元素
             $("#cat" + JSON.parse(movnew)[0] + " .cat").animate({
                 left: moveDistance
@@ -414,11 +224,7 @@ $(this).css('animation', 'movbodypic 0.4s infinite alternate linear');
             $("#cat" + JSON.parse(movnew)[0]).animate({
                 left: targetX + "px",
                 top: targetY + "px"
-            }, duration,"linear", function() {
-
-$(this).css('animation', 'growShrink 0.4s infinite alternate linear');
-
-            });
+            }, duration,"linear");
         });
     }
 
@@ -436,40 +242,7 @@ $("#messages").html(JSON.parse(pled)[0]+"上線了").show().fadeOut(5000)
 
 setTimeout('$("#messages").html("")',5000)
 
-catnew=''+
-'<div  class="cat" id="cat'+JSON.parse(pled)[1]+'">'+
-'<div class="catbg"></div>'+
-'<div  class="hendb">'+
-'<div class="h2">ฅ</div><div class="h3">ฅ</div>'+
-'</div>'+
-'<div class="cathand">'+
-'	<div  class="face">'+
-'		<div  class="eiar">'+
-'			<div class="ea0">⌃</div><div class="ea1">⌃</div>'+
-'		</div>'+
-'		<div  class="eyes">'+
-'			<div class="s0"><div class="e0"></div></div>'+
-'			<div class="s1"><div class="e0"></div></div>'+
-'		</div>'+
-'		<div  class="muth">'+
-'			<div class="s2">=</div><div class="s4">ω</div><div class="s3">=</div>'+
-'		</div>'+
-'	</div>'+
-'</div>'+
-'	<div  class="hend">'+
-'		<div class="h0">ฅ</div><div class="h1">ฅ</div>'+
-'	</div>'+
-'	<div  class="catbodytuch">'+
-'		<div  class="facetuch"></div>'+
-'		<div  class="fattuch"></div>'+
-'	</div>'+
-'<div class="catname">['+JSON.parse(pled)[0]+']</div>'+
-'<div class="catspeak" id="cattall'+JSON.parse(pled)[1]+'"></div>'+
-'</div>'
-
-
-
-$("#awam").append(catnew)
+$("#awam").append('<div class="cat" id="cat'+JSON.parse(pled)[1]+'"><div class="catbg"></div><div class="catname">['+JSON.parse(pled)[0]+']</div><div class="catspeak" id="cattall'+JSON.parse(pled)[1]+'"></div></div>')
 
 allplayer.push({"name":JSON.parse(pled)[0],"ids":JSON.parse(pled)[1],"inX":"250px","inY":"250px"})
 
@@ -477,63 +250,21 @@ mycat=(mycat=="")?"cat"+JSON.parse(pled)[1]:mycat
 
 myids=(myids=="")?JSON.parse(pled)[1]:myids
 
-$("#cat" + JSON.parse(pled)[1]).css({
-    position: 'absolute',
-    color: '#000000',
-    left: '250px',
-    top: '250px',
-    'animation': 'growShrink 0.4s infinite alternate linear'  // 用來設置 growShrink 動畫
-});
-
         });
 
 socket.on("pledlined", (pled) => {
 
     let containerOffset = $("#awam").offset(); // 取得容器的位置
     const containerWidth = $("#awam").width(); // 容器寬度
-catnew=''+
-'<div  class="cat" id="cat'+JSON.parse(pled).ids+'">'+
-'<div class="catbg"></div>'+
-'<div  class="hendb">'+
-'<div class="h2">ฅ</div><div class="h3">ฅ</div>'+
-'</div>'+
-'<div class="cathand">'+
-'	<div  class="face">'+
-'		<div  class="eiar">'+
-'			<div class="ea0">⌃</div><div class="ea1">⌃</div>'+
-'		</div>'+
-'		<div  class="eyes">'+
-'			<div class="s0"><div class="e0"></div></div>'+
-'			<div class="s1"><div class="e0"></div></div>'+
-'		</div>'+
-'		<div  class="muth">'+
-'			<div class="s2">=</div><div class="s4">ω</div><div class="s3">=</div>'+
-'		</div>'+
-'	</div>'+
-'</div>'+
-'	<div  class="hend">'+
-'		<div class="h0">ฅ</div><div class="h1">ฅ</div>'+
-'	</div>'+
-'	<div  class="catbodytuch">'+
-'		<div  class="facetuch"></div>'+
-'		<div  class="fattuch"></div>'+
-'	</div>'+
-'<div class="catname">['+JSON.parse(pled).name+']</div>'+
-'<div class="catspeak" id="cattall'+JSON.parse(pled).ids+'"></div>'+
-'</div>'
 
 
-
-$("#awam").append(catnew)
+$("#awam").append('<div class="cat" id="cat'+JSON.parse(pled).ids+'"><div class="catbg"></div><div class="catname">['+JSON.parse(pled).name+']</div><div class="catspeak" id="cattall'+JSON.parse(pled).ids+'"></div></div>')
 
 allplayer.push({"name":JSON.parse(pled).name,"ids":JSON.parse(pled).ids,"inX":JSON.parse(pled).inX,"inY":JSON.parse(pled).inY})
 
 $("#cat"+JSON.parse(pled).ids).css({
-    "top": (JSON.parse(pled).inY-50)+"px",
-    "left": (JSON.parse(pled).inX-50)+"px",
-    position: 'absolute',
-    color: '#000000',
-    'animation': 'growShrink 0.4s infinite alternate linear'  // 用來設置 growShrink 動畫
+    "top": (JSON.parse(pled).inY-100)+"px",
+    "left": (JSON.parse(pled).inX-100)+"px"
 });
 
 
@@ -583,8 +314,6 @@ console.log(socket)
 const msg = $("#talk").val() // 這裡可以改為實際要發送的訊息
 
 socket.emit("message", msg);
-
-$("#talk").val("")
 
 }
 
