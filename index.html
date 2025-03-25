@@ -32,15 +32,21 @@ html, body {
 }
 
 #awam, #nameForm {
-    width: 1800px;
-    height: 900px;
+    width: 100%;
+    height: 100%;
     border: 1px solid black; /* 黑色框線 */
     position: absolute;
-    overflow: hidden;
+display: flex;
+    justify-content: center; /* 水平置中 */
+    align-items: center; /* 垂直置中 */
+    height: 100%; /* 讓 `#messages` 依 `#awam` 高度置中 */
     max-width: 100vw; /* 讓它在螢幕範圍內 */
     max-height: 100vh; /* 限制最大高度為螢幕高度 */
 }
-
+#messages {
+    width: 80%; /* 設定寬度，避免內容太窄或太寬 */
+    text-align: center; /* 讓文字內容也置中 */
+}
 #nameForm {
     background-color: white; /* 表單背景為白色 */
     text-align: center; /* 文字置中 */
@@ -63,20 +69,21 @@ html, body {
     background-image: url('36.png');
     background-size: 100% 100%; /* 背景圖片隨DIV大小調整 */
     background-position: center center; /* 讓背景圖片居中 */
-    animation: growShrink 0.5s infinite alternate linear; /* 動畫設定 */
+    animation: growShrink 0.4s infinite alternate linear; /* 動畫設定 */
 }
 
 @keyframes growShrink {
     0% {
-        height: 100px;
         width: 100px;
+        height: 100px;
         margin-left: 0px;
         margin-top: 0px;
     }
     100% {
-        height: 80px;
-        width: 120px;
-        margin-top: 30px;
+        width: 90px;
+        height: 110px;
+        margin-left: 10px;
+        margin-top: -30px;
     }
 }
 
@@ -84,40 +91,27 @@ html, body {
     position: absolute;
     top: 100%;
     left: 50%;
+    margin-left: -25px;
 }
 
 .catspeak {
     position: absolute;
     top: -10px;
-    left: 0%;
+    left: 50%;
+    margin-left: -25px;
 }
 
 /* 手機直式與橫式適配 */
-@media (max-width: 768px) {
+@media (min-width: 481px) and (max-width: 767px) {
     html, body {
         height: auto; /* 讓內容適應螢幕 */
     }
-
     #awam, #nameForm {
         width: 100%; /* 容器寬度為 100% */
         height: auto; /* 高度根據內容自適應 */
         max-width: 100vw; /* 限制最大寬度為螢幕寬度 */
         max-height: 100vh; /* 限制最大高度為螢幕高度 */
     }
-#awam {
-    transform: scale(0.5); /* 在手機上縮小顯示 */
-    transform-origin: top center; /* 確保縮放點位於容器頂部中心 */
-}
-
-#awam > * {
-    transform: scale(0.5); /* 讓所有子元素也縮小 */
-}
-    .cat {
-        width: 60px; /* 減小貓的大小 */
-        height: 60px; /* 減小貓的大小 */
-        top: 180px; /* 調整貓的位置 */
-    }
-
     input {
         font-size: 14px; /* 減小字體大小 */
         padding: 6px; /* 減小內邊距 */
