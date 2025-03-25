@@ -16,7 +16,7 @@
 </div>
     <div id="nameForm">
         <h2>請輸入你的名字：</h2>
-        <input type="text" id="name" value="Cat">
+        <input type="text" id="name" placeholder="請輸入名字">
         <button onclick="inthecat()">進入</button>
     </div>
 
@@ -313,6 +313,7 @@ color: white;
 
     <script>
 
+v41= new Audio("11981.wav");
 
 mycat = ""; // 確保這是正確設定的變數
 
@@ -364,6 +365,12 @@ let socket;
 
 function inthecat() {
 
+if($("#name").val()==""){
+
+return
+
+}
+
 $("#nameForm").hide()
 
 socket = io("https://mj-5x4w.onrender.com");
@@ -371,7 +378,7 @@ socket = io("https://mj-5x4w.onrender.com");
         socket.on("connect", () => {
 socket.emit("name", $("#name").val());
             console.log("成功連線到伺服器！");
-
+$("#name").val("")
         });
 
 socket.on("move", (movnew) => {
@@ -433,6 +440,8 @@ $(this).css('animation', 'growShrink 0.4s infinite alternate linear');
 socket.on("pledonline", (pled) => {
 
 $("#messages").html(JSON.parse(pled)[0]+"上線了").show().fadeOut(5000)
+
+v41.play()
 
 setTimeout('$("#messages").html("")',5000)
 
