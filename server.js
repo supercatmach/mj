@@ -51,6 +51,8 @@ allplayer[i].inY=JSON.parse(movnew)[1]
 
 io.emit("move", JSON.stringify([allplayer[i].ids,JSON.parse(movnew)[0],JSON.parse(movnew)[1]]));
 
+io.emit("pizza", JSON.stringify([JSON.parse(movnew)[0],JSON.parse(movnew)[1]]));
+
 }
 
 }

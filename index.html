@@ -345,6 +345,12 @@ color: white;
         .icon:hover {
             transform: scale(1.2);
         }
+.pizza {
+    position: absolute;
+    font-size: 60px;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
 </style>
 
     <script>
@@ -407,6 +413,26 @@ if(nowclick==2){
 
 socket.emit("move2", JSON.stringify([event.pageX,event.pageY]));
 
+            // 創建一個 PIZZA 圖示
+            let pizza = $('<div class="pizza"><i class="fas fa-pizza-slice"></i></div>');
+
+            // 設定 PIZZA 位置
+    pizza.css({
+        "left": event.pageX-30 + "px",
+        "top": event.pageY-30 + "px",
+    });
+
+            // 將 PIZZA 添加到 #awam 內
+            $("#awam").prepend(pizza);
+
+    setTimeout(function() {
+
+        pizza.fadeOut(500, function() {
+
+            $(this).remove();
+        });
+    }, 3000);
+;
 }
             let distance = Math.sqrt(Math.pow(targetX - divX, 2) + Math.pow(targetY - divY, 2));
             let speed = 5; // 每像素移動時間 (毫秒/px)，例如 0.5ms/px
@@ -497,8 +523,32 @@ $("#cat" + JSON.parse(movnew)[0]+" .hendb ,#cat" + JSON.parse(movnew)[0]+" .hend
 
 }
 
+});
+
+//////////////////////////////////////////////////////////////////
+
+socket.on("pizza", (movnew) => {
 
 
+            // 創建一個 PIZZA 圖示
+            let pizza = $('<div class="pizza"><i class="fas fa-pizza-slice"></i></div>');
+
+            // 設定 PIZZA 位置
+    pizza.css({
+        "left": JSON.parse(movnew)[1] -30 + "px",
+        "top": JSON.parse(movnew)[2] -30 + "px",
+    });
+
+            // 將 PIZZA 添加到 #awam 內
+            $("#awam").prepend(pizza);
+
+    setTimeout(function() {
+
+        pizza.fadeOut(500, function() {
+
+            $(this).remove();
+        });
+    }, 3000);
 
 });
 
