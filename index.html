@@ -8,13 +8,11 @@
 <script type="text/javascript" src="jquery2.min.js"></script>
 </head>
 <body>
-<div class="container">
     <div id="awam">
     <div id="messages"></div>
 </div>
-</div>
 <div style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 800px;">
-  <input type="text" id="talk" onkeydown="if(event.keyCode==13){sendMessage()}" style="width: 100%; font-size: 16px; padding: 8px;" value="Hello">
+  <textarea id="talk" rows="4" cols="50" onkeydown="if(event.keyCode==13){sendMessage()}" style="width: 100%; font-size: 16px; padding: 8px;">Hello</textarea>
 </div>
     <div id="nameForm">
         <h2>請輸入你的名字：</h2>
@@ -39,10 +37,12 @@ html, body {
   height: 100vh;            /* 讓容器填滿整個視窗 */
 }
 #awam, #nameForm {
-    width: 1800px;
-    height: 900px;
     border: 1px solid black; /* 黑色框線 */
-    position: absolute;
+  width: 100vw; /* 讓 div 滿版 */
+  aspect-ratio: 2 / 1; /* 維持 1800:900 (2:1) 比例 */
+  /* 讓 div 垂直置中 */
+  position: absolute;
+
 display: flex;
     justify-content: center; /* 水平置中 */
     align-items: center; /* 垂直置中 */
@@ -65,22 +65,18 @@ display: flex;
 
 .catspeak {
     position: absolute;
-    top: -30px;
-    left: 50%;
-    margin-left: -25px;
+    top: -110px;
+
+  width: 200px;
+  height: 100px;
+  display: flex;
+  justify-content: flex-start; /* 讓文字靠左 */
+  align-items: flex-end; /* 讓文字靠下 */
+  text-align: left; /* 保持文字靠左對齊 */
+  word-wrap: break-word; /* 確保長單字會換行 */
+  overflow-wrap: break-word;
 }
 
-/* 手機直式與橫式適配 */
-@media all and (min-width:320px){ 
-#awam, #nameForm {
-transform: scale(0.5,0.5);
-}
-}
-@media all and (min-width:1024px){ 
-#awam, #nameForm {
-transform: scale(1,1);
-}
-}
 @media (min-width: 481px) and (max-width: 767px) {
     html, body {
         height: auto; /* 讓內容適應螢幕 */
@@ -106,6 +102,7 @@ color: #D0CBCB;
 	left: 50%;
 	display: flex;
 	font-size:25px;
+    animation: growShrink2 0.4s infinite alternate linear; /* 動畫設定 */
 }
 .hend{
 	transform: rotate(180deg);
@@ -117,6 +114,7 @@ color: #D0CBCB;
 	left: 50%;
 	display: flex;
 	font-size:25px;
+    animation: growShrink2 0.4s infinite alternate linear; /* 動畫設定 */
 }
 .h0{
 	position: absolute;
@@ -248,7 +246,7 @@ color: white;
     background-image: url('cat2.png');
     background-size: 100% 100%; /* 背景圖片隨DIV大小調整 */
     background-position: center center; /* 讓背景圖片居中 */
-
+    animation: growShrink 0.4s infinite alternate linear; /* 動畫設定 */
 }
 
 @keyframes growShrink {
@@ -263,7 +261,18 @@ color: white;
         margin-top: -2.5px;
     }
 }
-
+@keyframes growShrink2 {
+    0% {
+        transform: rotate(180deg) scale(0.95,1);
+        margin-left: 0px;
+        margin-top: 0px;
+    }
+    100% {
+        transform: rotate(180deg) scale(1,0.95); /* 調整為 1.05 等比例縮放 */
+        margin-left: -2.5px;
+        margin-top: -2.5px;
+    }
+}
 @keyframes catear1
 {
     0%   {transform: rotate(30deg)}
@@ -272,23 +281,7 @@ color: white;
     15%  {transform: rotate(35deg)}
     20%  {transform: rotate(30deg)}
 }
-@-webkit-keyframes catear1
-{
-    0%   {transform: rotate(30deg)}
-    5%  {transform: rotate(35deg)}
-    10%  {transform: rotate(30deg)}
-    15%  {transform: rotate(35deg)}
-    20%  {transform: rotate(30deg)}
-}
 @keyframes catear2
-{
-    0%   {transform: rotate(-30deg)}
-    5%  {transform: rotate(-35deg)}
-    10%  {transform: rotate(-30deg)}
-    15%  {transform: rotate(-35deg)}
-    20%  {transform: rotate(-30deg)}
-}
-@-webkit-keyframes catear2
 {
     0%   {transform: rotate(-30deg)}
     5%  {transform: rotate(-35deg)}
@@ -306,6 +299,18 @@ color: white;
         transform: scale(1,0.8); /* 調整為 1.05 等比例縮放 */
         margin-left: -2.5px;
         margin-top: -3px;
+    }
+}
+@keyframes movbodypic2 {
+    0% {
+        transform: rotate(180deg)
+        margin-left: 0px;
+        margin-top: 0px;
+    }
+    100% {
+        transform: rotate(180deg) /* 調整為 1.05 等比例縮放 */
+        margin-left: -2.5px;
+        margin-top: -10px;
     }
 }
 
@@ -335,7 +340,8 @@ nemycat=$("#" + mycat)[0].getBoundingClientRect()
     let targetY = event.clientY - containerOffset.top - (nemycat.width/2);  // 減去 50 來設置為元素的中心
             // 根據當前位置決定是否鏡像反轉背景圖片
             const scaleValue = $(this)[0].getBoundingClientRect().left >= targetX ? 1 : -1; // 如果在右邊，鏡像反轉背景
-$(this).css('animation', 'movbodypic 0.4s infinite alternate linear');
+$("#" + mycat+" .catbg").css('animation', 'movbodypic 0.4s infinite alternate linear');
+$("#" + mycat + " .hendb, #" + mycat + " .hend").css('animation', 'movbodypic2 0.4s infinite alternate linear');
 
             // 鏡像反轉背景圖片（.catbg）
             $("#" + mycat + " .catbg").css("transform", `scaleX(${scaleValue})`);
@@ -355,7 +361,8 @@ socket.emit("move", JSON.stringify([event.pageX,event.pageY]));
                 top: targetY + "px"
             }, duration,"linear", function() {
                 // 移動完成後可以進行額外處理
-$(this).css('animation', 'growShrink 0.4s infinite alternate linear');
+$("#" + mycat+" .catbg").css('animation', 'growShrink 0.4s infinite alternate linear');
+$("#" + mycat + " .hendb, #" + mycat + " .hend").css('animation', 'growShrink2 0.4s infinite alternate linear');
 
             });
         });
@@ -403,7 +410,8 @@ console.log(JSON.parse(movnew),myids)
             // 根據當前位置決定是否鏡像反轉背景圖片
             const scaleValue = $("#cat" + JSON.parse(movnew)[0]).position().left >= targetX ? 1 : -1; // 如果在右邊，鏡像反轉背景
 
-$(this).css('animation', 'movbodypic 0.4s infinite alternate linear');
+$("#cat" + JSON.parse(movnew)[0]+" .carbg").css('animation', 'movbodypic 0.4s infinite alternate linear');
+$("#cat" + JSON.parse(movnew)[0]+" .hendb, #cat" + JSON.parse(movnew)[0]+" .hend").css('animation', 'movbodypic2 0.4s infinite alternate linear');
 
             // 移動 .cat 元素
             $("#cat" + JSON.parse(movnew)[0] + " .cat").animate({
@@ -426,7 +434,8 @@ $(this).css('animation', 'movbodypic 0.4s infinite alternate linear');
                 top: targetY + "px"
             }, duration,"linear", function() {
 
-$(this).css('animation', 'growShrink 0.4s infinite alternate linear');
+$("#cat" + JSON.parse(movnew)[0]+" .carbg").css('animation', 'growShrink 0.4s infinite alternate linear');
+$("#cat" + JSON.parse(movnew)[0]+" .hendb ,#cat" + JSON.parse(movnew)[0]+" .hend").css('animation', 'growShrink2 0.4s infinite alternate linear');
 
             });
         });
@@ -453,6 +462,12 @@ repline=1
 break
 
 }
+
+}
+
+if(JSON.parse(pled)[0]==""){
+
+repline=1
 
 }
 
@@ -510,7 +525,6 @@ $("#cat" + JSON.parse(pled)[1]).css({
     color: '#000000',
     left: '250px',
     top: '250px',
-    'animation': 'growShrink 0.4s infinite alternate linear'  // 用來設置 growShrink 動畫
 });
 
 }
@@ -522,7 +536,7 @@ socket.on("pledlined", (pled) => {
     let containerOffset = $("#awam").offset(); // 取得容器的位置
     const containerWidth = $("#awam").width(); // 容器寬度
 catnew=''+
-'<div  class="cat" id="cat'+JSON.parse(pled).ids+'">'+
+'<div class="cat" id="cat'+JSON.parse(pled).ids+'">'+
 '<div class="catbg"></div>'+
 '<div  class="hendb">'+
 '<div class="h2">ฅ</div><div class="h3">ฅ</div>'+
@@ -563,7 +577,6 @@ $("#cat"+JSON.parse(pled).ids).css({
     "left": (JSON.parse(pled).inX-50)+"px",
     position: 'absolute',
     color: '#000000',
-    'animation': 'growShrink 0.4s infinite alternate linear'  // 用來設置 growShrink 動畫
 });
 
 
