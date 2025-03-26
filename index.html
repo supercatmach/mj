@@ -533,6 +533,10 @@ $("#cat" + JSON.parse(pled)[1]).css({
 
 socket.on("pledlined", (pled) => {
 
+
+if(JSON.parse(pled).name!=""){
+
+
     let containerOffset = $("#awam").offset(); // 取得容器的位置
     const containerWidth = $("#awam").width(); // 容器寬度
 catnew=''+
@@ -579,6 +583,7 @@ $("#cat"+JSON.parse(pled).ids).css({
     color: '#000000',
 });
 
+}
 
         });
         socket.on("pledoffline", (pled) => {
