@@ -403,11 +403,8 @@ $("#" + mycat + " .hendb, #" + mycat + " .hend").css('animation', 'movbodypic2 0
             let divX = $(this)[0].getBoundingClientRect().left;
             let divY = $(this)[0].getBoundingClientRect().top;
 
-if(nowclick!=2){
-
 socket.emit("move", JSON.stringify([event.pageX,event.pageY]));
 
-}
 
 if(nowclick==2){
 
@@ -475,7 +472,7 @@ $("#name").val("")
 
 socket.on("move", (movnew) => {
 
-if(JSON.parse(movnew)[0]!=myids){
+///if(JSON.parse(movnew)[0]!=myids){
 
     let containerOffset = $("#awam").offset(); // 取得容器的位置
     const containerWidth = $("#awam").width(); // 容器寬度
@@ -521,7 +518,7 @@ $("#cat" + JSON.parse(movnew)[0]+" .hendb ,#cat" + JSON.parse(movnew)[0]+" .hend
         });
     }
 
-}
+///}
 
 });
 
