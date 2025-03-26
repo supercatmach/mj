@@ -49,7 +49,7 @@ allplayer[i].inX=JSON.parse(movnew)[0]
 
 allplayer[i].inY=JSON.parse(movnew)[1]
 
-io.emit("move", JSON.stringify([socket.id,JSON.parse(movnew)[0],JSON.parse(movnew)[1]]));
+io.emit("move", JSON.stringify([allplayer[i].ids,JSON.parse(movnew)[0],JSON.parse(movnew)[1]]));
 
 }
 

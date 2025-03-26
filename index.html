@@ -11,9 +11,9 @@
 <body>
     <div id="awam">
     <div class="icon-container">
-<i class="fa-solid fa-cat icon" onclick="clickChance(1)"></i>
-<i class="fa-solid fa-pizza-slice icon" onclick="clickChance(2)"></i>
-<i class="fa-solid fa-hand icon" onclick="clickChance(3)"></i>
+<span onclick="clickChance(1)"><i class="fa-solid fa-cat icon"></i></span>
+<span onclick="clickChance(2)"><i class="fa-solid fa-pizza-slice icon"></i></span>
+<span onclick="clickChance(3)"><i class="fa-solid fa-hand icon"></i></span>
     </div>
     <div id="messages"></div>
 </div>
@@ -375,7 +375,6 @@ myids=""
 $("#awam").click(function(event) {
     let containerOffset = $('#awam')[0].getBoundingClientRect(); // 取得容器的位置
     const containerWidth = $('#awam')[0].getBoundingClientRect().width; // 容器寬度
-console.log(containerWidth)
 
     if (mycat != "") {
         $("#" + mycat).stop(true, false).each(function() {
@@ -451,8 +450,6 @@ $("#name").val("")
 socket.on("move", (movnew) => {
 
 if(JSON.parse(movnew)[0]!=myids){
-
-console.log(JSON.parse(movnew),myids)
 
     let containerOffset = $("#awam").offset(); // 取得容器的位置
     const containerWidth = $("#awam").width(); // 容器寬度
@@ -653,8 +650,6 @@ $("#messages").html(allplayer[i].name+"下線了").show().fadeOut(5000)
 
 setTimeout('$("#messages").html("")',5000)
 
-console.log("#car"+JSON.parse(pled))
-
 $("#cat"+allplayer[i].ids).remove();
 
 delete allplayer[i]
@@ -674,16 +669,11 @@ allplayer=allplayer.filter(el => el);
 
 $("#cattall"+JSON.parse(msg)[0]).html(JSON.parse(msg)[1])
 
-console.log(JSON.parse(msg))
-
-
         });
 
 }
 
 function sendMessage() {
-
-console.log(socket)
 
 const msg = $("#talk").val() // 這裡可以改為實際要發送的訊息
 
