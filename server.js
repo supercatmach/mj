@@ -21,8 +21,6 @@ io.on("connection", (socket) => {
 
 socket.on("move", (movnew) => {
 
-JSON.parse
-
 for(let i=0;i<allplayer.length;i++){
 
 if(allplayer[i].ids==socket.id){
@@ -41,6 +39,23 @@ break
 
 });
 
+socket.on("move2", (movnew) => {
+
+for(let i=0;i<allplayer.length;i++){
+
+if(allplayer[i].ids!=socket.id){
+
+allplayer[i].inX=JSON.parse(movnew)[0]
+
+allplayer[i].inY=JSON.parse(movnew)[1]
+
+io.emit("move", JSON.stringify([socket.id,JSON.parse(movnew)[0],JSON.parse(movnew)[1]]));
+
+}
+
+}
+
+});
 
 
     // 監聽訊息發送事件

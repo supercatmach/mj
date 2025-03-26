@@ -6,9 +6,15 @@
     <title></title>
     <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
 <script type="text/javascript" src="jquery2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div id="awam">
+    <div class="icon-container">
+<i class="fa-solid fa-cat icon" onclick="clickChance(1)"></i>
+<i class="fa-solid fa-pizza-slice icon" onclick="clickChance(2)"></i>
+<i class="fa-solid fa-hand icon" onclick="clickChance(3)"></i>
+    </div>
     <div id="messages"></div>
 </div>
 <div style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 800px;">
@@ -313,10 +319,52 @@ color: white;
         margin-top: -10px;
     }
 }
+        .icon-container {
+            position: absolute;
+            top: 10px; /* 距離 #awam 左上角 10px */
+            left: 10px;
+            width: 200px;
+            height: 50px;
+            background-color: #f0f0f0;
+            border-radius: 25px; /* 讓邊角圓滑 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px; /* 圖示間距 */
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
 
+        /* 圖示樣式 */
+        .icon {
+            font-size: 32px; /* Font Awesome 需要使用 font-size 設定大小 */
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        /* 點擊時的縮放效果 */
+        .icon:hover {
+            transform: scale(1.2);
+        }
 </style>
 
     <script>
+
+        // 讓 Lucide 圖示生效
+
+nowclick=1///一般箭頭
+
+
+$(".icon-container, .icon").click(function (event) {
+
+event.stopPropagation();
+
+});
+
+function clickChance(mhd){
+
+nowclick=mhd
+
+}
 
 v41= new Audio("11981.wav");
 
@@ -350,8 +398,17 @@ $("#" + mycat + " .hendb, #" + mycat + " .hend").css('animation', 'movbodypic2 0
             let divX = $(this)[0].getBoundingClientRect().left;
             let divY = $(this)[0].getBoundingClientRect().top;
 
+if(nowclick!=2){
+
 socket.emit("move", JSON.stringify([event.pageX,event.pageY]));
 
+}
+
+if(nowclick==2){
+
+socket.emit("move2", JSON.stringify([event.pageX,event.pageY]));
+
+}
             let distance = Math.sqrt(Math.pow(targetX - divX, 2) + Math.pow(targetY - divY, 2));
             let speed = 5; // 每像素移動時間 (毫秒/px)，例如 0.5ms/px
             let duration = distance * speed;
