@@ -10,6 +10,55 @@ const io = new Server(server, {
         methods: ["GET", "POST"]
     }
 });
+const rooms = {};  // { roomId: { host: socket.id, players: 1 } }
+
+io.on("connection", (socket) => {
+    console.log("新玩家連線:", socket.id);
+
+    // 玩家創建房間
+    socket.on("createRoom", () => {
+        const roomId = socket.id;  // 直接用 socket.id 當作房間 ID
+        rooms[roomId] = { host: socket.id, players: 1 };
+        socket.join(roomId);
+        io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
+        socket.emit("roomCreated", { roomId });
+        console.log(`房間 ${roomId} 創建成功`);
+    });
+
+    // 玩家加入房間
+    socket.on("joinRoom", (roomId) => {
+        if (!rooms[roomId] || rooms[roomId].players >= 4) {
+            socket.emit("roomFull");
+            return;
+        }
+        rooms[roomId].players++;
+        socket.join(roomId);
+        io.to(roomId).emit("playerJoined", { playerId: socket.id, roomSize: rooms[roomId].players });
+        io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
+        console.log(`玩家 ${socket.id} 加入房間 ${roomId}`);
+    });
+
+    // 玩家離開或斷線
+    socket.on("disconnect", () => {
+        for (const roomId in rooms) {
+            if (rooms[roomId].host === socket.id || io.sockets.adapter.rooms.get(roomId)?.size === 0) {
+                delete rooms[roomId];  // 如果房間沒人就刪除
+            } else {
+                rooms[roomId].players--;
+            }
+        }
+        io.emit("updateRooms", rooms);  // 更新房間清單
+        console.log(`玩家 ${socket.id} 斷線，更新房間`);
+    });
+
+    // 獲取房間清單
+    socket.on("getRooms", () => {
+        socket.emit("updateRooms", rooms);
+    });
+});
+
+
+////////////////////////////////////////////////貓咪/////////////////////////////////////////////
 
 // 儲存所有訊息
 let messages = [];

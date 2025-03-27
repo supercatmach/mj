@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>多人遊戲大廳</title>
+</head>
+<body>
+    <h1>多人遊戲大廳</h1>
+    <button id="createRoom">建立新房間</button>
+    <h2>可加入的房間</h2>
+    <ul id="roomList"></ul>
+
+    <script src="https://mj-5x4w.onrender.com/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io("https://mj-5x4w.onrender.com");
+
+        // 建立新房間
+        document.getElementById("createRoom").addEventListener("click", () => {
+            socket.emit("createRoom");
+        });
+
+        // 房間建立成功，導向房間頁面
+        socket.on("roomCreated", (data) => {
+            window.location.href = `/magh.html?room=${data.roomId}`;
+        });
+
+        // 更新房間清單
+        socket.on("updateRooms", (rooms) => {
+            const roomList = document.getElementById("roomList");
+            roomList.innerHTML = "";
+
+            for (const roomId in rooms) {
+                const room = rooms[roomId];
+                const li = document.createElement("li");
+                li.innerHTML = `房間ID: ${roomId} | 人數: ${room.players}/4 `;
+
+                if (room.players < 4) {
+                    const joinButton = document.createElement("button");
+                    joinButton.innerText = "加入";
+                    joinButton.onclick = () => {
+                        window.location.href = `/game.html?room=${roomId}`;
+                    };
+                    li.appendChild(joinButton);
+                } else {
+                    li.innerHTML += "（已滿）";
+                }
+                roomList.appendChild(li);
+            }
+        });
+
+        // 初次加載時獲取房間清單
+        socket.emit("getRooms");
+    </script>
+</body>
+</html>
