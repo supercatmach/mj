@@ -18,7 +18,7 @@
 <script>
         const socket = io("https://mj-5x4w.onrender.com");
         const urlParams = new URLSearchParams(window.location.search);
-        const roomId = urlParams.get("room");
+        const roomId = "025024"///urlParams.get("room");
 
         if (roomId) {
             socket.emit("joinRoom", roomId);

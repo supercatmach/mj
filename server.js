@@ -11,6 +11,7 @@ const io = new Server(server, {
     }
 });
 const rooms = {};  // { roomId: { host: socket.id, players: 1 } }
+rooms[025024] = { host: "貓貓", players: 1 };
 
 io.on("connection", (socket) => {
     console.log("新玩家連線:", socket.id);
