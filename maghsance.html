@@ -1,0 +1,177 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="connect-src 'self' https://catchat-a7zb.onrender.com https://mj-5x4w.onrender.com;">
+<meta property="og:image" content="backg/endshures.jpg">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:title" content="超科學麻將社">
+<title>超科學麻將社</title>
+<script type="text/javascript" src="jquery2.min.js"></script>
+<script type="text/javascript" src="zutop.js"></script>
+<script src="https://mj-5x4w.onrender.com/socket.io/socket.io.js"></script>
+<script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+<body>
+<div>
+<a-scene renderer="antialias: true">
+    <!-- 平面群組 -->
+    <a-entity id="planes-container"></a-entity>
+
+    <a-camera position="0 15 23.5" rotation="-30 0 0" near="0.1" far="5000" fov="30" look-controls="enabled: false" wasd-controls="enabled: false"></a-camera>
+</a-scene>
+</div>
+<script>
+    const tableSize = 10; // 桌子的大小
+    const planeSize = tableSize / 2; // 每個平面的大小（桌子的 1/4）
+    const width = 0.9, height = 1.3 ,depth=0.5
+
+    // 定義四個平面的座標（使它們貼在桌子的四個象限）
+
+        const positions1 = [
+           { xOffset: 5, zOffset: 0, rotationY: "0 92 -8" , whspice:"nexthandaury"},  // 右邊
+            { xOffset: -5, zOffset: 0, rotationY: "0 268 8" , whspice:"lasthandaury"},  // 左邊
+            { xOffset: 0, zOffset: -4.5, rotationY: "10 180 0" , whspice:"fonthandaury"},   // 對面
+            { xOffset: 0, zOffset: 4.5, rotationY: "-10 0 0" , whspice:"muhandaury"}   // 正面
+
+        ];
+
+// 設定 6 個面的屬性
+const faces = [
+    { id: "c1", src: "1.jpg",  rotation: "0 0 0",   position: "0 0 0.25", width, height },
+    { id: "c2", src: "0.jpg",  rotation: "0 180 0", position: "0 0 -0.25", width, height },
+    { id: "c3", src: "l.jpg",  rotation: "0 90 0",  position: "0.45 0 0", width: depth, height },
+    { id: "c4", src: "r.jpg",  rotation: "0 270 0", position: "-0.45 0 0", width: depth, height },
+    { id: "c5", src: "u.jpg",  rotation: "270 0 0", position: "0 0.65 0", width, height: depth },
+    { id: "c6", src: "d.jpg",  rotation: "90 0 0",  position: "0 -0.65 0", width, height: depth }
+];
+
+    const container = document.getElementById("planes-container");
+
+positions1.forEach(({ xOffset, zOffset, rotationY , whspice}) => {
+let plane = document.createElement("a-entity");
+plane.setAttribute("id", `${whspice}`);
+
+// 使用 `a-box` 來建立有深度的平面
+plane.setAttribute("geometry", `primitive: box; width: 22; height: 0.1; depth:12`);
+
+// 正確的 `material`
+plane.setAttribute("material", "color: gray; side: double; opacity: 0; transparent: true");
+
+// 設定正確的位置（稍微浮起，避免與桌子重疊）
+plane.setAttribute("position", `${xOffset} 0 ${zOffset}`);
+
+// 讓它保持水平
+plane.setAttribute("rotation", `${rotationY}`);
+
+        container.appendChild(plane);
+
+    const container2 = document.getElementById(`${whspice}`);
+
+for(let i=1;i<18;i++){
+
+let mahand = document.createElement("a-entity");
+mahand.setAttribute("id", "d"+i);
+
+// 使用 `a-box` 來建立有深度的平面
+mahand.setAttribute("geometry", `primitive: box; width: 0.8; height: 1.2; depth:0.4`);
+
+// 正確的 `material`
+mahand.setAttribute("material", "color: white; side: double; opacity: 1; transparent: true");
+
+// 設定正確的位置（稍微浮起，避免與桌子重疊）
+
+if(i<17){
+
+mahand.setAttribute("position", `${(i-8) * 0.9-1} 1.6 4.5`);
+
+}
+
+if(i==17){
+
+mahand.setAttribute("position", `${(i-8) * 0.9-0.5} 1.6 4.5`);
+
+}
+// 讓它保持水平
+mahand.setAttribute("rotation", "0 0 0");
+
+container2.appendChild(mahand);
+
+const container3 = mahand;
+
+// 迴圈建立 6 個 a-image
+faces.forEach(({ id, src, rotation, position, width, height }) => {
+    let card = document.createElement("a-image");
+    card.setAttribute("id", id);
+    card.setAttribute("src", `http://localhost:8080/mach/${src}`);
+    card.setAttribute("rotation", rotation);
+    card.setAttribute("position", position);
+    card.setAttribute("width", width);
+    card.setAttribute("height", height);
+    card.setAttribute("mipmap","true");
+    
+    container3.appendChild(card);
+});
+
+}
+
+epg=1
+
+strepg=1
+
+for(let i=0;i<16;i++){
+
+let mahand = document.createElement("a-entity");
+mahand.setAttribute("id", "e"+(i+epg));
+
+// 使用 `a-box` 來建立有深度的平面
+mahand.setAttribute("geometry", `primitive: box; width: 0.8; height: 1.2; depth:0.4`);
+
+// 正確的 `material`
+mahand.setAttribute("material", "color: white; side: double; opacity: 1; transparent: true");
+
+// 設定正確的位置（稍微浮起，避免與桌子重疊）
+
+if(i!=3&&i!=7&&i!=11&&i!=15){
+
+mahand.setAttribute("position", `${(strepg-8)*0.9-3} 1.2 4.5`);
+
+strepg++
+
+}
+
+if(i==3||i==7||i==11||i==15){
+
+mahand.setAttribute("position", `${(strepg-10)*0.9-3} 1.7 4.5`);
+
+strepg--
+
+}
+// 讓它保持水平
+mahand.setAttribute("rotation", "270 0 0");
+
+container2.appendChild(mahand);
+
+const container3 = mahand;
+
+// 迴圈建立 6 個 a-image
+faces.forEach(({ id, src, rotation, position, width, height }) => {
+    let card = document.createElement("a-image");
+    card.setAttribute("id", id);
+    card.setAttribute("src", `https://catchat-a7zb.onrender.com/mach/${src}`);
+    card.setAttribute("rotation", rotation);
+    card.setAttribute("position", position);
+    card.setAttribute("width", width);
+    card.setAttribute("height", height);
+    card.setAttribute("mipmap","true");
+    
+    container3.appendChild(card);
+});
+
+}
+
+console.log(container2)
+
+});
+
+</script>
