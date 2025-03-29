@@ -103,7 +103,7 @@ const container3 = mahand;
 faces.forEach(({ id, src, rotation, position, width, height }) => {
     let card = document.createElement("a-image");
     card.setAttribute("id", id);
-    card.setAttribute("src", `http://localhost:8080/mach/${src}`);
+    card.setAttribute("src", `./mach/${src}`);
     card.setAttribute("rotation", rotation);
     card.setAttribute("position", position);
     card.setAttribute("width", width);
