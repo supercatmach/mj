@@ -11,10 +11,36 @@ const io = new Server(server, {
     }
 });
 const rooms = {};  // { roomId: { host: socket.id, players: 1 } }
-rooms["025024"] = { host: "貓貓", players: 1 };
+rooms["025024"] = { host: "貓貓", players: 1 ,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
 
 io.on("connection", (socket) => {
     console.log("新玩家連線:", socket.id);
+
+    socket.on("star", () => {
+
+plmgdnew=[]
+
+for(let i=0;i<4;i++){
+
+var n = Math.floor(Math.random() * 42+1);///
+
+while(rooms[roomId].allmgd[n]>3){///抽出一開始的16張牌(不能重覆)
+
+var n = Math.floor(Math.random() * 42+1);///
+
+}
+rooms[roomId].allmgd[n]++
+
+plmgdnew.push(n)
+
+}
+
+io.to(socket.id).emit("star", JSON.stringify(plmgdnew));
+
+console.log(rooms[roomId].allmgd)
+
+        });
+
 
     // 玩家創建房間
     socket.on("createRoom", () => {
