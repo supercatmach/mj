@@ -58,7 +58,7 @@ io.on("connection", (socket) => {
     socket.on("getRooms", () => {
         socket.emit("updateRooms", rooms);
     });
-
+});
 
 socket.on("star", (roomId) => {
 
@@ -66,11 +66,11 @@ plmgdnew=[]
 
 for(let i=0;i<4;i++){
 
-var n = Math.floor(Math.random() * 42)+1;///
+var n = Math.floor(Math.random() * 42+1);///
 
 while(n<=34&&rooms[roomId].allmgd[n]>3||n>34&&rooms[roomId].allmgd[n]>0){///抽出一開始的16張牌(不能重覆)
 
-var n = Math.floor(Math.random() * 42)+1;///
+var n = Math.floor(Math.random() * 42+1);///
 
 }
 rooms[roomId].allmgd[n]++
@@ -87,40 +87,38 @@ console.log(rooms[roomId].allmgd)
 
 });
 
-////////
 
-socket.on("getnewcard", (roomIdinf) => {
+    socket.on("getnewcard", (roomIdinf) => {
 
 roomId=JSON.parse(roomIdinf)[0]
 card=JSON.parse(roomIdinf)[1]
 
 if(card>35){///補花
 
-socket.emit("flower", JSON.stringify([socket.id ,card]));
+        socket.emit("flower", JSON.stringify([socket.id ,card]));
 
 console.log("玩家:"+socket.id+"補花"+card)
 
 }
 
-var n = Math.floor(Math.random() * 42)+1;///
+var n = Math.floor(Math.random() * 42+1);///
 
 while(n<=34&&rooms[roomId].allmgd[n]>3||n>34&&rooms[roomId].allmgd[n]>0){///抽出一開始的16張牌(不能重覆)
 
-var n = Math.floor(Math.random() * 42)+1;///
+var n = Math.floor(Math.random() * 42+1);///
 
 }
-
 rooms[roomId].allmgd[n]++
 
 plmgdnew.push(n)
+
+}
 
 console.log("發送給玩家:"+socket.id+"手牌:"+plmgdnew)
 
 io.to(socket.id).emit("getnewcard", JSON.stringify(plmgdnew));
 
-});
-
-});
+        });
 
 
 
