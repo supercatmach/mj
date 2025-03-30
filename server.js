@@ -60,6 +60,12 @@ io.on("connection", (socket) => {
     });
 
 
+socket.on("befstar", (roomId) => {
+
+rooms[roomId].allmgd=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+}
+
 socket.on("star", (roomId) => {
 
 plmgdnew=[]
