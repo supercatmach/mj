@@ -16,7 +16,7 @@ rooms["025024"] = { host: "貓貓", players: 1 ,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,
 io.on("connection", (socket) => {
     console.log("新玩家連線:", socket.id);
 
-    socket.on("star", JSON.stringify([roomId,socket.id])) => {
+    socket.on("star", (roomId) => {
 
 plmgdnew=[]
 
