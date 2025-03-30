@@ -11,12 +11,12 @@ const io = new Server(server, {
     }
 });
 const rooms = {};  // { roomId: { host: socket.id, players: 1 } }
-rooms["025024"] = { host: "貓貓", players: 1 ,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
+rooms["025024"] = { host: "貓貓", players: 1 ,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
 
 io.on("connection", (socket) => {
     console.log("新玩家連線:", socket.id);
 
-    socket.on("star", (roomId) => {
+    socket.on("star", JSON.stringify([roomId,socket.id]) => {
 
 plmgdnew=[]
 
@@ -42,6 +42,40 @@ io.to(socket.id).emit("star", JSON.stringify(plmgdnew));
 console.log(rooms[roomId].allmgd)
 
         });
+
+
+    socket.on("getnewcard", (roomIdinf) => {
+
+roomId=JSON.parse(roomIdinf)[0]
+card=JSON.parse(roomIdinf)[1]
+
+if(card>35){///補花
+
+        socket.emit("flower", JSON.stringify([socket.id ,card]));
+
+console.log("玩家:"+socket.id+"補花"+card)
+
+}
+
+var n = Math.floor(Math.random() * 42+1);///
+
+while(n<=34&&rooms[roomId].allmgd[n]>3||n>34&&rooms[roomId].allmgd[n]>0){///抽出一開始的16張牌(不能重覆)
+
+var n = Math.floor(Math.random() * 42+1);///
+
+}
+rooms[roomId].allmgd[n]++
+
+plmgdnew.push(n)
+
+}
+
+console.log("發送給玩家:"+socket.id+"手牌:"+plmgdnew)
+
+io.to(socket.id).emit("getnewcard", JSON.stringify(plmgdnew));
+
+        });
+
 
 
     // 玩家創建房間
