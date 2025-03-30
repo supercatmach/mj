@@ -14,9 +14,12 @@ const rooms = {};  // { roomId: { host: socket.id, players: 1 } }
 rooms["025024"] = { host: "貓貓", players: 1 ,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
 
 io.on("connection", (socket) => {
+
     console.log("新玩家連線:", socket.id);
 
-    socket.on("star", (roomId) => {
+})
+
+socket.on("star", (roomId) => {
 
 plmgdnew=[]
 
@@ -41,7 +44,7 @@ io.to(socket.id).emit("star", JSON.stringify(plmgdnew));
 
 console.log(rooms[roomId].allmgd)
 
-        });
+});
 
 
     socket.on("getnewcard", (roomIdinf) => {
