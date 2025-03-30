@@ -112,11 +112,9 @@ var n = Math.floor(Math.random() * 42)+1;///
 
 rooms[roomId].allmgd[n]++
 
-plmgdnew.push(n)
+console.log("發送給玩家:"+socket.id+"牌:"+n)
 
-console.log("發送給玩家:"+socket.id+"手牌:"+plmgdnew)
-
-io.to(socket.id).emit("getnewcard", JSON.stringify(plmgdnew));
+io.to(socket.id).emit("getnewcard", JSON.stringify(n));
 
 });
 
