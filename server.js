@@ -72,11 +72,11 @@ plmgdnew=[]
 
 for(let i=0;i<4;i++){
 
-var n = Math.floor(Math.random() * 42)+1;///
+var n = Math.floor(Math.random() * 42);///
 
 while(n<=34&&rooms[roomId].allmgd[n]>3||n>34&&rooms[roomId].allmgd[n]>0){///抽出一開始的16張牌(不能重覆)
 
-var n = Math.floor(Math.random() * 42)+1;///
+var n = Math.floor(Math.random() * 42);///
 
 }
 rooms[roomId].allmgd[n]++
@@ -108,11 +108,11 @@ console.log("玩家:"+socket.id+"補花"+card)
 
 }
 
-var n = Math.floor(Math.random() * 42)+1;///
+var n = Math.floor(Math.random() * 42);///
 
 while(n<=34&&rooms[roomId].allmgd[n]>3||n>34&&rooms[roomId].allmgd[n]>0){///抽出一開始的16張牌(不能重覆)
 
-var n = Math.floor(Math.random() * 42)+1;///
+var n = Math.floor(Math.random() * 42);///
 
 }
 
