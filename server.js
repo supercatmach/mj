@@ -76,6 +76,7 @@ io.on("connection", (socket) => {
 socket.on("befstar", (roomId) => {
 
 rooms[roomId].allmgd=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+rooms[roomId].players=[]
 
 })
 
