@@ -54,7 +54,7 @@ io.on("connection", (socket) => {
         io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
         console.log(`玩家 ${socket.id} 加入房間 ${roomId}`);
         if (rooms[roomId].players.length == 2) {
-            sratgame()
+            sratgame(roomId)
             return;
         }
     });
@@ -91,7 +91,9 @@ io.to(socket.id).emit("myname", socket.id);
 
 })
 
-function sratgame(){
+function sratgame(roominf){
+
+roomId=roominf
 
 for(let t=0;t<4;t++){
 
