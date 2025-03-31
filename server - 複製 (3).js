@@ -1,33 +1,15 @@
 const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
-const helmet = require("helmet");  // 引入 helmet
 
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: "*",  // 允許所有來源
+        origin: "*",
         methods: ["GET", "POST"]
     }
 });
-
-// 使用 helmet 設定 CSP
-app.use(
-  helmet({
-    contentSecurityPolicy: {
-      directives: {
-        defaultSrc: ["'self'"],  // 只允許從自己網站加載資源
-        connectSrc: [
-          "'self'", 
-          "https://mj-5x4w.onrender.com",  // 允許正常的 HTTPS 連線
-          "wss://mj-5x4w.onrender.com"  // 允許 WebSocket 連線
-        ]
-      }
-    }
-  })
-);
-
 const rooms = {};  // { roomId: { host: socket.id, players: 1 } }
 rooms["025024"] = { host: "貓貓", players: 1 ,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
 
