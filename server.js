@@ -154,6 +154,8 @@ socket.on("outcard", (roomIdinf) => {
 roomId=JSON.parse(roomIdinf)[0]
 card=JSON.parse(roomIdinf)[1]
 
+console.log("玩家:"+socket.id+"打出牌:"+card)
+
 io.to(roomId).emit("outcard", JSON.stringify([socket.id ,card]));
 
 let nexpled=(rooms[roomId].players.indexOf(socket.id)+1<rooms[roomId].players.length)?rooms[roomId].players[rooms[roomId].players.indexOf(socket.id)+1]:rooms[roomId].players[0]
