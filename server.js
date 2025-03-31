@@ -83,7 +83,7 @@ rooms[roomId].players=[]
 socket.on("star", (roomIdinf) => {
 
 roomId=JSON.parse(roomIdinf)[0]
-rooms[roomId].players=JSON.parse(roomIdinf)[1]
+///rooms[roomId].players=JSON.parse(roomIdinf)[1]
 
 console.log(rooms[roomId].players)
 
