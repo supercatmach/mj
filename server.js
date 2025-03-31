@@ -24,7 +24,7 @@ app.use(
 );
 
 const rooms = {};  // { roomId: { host: socket.id, players: 1 } }
-rooms["025024"] = { host: "貓貓", players: 1 ,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
+rooms["025024"] = { host: "貓貓", players: [] ,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
 
 io.on("connection", (socket) => {
 
@@ -34,7 +34,7 @@ io.on("connection", (socket) => {
     // 玩家創建房間
     socket.on("createRoom", () => {
         const roomId = socket.id;  // 直接用 socket.id 當作房間 ID
-        rooms[roomId] = { host: socket.id, players: 1 };
+        rooms[roomId] = { host: socket.id, players: [] ,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
         socket.join(roomId);
         io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
         socket.emit("roomCreated", { roomId });
@@ -43,13 +43,13 @@ io.on("connection", (socket) => {
 
     // 玩家加入房間
     socket.on("joinRoom", (roomId) => {
-        if (!rooms[roomId] || rooms[roomId].players >= 4) {
+        if (!rooms[roomId] || rooms[roomId].players.length >= 4) {
             socket.emit("roomFull");
             return;
         }
-        rooms[roomId].players++;
+        rooms[roomId].players.push(socket.id);
         socket.join(roomId);
-        io.to(roomId).emit("playerJoined", { playerId: socket.id, roomSize: rooms[roomId].players });
+        io.to(roomId).emit("playerJoined", { playerId: socket.id, roomSize: rooms[roomId].players.length });
         io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
         console.log(`玩家 ${socket.id} 加入房間 ${roomId}`);
     });
@@ -60,7 +60,7 @@ io.on("connection", (socket) => {
             if (rooms[roomId].host === socket.id || io.sockets.adapter.rooms.get(roomId)?.size === 0) {
                 delete rooms[roomId];  // 如果房間沒人就刪除
             } else {
-                rooms[roomId].players--;
+                
             }
         }
         io.emit("updateRooms", rooms);  // 更新房間清單
@@ -76,10 +76,16 @@ io.on("connection", (socket) => {
 socket.on("befstar", (roomId) => {
 
 rooms[roomId].allmgd=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+rooms[roomId].players=[]
 
 })
 
 socket.on("star", (roomId) => {
+
+
+for(let t=0;t<4;t++){
+
+for(let s=0;s<rooms[roomId].players.length;s++){
 
 plmgdnew=[]
 
@@ -100,9 +106,13 @@ plmgdnew.push(n)
 
 console.log("發送給玩家:"+socket.id+"手牌:"+plmgdnew)
 
-io.to(socket.id).emit("star", JSON.stringify(plmgdnew));
+io.to(rooms[roomId].players[s]).emit("star", JSON.stringify(plmgdnew));
 
-console.log(rooms[roomId].allmgd)
+///console.log(rooms[roomId].allmgd)
+
+}
+
+}
 
 });
 
