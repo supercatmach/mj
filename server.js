@@ -47,6 +47,10 @@ io.on("connection", (socket) => {
             socket.emit("roomFull");
             return;
         }
+        if (rooms[roomId].players.length == 2) {
+            sratgame()
+            return;
+        }
         rooms[roomId].players.push(socket.id);
         socket.join(roomId);
         io.to(roomId).emit("playerJoined", { playerId: socket.id, roomSize: rooms[roomId].players.length });
@@ -84,15 +88,9 @@ socket.on("myname", (mtd) => {
 
 io.to(socket.id).emit("myname", socket.id);
 
-
 })
 
-socket.on("star", (roomIdinf) => {
-
-roomId=JSON.parse(roomIdinf)[0]
-rooms[roomId].players=JSON.parse(roomIdinf)[1]
-
-console.log(rooms[roomId].players)
+function sratgame(){
 
 for(let t=0;t<4;t++){
 
@@ -125,7 +123,7 @@ io.to(rooms[roomId].players[s]).emit("star", JSON.stringify(plmgdnew));
 
 }
 
-});
+}
 
 ////////
 
