@@ -126,7 +126,7 @@ card=JSON.parse(roomIdinf)[1]
 
 if(card>35){///補花
 
-socket.emit("flower", JSON.stringify([socket.id ,card]));
+io.to(roomId).emit("flower", JSON.stringify([socket.id ,card]));
 
 console.log("玩家:"+socket.id+"補花"+card)
 
@@ -144,6 +144,7 @@ rooms[roomId].allmgd[n]++
 
 console.log("發送給玩家:"+socket.id+"牌:"+n)
 
+io.to(roomId).emit("getnewcard2", JSON.stringify(socket.id));
 io.to(socket.id).emit("getnewcard", JSON.stringify(n));
 
 });
