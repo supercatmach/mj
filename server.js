@@ -53,7 +53,7 @@ io.on("connection", (socket) => {
         io.to(roomId).emit("playerJoined", { playerId: socket.id, roomSize: rooms[roomId].players.length });
         io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
         console.log(`玩家 ${socket.id} 加入房間 ${roomId}`);
-        if (rooms[roomId].players.length == 2) {
+        if (rooms[roomId].players.length == 4) {
             sratgame(roomId)
             return;
         }
