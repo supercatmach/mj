@@ -14,17 +14,12 @@ const io = new Server(server, {
 
 // 使用 helmet 設定 CSP
 app.use(
-  helmet({
-    contentSecurityPolicy: {
-      directives: {
-        defaultSrc: ["'self'"],  // 只允許從自己網站加載資源
-        connectSrc: [
-          "'self'", 
-          "https://mj-5x4w.onrender.com",  // 允許正常的 HTTPS 連線
-          "wss://mj-5x4w.onrender.com"  // 允許 WebSocket 連線
-        ]
-      }
-    }
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      connectSrc: ["'self'", "https://catchat-a7zb.onrender.com", "https://mj-5x4w.onrender.com", "wss://mj-5x4w.onrender.com"],
+      // 其他 CSP 設定
+    },
   })
 );
 
