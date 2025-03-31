@@ -82,6 +82,7 @@ rooms[roomId].players=[]
 
 socket.on("star", (roomId) => {
 
+console.log(rooms[roomId].players)
 
 for(let t=0;t<4;t++){
 
