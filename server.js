@@ -76,7 +76,6 @@ io.on("connection", (socket) => {
 socket.on("befstar", (roomId) => {
 
 rooms[roomId].allmgd=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-rooms[roomId].players=[]
 
 })
 
@@ -160,7 +159,7 @@ let messages = [];
 allplayer=[]
 
 io.on("connection", (socket) => {
-    console.log(`玩家已連線: ${socket.id}`);
+    
 
 socket.on("move", (movnew) => {
 
