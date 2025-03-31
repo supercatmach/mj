@@ -80,6 +80,13 @@ rooms[roomId].players=[]
 
 })
 
+socket.on("myname", (mtd) => {
+
+io.to(socket.id).emit("myname", socket.id);
+
+
+})
+
 socket.on("star", (roomIdinf) => {
 
 roomId=JSON.parse(roomIdinf)[0]
