@@ -104,7 +104,7 @@ plmgdnew.push(n)
 
 }
 
-console.log("發送給玩家:"+socket.id+"手牌:"+plmgdnew)
+console.log("發送給玩家:"+rooms[roomId].players[s]+"手牌:"+plmgdnew)
 
 io.to(rooms[roomId].players[s]).emit("star", JSON.stringify(plmgdnew));
 
@@ -144,6 +144,21 @@ rooms[roomId].allmgd[n]++
 console.log("發送給玩家:"+socket.id+"牌:"+n)
 
 io.to(socket.id).emit("getnewcard", JSON.stringify(n));
+
+});
+
+///////////////////////////////////////////////////////
+
+socket.on("outcard", (roomIdinf) => {
+
+roomId=JSON.parse(roomIdinf)[0]
+card=JSON.parse(roomIdinf)[1]
+
+io.to(roomId).emit("outcard", JSON.stringify([socket.id ,card]));
+
+let nexpled=(rooms[roomId].players.indexOf(socket.id)+1<rooms[roomId].players.length)?rooms[roomId].players[rooms[roomId].players.indexOf(socket.id)+1]:rooms[roomId].players[0]
+
+io.to(nexpled).emit("needgetcard", (""));
 
 });
 
