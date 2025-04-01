@@ -67,7 +67,7 @@ io.on("connection", (socket) => {
             } else {
                 delete rooms[roomId][rooms[roomId].players.indexOf(socket.id)]
 rooms[roomId].players = rooms[roomId].players.filter(item => item !== undefined)
-console.log([rooms[roomId].players)
+console.log(rooms[roomId].players)
             }
         }
         io.emit("updateRooms", rooms);  // 更新房間清單
