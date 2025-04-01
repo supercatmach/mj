@@ -60,19 +60,18 @@ io.on("connection", (socket) => {
     });
 
     // 玩家離開或斷線
-    socket.on("disconnect", () => {
-        for (const roomId in rooms) {
-            if (rooms[roomId].host === socket.id || io.sockets.adapter.rooms.get(roomId)?.size === 0) {
-                delete rooms[roomId];  // 如果房間沒人就刪除
-            } else {
-                delete rooms[roomId][rooms[roomId].players.indexOf(socket.id)]
-rooms[roomId].players = rooms[roomId].players.filter(item => item !== undefined)
-console.log(rooms[roomId].players)
-            }
+socket.on("disconnect", () => {
+    for (const roomId in rooms) {
+        if (rooms[roomId].host === socket.id || io.sockets.adapter.rooms.get(roomId)?.size === 0) {
+            delete rooms[roomId];  // 如果房間沒人就刪除
+        } else {
+            // 移除該玩家
+            rooms[roomId].players = rooms[roomId].players.filter(playerId => playerId !== socket.id);
         }
-        io.emit("updateRooms", rooms);  // 更新房間清單
-        console.log(`玩家 ${socket.id} 斷線，更新房間`);
-    });
+    }
+    io.emit("updateRooms", rooms);  // 更新房間清單
+    console.log(`玩家 ${socket.id} 斷線，更新房間`);
+});
 
     // 獲取房間清單
     socket.on("getRooms", () => {
