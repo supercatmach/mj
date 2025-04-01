@@ -137,6 +137,19 @@ io.to(rooms[roomId].players[s]).emit("star", JSON.stringify(plmgdnew));
 
 }
 
+var n = Math.floor(Math.random() * 42)+1;///
+
+while(n<=34&&rooms[roomId].allmgd[n]>3||n>34&&rooms[roomId].allmgd[n]>0){///抽出一開始的16張牌(不能重覆)
+
+var n = Math.floor(Math.random() * 42)+1;///
+
+}
+rooms[roomId].allmgd[n]++
+
+io.to(roomId).emit("getnewcard2", JSON.stringify(rooms[roomId].players[0]));
+
+io.to(rooms[roomId].players[0]).emit("getnewcard", JSON.stringify(n));
+
 }
 
 ////////
