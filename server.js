@@ -54,7 +54,7 @@ io.on("connection", (socket) => {
         io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
         console.log(`玩家 ${socket.id} 加入房間 ${roomId}`);
         if (rooms[roomId].players.length == 4) {
-            sratgame(roomId)
+            befgame(roomId)
             return;
         }
     });
@@ -65,7 +65,7 @@ io.on("connection", (socket) => {
             if (rooms[roomId].host === socket.id || io.sockets.adapter.rooms.get(roomId)?.size === 0) {
                 delete rooms[roomId];  // 如果房間沒人就刪除
             } else {
-                
+                delete rooms[roomId][rooms[roomId].players.indexOf(socket.id)]
             }
         }
         io.emit("updateRooms", rooms);  // 更新房間清單
@@ -78,16 +78,26 @@ io.on("connection", (socket) => {
     });
 
 
-socket.on("befstar", (roomId) => {
+function befgame(roominf){
+
+roomId=roominf
 
 rooms[roomId].allmgd=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-rooms[roomId].players=[]
 
-})
+    for (let i = 4 - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1)); // 產生 0 到 i 之間的隨機索引
+        [rooms[roomId].players[i], rooms[roomId].players[j]] = [rooms[roomId].players[j], rooms[roomId].players[i]]; // 交換位置
+    }
+
+
+
+sratgame(roomId)
+
+}
 
 socket.on("myname", (mtd) => {
 
-io.to(socket.id).emit("myname", socket.id);
+io.to(socket.id).emit("myname", JSON.stringify([socket.id,rooms[roomId].players]));
 
 })
 
