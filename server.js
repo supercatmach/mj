@@ -66,6 +66,8 @@ io.on("connection", (socket) => {
                 delete rooms[roomId];  // 如果房間沒人就刪除
             } else {
                 delete rooms[roomId][rooms[roomId].players.indexOf(socket.id)]
+rooms[roomId].players = rooms[roomId].players.filter(item => item !== undefined)
+console.log([rooms[roomId].players)
             }
         }
         io.emit("updateRooms", rooms);  // 更新房間清單
