@@ -187,14 +187,30 @@ console.log("玩家:"+socket.id+"打出牌:"+card)
 
 io.to(roomId).emit("outcard", JSON.stringify([socket.id ,card]));
 
-let nexpled=(rooms[roomId].players.indexOf(socket.id)+1<rooms[roomId].players.length)?rooms[roomId].players[rooms[roomId].players.indexOf(socket.id)+1]:rooms[roomId].players[0]
+alps=0
+
+});
+
+socket.on("needgetcard", (roomIdinf) => {
+
+alps++
+
+roomId=JSON.parse(roomIdinf)[0]
+ple=JSON.parse(roomIdinf)[1]
+
+if(alps==4){
+
+let nexpled=(rooms[roomId].players.indexOf(ple)+1<rooms[roomId].players.length)?rooms[roomId].players[rooms[roomId].players.indexOf(ple)+1]:rooms[roomId].players[0]
 
 io.to(nexpled).emit("needgetcard", (""));
 
-});
+}
 
 });
 
+
+
+});
 
 
 ////////////////////////////////////////////////貓咪/////////////////////////////////////////////
