@@ -166,7 +166,12 @@ rooms[roomId].allmgd[n]++
 
 console.log("發送給玩家:"+socket.id+"牌:"+n)
 
+if(card=="new"){
+
 io.to(roomId).emit("getnewcard2", JSON.stringify(socket.id));
+
+}
+
 io.to(socket.id).emit("getnewcard", JSON.stringify(n));
 
 });
