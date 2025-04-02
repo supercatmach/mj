@@ -105,7 +105,7 @@ io.to(socket.id).emit("myname", JSON.stringify([socket.id,rooms[roomId].players]
 socket.on("eat", (canephinf) => {
 
 roomId=JSON.parse(canephinf)[0]
-card=JSON.parse(roomIdinf)[1]
+card=JSON.parse(canephinf)[1]
 
 console.log("吃"+card)
 
@@ -122,7 +122,7 @@ alps++
 socket.on("pon", (canephinf) => {
 
 roomId=JSON.parse(canephinf)[0]
-card=JSON.parse(roomIdinf)[1]
+card=JSON.parse(canephinf)[1]
 
 console.log("碰"+card)
 
@@ -139,7 +139,7 @@ alps++
 socket.on("gun", (canephinf) => {
 
 roomId=JSON.parse(canephinf)[0]
-card=JSON.parse(roomIdinf)[1]
+card=JSON.parse(canephinf)[1]
 
 console.log("槓"+card)
 
@@ -156,7 +156,7 @@ alps++
 socket.on("tin", (canephinf) => {
 
 roomId=JSON.parse(canephinf)[0]
-card=JSON.parse(roomIdinf)[1]
+card=JSON.parse(canephinf)[1]
 
 io.to(roomId).emit("caneph", JSON.stringify([socket.id,card,"tin"]));
 
@@ -165,7 +165,7 @@ io.to(roomId).emit("caneph", JSON.stringify([socket.id,card,"tin"]));
 socket.on("win", (canephinf) => {
 
 roomId=JSON.parse(canephinf)[0]
-card=JSON.parse(roomIdinf)[1]
+card=JSON.parse(canephinf)[1]
 
 io.to(roomId).emit("caneph", JSON.stringify([socket.id,card,"win"]));
 
