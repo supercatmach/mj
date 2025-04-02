@@ -102,6 +102,69 @@ io.to(socket.id).emit("myname", JSON.stringify([socket.id,rooms[roomId].players]
 
 })
 
+socket.on("eat", (canephinf) => {
+
+roomId=JSON.parse(canephinf)[0]
+card=JSON.parse(roomIdinf)[1]
+
+if(alps==3){
+
+io.to(roomId).emit("caneph", JSON.stringify([socket.id,card,"eat"]));
+
+}
+
+alps++
+
+})
+
+socket.on("pon", (canephinf) => {
+
+roomId=JSON.parse(canephinf)[0]
+card=JSON.parse(roomIdinf)[1]
+
+if(alps==3){
+
+io.to(roomId).emit("caneph", JSON.stringify([socket.id,card,"pon"]));
+
+}
+
+alps++
+
+})
+
+socket.on("gun", (canephinf) => {
+
+roomId=JSON.parse(canephinf)[0]
+card=JSON.parse(roomIdinf)[1]
+
+if(alps==3){
+
+io.to(roomId).emit("caneph", JSON.stringify([socket.id,card,"gun"]));
+
+}
+
+alps++
+
+})
+
+socket.on("tin", (canephinf) => {
+
+roomId=JSON.parse(canephinf)[0]
+card=JSON.parse(roomIdinf)[1]
+
+io.to(roomId).emit("caneph", JSON.stringify([socket.id,card,"tin"]));
+
+})
+
+socket.on("win", (canephinf) => {
+
+roomId=JSON.parse(canephinf)[0]
+card=JSON.parse(roomIdinf)[1]
+
+io.to(roomId).emit("caneph", JSON.stringify([socket.id,card,"win"]));
+
+})
+
 function sratgame(roominf){
 
 roomId=roominf
