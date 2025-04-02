@@ -32,9 +32,9 @@
             for (const roomId in rooms) {
                 const room = rooms[roomId];
                 const li = document.createElement("li");
-                li.innerHTML = `房間ID: ${roomId} | 人數: ${room.players}/4 `;
+                li.innerHTML = `房間ID: ${roomId} | 人數: ${room.players.length} `;
 
-                if (room.players < 4) {
+                if (room.players.length < 4) {
                     const joinButton = document.createElement("button");
                     joinButton.innerText = "加入";
                     joinButton.onclick = () => {

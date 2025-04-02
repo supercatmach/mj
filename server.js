@@ -107,6 +107,8 @@ socket.on("eat", (canephinf) => {
 roomId=JSON.parse(canephinf)[0]
 card=JSON.parse(roomIdinf)[1]
 
+console.log("吃"+card)
+
 if(alps==3){
 
 io.to(roomId).emit("caneph", JSON.stringify([socket.id,card,"eat"]));
@@ -122,6 +124,8 @@ socket.on("pon", (canephinf) => {
 roomId=JSON.parse(canephinf)[0]
 card=JSON.parse(roomIdinf)[1]
 
+console.log("碰"+card)
+
 if(alps==3){
 
 io.to(roomId).emit("caneph", JSON.stringify([socket.id,card,"pon"]));
@@ -136,6 +140,8 @@ socket.on("gun", (canephinf) => {
 
 roomId=JSON.parse(canephinf)[0]
 card=JSON.parse(roomIdinf)[1]
+
+console.log("槓"+card)
 
 if(alps==3){
 
