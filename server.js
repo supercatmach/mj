@@ -24,7 +24,7 @@ app.use(
 );
 
 const rooms = {};  // { roomId: { host: socket.id, players: 1 } }
-rooms["025024"] = { host: "貓貓", players: [] ,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
+rooms["025024"] = { host: "貓貓", players: [] ,alps:0,epgh:[],pled:0,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
 
 io.on("connection", (socket) => {
 
@@ -34,7 +34,7 @@ io.on("connection", (socket) => {
     // 玩家創建房間
     socket.on("createRoom", () => {
         const roomId = socket.id;  // 直接用 socket.id 當作房間 ID
-        rooms[roomId] = { host: socket.id, players: [] ,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
+        rooms[roomId] = { host: socket.id, players: [] ,alps:0,epgh:[],pled:0,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
         socket.join(roomId);
         io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
         socket.emit("roomCreated", { roomId });
@@ -84,7 +84,9 @@ function befgame(roominf){
 roomId=roominf
 
 rooms[roomId].allmgd=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-
+rooms[roomId].alps=0
+rooms[roomId].epgh=[]
+rooms[roomId].pled=0
     for (let i = 4 - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1)); // 產生 0 到 i 之間的隨機索引
         [rooms[roomId].players[i], rooms[roomId].players[j]] = [rooms[roomId].players[j], rooms[roomId].players[i]]; // 交換位置
@@ -109,13 +111,9 @@ card=JSON.parse(canephinf)[1]
 
 console.log("吃"+card)
 
-if(alps==3){
+rooms[roomId].epgh.push({"num":0,"ple":socket.id,"mtd":card,"dwo":"eat"})
 
-io.to(roomId).emit("caneph", JSON.stringify([socket.id,card,"eat"]));
-
-}
-
-alps++
+///io.to(roomId).emit("caneph", JSON.stringify([socket.id,card,"eat"]));
 
 })
 
@@ -126,13 +124,9 @@ card=JSON.parse(canephinf)[1]
 
 console.log("碰"+card)
 
-if(alps==3){
+rooms[roomId].epgh.push({"num":1,"ple":socket.id,"mtd":card,"dwo":"pon"})
 
-io.to(roomId).emit("caneph", JSON.stringify([socket.id,card,"pon"]));
-
-}
-
-alps++
+///io.to(roomId).emit("caneph", JSON.stringify([socket.id,card,"pon"]));
 
 })
 
@@ -143,13 +137,9 @@ card=JSON.parse(canephinf)[1]
 
 console.log("槓"+card)
 
-if(alps==3){
+rooms[roomId].epgh.push({"num":1,"ple":socket.id,"mtd":card,"dwo":"gun"})
 
-io.to(roomId).emit("caneph", JSON.stringify([socket.id,card,"gun"]));
-
-}
-
-alps++
+///io.to(roomId).emit("caneph", JSON.stringify([socket.id,card,"gun"]));
 
 })
 
@@ -167,7 +157,9 @@ socket.on("win", (canephinf) => {
 roomId=JSON.parse(canephinf)[0]
 card=JSON.parse(canephinf)[1]
 
-io.to(roomId).emit("caneph", JSON.stringify([socket.id,card,"win"]));
+rooms[roomId].epgh.push({"num":2,"ple":socket.id,"mtd":card,"dwo":"win"})
+
+///io.to(roomId).emit("caneph", JSON.stringify([socket.id,card,"win"]));
 
 })
 
@@ -228,6 +220,8 @@ socket.on("getnewcard", (roomIdinf) => {
 roomId=JSON.parse(roomIdinf)[0]
 card=JSON.parse(roomIdinf)[1]
 
+rooms[roomId].epgh=[]
+
 if(card>35){///補花
 
 io.to(roomId).emit("flower", JSON.stringify([socket.id ,card]));
@@ -256,6 +250,8 @@ io.to(roomId).emit("getnewcard2", JSON.stringify(socket.id));
 
 io.to(socket.id).emit("getnewcard", JSON.stringify(n));
 
+rooms[roomId].pled=rooms[roomId].players.indexOf(socket.id)
+
 });
 
 ///////////////////////////////////////////////////////
@@ -265,22 +261,40 @@ socket.on("outcard", (roomIdinf) => {
 roomId=JSON.parse(roomIdinf)[0]
 card=JSON.parse(roomIdinf)[1]
 
+rooms[roomId].epgh=[]
+
 console.log("玩家:"+socket.id+"打出牌:"+card)
 
 io.to(roomId).emit("outcard", JSON.stringify([socket.id ,card]));
 
-alps=0
+rooms[roomId].alps=0
 
 });
 
+
+
 socket.on("needgetcard", (roomIdinf) => {
 
-alps++
+rooms[roomId].alps++
 
 roomId=JSON.parse(roomIdinf)[0]
 ple=JSON.parse(roomIdinf)[1]
 
-if(alps==4){
+if(rooms[roomId].epgh.length!=0){
+
+rooms[roomId].epgh.sort(function (a, b) {///
+
+return b.num - a.num
+
+});
+
+io.to(roomId).emit("caneph", JSON.stringify([rooms[roomId].epgh[0].ple,rooms[roomId].epgh[0].mtd,rooms[roomId].epgh[0].dwo]));
+
+return
+
+}
+
+if(rooms[roomId].alps==4&&rooms[roomId].epgh.length==0){
 
 let nexpled=(rooms[roomId].players.indexOf(ple)+1<rooms[roomId].players.length)?rooms[roomId].players[rooms[roomId].players.indexOf(ple)+1]:rooms[roomId].players[0]
 
