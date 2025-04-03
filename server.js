@@ -95,8 +95,6 @@ rooms[roomId].players2=[]
         [rooms[roomId].players[i], rooms[roomId].players[j]] = [rooms[roomId].players[j], rooms[roomId].players[i]]; // 交換位置
     }
 
-
-
 sratgame(roomId)
 
 }
@@ -302,6 +300,10 @@ rooms[roomId].alps++
 roomId=JSON.parse(roomIdinf)[0]
 ple=JSON.parse(roomIdinf)[1]
 
+btop=0
+
+if(rooms[roomId].epghpk.lenth!=0){
+
 btop=rooms[roomId].epghpk[0].mrs
 
 rooms[roomId].epghpk.sort(function (a, b) {///
@@ -309,7 +311,6 @@ rooms[roomId].epghpk.sort(function (a, b) {///
 return b.mrs - a.mrs
 
 });
-
 
 if(rooms[roomId].alps==4&&rooms[roomId].epgh.length!=0||rooms[roomId].epghpk.socket.id>=btop&&rooms[roomId].epgh.length!=0){
 
@@ -324,6 +325,8 @@ io.to(roomId).emit("caneph", JSON.stringify([rooms[roomId].epgh[0].ple,rooms[roo
 rooms[roomId].epghpk={}
 
 return
+
+}
 
 }
 
