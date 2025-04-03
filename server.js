@@ -133,7 +133,7 @@ card=JSON.parse(canephinf)[1]
 
 console.log("吃"+card)
 
-rooms[roomId].epgh.push({"num":0,"ple":socket.id,"mtd":card,"dwo":"eat"})
+rooms[roomId].epgh.push({"num":1,"ple":socket.id,"mtd":card,"dwo":"eat"})
 
 rooms[roomId].alps++
 
@@ -146,7 +146,7 @@ card=JSON.parse(canephinf)[1]
 
 console.log("碰"+card)
 
-rooms[roomId].epgh.push({"num":1,"ple":socket.id,"mtd":card,"dwo":"pon"})
+rooms[roomId].epgh.push({"num":2,"ple":socket.id,"mtd":card,"dwo":"pon"})
 
 rooms[roomId].alps++
 
@@ -159,7 +159,7 @@ card=JSON.parse(canephinf)[1]
 
 console.log("槓"+card)
 
-rooms[roomId].epgh.push({"num":1,"ple":socket.id,"mtd":card,"dwo":"gun"})
+rooms[roomId].epgh.push({"num":2,"ple":socket.id,"mtd":card,"dwo":"gun"})
 
 rooms[roomId].alps++
 
@@ -179,7 +179,13 @@ socket.on("win", (canephinf) => {
 roomId=JSON.parse(canephinf)[0]
 card=JSON.parse(canephinf)[1]
 
-rooms[roomId].epgh.push({"num":2,"ple":socket.id,"mtd":card,"dwo":"win"})
+mra=3
+
+rooms[roomId].players2=rooms[roomId].players.concat(rooms[roomId].players)
+
+mra+=rooms[roomId].players2.indexOf(socket.id,rooms[roomId].pled)
+
+rooms[roomId].epgh.push({"num":mra,"ple":socket.id,"mtd":card,"dwo":"win"})
 
 rooms[roomId].alps++
 
@@ -304,15 +310,9 @@ btop=0
 
 if(rooms[roomId].epghpk.lenth!=0){
 
-btop=rooms[roomId].epghpk[0].mrs
+btop=Math.max(...Object.values(rooms[roomId].epghpk))
 
-rooms[roomId].epghpk.sort(function (a, b) {///
-
-return b.mrs - a.mrs
-
-});
-
-if(rooms[roomId].alps==4&&rooms[roomId].epgh.length!=0||rooms[roomId].epghpk.socket.id>=btop&&rooms[roomId].epgh.length!=0){
+if(rooms[roomId].alps==4&&rooms[roomId].epgh.length!=0||rooms[roomId].epgh.num>=btop&&rooms[roomId].epgh.length!=0){
 
 rooms[roomId].epgh.sort(function (a, b) {///
 
