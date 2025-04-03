@@ -87,6 +87,9 @@ rooms[roomId].allmgd=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 rooms[roomId].alps=0
 rooms[roomId].epgh=[]
 rooms[roomId].pled=0
+rooms[roomId].epghpk={}
+rooms[roomId].players2=[]
+
     for (let i = 4 - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1)); // 產生 0 到 i 之間的隨機索引
         [rooms[roomId].players[i], rooms[roomId].players[j]] = [rooms[roomId].players[j], rooms[roomId].players[i]]; // 交換位置
@@ -104,6 +107,27 @@ io.to(socket.id).emit("myname", JSON.stringify([socket.id,rooms[roomId].players]
 
 })
 
+socket.on("epghpk", (epghpkinf) => {
+
+roomId=JSON.parse(epghpkinf)[0]
+mrs=JSON.parse(epghpkinf)[1]///返回的層級
+
+if(mrs==3){
+
+rooms[roomId].players2=rooms[roomId].players.concat(rooms[roomId].players)
+
+mrs+=rooms[roomId].players2.indexOf(socket.id,rooms[roomId].pled)
+
+}
+
+if(rooms[roomId].epghpk.socket.id<mrs){
+
+rooms[roomId].epghpk.socket.id=mrs
+
+}
+
+})
+
 socket.on("eat", (canephinf) => {
 
 roomId=JSON.parse(canephinf)[0]
@@ -113,7 +137,7 @@ console.log("吃"+card)
 
 rooms[roomId].epgh.push({"num":0,"ple":socket.id,"mtd":card,"dwo":"eat"})
 
-///io.to(roomId).emit("caneph", JSON.stringify([socket.id,card,"eat"]));
+rooms[roomId].alps++
 
 })
 
@@ -126,7 +150,7 @@ console.log("碰"+card)
 
 rooms[roomId].epgh.push({"num":1,"ple":socket.id,"mtd":card,"dwo":"pon"})
 
-///io.to(roomId).emit("caneph", JSON.stringify([socket.id,card,"pon"]));
+rooms[roomId].alps++
 
 })
 
@@ -139,7 +163,7 @@ console.log("槓"+card)
 
 rooms[roomId].epgh.push({"num":1,"ple":socket.id,"mtd":card,"dwo":"gun"})
 
-///io.to(roomId).emit("caneph", JSON.stringify([socket.id,card,"gun"]));
+rooms[roomId].alps++
 
 })
 
@@ -159,7 +183,7 @@ card=JSON.parse(canephinf)[1]
 
 rooms[roomId].epgh.push({"num":2,"ple":socket.id,"mtd":card,"dwo":"win"})
 
-///io.to(roomId).emit("caneph", JSON.stringify([socket.id,card,"win"]));
+rooms[roomId].alps++
 
 })
 
@@ -191,8 +215,6 @@ plmgdnew.push(n)
 console.log("發送給玩家:"+rooms[roomId].players[s]+"手牌:"+plmgdnew)
 
 io.to(rooms[roomId].players[s]).emit("star", JSON.stringify(plmgdnew));
-
-///console.log(rooms[roomId].allmgd)
 
 }
 
@@ -280,7 +302,16 @@ rooms[roomId].alps++
 roomId=JSON.parse(roomIdinf)[0]
 ple=JSON.parse(roomIdinf)[1]
 
-if(rooms[roomId].epgh.length!=0){
+btop=rooms[roomId].epghpk[0].mrs
+
+rooms[roomId].epghpk.sort(function (a, b) {///
+
+return b.mrs - a.mrs
+
+});
+
+
+if(rooms[roomId].alps==4&&rooms[roomId].epgh.length!=0||rooms[roomId].epghpk.socket.id>=btop&&rooms[roomId].epgh.length!=0){
 
 rooms[roomId].epgh.sort(function (a, b) {///
 
@@ -289,6 +320,8 @@ return b.num - a.num
 });
 
 io.to(roomId).emit("caneph", JSON.stringify([rooms[roomId].epgh[0].ple,rooms[roomId].epgh[0].mtd,rooms[roomId].epgh[0].dwo]));
+
+rooms[roomId].epghpk={}
 
 return
 
