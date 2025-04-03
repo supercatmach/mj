@@ -87,7 +87,7 @@ rooms[roomId].allmgd=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 rooms[roomId].alps=0
 rooms[roomId].epgh=[]
 rooms[roomId].pled=0
-rooms[roomId].epghpk={}
+rooms[roomId].epghpk=[]
 rooms[roomId].players2=[]
 
     for (let i = 4 - 1; i > 0; i--) {
@@ -110,7 +110,6 @@ socket.on("epghpk", (epghpkinf) => {
 roomId=JSON.parse(epghpkinf)[0]
 mrs=JSON.parse(epghpkinf)[1]///返回的層級
 
-rooms[roomId].epghpk.socket.id=0
 
 if(mrs==3){
 
@@ -120,11 +119,8 @@ mrs+=rooms[roomId].players2.indexOf(socket.id,rooms[roomId].pled)
 
 }
 
-if(rooms[roomId].epghpk.socket.id<mrs){
+rooms[roomId].epghpk.push(mrs)
 
-rooms[roomId].epghpk.socket.id=mrs
-
-}
 
 })
 
@@ -310,7 +306,7 @@ ple=JSON.parse(roomIdinf)[1]
 
 btop=0
 
-if(rooms[roomId].epghpk.lenth!=0){
+if(rooms[roomId].epghpk.length!=0){
 
 btop=Math.max(...Object.values(rooms[roomId].epghpk))
 
@@ -324,7 +320,7 @@ return b.num - a.num
 
 io.to(roomId).emit("caneph", JSON.stringify([rooms[roomId].epgh[0].ple,rooms[roomId].epgh[0].mtd,rooms[roomId].epgh[0].dwo]));
 
-rooms[roomId].epghpk={}
+rooms[roomId].epghpk=[]
 
 return
 
