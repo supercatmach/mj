@@ -133,8 +133,6 @@ console.log("吃"+card)
 
 rooms[roomId].epgh.push({"num":1,"ple":socket.id,"mtd":card,"dwo":"eat"})
 
-rooms[roomId].alps++
-
 })
 
 socket.on("pon", (canephinf) => {
@@ -146,8 +144,6 @@ console.log("碰"+card)
 
 rooms[roomId].epgh.push({"num":2,"ple":socket.id,"mtd":card,"dwo":"pon"})
 
-rooms[roomId].alps++
-
 })
 
 socket.on("gun", (canephinf) => {
@@ -158,8 +154,6 @@ card=JSON.parse(canephinf)[1]
 console.log("槓"+card)
 
 rooms[roomId].epgh.push({"num":2,"ple":socket.id,"mtd":card,"dwo":"gun"})
-
-rooms[roomId].alps++
 
 })
 
@@ -184,8 +178,6 @@ rooms[roomId].players2=rooms[roomId].players.concat(rooms[roomId].players)
 mra+=rooms[roomId].players2.indexOf(socket.id,rooms[roomId].pled)
 
 rooms[roomId].epgh.push({"num":mra,"ple":socket.id,"mtd":card,"dwo":"win"})
-
-rooms[roomId].alps++
 
 })
 
