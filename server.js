@@ -306,6 +306,8 @@ ple=JSON.parse(roomIdinf)[1]
 
 btop=0
 
+console.log(rooms[roomId].epghpk,rooms[roomId].alps,rooms[roomId].epgh)
+
 if(rooms[roomId].epghpk.length!=0){
 
 btop=Math.max(...Object.values(rooms[roomId].epghpk))
