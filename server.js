@@ -110,6 +110,8 @@ socket.on("epghpk", (epghpkinf) => {
 roomId=JSON.parse(epghpkinf)[0]
 mrs=JSON.parse(epghpkinf)[1]///返回的層級
 
+rooms[roomId].epghpk.socket.id=0
+
 if(mrs==3){
 
 rooms[roomId].players2=rooms[roomId].players.concat(rooms[roomId].players)
