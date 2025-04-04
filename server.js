@@ -278,6 +278,7 @@ roomId=JSON.parse(roomIdinf)[0]
 card=JSON.parse(roomIdinf)[1]
 
 rooms[roomId].epgh=[]
+rooms[roomId].epghpk=[]
 
 console.log("玩家:"+socket.id+"打出牌:"+card)
 
