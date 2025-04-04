@@ -227,6 +227,8 @@ io.to(roomId).emit("getnewcard2", JSON.stringify(rooms[roomId].players[0]));
 
 io.to(rooms[roomId].players[0]).emit("getnewcard", JSON.stringify(n));
 
+console.log("發送給玩家:"+rooms[roomId].players[0]+"手牌:"+n)
+
 }
 
 ////////
