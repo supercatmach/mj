@@ -323,6 +323,8 @@ io.to(roomId).emit("caneph", JSON.stringify([rooms[roomId].epgh[0].ple,rooms[roo
 
 rooms[roomId].epghpk=[]
 
+rooms[roomId].alps=0
+
 return
 
 }
