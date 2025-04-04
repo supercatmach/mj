@@ -133,6 +133,8 @@ console.log("吃"+card)
 
 rooms[roomId].epgh.push({"num":1,"ple":socket.id,"mtd":card,"dwo":"eat"})
 
+console.log(rooms[roomId].epgh)
+
 })
 
 socket.on("pon", (canephinf) => {
@@ -143,6 +145,8 @@ card=JSON.parse(canephinf)[1]
 console.log("碰"+card)
 
 rooms[roomId].epgh.push({"num":2,"ple":socket.id,"mtd":card,"dwo":"pon"})
+
+console.log(rooms[roomId].epgh)
 
 })
 
