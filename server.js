@@ -309,9 +309,19 @@ console.log(rooms[roomId].epghpk,rooms[roomId].alps,rooms[roomId].epgh)
 
 if(rooms[roomId].epghpk.length!=0){
 
+if(rooms[roomId].epgh.length!=0){
+
+rooms[roomId].epgh.sort(function (a, b) {///
+
+return b.num - a.num
+
+});
+
+}
+
 btop=Math.max(...Object.values(rooms[roomId].epghpk))
 
-if(rooms[roomId].alps==4&&rooms[roomId].epgh.length!=0||rooms[roomId].epgh.num>=btop&&rooms[roomId].epgh.length!=0){
+if(rooms[roomId].alps==4&&rooms[roomId].epgh.length!=0||rooms[roomId].epgh[0].num>=btop&&rooms[roomId].epgh.length!=0){
 
 rooms[roomId].epgh.sort(function (a, b) {///
 
