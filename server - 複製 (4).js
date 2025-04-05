@@ -218,10 +218,22 @@ io.to(rooms[roomId].players[s]).emit("star", JSON.stringify(plmgdnew));
 
 }
 
-rooms[roomId].pled=3
+var n = Math.floor(Math.random() * 42)+1;///
+
+while(n<=34&&rooms[roomId].allmgd[n]>3||n>34&&rooms[roomId].allmgd[n]>0){///抽出一開始的16張牌(不能重覆)
+
+var n = Math.floor(Math.random() * 42)+1;///
 
 }
+rooms[roomId].allmgd[n]++
 
+io.to(roomId).emit("getnewcard2", JSON.stringify(rooms[roomId].players[0]));
+
+io.to(rooms[roomId].players[0]).emit("getnewcard", JSON.stringify(n));
+
+console.log("發送給玩家:"+rooms[roomId].players[0]+"手牌:"+n)
+
+}
 
 ////////
 
@@ -334,7 +346,7 @@ if(rooms[roomId].alps==4&&rooms[roomId].epgh.length==0){
 
 console.log(rooms[roomId].epghpk,rooms[roomId].alps,rooms[roomId].epgh)
 
-let nexpled=(rooms[roomId].pled+1<rooms[roomId].players.length)?rooms[roomId].players[rooms[roomId].pled+1]:rooms[roomId].players[0]
+let nexpled=(rooms[roomId].players.indexOf(ple)+1<rooms[roomId].players.length)?rooms[roomId].players[rooms[roomId].players.indexOf(ple)+1]:rooms[roomId].players[0]
 
 io.to(nexpled).emit("needgetcard", (""));
 
