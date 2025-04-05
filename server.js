@@ -320,13 +320,14 @@ return b.num - a.num
 
 io.to(roomId).emit("caneph", JSON.stringify([rooms[roomId].epgh[0].ple,rooms[roomId].epgh[0].mtd,rooms[roomId].epgh[0].dwo]));
 
-rooms[roomId].epgh=[]
 
 rooms[roomId].epghpk=[]
 
 rooms[roomId].alps=0
 
 rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].epgh[0].ple)
+
+rooms[roomId].epgh=[]
 
 return
 
