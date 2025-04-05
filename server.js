@@ -344,6 +344,8 @@ return
 
 if(rooms[roomId].alps==4&&rooms[roomId].epgh.length==0){
 
+console.log(rooms[roomId].epghpk,rooms[roomId].alps,rooms[roomId].epgh)
+
 let nexpled=(rooms[roomId].players.indexOf(ple)+1<rooms[roomId].players.length)?rooms[roomId].players[rooms[roomId].players.indexOf(ple)+1]:rooms[roomId].players[0]
 
 io.to(nexpled).emit("needgetcard", (""));
