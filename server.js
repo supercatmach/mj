@@ -260,11 +260,7 @@ io.to(roomId).emit("getnewcard2", JSON.stringify(socket.id));
 
 io.to(socket.id).emit("getnewcard", JSON.stringify(n));
 
-if(card<35){
-
 rooms[roomId].pled=rooms[roomId].players.indexOf(socket.id)
-
-}
 
 });
 
