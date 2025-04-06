@@ -232,7 +232,7 @@ card=JSON.parse(roomIdinf)[1]
 
 ///rooms[roomId].epgh=[]
 
-if(card>35){///補花
+if(card>34){///補花
 
 io.to(roomId).emit("flower", JSON.stringify([socket.id ,card]));
 
@@ -260,7 +260,11 @@ io.to(roomId).emit("getnewcard2", JSON.stringify(socket.id));
 
 io.to(socket.id).emit("getnewcard", JSON.stringify(n));
 
+if(card<35){
+
 rooms[roomId].pled=rooms[roomId].players.indexOf(socket.id)
+
+}
 
 });
 
