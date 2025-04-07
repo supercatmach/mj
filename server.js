@@ -99,6 +99,18 @@ sratgame(roomId)
 
 }
 
+function newgame(roominf){
+
+roomId=roominf
+
+rooms[roomId].allmgd=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+rooms[roomId].epgh=[]
+rooms[roomId].pled=0
+rooms[roomId].epghpk=[]
+rooms[roomId].players2=[]
+
+}
+
 socket.on("myname", (mtd) => {
 
 io.to(socket.id).emit("myname", JSON.stringify([socket.id,rooms[roomId].players]));
@@ -189,13 +201,11 @@ function sratgame(roominf){
 
 roomId=roominf
 
-for(let t=0;t<4;t++){
-
 for(let s=0;s<rooms[roomId].players.length;s++){
 
 plmgdnew=[]
 
-for(let i=0;i<4;i++){
+for(let i=0;i<16;i++){
 
 var n = Math.floor(Math.random() * 42)+1;///
 
@@ -213,8 +223,6 @@ plmgdnew.push(n)
 console.log("發送給玩家:"+rooms[roomId].players[s]+"手牌:"+plmgdnew)
 
 io.to(rooms[roomId].players[s]).emit("star", JSON.stringify(plmgdnew));
-
-}
 
 }
 
