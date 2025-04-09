@@ -254,13 +254,13 @@ console.log("玩家:"+socket.id+"補花"+card)
 
 var n = Math.floor(Math.random() * 144)+1;///
 
-n=(n<137):Math.ceil(n/4):n-136+34
+n=(n<137)?Math.ceil(n/4):n-136+34
 
 while(n<=34&&rooms[roomId].allmgd[n]>3||n>34&&rooms[roomId].allmgd[n]>0){///抽出一開始的16張牌(不能重覆)
 
 var n = Math.floor(Math.random() * 144)+1;///
 
-n=(n<137):Math.ceil(n/4):n-136+34
+n=(n<137)?Math.ceil(n/4):n-136+34
 
 }
 
