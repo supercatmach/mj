@@ -302,6 +302,8 @@ roomId=JSON.parse(roomIdinf)[0]
 
 rooms[roomId].alps++
 
+console.log(rooms[roomId].alps)
+
 if(rooms[roomId].alps==4){
 
 var n = Math.floor(Math.random() * 144)+1;///
