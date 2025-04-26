@@ -322,6 +322,8 @@ rooms[roomId].allmgd[n]++
 
 console.log("發送給玩家:"+rooms[roomId].players[0]+"牌:"+n)
 
+io.to(roomId).emit("begin", []);
+
 io.to(roomId).emit("getnewcard2", JSON.stringify(rooms[roomId].players[0]));
 
 io.to(rooms[roomId].players[0]).emit("getnewcard", JSON.stringify(n));
