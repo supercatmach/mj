@@ -296,13 +296,49 @@ rooms[roomId].alps=0
 });
 
 
+socket.on("begin", (roomIdinf) => {
 
-socket.on("needgetcard", (roomIdinf) => {
+roomId=JSON.parse(roomIdinf)[0]
 
 rooms[roomId].alps++
 
+if(rooms[roomId].alps==4){
+
+var n = Math.floor(Math.random() * 144)+1;///
+
+n=(n<137)?Math.ceil(n/4):n-136+34
+
+while(n<=34&&rooms[roomId].allmgd[n]>3||n>34&&rooms[roomId].allmgd[n]>0){///抽出一開始的16張牌(不能重覆)
+
+var n = Math.floor(Math.random() * 144)+1;///
+
+n=(n<137)?Math.ceil(n/4):n-136+34
+
+}
+
+rooms[roomId].allmgd[n]++
+
+console.log("發送給玩家:"+rooms[roomId][0]+"牌:"+n)
+
+io.to(roomId).emit("getnewcard2", JSON.stringify(rooms[roomId][0]));
+
+io.to(rooms[roomId][0]).emit("getnewcard", JSON.stringify(n));
+
+rooms[roomId].pled=rooms[roomId].players.indexOf(socket.id)
+
+console.log("開始打牌")
+
+}
+
+})
+
+
+socket.on("needgetcard", (roomIdinf) => {
+
 roomId=JSON.parse(roomIdinf)[0]
 ple=JSON.parse(roomIdinf)[1]
+
+rooms[roomId].alps++
 
 btop=0
 
