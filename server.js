@@ -237,20 +237,21 @@ rooms[roomId].pled=3
 
 ////////
 
-socket.on("getnewcard", (roomIdinf) => {
+
+socket.on("flower", (roomIdinf) => {
 
 roomId=JSON.parse(roomIdinf)[0]
 card=JSON.parse(roomIdinf)[1]
-
-///rooms[roomId].epgh=[]
-
-if(card>34){///補花
 
 io.to(roomId).emit("flower", JSON.stringify([socket.id ,card]));
 
 console.log("玩家:"+socket.id+"補花"+card)
 
-}
+})
+
+socket.on("getnewcard", (roomIdinf) => {
+
+roomId=JSON.parse(roomIdinf)[0]
 
 var n = Math.floor(Math.random() * 144)+1;///
 
@@ -268,11 +269,7 @@ rooms[roomId].allmgd[n]++
 
 console.log("發送給玩家:"+socket.id+"牌:"+n)
 
-if(card=="new"){
-
 io.to(roomId).emit("getnewcard2", JSON.stringify(socket.id));
-
-}
 
 io.to(socket.id).emit("getnewcard", JSON.stringify(n));
 
