@@ -320,13 +320,13 @@ n=(n<137)?Math.ceil(n/4):n-136+34
 
 rooms[roomId].allmgd[n]++
 
-console.log("發送給玩家:"+rooms[roomId][0]+"牌:"+n)
+console.log("發送給玩家:"+rooms[roomId].players[0]+"牌:"+n)
 
-io.to(roomId).emit("getnewcard2", JSON.stringify(rooms[roomId][0]));
+io.to(roomId).emit("getnewcard2", JSON.stringify(rooms[roomId].players[0]);
 
-io.to(rooms[roomId][0]).emit("getnewcard", JSON.stringify(n));
+io.to(rooms[roomId].players[0]).emit("getnewcard", JSON.stringify(n));
 
-rooms[roomId].pled=rooms[roomId].players.indexOf(socket.id)
+rooms[roomId].pled=0
 
 console.log("開始打牌")
 
