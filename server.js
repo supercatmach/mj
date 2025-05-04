@@ -279,6 +279,35 @@ rooms[roomId].pled=rooms[roomId].players.indexOf(socket.id)
 
 ///////////////////////////////////////////////////////
 
+socket.on("gunget", (roomIdinf) => {
+
+roomId=JSON.parse(roomIdinf)[0]
+
+var n = Math.floor(Math.random() * 144)+1;///
+
+n=(n<137)?Math.ceil(n/4):n-136+34
+
+while(n<=34&&rooms[roomId].allmgd[n]>3||n>34&&rooms[roomId].allmgd[n]>0){///抽出一開始的16張牌(不能重覆)
+
+var n = Math.floor(Math.random() * 144)+1;///
+
+n=(n<137)?Math.ceil(n/4):n-136+34
+
+}
+
+rooms[roomId].allmgd[n]++
+
+console.log("發送給玩家:"+socket.id+"牌:"+n)
+
+io.to(roomId).emit("getnewcard2", JSON.stringify(socket.id));
+
+io.to(socket.id).emit("getnewcard", JSON.stringify(n));
+
+rooms[roomId].pled=rooms[roomId].players.indexOf(socket.id)
+
+});
+
+///////////////////////////////////////////////////////
 socket.on("outcard", (roomIdinf) => {
 
 roomId=JSON.parse(roomIdinf)[0]
