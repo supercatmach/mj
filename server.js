@@ -241,7 +241,7 @@ rooms[roomId].players2=rooms[roomId].players.concat(rooms[roomId].players)
 
 mra+=rooms[roomId].players2.indexOf(socket.id,rooms[roomId].pled)
 
-rooms[roomId].epgh.push({"num":mra,"ple":socket.id,"mtd":card,"dwo":"win","lbmgd":"lbmgd","flmgd":flmgd,"etmgd":etmgd})
+rooms[roomId].epgh.push({"num":mra,"ple":socket.id,"mtd":card,"dwo":"win","lbmgd":lbmgd,"flmgd":flmgd,"etmgd":etmgd})
 
 })
 
