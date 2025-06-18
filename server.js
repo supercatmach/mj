@@ -123,6 +123,8 @@ socket.on("gamStar", (mtd) => {
 
 rooms[roomId].alps++
 
+console.log("玩家準備就緒:"+rooms[roomId].alps)
+
 if(rooms[roomId].alps==4){
 
 sratgame(roomId)
