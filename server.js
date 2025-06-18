@@ -275,7 +275,8 @@ io.to(rooms[roomId].players[s]).emit("star", JSON.stringify(plmgdnew));
 
 }
 
-rooms[roomId].pled=3
+rooms[roomId].pled=rooms[roomId].makrs
+
 
 }
 
