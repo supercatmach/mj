@@ -109,6 +109,7 @@ roomId=roominf
 rooms[roomId].allmgd=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 rooms[roomId].epgh=[]
 rooms[roomId].pled=0
+rooms[roomId].alps=0
 rooms[roomId].epghpk=[]
 rooms[roomId].players2=[]
 rooms[roomId].makrs=Math.floor(Math.random() * 4)///莊家
@@ -134,6 +135,14 @@ sratgame(roomId)
 })
 
 socket.on("dice", (mtd) => {
+
+rooms[roomId].alps++
+
+if(rooms[roomId].alps<4){
+
+return
+
+}
 
 rooms[roomId].alps=0
 
