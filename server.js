@@ -147,7 +147,9 @@ io.to(roomId).emit("dice", JSON.stringify([rooms[roomId].dice1,rooms[roomId].dic
 
 socket.on("myname", (mtd) => {
 
-io.to(socket.id).emit("myname", JSON.stringify([socket.id,rooms[roomId].players],rooms[roomId].makrs));
+console.log("莊家:"+rooms[roomId].players[rooms[roomId].makrs])
+
+io.to(socket.id).emit("myname", JSON.stringify([socket.id,rooms[roomId].players,rooms[roomId].players[rooms[roomId].makrs]]));
 
 })
 
