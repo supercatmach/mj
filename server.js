@@ -244,6 +244,8 @@ rooms[roomId].epgh.push({"num":mra,"ple":socket.id,"mtd":card,"dwo":"win"})
 
 function sratgame(roominf){
 
+rooms[roomId].alps=0
+
 roomId=roominf
 
 for(let s=0;s<rooms[roomId].players.length;s++){
@@ -276,6 +278,8 @@ io.to(rooms[roomId].players[s]).emit("star", JSON.stringify(plmgdnew));
 }
 
 rooms[roomId].pled=rooms[roomId].makrs
+
+
 
 
 }
