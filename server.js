@@ -89,13 +89,16 @@ rooms[roomId].epgh=[]
 rooms[roomId].pled=0
 rooms[roomId].epghpk=[]
 rooms[roomId].players2=[]
+rooms[roomId].makrs=0///莊家
+rooms[roomId].linmrs=0///連莊次數
+rooms[roomId].chnwind=28///圈位
+rooms[roomId].junwind=28///將位
+
 
     for (let i = 4 - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1)); // 產生 0 到 i 之間的隨機索引
         [rooms[roomId].players[i], rooms[roomId].players[j]] = [rooms[roomId].players[j], rooms[roomId].players[i]]; // 交換位置
     }
-
-sratgame(roomId)
 
 }
 
@@ -108,12 +111,41 @@ rooms[roomId].epgh=[]
 rooms[roomId].pled=0
 rooms[roomId].epghpk=[]
 rooms[roomId].players2=[]
+rooms[roomId].makrs=Math.floor(Math.random() * 4)///莊家
+rooms[roomId].linmrs=0///連莊次數
+rooms[roomId].chnwind=28///圈位
+rooms[roomId].junwind=28///將位
 
 }
 
+
+socket.on("gamStar", (mtd) => {
+
+rooms[roomId].alps++
+
+if(rooms[roomId].alps==4){
+
+sratgame(roomId)
+
+}
+
+})
+
+socket.on("dice", (mtd) => {
+
+rooms[roomId].alps=0
+
+rooms[roomId].dice1=Math.floor(Math.random() * 6+1);
+rooms[roomId].dice2=Math.floor(Math.random() * 6+1);
+rooms[roomId].dice3=Math.floor(Math.random() * 6+1);
+
+io.to(roomId).emit("dice", JSON.stringify([rooms[roomId].dice1,rooms[roomId].dice2,rooms[roomId].dice3]));
+
+})
+
 socket.on("myname", (mtd) => {
 
-io.to(socket.id).emit("myname", JSON.stringify([socket.id,rooms[roomId].players]));
+io.to(socket.id).emit("myname", JSON.stringify([socket.id,rooms[roomId].players],rooms[roomId].makrs));
 
 })
 
