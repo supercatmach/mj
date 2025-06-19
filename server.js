@@ -417,7 +417,7 @@ io.to(roomId).emit("getnewcard2", JSON.stringify(rooms[roomId].players[0]));
 
 io.to(rooms[roomId].players[0]).emit("getnewcard", JSON.stringify(n));
 
-rooms[roomId].pled=0
+rooms[roomId].pled=rooms[roomId].makrs
 
 console.log("開始打牌")
 
@@ -479,6 +479,7 @@ rooms[roomId].makrs=(rooms[roomId].makrs+1<4)?rooms[roomId].makrs+1:0
 
 }
 rooms[roomId].alps=0
+
 
 
 
