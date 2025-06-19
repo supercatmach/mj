@@ -508,8 +508,6 @@ rooms[roomId].epgh=[]
 
 rooms[roomId].epghpk=[]
 
-rooms[roomId].alps=0
-
 return
 
 }
