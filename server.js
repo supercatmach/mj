@@ -247,6 +247,13 @@ rooms[roomId].epgh.push({"num":mra,"ple":socket.id,"mtd":card,"dwo":"win","lbmgd
 
 function sratgame(roominf){
 
+rooms[roomId].allmgd=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+rooms[roomId].epgh=[]
+rooms[roomId].pled=0
+rooms[roomId].alps=0
+rooms[roomId].epghpk=[]
+rooms[roomId].players2=[]
+
 rooms[roomId].alps=0
 
 roomId=roominf
@@ -461,6 +468,18 @@ io.to(roomId).emit("caneph", JSON.stringify([rooms[roomId].epgh[0].ple,rooms[roo
 if(rooms[roomId].epgh[0].dwo=="win"){
 
 io.to(roomId).emit("caneph", JSON.stringify([rooms[roomId].epgh[0].ple,rooms[roomId].epgh[0].mtd,rooms[roomId].epgh[0].dwo,rooms[roomId].epgh[0].lbmgd,rooms[roomId].epgh[0].flmgd,rooms[roomId].epgh[0].etmgd]));
+
+console.log("胡牌:"+rooms[roomId].players2.indexOf(rooms[roomId].epgh[0].ple))
+
+console.log("莊家:"+rooms[roomId].makrs)
+
+if(rooms[roomId].players2.indexOf(rooms[roomId].epgh[0].ple)!=rooms[roomId].makrs){
+
+rooms[roomId].makrs=(rooms[roomId].makrs+1<4)?rooms[roomId].makrs+1:0
+
+}
+
+console.log("新莊家:"+rooms[roomId].makrs)
 
 }
 rooms[roomId].epghpk=[]
