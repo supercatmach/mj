@@ -386,6 +386,25 @@ rooms[roomId].alps=0
 
 });
 
+///////////////////////////////////////////////////////
+
+socket.on("befbegin", (roomIdinf) => {
+
+rooms[roomId].alps++
+
+if(rooms[roomId].alps==4){
+
+console.log("補花完畢")
+
+io.to(roomId).emit("befbegin", []);
+
+rooms[roomId].alps=0
+
+}
+
+});
+
+///////////////////////////////////////////////////////
 
 socket.on("begin", (roomIdinf) => {
 
@@ -413,7 +432,7 @@ rooms[roomId].allmgd[n]++
 
 console.log("發送給玩家:"+rooms[roomId].players[rooms[roomId].makrs]+"牌:"+n)
 
-io.to(roomId).emit("begin", []);
+///io.to(roomId).emit("begin", []);
 
 io.to(roomId).emit("getnewcard2", JSON.stringify(rooms[roomId].players[rooms[roomId].makrs]));
 
