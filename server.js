@@ -538,7 +538,7 @@ rooms[roomId].alps=0
 
 });
 
-
+rooms[roomId].alps=0
 
 });
 
