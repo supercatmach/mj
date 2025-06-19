@@ -508,6 +508,8 @@ console.log("新莊家:"+rooms[roomId].makrs)
 
 rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].epgh[0].ple)
 
+rooms[roomId].alps=0
+
 return
 
 }
