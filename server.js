@@ -311,6 +311,8 @@ console.log("玩家:"+socket.id+"補花"+card)
 
 })
 
+///////////////////////////////////////////////////////
+
 socket.on("getnewcard", (roomIdinf) => {
 
 roomId=JSON.parse(roomIdinf)[0]
@@ -504,11 +506,7 @@ console.log("新莊家:"+rooms[roomId].makrs)
 
 }
 
-rooms[roomId].epghpk=[]
-
 rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].epgh[0].ple)
-
-rooms[roomId].epgh=[]
 
 return
 
