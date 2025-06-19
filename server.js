@@ -508,6 +508,8 @@ rooms[roomId].epgh=[]
 
 rooms[roomId].epghpk=[]
 
+rooms[roomId].alps=0
+
 return
 
 }
@@ -517,6 +519,8 @@ rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].epgh[0].ple)
 rooms[roomId].epgh=[]
 
 rooms[roomId].epghpk=[]
+
+rooms[roomId].alps=0
 
 return
 
