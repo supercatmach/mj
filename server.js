@@ -504,11 +504,17 @@ rooms[roomId].makrs=(rooms[roomId].makrs+1<4)?rooms[roomId].makrs+1:0
 
 console.log("新莊家:"+rooms[roomId].makrs)
 
+rooms[roomId].alps=0
+
+return
+
 }
 
 rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].epgh[0].ple)
 
-rooms[roomId].alps=0
+rooms[roomId].epgh=[]
+
+rooms[roomId].epghpk=[]
 
 return
 
