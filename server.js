@@ -409,13 +409,13 @@ n=(n<137)?Math.ceil(n/4):n-136+34
 
 rooms[roomId].allmgd[n]++
 
-console.log("發送給玩家:"+rooms[roomId].players[0]+"牌:"+n)
+console.log("發送給玩家:"+rooms[roomId].players[rooms[roomId].makrs]+"牌:"+n)
 
 io.to(roomId).emit("begin", []);
 
-io.to(roomId).emit("getnewcard2", JSON.stringify(rooms[roomId].players[0]));
+io.to(roomId).emit("getnewcard2", JSON.stringify(rooms[roomId].players[rooms[roomId].makrs]));
 
-io.to(rooms[roomId].players[0]).emit("getnewcard", JSON.stringify(n));
+io.to(rooms[roomId].players[rooms[roomId].makrs]).emit("getnewcard", JSON.stringify(n));
 
 rooms[roomId].pled=rooms[roomId].makrs
 
