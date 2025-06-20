@@ -416,12 +416,6 @@ socket.on("begin", (roomIdinf) => {
 
 roomId=JSON.parse(roomIdinf)[0]
 
-if(rooms[roomId].win==1){
-
-return
-
-}
-
 rooms[roomId].alps++
 
 console.log(rooms[roomId].alps)
@@ -464,11 +458,15 @@ socket.on("needgetcard", (roomIdinf) => {
 roomId=JSON.parse(roomIdinf)[0]
 ple=JSON.parse(roomIdinf)[1]
 
+if(rooms[roomId].win==1){
+
+return
+
+}
+
 rooms[roomId].alps++
 
 btop=0
-
-
 
 console.log(rooms[roomId].epghpk,rooms[roomId].alps,rooms[roomId].epgh)
 
@@ -545,8 +543,6 @@ io.to(nexpled).emit("needgetcard", (""));
 rooms[roomId].alps=0
 
 }
-
-rooms[roomId].alps=0
 
 });
 
