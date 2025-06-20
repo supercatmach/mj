@@ -504,11 +504,6 @@ rooms[roomId].makrs=(rooms[roomId].makrs+1<4)?rooms[roomId].makrs+1:0
 
 console.log("新莊家:"+rooms[roomId].makrs)
 
-rooms[roomId].epgh=[]
-
-rooms[roomId].epghpk=[]
-
-rooms[roomId].alps=0
 
 return
 
