@@ -486,6 +486,8 @@ if(rooms[roomId].epgh[0].dwo!="win"){
 
 io.to(roomId).emit("caneph", JSON.stringify([rooms[roomId].epgh[0].ple,rooms[roomId].epgh[0].mtd,rooms[roomId].epgh[0].dwo]));
 
+rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].epgh[0].ple)
+
 }
 
 if(rooms[roomId].epgh[0].dwo=="win"){
@@ -504,12 +506,7 @@ rooms[roomId].makrs=(rooms[roomId].makrs+1<4)?rooms[roomId].makrs+1:0
 
 console.log("新莊家:"+rooms[roomId].makrs)
 
-
-return
-
 }
-
-rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].epgh[0].ple)
 
 rooms[roomId].epgh=[]
 
