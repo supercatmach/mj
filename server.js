@@ -93,6 +93,8 @@ rooms[roomId].makrs=0///莊家
 rooms[roomId].linmrs=0///連莊次數
 rooms[roomId].chnwind=28///圈位
 rooms[roomId].junwind=28///將位
+rooms[roomId].win=0///胡牌
+
 
 
     for (let i = 4 - 1; i > 0; i--) {
@@ -116,6 +118,7 @@ rooms[roomId].makrs=Math.floor(Math.random() * 4)///莊家
 rooms[roomId].linmrs=0///連莊次數
 rooms[roomId].chnwind=28///圈位
 rooms[roomId].junwind=28///將位
+rooms[roomId].win=0///胡牌
 
 }
 
@@ -253,6 +256,7 @@ rooms[roomId].pled=0
 rooms[roomId].alps=0
 rooms[roomId].epghpk=[]
 rooms[roomId].players2=[]
+rooms[roomId].win=0///胡牌
 
 rooms[roomId].alps=0
 
@@ -412,6 +416,12 @@ socket.on("begin", (roomIdinf) => {
 
 roomId=JSON.parse(roomIdinf)[0]
 
+if(rooms[roomId].win==1){
+
+return
+
+}
+
 rooms[roomId].alps++
 
 console.log(rooms[roomId].alps)
@@ -458,6 +468,8 @@ rooms[roomId].alps++
 
 btop=0
 
+
+
 console.log(rooms[roomId].epghpk,rooms[roomId].alps,rooms[roomId].epgh)
 
 if(rooms[roomId].epghpk.length!=0){
@@ -503,6 +515,8 @@ if(rooms[roomId].players2.indexOf(rooms[roomId].epgh[0].ple)!=rooms[roomId].makr
 rooms[roomId].makrs=(rooms[roomId].makrs+1<4)?rooms[roomId].makrs+1:0
 
 }
+
+rooms[roomId].win=1
 
 console.log("新莊家:"+rooms[roomId].makrs)
 
