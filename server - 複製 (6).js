@@ -17,22 +17,12 @@ app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
-      imgSrc: ["'self'", "data:"],
-      connectSrc: [
-        "'self'",
-        "https://mj-5x4w.onrender.com",
-        "wss://mj-5x4w.onrender.com",
-        "https://catchat-a7zb.onrender.com",
-        "wss://catchat-a7zb.onrender.com"
-      ],
-      fontSrc: ["'self'", "https://fonts.googleapis.com", "https://fonts.gstatic.com"],
-      objectSrc: ["'none'"],
-      frameAncestors: ["'self'"]
+      connectSrc: ["'self'", "https://catchat-a7zb.onrender.com", "https://mj-5x4w.onrender.com", "wss://mj-5x4w.onrender.com"],
+      // 其他 CSP 設定
     },
   })
 );
+
 const rooms = {};  // { roomId: { host: socket.id, players: 1 } }
 rooms["025024"] = { host: "貓貓", players: [] ,alps:0,epgh:[],pled:0,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
 
