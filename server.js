@@ -33,6 +33,7 @@ app.use(
     },
   })
 );
+
 const rooms = {};  // { roomId: { host: socket.id, players: 1 } }
 rooms["025024"] = { host: "貓貓", players: [] ,alps:0,epgh:[],pled:0,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
 
