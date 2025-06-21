@@ -60,7 +60,7 @@ io.on("connection", (socket) => {
     });
 
     // 玩家離開或斷線
-socket.on("disconnect", () => {
+socket.on("disconnect", (reason) => {
     for (const roomId in rooms) {
         if (rooms[roomId].host === socket.id || io.sockets.adapter.rooms.get(roomId)?.size === 0) {
             delete rooms[roomId];  // 如果房間沒人就刪除
@@ -70,7 +70,9 @@ socket.on("disconnect", () => {
         }
     }
     io.emit("updateRooms", rooms);  // 更新房間清單
-    console.log(`玩家 ${socket.id} 斷線，更新房間`);
+
+    console.log(`玩家已斷線: ${socket.id}, 原因: ${reason}`);
+
 });
 
     // 獲取房間清單
@@ -387,6 +389,8 @@ rooms[roomId].epghpk=[]
 console.log("玩家:"+socket.id+"打出牌:"+card)
 
 io.to(roomId).emit("outcard", JSON.stringify([socket.id ,card]));
+
+rooms[roomId].pled=rooms[roomId].players.indexOf(socket.id)
 
 rooms[roomId].alps=0
 
