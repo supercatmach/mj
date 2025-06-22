@@ -21,7 +21,7 @@
 
         // 房間建立成功，導向房間頁面
         socket.on("roomCreated", (data) => {
-            window.location.href = `/magh.html?room=${data.roomId}`;
+            window.location.href = `/magi.html?room=${data.roomId}`;
         });
 
         // 更新房間清單
@@ -38,7 +38,7 @@
                     const joinButton = document.createElement("button");
                     joinButton.innerText = "加入";
                     joinButton.onclick = () => {
-                        window.location.href = `/game.html?room=${roomId}`;
+                        window.location.href = `/magi.html?room=${roomId}`;
                     };
                     li.appendChild(joinButton);
                 } else {
