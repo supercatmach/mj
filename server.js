@@ -103,7 +103,7 @@ io.to(socket.id).emit("hi", []);
 socket.on("disconnect", (reason) => {
     for (const roomId in rooms) {
         if (rooms[roomId].host === socket.id || io.sockets.adapter.rooms.get(roomId)?.size === 0) {
-            delete rooms[roomId];  // 如果房間沒人就刪除
+            ///delete rooms[roomId];  // 如果房間沒人就刪除
         } else {
             // 移除該玩家
             rooms[roomId].players = rooms[roomId].players.filter(playerId => playerId !== socket.id);
