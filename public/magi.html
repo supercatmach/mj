@@ -2836,7 +2836,7 @@ reconnectInterval=null
 
         const socket = io("https://mj-5x4w.onrender.com");
         const urlParams = new URLSearchParams(window.location.search);
-        const roomId = urlParams.get("room");
+        const roomId = "025024"///urlParams.get("room");
 
         if (roomId) {
             socket.emit("joinRoom", roomId);
@@ -3209,6 +3209,13 @@ fowtwind=[]///各家花位
 nogunwin=0///槓上開花
 
 gunwin=0///搶槓
+
+for(let i=1;i<18;i++){
+
+$(".m"+i).show()
+
+}
+
 
 
 
@@ -3838,6 +3845,11 @@ return a - b
 
 s=0
 
+for(let i=1;i<allech[0];i++){
+
+$(".m"+i).hide()
+
+}
 
 for(let i=allech[0];i<17;i++){
 
@@ -3937,7 +3949,7 @@ caneph[3]=[j,"X","X",plmgd[i]]
 caneph[3][3]=plmgd[i]
 
 
-if(gunall.indexOf(plmgd[i])==-1){
+if(gunall.indexOf(plmgd[i])==-1&&lbmgd==0||gunall.indexOf(plmgd[i])==-1&&lbmgd==1&&plmgd[i]==Number(card)){
 
 gunall.push(plmgd[i])
 
@@ -3992,7 +4004,7 @@ tsp=manum///組數
 
 tsp+=(crdeye>0)?1:0///組數
 
-if(tsp+etmgd.length==5&&lbmgd==0){
+if(tsp+etmgd.length>=4&&lbmgd==0){
 
 lamgd=[]
 
@@ -4654,7 +4666,7 @@ tsp=manum///組數
 
 tsp+=(crdeye>0)?1:0///組數
 
-if(tsp+etmgd.length==5&&lbmgd==0){
+if(tsp+etmgd.length>=4&&lbmgd==0){
 
 lamgd=[]
 
