@@ -64,6 +64,8 @@ io.on("connection", (socket) => {
 
     console.log("新玩家連線:", socket.id);
 
+io.to(socket.id).emit("hi", []);
+
 
     // 玩家創建房間
     socket.on("createRoom", () => {
@@ -622,7 +624,8 @@ rooms[roomId].alps=0
 
 });
 
-const port = process.env.PORT || 3000;
-server.listen(port, () => {
-  console.log("Server listening on port " + port);
+
+const PORT = process.env.PORT || 10000;
+server.listen(PORT, () => {
+    console.log(`伺服器運行中： http://localhost:${PORT}`);
 });
