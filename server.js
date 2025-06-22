@@ -81,11 +81,18 @@ io.on("connection", (socket) => {
             socket.emit("roomFull");
             return;
         }
+
+if(rooms[roomId].players.indexOf(socket.id)==-1){
+
         rooms[roomId].players.push(socket.id);
         socket.join(roomId);
+        io.to(socket.id).emit("reconnectConfirmed", { playerId: socket.id, roomSize: rooms[roomId].players.length });
         io.to(roomId).emit("playerJoined", { playerId: socket.id, roomSize: rooms[roomId].players.length });
         io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
         console.log(`玩家 ${socket.id} 加入房間 ${roomId}`);
+
+}
+
         if (rooms[roomId].players.length == 4) {
             befgame(roomId)
             return;
