@@ -623,7 +623,7 @@ rooms[roomId].alps=0
 });
 
 
-const PORT = process.env.PORT || 10000;
-server.listen(PORT, () => {
-    console.log(`伺服器運行中： http://localhost:${PORT}`);
+const port = process.env.PORT || 1992;
+server.listen(port, () => {
+  console.log("伺服器已啟動！port:" + port);
 });
