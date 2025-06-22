@@ -35,6 +35,8 @@ app.use(
   })
 );
 
+app.get("/ping", (req, res) => res.send("pong"));
+
 function createRoomStructure(hostId) {
   return {
     host: hostId,
