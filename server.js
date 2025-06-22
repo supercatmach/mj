@@ -132,7 +132,7 @@ rooms[roomId].players[i]=socketId
 
 io.to(socketId).emit("reconnectConfirmed", []);
 
-black
+break
 
 }
 
