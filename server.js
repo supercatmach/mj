@@ -622,8 +622,7 @@ rooms[roomId].alps=0
 
 });
 
-
-const port = process.env.PORT || 1992;
+const port = process.env.PORT || 3000;
 server.listen(port, () => {
-  console.log("伺服器已啟動！port:" + port);
+  console.log("Server listening on port " + port);
 });
