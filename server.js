@@ -3,6 +3,7 @@ const http = require("http");
 const { Server } = require("socket.io");
 const helmet = require("helmet");  // 引入 helmet
 
+
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -34,8 +35,26 @@ app.use(
   })
 );
 
+function createRoomStructure(hostId) {
+  return {
+    host: hostId,
+    players: [],
+    allmgd: new Array(43).fill(0),
+    epgh: [],
+    pled: 0,
+    alps: 0,
+    epghpk: {},
+    players2: [],
+    makrs: 0,
+    linmrs: 0,
+    chnwind: 0,
+    junwind: 0,
+    win: 0,
+  };
+}
+
 const rooms = {};  // { roomId: { host: socket.id, players: 1 } }
-rooms["025024"] = { host: "貓貓", players: [] ,alps:0,epgh:[],pled:0,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
+rooms["025024"] = { host: "貓貓", players: [] ,playerid: [] ,alps:0,epgh:[],pled:0,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
 
 io.on("connection", (socket) => {
 
@@ -45,7 +64,7 @@ io.on("connection", (socket) => {
     // 玩家創建房間
     socket.on("createRoom", () => {
         const roomId = socket.id;  // 直接用 socket.id 當作房間 ID
-        rooms[roomId] = { host: socket.id, players: [] ,alps:0,epgh:[],pled:0,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
+        rooms[roomId] = { host: socket.id, players: [] ,playerid: [] ,alps:0,epgh:[],pled:0,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
         socket.join(roomId);
         io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
         socket.emit("roomCreated", { roomId });
@@ -58,7 +77,6 @@ io.on("connection", (socket) => {
             socket.emit("roomFull");
             return;
         }
-
         rooms[roomId].players.push(socket.id);
         socket.join(roomId);
         io.to(roomId).emit("playerJoined", { playerId: socket.id, roomSize: rooms[roomId].players.length });
@@ -91,6 +109,29 @@ socket.on("disconnect", (reason) => {
         socket.emit("updateRooms", rooms);
     });
 
+
+socket.on("reconnectRoom", ({ socketId, roomId }) => {
+
+if (roomId) {
+
+for(let i=0;i<4;i++){
+
+if(rooms[roomId].players[i]==socket.id){
+
+rooms[roomId].players[i]=socketId
+
+io.to(socketId).emit("reconnectConfirmed", []);
+
+black
+
+}
+
+}
+
+}
+
+
+});
 
 function befgame(roominf){
 
@@ -564,102 +605,6 @@ rooms[roomId].alps=0
 
 });
 
-
-////////////////////////////////////////////////貓咪/////////////////////////////////////////////
-
-// 儲存所有訊息
-let messages = [];
-
-allplayer=[]
-
-io.on("connection", (socket) => {
-    
-
-socket.on("move", (movnew) => {
-
-for(let i=0;i<allplayer.length;i++){
-
-if(allplayer[i].ids==socket.id){
-
-allplayer[i].inX=JSON.parse(movnew)[0]
-
-allplayer[i].inY=JSON.parse(movnew)[1]
-
-io.emit("move", JSON.stringify([socket.id,JSON.parse(movnew)[0],JSON.parse(movnew)[1]]));
-
-break
-
-}
-
-}
-
-});
-
-socket.on("move2", (movnew) => {
-
-io.emit("pizza", JSON.stringify([JSON.parse(movnew)[0],JSON.parse(movnew)[1]]));
-
-for(let i=0;i<allplayer.length;i++){
-
-if(allplayer[i].ids!=socket.id){
-
-allplayer[i].inX=JSON.parse(movnew)[0]
-
-allplayer[i].inY=JSON.parse(movnew)[1]
-
-io.emit("move", JSON.stringify([allplayer[i].ids,JSON.parse(movnew)[0],JSON.parse(movnew)[1]]));
-
-}
-
-}
-
-});
-
-
-    // 監聽訊息發送事件
-socket.on("name", (pled) => {
-
-for(let s=0;s<allplayer.length;s++){
-
-io.to(socket.id).emit("pledlined",JSON.stringify(allplayer[s]));
-
-}
-
-io.emit("pledonline", JSON.stringify([pled,socket.id]));
-
-allplayer.push({"name":pled,"ids":socket.id,"inX":"250px","inY":"250px"})
-
-});
-
-    // 監聽訊息發送事件
-    socket.on("message", (msg) => {
-
-        console.log(socket.id+`說: ${msg}`);
-
-        // 廣播訊息給所有玩家
-        io.emit("message", JSON.stringify([socket.id,msg]));
-    });
-
-    socket.on("disconnect", () => {
-
-for(let i=0;i<allplayer.length;i++){
-
-if(allplayer[i].ids==socket.id){
-
-delete allplayer[i]
-
-allplayer=allplayer.filter(el => el);
-
-break
-
-}
-
-}
-io.emit("pledoffline", JSON.stringify(socket.id));
-
-        console.log(`玩家已斷線: ${socket.id}`);
-    });
-});
 
 const PORT = process.env.PORT || 10000;
 server.listen(PORT, () => {
