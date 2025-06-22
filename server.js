@@ -112,7 +112,13 @@ socket.on("disconnect", (reason) => {
 
 socket.on("reconnectRoom", ({ socketId, roomId }) => {
 
+console.log(roomId)
+
 if (roomId) {
+
+console.log(rooms[roomId].players)
+console.log(socket.id)
+console.log(socketId)
 
 for(let i=0;i<4;i++){
 
