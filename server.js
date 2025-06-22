@@ -39,6 +39,8 @@ app.get("/ping", (req, res) => {
   res.send("pong");
 });
 
+app.use(express.static("public"));
+
 function createRoomStructure(hostId) {
   return {
     host: hostId,
