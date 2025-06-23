@@ -105,7 +105,7 @@ socket.on("disconnect", (reason) => {
     for (const roomId in rooms) {
         if (rooms[roomId].players.includes(socket.id)) {
             // 通知房內其他玩家某人離線
-            io.to(roomId).emit("disconnect", { playerId: socket.id });
+            io.to(roomId).emit("playerDisconnected", { playerId: socket.id });
 
             // 是房主或房間沒人 => 移除整個房間
             if (
