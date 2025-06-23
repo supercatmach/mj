@@ -2045,7 +2045,7 @@ $(".lastcad div .d"+(plmgd[0].length-3)).show()
 
 if(plmgd[3].length!=16){
 
-setTimeout('gamStar()',100)
+setTimeout('gamStar()',300)
 
 }
 
@@ -2073,7 +2073,7 @@ plmgd[0]=[28,28,28,28,29,29,29,30,30,30,31,31,31,32,32,33]///大四喜
 
 }
 
-setTimeout('gamStar2()',100)
+setTimeout('gamStar2()',300)
 
 }
 
