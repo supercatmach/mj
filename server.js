@@ -22,8 +22,10 @@ app.use(
         "'self'",
         "'unsafe-inline'",
         "'unsafe-eval'",
-        "https://cdnjs.cloudflare.com"  // 加這行！
+        "https://cdnjs.cloudflare.com",
+        "https://cdn.jsdelivr.net"   // ⬅️ 新增 jsDelivr
       ],
+      scriptSrcAttr: ["'self'", "'unsafe-inline'"], // ⬅️ 允許內嵌屬性如 onclick
       styleSrc: ["'self'", "'unsafe-inline'"],
       imgSrc: ["'self'", "data:"],
       connectSrc: [
