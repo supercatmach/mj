@@ -5966,9 +5966,7 @@ backindex2 = document.querySelector(".backindex");
 
 backindex2.addEventListener("click",function () {
 
-bkindex()
-
-resolve(-1)
+window.location.href = "/"
 
 return
 
