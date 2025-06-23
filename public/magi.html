@@ -2793,7 +2793,7 @@ function scaleContent() {
   const offsetX = (clientWidth - designWidth * scale) / 2;
   const offsetY = (clientHeight - designHeight * scale) / 2;
 
-  scaler.style.transform = `translate(-50%, -50%) scale(${scale})`;
+  scaler.style.transform = `scale(${scale})`;
 }
 
 window.addEventListener("DOMContentLoaded", scaleContent);
