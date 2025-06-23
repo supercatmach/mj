@@ -12,21 +12,25 @@ width:100%;
     position:absolute;
     transform-style:preserve-3d;
 transform:translateX(870px) translateY(-400px) translateZ(380px) rotateY(0deg); 
+
 }
 .nexthandaury{
     position:absolute;
     transform-style:preserve-3d;
 transform:translateX(1550px) translateY(-410px) translateZ(-250px) rotateY(88deg); 
+
 }
 .fonthandaury{
     position:absolute;
     transform-style:preserve-3d;
 transform:translateX(900px) translateY(-350px) translateZ(-1100px) rotateY(180deg); 
+
 }
 .lasthandaury{
     position:absolute;
     transform-style:preserve-3d;
 transform:translateX(250px) translateY(-430px) translateZ(-250px) rotateY(-88deg); 
+
 }
 .piclond{
 display:none;
@@ -893,7 +897,7 @@ display:none;
     height:700px;
     perspective-origin:center -1100px;
     perspective:1500px;
-
+display:none;
 }
 .space{
     position:relative;
