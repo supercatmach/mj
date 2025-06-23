@@ -60,7 +60,7 @@ function createRoomStructure(hostId) {
 }
 
 const rooms = {};  // { roomId: { host: socket.id, players: 1 } }
-rooms["025024"] = { host: "貓貓", players: [] ,playerid: [] ,alps:0,epgh:[],pled:0,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
+rooms["025024"] = { host: "貓貓", players: [] ,playerid: [] ,ynstar:0,ynfriend:0,alps:0,epgh:[],pled:0,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
 
 io.on("connection", (socket) => {
 
@@ -72,7 +72,7 @@ io.to(socket.id).emit("hi", []);
     // 玩家創建房間
     socket.on("createRoom", () => {
         const roomId = socket.id;  // 直接用 socket.id 當作房間 ID
-        rooms[roomId] = { host: socket.id, players: [] ,playerid: [] ,alps:0,epgh:[],pled:0,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
+        rooms[roomId] = { host: socket.id, players: [] ,playerid: [] ,ynstar:0,ynfriend:0,alps:0,epgh:[],pled:0,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
         socket.join(roomId);
         io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
         socket.emit("roomCreated", { roomId });
@@ -81,7 +81,7 @@ io.to(socket.id).emit("hi", []);
 
     // 玩家加入房間
     socket.on("joinRoom", (roomId) => {
-        if (!rooms[roomId] || rooms[roomId].players.length >= 4) {
+        if (!rooms[roomId] || rooms[roomId].players.length >= 4||rooms[roomId].ynstar==1) {
             socket.emit("roomFull");
             return;
         }
@@ -94,6 +94,7 @@ io.to(socket.id).emit("hi", []);
         console.log(`玩家 ${socket.id} 加入房間 ${roomId}`);
 
         if (rooms[roomId].players.length == 4) {
+rooms[roomId].ynstar=1
             befgame(roomId)
             return;
         }
