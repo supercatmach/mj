@@ -1,6 +1,23 @@
-﻿document.oncontextmenu = function(){
+﻿$(".adown").hide();
+
+window.addEventListener("load", () => {
+  // 所有圖片載入完才會執行這裡的程式碼
+  console.log("圖片全部載入完成！");
+$(".adown").show(); // 揭示主畫面、DOM操作等
+});
+
+document.oncontextmenu = function(){
     event.returnValue = false;
 }
+
+v41= new Audio("music\\v41.wav")
+v41.preload = "auto"
+
+v44=new Audio("music\\v44.wav");///骰子音效
+v44.preload = "auto"
+
+v47=new Audio("music\\v47.wav");///打出去音效
+v47.preload = "auto"
 
 for(let i=0;i<plerinfor.length;i++){
 
@@ -191,7 +208,9 @@ $('#bk90').hide()
 
 $(".coun3").hide()
 
-$(".adown,.camera,.mycad,.nextcad,.fontcad,.lastcad,.space,.etpghwordbk,.smoking").show()
+///$(".adown,.camera,.mycad,.nextcad,.fontcad,.lastcad,.space,.etpghwordbk,.smoking").show()
+
+$(".camera,.mycad,.nextcad,.fontcad,.lastcad,.space,.etpghwordbk,.smoking").show()
 
 $(".bk60").hide()
 
@@ -1390,7 +1409,9 @@ setTimeout('begStar()',11000)
 
 function starbefore(){
 
-$(".adown,.camera,.mycad,.nextcad,.fontcad,.lastcad,.space,.etpghwordbk,.smoking").show()
+///$(".adown,.camera,.mycad,.nextcad,.fontcad,.lastcad,.space,.etpghwordbk,.smoking").show()
+
+$(".camera,.mycad,.nextcad,.fontcad,.lastcad,.space,.etpghwordbk,.smoking").show()
 
 $(".coun3").hide()
 
@@ -1621,6 +1642,12 @@ $(".bgige").html(bgige)///圈風局
 $(".bgige2").html(bgige2)///圈風局
 
 $(".bk30").show()
+
+v44.pause();
+
+v44.currentTime = 0
+
+v44.play();
 
 di1 = Math.floor(Math.random() * 6+1);
 di2 = Math.floor(Math.random() * 6+1);
@@ -2060,6 +2087,13 @@ ormgd[i].push(n)
 }
 
 if(plmgd[3].length!=16){
+
+
+v47.pause();
+
+v47.currentTime = 0
+
+v47.play();
 
 setTimeout('gamStar()',500)
 
@@ -3219,6 +3253,12 @@ $("."+pldname[pled]+" div .d17 .c1").html('<img src="mach/'+n+'.png" style="widt
 
 $("."+pldname[pled]+" div .d17").show()
 
+v47.pause();
+
+v47.currentTime = 0
+
+v47.play();
+
 if(flocd[pled].length==1){
 
 for(let i=0;i<4;i++){
@@ -3232,6 +3272,14 @@ losgun=pled///放槍
 pled=i
 
 wincad=cpd///胡的牌
+
+v41.pause();
+
+v41.currentTime = 0
+
+setTimeout(() => {
+    v41.play();
+}, 50);
 
 if(pled<4){
 
@@ -3346,6 +3394,15 @@ mytsale=1///是否是自摸
 losgun=-1///放槍
 
 wincad=Math.ceil(n/4)///胡的牌
+
+v41.pause();
+
+v41.currentTime = 0
+
+
+setTimeout(() => {
+    v41.play();
+}, 50);
 
 
 $(".mytake"+pled).show()
@@ -3650,6 +3707,14 @@ wincad=cpt///胡的牌
 
 gunwin=1///搶槓胡
 
+v41.pause();
+
+v41.currentTime = 0
+
+setTimeout(() => {
+    v41.play();
+}, 50);
+
 setTimeout('winShow()',2000)///胡牌特效
 
 return
@@ -3704,6 +3769,14 @@ losgun=i///放槍
 
 wincad=cpd///胡的牌
 
+v41.pause();
+
+v41.currentTime = 0
+
+setTimeout(() => {
+    v41.play();
+}, 50);
+
 setTimeout('winShow()',1000)///胡牌特效
 
 return
@@ -3721,6 +3794,14 @@ mytsale=1///是否是自摸
 losgun=null///放槍
 
 wincad=cpd///胡的牌
+
+v41.pause();
+
+v41.currentTime = 0
+
+setTimeout(() => {
+    v41.play();
+}, 50);
 
 setTimeout('winShow()',1000)///胡牌特效
 
@@ -3856,6 +3937,12 @@ if(epgmow==0){
 $("."+pldname[pled]+" div .d17").hide()
 
 }
+
+v47.pause();
+
+v47.currentTime = 0
+
+v47.play();
 
 cpd=plmgd[pled][mdt]
 
@@ -4007,6 +4094,14 @@ losgun=pledbk///放槍
 
 wincad=cpd///胡的牌
 
+v41.pause();
+
+v41.currentTime = 0
+
+setTimeout(() => {
+    v41.play();
+}, 50);
+
 setTimeout('winShow()',2000)///胡牌特效
 
 return
@@ -4125,6 +4220,14 @@ $(".gun"+pled).show()
 atkCad()
 
 nogunwin=1///槓上開花
+
+v41.pause();
+
+v41.currentTime = 0
+
+setTimeout(() => {
+    v41.play();
+}, 50);
 
 smokeshow(pled)
 
@@ -4340,6 +4443,14 @@ daetp[pled][Math.floor(cpd/9)]++
 smokeshow(pled)
 
 if(nobackch==0){
+
+v41.pause();
+
+v41.currentTime = 0
+
+setTimeout(() => {
+    v41.play();
+}, 50);
 
 setTimeout('outCad()',500)
 
@@ -4753,6 +4864,14 @@ daetp[pled][Math.floor(cpd/9)]++
 smokeshow(pled)
 
 if(nobackch==0){
+
+v41.pause();
+
+v41.currentTime = 0
+
+setTimeout(() => {
+    v41.play();
+}, 50);
 
 setTimeout('outCad()',500)
 
@@ -5176,6 +5295,14 @@ wincad=cpd///胡的牌
 
 gunwin=1///搶槓胡
 
+v41.pause();
+
+v41.currentTime = 0
+
+setTimeout(() => {
+    v41.play();
+}, 50);
+
 setTimeout('winShow()',2000)///胡牌特效
 
 return
@@ -5354,6 +5481,14 @@ alsee.push(etall[0].cok[1])///已見光的牌
 sortShowCad(pled)
 
 epgmow=1///吃碰槓的場合
+
+v41.pause();
+
+v41.currentTime = 0
+
+setTimeout(() => {
+    v41.play();
+}, 50);
 
 $(".eat"+pled).show()
 
@@ -5709,6 +5844,15 @@ ppyn = document.querySelector(".epgh2");
 
 ppyn.addEventListener("click",function (event) {resolve("p");event.stopPropagation();
 
+v41.pause();
+
+v41.currentTime = 0
+
+setTimeout(() => {
+    v41.play();
+}, 50);
+
+
 return;
 
 },false);
@@ -5721,6 +5865,14 @@ ggyn.addEventListener("click",function (event) {
 resolve("g")
 
 event.stopPropagation()
+
+v41.pause();
+
+v41.currentTime = 0
+
+setTimeout(() => {
+    v41.play();
+}, 50);
 
 return
 
@@ -5759,7 +5911,9 @@ backindex2 = document.querySelector(".backindex");
 
 backindex2.addEventListener("click",function () {
 
-window.location.href = "/";
+bkindex()
+
+resolve(-1)
 
 return
 
@@ -5929,6 +6083,14 @@ plmgd[pled].push(otc)
 
 $("."+pldname[pled]+" div .d17").hide()
 
+
+v47.pause();
+
+v47.currentTime = 0
+
+v47.play();
+
+
 cadlink=$("."+pldname[0]+" div .d"+mdt+" .c1").html().toString()
 
 mdt=plmgd[pled].indexOf(Number(cadlink.substring(15,cadlink.indexOf(".png"))))
@@ -6097,6 +6259,16 @@ mytsale=1///是否是自摸
 losgun=-1///放槍
 
 wincad=otc///胡的牌
+
+v41.pause();
+
+v41.currentTime = 0
+
+
+setTimeout(() => {
+    v41.play();
+}, 50);
+
 
 $(".mytake"+pled).show()
 
