@@ -180,7 +180,7 @@ lassave=0///上次紀錄
 
 if(lasplmgd0!=null){
 
-setTimeout('$("#bk90").show()',10000)
+setTimeout('$("#bk90").show()',5000)
 
 ///setTimeout('countie()',11000)
 
@@ -1293,9 +1293,9 @@ londing()
 
 $(".stanbylonding").show()
 
-$(".stanbylondingshap100").animate({width:'100%'},10000);
+$(".stanbylondingshap100").animate({width:'100%'},5000);
 
-setTimeout('$(".stanbylonding").hide();$(".pledstanby").show()',10000)
+setTimeout('$(".stanbylonding").hide();$(".pledstanby").show()',5000)
 
 
 
@@ -2045,7 +2045,7 @@ $(".lastcad div .d"+(plmgd[0].length-3)).show()
 
 if(plmgd[3].length!=16){
 
-setTimeout('gamStar()',500)
+setTimeout('gamStar()',100)
 
 }
 
@@ -2073,7 +2073,7 @@ plmgd[0]=[28,28,28,28,29,29,29,30,30,30,31,31,31,32,32,33]///大四喜
 
 }
 
-setTimeout('gamStar2()',500)
+setTimeout('gamStar2()',100)
 
 }
 
