@@ -1,9 +1,8 @@
-﻿$(".adown").hide();
-
+﻿
 window.addEventListener("load", () => {
   // 所有圖片載入完才會執行這裡的程式碼
   console.log("圖片全部載入完成！");
-$(".adown").show(); // 揭示主畫面、DOM操作等
+$(".adown,.camera,.mycad,.nextcad,.fontcad,.lastcad,.space,.etpghwordbk,.smoking,.camera,.space,.table,.pler1,.pler2,.pler3").show(); // 揭示主畫面、DOM操作等
 });
 
 document.oncontextmenu = function(){
