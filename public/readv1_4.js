@@ -3294,13 +3294,15 @@ nogunwin=1///槓上開花
 
 allmgd.push(n)///放入全部的牌
 
+plednow=pled
+
 
 const img = new Image();
 img.src = "mach/"+n+".png";
 
 img.onload = function () {
-  $("."+pldname[pled]+" div .d17 .c1").html(img);
-  $("."+pldname[pled]+" div .d17").show(); // 圖片載入完成後才顯示
+  $("."+pldname[plednow]+" div .d17 .c1").html(img);
+  $("."+pldname[plednow]+" div .d17").show(); // 圖片載入完成後才顯示
 };
 
 v47.pause();
@@ -3463,15 +3465,15 @@ return
 
 }
 
+plednow=pled
 
 const img = new Image();
 img.src = "mach/"+Math.ceil(n/4)+".png";
 
 img.onload = function () {
-  $("."+pldname[pled]+" div .d17 .c1").html(img);
-  $("."+pldname[pled]+" div .d17").show(); // 圖片載入完成後才顯示
+  $("."+pldname[plednow]+" div .d17 .c1").html(img);
+  $("."+pldname[plednow]+" div .d17").show(); // 圖片載入完成後才顯示
 };
-
 
 ///////////////////////////////////////////////////
 
