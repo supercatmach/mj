@@ -2063,7 +2063,15 @@ if(n<137){
 
 plmgd[i].push(Math.ceil(n/4))///放入玩家的手牌
 
-$("."+pldname[i]+" div .d"+(plmgd[i].length)+" .c1").html('<img src="mach/'+Math.ceil(n/4)+'.png" style="width:60px;height:80px;">')
+const cardIndex = plmgd[i].length;
+
+const img = new Image();
+img.src = "mach/"+Math.ceil(n/4)+".png";
+
+img.onload = function () {
+  $("."+pldname[i]+" div .d"+cardIndex+" .c1").html(img);
+  $("."+pldname[i]+" div .d"+cardIndex).show(); // 圖片載入完成後才顯示
+};
 
 }
 
@@ -2071,7 +2079,15 @@ if(n>=137){
 
 plmgd[i].push(n)///放入玩家的手牌
 
-$("."+pldname[i]+" div .d"+(plmgd[i].length)+" .c1").html('<img src="mach/'+n+'.png" style="width:60px;height:80px;">')
+const cardIndex = plmgd[i].length;
+
+const img = new Image();
+img.src = "mach/"+n+".png";
+
+img.onload = function () {
+  $("."+pldname[i]+" div .d"+cardIndex+" .c1").html(img);
+  $("."+pldname[i]+" div .d"+cardIndex).show(); // 圖片載入完成後才顯示
+};
 
 }
 
@@ -2085,52 +2101,11 @@ ormgd[i].push(n)
 
 if(plmgd[3].length!=16){
 
-setTimeout(() => {
-
-$(".mycad div .d"+(plmgd[0].length-0)).show()
-$(".mycad div .d"+(plmgd[0].length-1)).show()
-$(".mycad div .d"+(plmgd[0].length-2)).show()
-$(".mycad div .d"+(plmgd[0].length-3)).show()
-$(".nextcad div .d"+(plmgd[0].length-0)).show()
-$(".nextcad div .d"+(plmgd[0].length-1)).show()
-$(".nextcad div .d"+(plmgd[0].length-2)).show()
-$(".nextcad div .d"+(plmgd[0].length-3)).show()
-$(".fontcad div .d"+(plmgd[0].length-0)).show()
-$(".fontcad div .d"+(plmgd[0].length-1)).show()
-$(".fontcad div .d"+(plmgd[0].length-2)).show()
-$(".fontcad div .d"+(plmgd[0].length-3)).show()
-$(".lastcad div .d"+(plmgd[0].length-0)).show()
-$(".lastcad div .d"+(plmgd[0].length-1)).show()
-$(".lastcad div .d"+(plmgd[0].length-2)).show()
-$(".lastcad div .d"+(plmgd[0].length-3)).show()
-
-}, 200);
-
 setTimeout('gamStar()',500)
 
 }
 
 if(plmgd[3].length==16){
-
-setTimeout(() => {
-
-$(".mycad div .d"+(plmgd[0].length-0)).show()
-$(".mycad div .d"+(plmgd[0].length-1)).show()
-$(".mycad div .d"+(plmgd[0].length-2)).show()
-$(".mycad div .d"+(plmgd[0].length-3)).show()
-$(".nextcad div .d"+(plmgd[0].length-0)).show()
-$(".nextcad div .d"+(plmgd[0].length-1)).show()
-$(".nextcad div .d"+(plmgd[0].length-2)).show()
-$(".nextcad div .d"+(plmgd[0].length-3)).show()
-$(".fontcad div .d"+(plmgd[0].length-0)).show()
-$(".fontcad div .d"+(plmgd[0].length-1)).show()
-$(".fontcad div .d"+(plmgd[0].length-2)).show()
-$(".fontcad div .d"+(plmgd[0].length-3)).show()
-$(".lastcad div .d"+(plmgd[0].length-0)).show()
-$(".lastcad div .d"+(plmgd[0].length-1)).show()
-$(".lastcad div .d"+(plmgd[0].length-2)).show()
-$(".lastcad div .d"+(plmgd[0].length-3)).show()
-}, 200);
 
 if(testbigcad==1){
 
