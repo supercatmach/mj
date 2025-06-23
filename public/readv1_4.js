@@ -2081,13 +2081,6 @@ ormgd[i].push(n)
 
 if(plmgd[3].length!=16){
 
-
-v47.pause();
-
-v47.currentTime = 0
-
-v47.play();
-
 setTimeout('gamStar()',500)
 
 }
