@@ -207,6 +207,8 @@ $('#bk90').hide()
 
 $(".coun3").hide()
 
+$(".table").show()
+
 ///$(".adown,.camera,.mycad,.nextcad,.fontcad,.lastcad,.space,.etpghwordbk,.smoking").show()
 
 $(".camera,.mycad,.nextcad,.fontcad,.lastcad,.space,.etpghwordbk,.smoking").show()
