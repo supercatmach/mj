@@ -2047,30 +2047,50 @@ allmgd=[109,110,111,112,113,114,115,117,118,119,121,122,123,125,126,129]
 
 ormgd=[[],[],[],[]]
 
-for (let i = 0; i < 4; i++) {
-  for (let s = 0; s < 4; s++) {
-    let n = Math.floor(Math.random() * 144 + 1);
-    while (allmgd.indexOf(n) != -1) {
-      n = Math.floor(Math.random() * 144 + 1);
-    }
+for(let i=0;i<4;i++){
 
-    const finalValue = n < 137 ? Math.ceil(n / 4) : n;
-    plmgd[i].push(finalValue);
+for(let s=0;s<4;s++){
 
-    const $target = $("." + pldname[i] + " div .d" + (plmgd[i].length) + " .c1");
-    const src = "mach/" + finalValue + ".png";
+var n = Math.floor(Math.random() * 144+1);///144
 
-    // 用 Image() 預解碼
-    const img = new Image();
-    img.src = src;
-    img.width = 60;
-    img.height = 80;
-    img.onload = () => {
-      $target.empty().append(img);
-    };
+while(allmgd.indexOf(n)!=-1){///抽出一開始的16張牌(不能重覆)
 
-    // 顯示容器
-    $("." + pldname[i] + " div .d" + (plmgd[i].length)).show();
+var n = Math.floor(Math.random() * 144+1);///144
+
+}
+
+if(n<137){
+
+plmgd[i].push(Math.ceil(n/4))///放入玩家的手牌
+
+const cardIndex = plmgd[i].length;
+
+const img = new Image();
+img.src = "mach/"+Math.ceil(n/4)+".png";
+
+img.onload = function () {
+  $("."+pldname[i]+" div .d"+cardIndex+" .c1").html(img);
+  $("."+pldname[i]+" div .d"+cardIndex).show(); // 圖片載入完成後才顯示
+};
+
+}
+
+if(n>=137){
+
+plmgd[i].push(n)///放入玩家的手牌
+
+const cardIndex = plmgd[i].length;
+
+const img = new Image();
+img.src = "mach/"+n+".png";
+
+img.onload = function () {
+  $("."+pldname[i]+" div .d"+cardIndex+" .c1").html(img);
+  $("."+pldname[i]+" div .d"+cardIndex).show(); // 圖片載入完成後才顯示
+};
+
+}
+
 allmgd.push(n)///放入全部的牌
 
 ormgd[i].push(n)
@@ -3235,9 +3255,14 @@ nogunwin=1///槓上開花
 
 allmgd.push(n)///放入全部的牌
 
-$("."+pldname[pled]+" div .d17 .c1").html('<img src="mach/'+n+'.png" style="width:60px;height:80px;">')
 
-$("."+pldname[pled]+" div .d17").show()
+const img = new Image();
+img.src = "mach/"+n+".png";
+
+img.onload = function () {
+  $("."+pldname[pled]+" div .d17 .c1").html(img);
+  $("."+pldname[pled]+" div .d17").show(); // 圖片載入完成後才顯示
+};
 
 v47.pause();
 
@@ -3400,9 +3425,14 @@ return
 }
 
 
-$("."+pldname[pled]+" div .d17 .c1").html('<img src="mach/'+Math.ceil(n/4)+'.png" style="width:60px;height:80px;">')
+const img = new Image();
+img.src = "mach/"+Math.ceil(n/4)+".png";
 
-$("."+pldname[pled]+" div .d17").show()
+img.onload = function () {
+  $("."+pldname[pled]+" div .d17 .c1").html(img);
+  $("."+pldname[pled]+" div .d17").show(); // 圖片載入完成後才顯示
+};
+
 
 ///////////////////////////////////////////////////
 
