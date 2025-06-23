@@ -2062,26 +2062,16 @@ var n = Math.floor(Math.random() * 144+1);///144
 if(n<137){
 
 plmgd[i].push(Math.ceil(n/4))///放入玩家的手牌
-const $target = $("." + pldname[i] + " div .d" + (plmgd[i].length) + " .c1");
 
-const $img = $("<img>")
-  .attr("src", "mach/" + Math.ceil(n / 4) + ".png")
-  .css({ width: "60px", height: "80px" });
+$("."+pldname[i]+" div .d"+(plmgd[i].length)+" .c1").html('<img src="mach/'+Math.ceil(n/4)+'.png" style="width:60px;height:80px;">')
 
-$target.empty().append($img);
 }
 
 if(n>=137){
 
 plmgd[i].push(n)///放入玩家的手牌
 
-const $target = $("." + pldname[i] + " div .d" + (plmgd[i].length) + " .c1");
-
-const $img = $("<img>")
-  .attr("src", "mach/" + n + ".png")
-  .css({ width: "60px", height: "80px" });
-
-$target.empty().append($img);
+$("."+pldname[i]+" div .d"+(plmgd[i].length)+" .c1").html('<img src="mach/'+n+'.png" style="width:60px;height:80px;">')
 
 }
 
