@@ -2022,56 +2022,9 @@ setTimeout('starDice()',1000)
 }
 
 
-function gamStar(){///抽出一開始的16張牌(不能重覆)
+function picinallshow(){
 
-$(".gh2").html('<img src="word/op'+sittwind[0]+'.png" style="width:50px;height:50px;">')
-
-$(".gh1").show()
-
-$(".bk30").hide()
-
-testbigcad=0
-
-if(testbigcad==1){
-
-
-allmgd=[109,110,111,112,113,114,115,117,118,119,121,122,123,125,126,129]
-
-///allmgd=[109,110,111,113,114,115,117,118,119,121,122,123,125,126,129,130]
-
-///allmgd=[1,2,5,6,7,9,10,11,21,22,23,25,26,27,35,36]///清一色
-
-///allmgd=[1,2,5,6,7,9,10,11,21,22,23,25,26,27,129,130]///萬字湊一色
-
-}
-
-ormgd=[[],[],[],[]]
-
-for(let i=0;i<4;i++){
-
-for(let s=0;s<4;s++){
-
-var n = Math.floor(Math.random() * 144+1);///144
-
-while(allmgd.indexOf(n)!=-1){///抽出一開始的16張牌(不能重覆)
-
-var n = Math.floor(Math.random() * 144+1);///144
-
-}
-
-if(n<137){
-
-plmgd[i].push(Math.ceil(n/4))///放入玩家的手牌
-
-const cardIndex = plmgd[i].length;
-
-const img = new Image();
-img.src = "mach/"+Math.ceil(n/4)+".png";
-
-img.onload = function () {
-  $("."+pldname[i]+" div .d"+cardIndex+" .c1").html(img);
-
-if(s==3&&i==3){
+if(picinall==16){
 
 $(".mycad div .d"+(plmgd[0].length-0)).show()
 $(".mycad div .d"+(plmgd[0].length-1)).show()
@@ -2089,57 +2042,6 @@ $(".lastcad div .d"+(plmgd[0].length-0)).show()
 $(".lastcad div .d"+(plmgd[0].length-1)).show()
 $(".lastcad div .d"+(plmgd[0].length-2)).show()
 $(".lastcad div .d"+(plmgd[0].length-3)).show()
-
-}
-
-};
-
-}
-
-if(n>=137){
-
-plmgd[i].push(n)///放入玩家的手牌
-
-const cardIndex = plmgd[i].length;
-
-const img = new Image();
-img.src = "mach/"+n+".png";
-
-img.onload = function () {
-  $("."+pldname[i]+" div .d"+cardIndex+" .c1").html(img);
-
-if(s==3&&i==3){
-
-$(".mycad div .d"+(plmgd[0].length-0)).show()
-$(".mycad div .d"+(plmgd[0].length-1)).show()
-$(".mycad div .d"+(plmgd[0].length-2)).show()
-$(".mycad div .d"+(plmgd[0].length-3)).show()
-$(".nextcad div .d"+(plmgd[0].length-0)).show()
-$(".nextcad div .d"+(plmgd[0].length-1)).show()
-$(".nextcad div .d"+(plmgd[0].length-2)).show()
-$(".nextcad div .d"+(plmgd[0].length-3)).show()
-$(".fontcad div .d"+(plmgd[0].length-0)).show()
-$(".fontcad div .d"+(plmgd[0].length-1)).show()
-$(".fontcad div .d"+(plmgd[0].length-2)).show()
-$(".fontcad div .d"+(plmgd[0].length-3)).show()
-$(".lastcad div .d"+(plmgd[0].length-0)).show()
-$(".lastcad div .d"+(plmgd[0].length-1)).show()
-$(".lastcad div .d"+(plmgd[0].length-2)).show()
-$(".lastcad div .d"+(plmgd[0].length-3)).show()
-
-}
-};
-
-}
-
-
-allmgd.push(n)///放入全部的牌
-
-ormgd[i].push(n)
-
-}
-
-}
 
 if(plmgd[3].length!=16){
 
@@ -2172,6 +2074,98 @@ plmgd[0]=[28,28,28,28,29,29,29,30,30,30,31,31,31,32,32,33]///大四喜
 }
 
 setTimeout('gamStar2()',500)
+
+}
+
+}
+
+}
+
+function gamStar(){///抽出一開始的16張牌(不能重覆)
+
+$(".gh2").html('<img src="word/op'+sittwind[0]+'.png" style="width:50px;height:50px;">')
+
+$(".gh1").show()
+
+$(".bk30").hide()
+
+testbigcad=0
+
+if(testbigcad==1){
+
+
+allmgd=[109,110,111,112,113,114,115,117,118,119,121,122,123,125,126,129]
+
+///allmgd=[109,110,111,113,114,115,117,118,119,121,122,123,125,126,129,130]
+
+///allmgd=[1,2,5,6,7,9,10,11,21,22,23,25,26,27,35,36]///清一色
+
+///allmgd=[1,2,5,6,7,9,10,11,21,22,23,25,26,27,129,130]///萬字湊一色
+
+}
+
+ormgd=[[],[],[],[]]
+
+picinall=0
+
+for(let i=0;i<4;i++){
+
+for(let s=0;s<4;s++){
+
+var n = Math.floor(Math.random() * 144+1);///144
+
+while(allmgd.indexOf(n)!=-1){///抽出一開始的16張牌(不能重覆)
+
+var n = Math.floor(Math.random() * 144+1);///144
+
+}
+
+if(n<137){
+
+plmgd[i].push(Math.ceil(n/4))///放入玩家的手牌
+
+const cardIndex = plmgd[i].length;
+
+const img = new Image();
+img.src = "mach/"+Math.ceil(n/4)+".png";
+
+img.onload = function () {
+  $("."+pldname[i]+" div .d"+cardIndex+" .c1").html(img);
+
+picinall++
+
+picinallshow()
+
+};
+
+}
+
+if(n>=137){
+
+plmgd[i].push(n)///放入玩家的手牌
+
+const cardIndex = plmgd[i].length;
+
+const img = new Image();
+img.src = "mach/"+n+".png";
+
+img.onload = function () {
+  $("."+pldname[i]+" div .d"+cardIndex+" .c1").html(img);
+
+picinall++
+
+picinallshow()
+
+};
+
+}
+
+
+allmgd.push(n)///放入全部的牌
+
+ormgd[i].push(n)
+
+}
 
 }
 
