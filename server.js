@@ -101,21 +101,29 @@ io.to(socket.id).emit("hi", []);
 
     // 玩家離開或斷線
 socket.on("disconnect", (reason) => {
-
-
+    // 找出這名玩家所在的所有房間（有可能同時在多個）
     for (const roomId in rooms) {
-        if (rooms[roomId].host === socket.id || io.sockets.adapter.rooms.get(roomId)?.size === 0) {
-            ///delete rooms[roomId];  // 如果房間沒人就刪除
-        } else {
-            // 移除該玩家
+        if (rooms[roomId].players.includes(socket.id)) {
+            // 通知房內其他玩家某人離線
+            io.to(roomId).emit("disconnect", { playerId: socket.id });
 
-            rooms[roomId].players = rooms[roomId].players.filter(playerId => playerId !== socket.id);
+            // 是房主或房間沒人 => 移除整個房間
+            if (
+                rooms[roomId].host === socket.id ||
+                io.sockets.adapter.rooms.get(roomId)?.size === 0
+            ) {
+                ///delete rooms[roomId];
+            } else {
+                // 否則只移除這名玩家
+                rooms[roomId].players = rooms[roomId].players.filter(
+                    (playerId) => playerId !== socket.id
+                );
+            }
         }
     }
-    io.emit("updateRooms", rooms);  // 更新房間清單
 
+    io.emit("updateRooms", rooms); // 更新房間清單
     console.log(`玩家已斷線: ${socket.id}, 原因: ${reason}`);
-
 });
 
     // 獲取房間清單
