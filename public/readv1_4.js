@@ -2,7 +2,7 @@
 window.addEventListener("load", () => {
   // 所有圖片載入完才會執行這裡的程式碼
   console.log("圖片全部載入完成！");
-$(".adown,.camera,.space,.etpghwordbk,.smoking,.camera,.space").show(); // 揭示主畫面、DOM操作等
+///$(".adown,.camera,.space,.etpghwordbk,.smoking,.camera,.space").show(); // 揭示主畫面、DOM操作等
 });
 
 document.oncontextmenu = function(){
@@ -1409,9 +1409,7 @@ setTimeout('begStar()',11000)
 
 function starbefore(){
 
-///$(".adown,.camera,.mycad,.nextcad,.fontcad,.lastcad,.space,.etpghwordbk,.smoking").show()
-
-$(".camera,.mycad,.nextcad,.fontcad,.lastcad,.space,.etpghwordbk,.smoking").show()
+$(".adown,.camera,.mycad,.nextcad,.fontcad,.lastcad,.space,.etpghwordbk,.smoking").show()
 
 $(".coun3").hide()
 
