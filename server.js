@@ -133,6 +133,15 @@ rooms[roomId].ynstar=0
         socket.emit("updateRooms", rooms);
     });
 
+    socket.on("delroom", (roominf) => {///刪除房間
+
+roomId=JSON.parse(roominf)[0]
+
+delete rooms[roomId];
+
+
+    });
+
 
 function befgame(roominf){
 

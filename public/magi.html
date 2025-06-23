@@ -2857,6 +2857,8 @@ if(datainf.roomSize<4){
 
 if(datainf.roomSize==4){
 
+lopal=4
+
 roomstar()
 
 }
@@ -2867,6 +2869,20 @@ roomstar()
 
             window.location.href = "/";
         });
+
+socket.on("playerDisconnected", (datainf) => {
+
+console.log(allplad)
+
+  console.log(datainf.playerId+"斷線了");
+
+lop=allplad.indexOf(datainf.playerId)
+
+$(".pler"+lop).hide()
+
+lopal--
+
+});
 
 
 socket.on("reconnectConfirmed", () => {
@@ -5126,6 +5142,20 @@ junwind=(junwind+1<32)?junwind+1:28///將位
 
 
 
+if(lopal!=4){
+
+setTimeout(() => {
+
+socket.emit("delroom",JSON.stringify([roomId]));
+
+window.location.href = "/";
+
+}, 10000);
+
+return
+
+}
+
 linmrs=0///連莊次數
 
 setTimeout('begStar()',10000)
@@ -5476,7 +5506,7 @@ epgh[2]="epgh3"
 
 }
 
-if(cpf[mtd]>=2){
+if(cpf[mtd]>=2&&lopal>=3){
 
 caneph[2]=[Number(mtd),Number(mtd),Number(mtd),Number(mtd)]
 
@@ -5490,7 +5520,7 @@ epgh[1]="epgh2"
 
 mtd=Number(mtd)
 
-if(mtd<28&&ple==3){///吃
+if(mtd<28&&ple==3&&lopal==4){///吃
 
 if(mtd>2&&cpf[mtd-1]>0&&cpf[mtd-2]>0&&Math.ceil((mtd-2)/9)==Math.ceil(mtd/9)&&Math.ceil((mtd-1)/9)==Math.ceil(mtd/9)){
 
