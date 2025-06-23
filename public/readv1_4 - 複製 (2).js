@@ -2047,30 +2047,46 @@ allmgd=[109,110,111,112,113,114,115,117,118,119,121,122,123,125,126,129]
 
 ormgd=[[],[],[],[]]
 
-for (let i = 0; i < 4; i++) {
-  for (let s = 0; s < 4; s++) {
-    let n = Math.floor(Math.random() * 144 + 1);
-    while (allmgd.indexOf(n) != -1) {
-      n = Math.floor(Math.random() * 144 + 1);
-    }
+for(let i=0;i<4;i++){
 
-    const finalValue = n < 137 ? Math.ceil(n / 4) : n;
-    plmgd[i].push(finalValue);
+for(let s=0;s<4;s++){
 
-    const $target = $("." + pldname[i] + " div .d" + (plmgd[i].length) + " .c1");
-    const src = "mach/" + finalValue + ".png";
+var n = Math.floor(Math.random() * 144+1);///144
 
-    // 用 Image() 預解碼
-    const img = new Image();
-    img.src = src;
-    img.width = 60;
-    img.height = 80;
-    img.onload = () => {
-      $target.empty().append(img);
-    };
+while(allmgd.indexOf(n)!=-1){///抽出一開始的16張牌(不能重覆)
 
-    // 顯示容器
-    $("." + pldname[i] + " div .d" + (plmgd[i].length)).show();
+var n = Math.floor(Math.random() * 144+1);///144
+
+}
+
+if(n<137){
+
+plmgd[i].push(Math.ceil(n/4))///放入玩家的手牌
+const $target = $("." + pldname[i] + " div .d" + (plmgd[i].length) + " .c1");
+
+const $img = $("<img>")
+  .attr("src", "mach/" + Math.ceil(n / 4) + ".png")
+  .css({ width: "60px", height: "80px" });
+
+$target.empty().append($img);
+}
+
+if(n>=137){
+
+plmgd[i].push(n)///放入玩家的手牌
+
+const $target = $("." + pldname[i] + " div .d" + (plmgd[i].length) + " .c1");
+
+const $img = $("<img>")
+  .attr("src", "mach/" + n + ".png")
+  .css({ width: "60px", height: "80px" });
+
+$target.empty().append($img);
+
+}
+
+$("."+pldname[i]+" div .d"+(plmgd[i].length)).show()
+
 allmgd.push(n)///放入全部的牌
 
 ormgd[i].push(n)
