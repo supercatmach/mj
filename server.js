@@ -114,6 +114,7 @@ socket.on("disconnect", (reason) => {
                 io.sockets.adapter.rooms.get(roomId)?.size === 0
             ) {
                 ///delete rooms[roomId];
+rooms[roomId].ynstar=0
             } else {
                 // 否則只移除這名玩家
                 rooms[roomId].players = rooms[roomId].players.filter(
