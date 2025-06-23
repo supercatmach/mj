@@ -2778,6 +2778,27 @@
 <p id="roomInfo"  style="display:none;"></p>
 
 <script>
+
+
+window.addEventListener("load", () => {
+  // 所有圖片載入完才會執行這裡的程式碼
+  console.log("圖片全部載入完成！");
+$(".adown,.camera,.mycad,.nextcad,.fontcad,.lastcad,.space,.etpghwordbk,.smoking,.camera,.space,.table,.pler1,.pler2,.pler3").show(); // 揭示主畫面、DOM操作等
+});
+
+document.oncontextmenu = function(){
+    event.returnValue = false;
+}
+
+v41= new Audio("music\\v41.wav")
+v41.preload = "auto"
+
+v44=new Audio("music\\v44.wav");///骰子音效
+v44.preload = "auto"
+
+v47=new Audio("music\\v47.wav");///打出去音效
+v47.preload = "auto"
+
 function scaleContent() {
   const designWidth = 1800;
   const designHeight = 900;
