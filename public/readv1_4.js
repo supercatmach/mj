@@ -2,7 +2,7 @@
 window.addEventListener("load", () => {
   // 所有圖片載入完才會執行這裡的程式碼
   console.log("圖片全部載入完成！");
-$(".adown,.camera,.mycad,.nextcad,.fontcad,.lastcad,.space,.etpghwordbk,.smoking,.camera,.space,.table,.pler1,.pler2,.pler3").show(); // 揭示主畫面、DOM操作等
+$(".adown,.camera,.mycad,.nextcad,.fontcad,.lastcad,.space,.etpghwordbk,.smoking,.camera,.space,.table").show(); // 揭示主畫面、DOM操作等
 });
 
 document.oncontextmenu = function(){
@@ -706,9 +706,9 @@ pledpicmyslef.style.width=("width:500px")
 
 $(".piclond").html(donlow)
 
-$(".pler1").html('<img src="watse/cv'+plerK[1]+'.png">')
-$(".pler2").html('<img src="watse/cv'+plerK[2]+'.png">')
-$(".pler3").html('<img src="watse/cv'+plerK[3]+'.png">')
+$(".pler1").html('<img src="watse/cv'+plerK[1]+'.png">').show()
+$(".pler2").html('<img src="watse/cv'+plerK[2]+'.png">').show()
+$(".pler3").html('<img src="watse/cv'+plerK[3]+'.png">').show()
 
 
 $(".adown,.camera,.mycad,.nextcad,.fontcad,.lastcad,.space,.etpghwordbk,.smoking").show()
@@ -1164,9 +1164,9 @@ $(".g4").html("牌零:"+plerinfor[pledpic].page)
 $(".g5").html("解鎖條件:"+plerinfor[pledpic].chk)
 $(".g6").html("介紹:"+plerinfor[pledpic].inf)
 
-$(".pler1").html('<img src="watse/cv1l.png">')
-$(".pler2").html('<img src="watse/cv2c.png">')
-$(".pler3").html('<img src="watse/cv3r.png">')
+$(".pler1").html('<img src="watse/cv1l.png">').show()
+$(".pler2").html('<img src="watse/cv2c.png">').show()
+$(".pler3").html('<img src="watse/cv3r.png">').show()
 
 
 $(".playerpic").html('<img src="stanbypled/cv0c.png">')
@@ -1940,9 +1940,9 @@ $(".m"+i).show()
 }
 
 
-$(".pler1").html('<img src="watse/cv'+plerK[1]+'.png">')
-$(".pler2").html('<img src="watse/cv'+plerK[2]+'.png">')
-$(".pler3").html('<img src="watse/cv'+plerK[3]+'.png">')
+$(".pler1").html('<img src="watse/cv'+plerK[1]+'.png">').show()
+$(".pler2").html('<img src="watse/cv'+plerK[2]+'.png">').show()
+$(".pler3").html('<img src="watse/cv'+plerK[3]+'.png">').show()
 
 for(let i=1;i<9;i++){
 
@@ -3269,9 +3269,9 @@ $(".outshowcad div").hide()
 
 $(".etpgword img").hide()
 
-$(".pler1").html('<img src="watse/cv'+plerK[1]+'.png">')
-$(".pler2").html('<img src="watse/cv'+plerK[2]+'.png">')
-$(".pler3").html('<img src="watse/cv'+plerK[3]+'.png">')
+$(".pler1").html('<img src="watse/cv'+plerK[1]+'.png">').show()
+$(".pler2").html('<img src="watse/cv'+plerK[2]+'.png">').show()
+$(".pler3").html('<img src="watse/cv'+plerK[3]+'.png">').show()
 
 var n = allmgd[0]
 
