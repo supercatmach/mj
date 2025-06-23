@@ -28,13 +28,15 @@ app.use(
       scriptSrcAttr: ["'self'", "'unsafe-inline'"], // ⬅️ 允許內嵌屬性如 onclick
       styleSrc: ["'self'", "'unsafe-inline'"],
       imgSrc: ["'self'", "data:"],
-      connectSrc: [
-        "'self'",
-        "https://mj-5x4w.onrender.com",
-        "wss://mj-5x4w.onrender.com",
-        "https://catchat-a7zb.onrender.com",
-        "wss://catchat-a7zb.onrender.com"
-      ],
+connectSrc: [
+  "'self'",
+  "https://mj-5x4w.onrender.com",
+  "wss://mj-5x4w.onrender.com",
+  "https://catchat-a7zb.onrender.com",
+  "wss://catchat-a7zb.onrender.com",
+  "https://mj-production-43c2.up.railway.app",
+  "wss://mj-production-43c2.up.railway.app"
+],
       fontSrc: ["'self'", "https://fonts.googleapis.com", "https://fonts.gstatic.com"],
       objectSrc: ["'none'"],
       frameAncestors: ["'self'"]
