@@ -2,7 +2,7 @@
 window.addEventListener("load", () => {
   // 所有圖片載入完才會執行這裡的程式碼
   console.log("圖片全部載入完成！");
-$(".adown,.camera,.mycad,.nextcad,.fontcad,.lastcad,.space,.etpghwordbk,.smoking,.camera,.space,.table").show(); // 揭示主畫面、DOM操作等
+$(".adown,.camera,.mycad,.nextcad,.fontcad,.lastcad,.space,.etpghwordbk,.smoking,.camera,.space").show(); // 揭示主畫面、DOM操作等
 });
 
 document.oncontextmenu = function(){
@@ -1392,6 +1392,7 @@ $(".piclond").html(donlow)
 
 starbefore()
 
+$(".table").show()
 
 $(".londing").show()
 
@@ -1798,6 +1799,8 @@ $(".etpgword img").hide()
 $(".tizunword img").hide()
 
 $(".zun"+makrs).show()
+
+
 
 sittwind=[]///各家風位
 
