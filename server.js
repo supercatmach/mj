@@ -94,7 +94,7 @@ io.to(socket.id).emit("hi", []);
         console.log(`玩家 ${socket.id} 加入房間 ${roomId}`);
 
         if (rooms[roomId].players.length == 4) {
-rooms[roomId].ynstar=1
+///rooms[roomId].ynstar=1
             befgame(roomId)
             return;
         }
