@@ -152,7 +152,8 @@ roomId=JSON.parse(che)[0]
 
 rooms[roomId].playerpic.push(JSON.parse(che)[1]);
 
-        socket.emit("allche", JSON.stringify(rooms[roomId].playerpic));
+io.to(roomId).emit("allche", JSON.stringify(rooms[roomId].playerpic));
+
     });
 
     socket.on("delroom", (roominf) => {///刪除房間
