@@ -614,7 +614,6 @@ plerK[0]=JSON.parse(localStorage.getItem("charich"));
 ////最後一次玩的人物
 
 
-
 if(plerK[0]=="8l"){
 
 plerK[3]="7r"
@@ -1199,6 +1198,8 @@ $(".playerpic").html('<img src="stanbypled/cv'+plerinfor[pledpic].pic+'.png">')
 
 plerK[0]=plerinfor[pledpic].pic
 
+sessionStorage.setItem("charich", plerK[0]);
+
 pledpicmyslef=-1
 
 if(plerinfor[pledpic].cho==0){
@@ -1234,6 +1235,9 @@ $(".g6").html("介紹:"+plerinfor[pledpic].inf)
 
 },false);
 
+
+sessionStorage.setItem("charich", "0c");
+
 arrowR = document.querySelector(".arrowR");
 
 arrowR.addEventListener("click",function () {
@@ -1243,6 +1247,8 @@ pledpic=(pledpic+1<plerinfor.length)?pledpic+1:0
 $(".playerpic").html('<img src="stanbypled/cv'+plerinfor[pledpic].pic+'.png">')
 
 plerK[0]=plerinfor[pledpic].pic
+
+sessionStorage.setItem("charich", plerK[0]);
 
 pledpicmyslef=-1
 

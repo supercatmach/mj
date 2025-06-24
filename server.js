@@ -73,7 +73,7 @@ function createRoomStructure(hostId) {
 }
 
 const rooms = {};  // { roomId: { host: socket.id, players: 1 } }
-rooms["025024"] = { host: "貓貓", players: [] ,playerid: [] ,ynstar:0,ynfriend:0,alps:0,epgh:[],pled:0,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
+rooms["025024"] = { host: "貓貓", players: [] ,playerid: []  ,playerpic: [],ynstar:0,ynfriend:0,alps:0,epgh:[],pled:0,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
 
 io.on("connection", (socket) => {
 
@@ -85,7 +85,7 @@ io.to(socket.id).emit("hi", []);
     // 玩家創建房間
     socket.on("createRoom", () => {
         const roomId = socket.id;  // 直接用 socket.id 當作房間 ID
-        rooms[roomId] = { host: socket.id, players: [] ,playerid: [] ,ynstar:0,ynfriend:0,alps:0,epgh:[],pled:0,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
+        rooms[roomId] = { host: socket.id, players: [] ,playerid: [] ,playerpic: [] ,ynstar:0,ynfriend:0,alps:0,epgh:[],pled:0,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
         socket.join(roomId);
         io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
         socket.emit("roomCreated", { roomId });
@@ -144,6 +144,13 @@ rooms[roomId].ynstar=0
     // 獲取房間清單
     socket.on("getRooms", () => {
         socket.emit("updateRooms", rooms);
+    });
+
+    socket.on("myche", (che) => {
+
+rooms[roomId].playerpic.push(JSON.parse(che));
+
+        socket.emit("allche", JSON.stringify(rooms[roomId].playerpic));
     });
 
     socket.on("delroom", (roominf) => {///刪除房間

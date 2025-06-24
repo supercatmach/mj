@@ -2692,47 +2692,15 @@
 
 
 <div class="pledstanby">
-<div style="position:absolute;top:0%;left:0%;margin-left:0;background:#000000;width:600;height:900;overflow:hidden;filter:opacity(0.6);"></div>
-<div style="position:absolute;top:30%;left:0%;width:550;height:700;">
-<div style="position:absolute;top:10%;left:50%;margin-left:-200px;background:#ffffff;width:400;height:50;overflow:hidden;filter:opacity(0.6);display: flex;justify-content: center;align-items: center;font-size:30px;font-family:Microsoft JhengHei;font-weight:bolder;color:#000000;">新手參考教學↓↓</div>
-<a href= "https://www.youtube.com/watch?v=d7g1sK0EUNc" target="_blank"><img style="position:absolute;top:20%;left:50%;margin-left:-160px;" src="backg/mq3.jpg"></a>
-<a href= "https://www.youtube.com/watch?v=N2fuPkTAJIY" target="_blank"><img style="position:absolute;top:50%;left:50%;margin-left:-160px;" src="backg/mq2.jpg"></a>
-</div>
-<div style="position:absolute;top:0%;left:100%;margin-left:-600;background:#000000;width:600;height:900;overflow:hidden;filter:opacity(0.6);"></div>
-<div class="playerpic" style="position:absolute;top:0%;left:672px;">
-    <img src="stanbypled/cv0c.png">
-</div>
-<div class="playerpicn" style="position:absolute;top:0%;left:636px;height:900px;width:500px;"></div>
-<div class="playerpicup" style="position:absolute;top:0%;left:636px;">
-    <input type="file" id="imgupload" accept=".png" style="position:absolute;top:-100px;height:1000px;width:500px;">
-    <div style="float:left;background:#ffffff;height:900px;width:500px;text-align:center;z-index:1;display: flex;justify-content: center;align-items: center;font-size:30px;font-family:Microsoft JhengHei;font-weight:bolder;color:#000000;">
-        自己上傳人物<p>(最大500x900pt,限去背.png檔)
-    </div>
-</div>
-<img class="arrowL" src="backg/arrowL.jpg" style="position:absolute;top:0%;left:528px;filter:opacity(0.6);">
-<img class="arrowR" src="backg/arrowR.jpg" style="position:absolute;top:0%;left:100%;margin-left:-600px;filter:opacity(0.6);">
-<div class="choyon" style="position:absolute;top:70%;left:50%;margin-left:-228px;background:#ffffff;width:456;height:70;overflow:hidden;filter:opacity(0.6);display: flex;justify-content: center;align-items: center;font-size:30px;font-family:Microsoft JhengHei;font-weight:bolder;color:#000000;"><p>點選人物開始打麻將!!</p></div>
-<div style="position:absolute;top:30%;left:75%;width:400;height:576;overflow:hidden;background-image: url('backg/infbk.png');">
-<div style="position:absolute;top:0px;left:30px;width:350;height:526;overflow:hidden;font-size:25px;font-family:Microsoft JhengHei;font-weight:bolder;color:#000000;">
-<p class="g1"></p>
-<p class="g2"></p>
-<p class="g3"></p>
-<p class="g4"></p>
-<p class="g5"></p>
-<p class="g6"></p>
-<p class="g7"></p>
-</div>
-</div>
+<div class="playerpic1" style="position:absolute;left:0%;width:450;height:900;"></div>
+<div class="playerpic2" style="position:absolute;left:25%;width:450;height:900;"></div>
+<div class="playerpic3" style="position:absolute;left:50%;width:450;height:900;"></div>
+<div class="playerpic4" style="position:absolute;left:75%;width:450;height:900;"></div>
 </div>
 
 
 
 <div style="position:absolute;top:50%;left:50%;margin-left:-900;margin-top:-450;width:1800;height:900;pointer-events: none;">
-
-<img class="backindex" src="word/backindex.png" style="position:absolute;top:10px;left:10px;pointer-events: auto;">
-<img class="backindex2" src="word/backindex.png" style="position:absolute;top:10px;left:10px;pointer-events: auto;">
-<img class="coun3" src="word/coun3.png" style="position:absolute;top:10px;left:10px;pointer-events: auto;" onclick="incountie();$('.coun3').hide();">
-<img class="backindexword" src="backg/bkmy.png" style="position:absolute;top:50px;left:150px;pointer-events: auto;">
 <img class="inficon" src="word/inficon.png" style="position:absolute;top:10px;left:1740px;pointer-events: auto;">
 </div>
 <div class="stanbylonding" style="background-image: url('backg/endshure.jpg');">
@@ -2754,24 +2722,6 @@
 </div>
 </div>
 
-
-<div id="bk90" style="position:absolute;top:50%;left:50%;margin-left:-900;margin-top:-450;width:1800;height:900;display:none;">
-<div style="background:#000000;position:absolute;top:0%;left:0%;width:100%;height:100%;overflow:hidden;filter:opacity(0.6);"></div>
-<div style="position:absolute;top:50%;left:50%;margin-left:-500;margin-top:-266;"><img class="concutie" src="word/coun1.png" onclick="incountie()"></div>
-<div style="position:absolute;top:50%;left:50%;margin-left:100;margin-top:-266;"><img class="readout" src="word/readout.png" onclick="saveLocalStorageAsQR()"></div>
-<div style="position:absolute;top:50%;left:50%;margin-left:-500;margin-top:66;" ><img class="exit" src="word/coun2.png"onclick="$('#bk90').hide()"></div>
-<div style="position:absolute;top:50%;left:50%;margin-left:100;margin-top:66;">
-    <img class="readin" style="cursor: pointer;" src="word/readin.png" onclick="triggerFileUpload()">
-</div>
-
-<input type="file" id="fileInput" accept="image/*" style="display:none" onchange="handleFileSelect(event)">
-<canvas id="canvas" style="display:none;"></canvas>
-<div id="result"></div>
-
-</div>
-<div id="qrcode" style="position:absolute;"></div>
-
-
 </div>
 </div>
 <div id="stargame" style="display:none;"></div>
@@ -2785,6 +2735,14 @@ window.addEventListener("load", () => {
   console.log("圖片全部載入完成！");
 $(".adown,.camera,.mycad,.nextcad,.fontcad,.lastcad,.space,.etpghwordbk,.smoking,.camera,.space,.table,.pler1,.pler2,.pler3").show(); // 揭示主畫面、DOM操作等
 });
+
+inficon = document.querySelector(".inficon");
+
+inficon.addEventListener("click",function () {
+
+$(".made").toggle()
+
+},false);
 
 document.oncontextmenu = function(){
     event.returnValue = false;
@@ -2836,7 +2794,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-$(".pledstanby").hide()
+$(".pledstanby").show()
+
+$(".pledstanby div").hide()
 
 $('#bk90').hide()
 
@@ -2853,7 +2813,13 @@ allplad=[]
 
 idfme=""
 reconnectInterval=null
+lopal=0
 
+
+
+charich=(sessionStorage.getItem("charich")!=null)?sessionStorage.getItem("charich"):"0c"
+
+console.log(charich)
 
         const socket = io("https://mj-production-43c2.up.railway.app");
         const urlParams = new URLSearchParams(window.location.search);
@@ -2861,10 +2827,14 @@ reconnectInterval=null
 
         if (roomId) {
             socket.emit("joinRoom", roomId);
+            socket.emit("myche", JSON.stringify(charich));
             document.getElementById("roomInfo").innerText = `房間: ${roomId}`;
         }
 
         socket.on("playerJoined", (datainf) => {
+
+///$(".playerpic"+lopal).html('<img src="stanbypled/cv'+(lopal-1)+'.png"></div>').show(500)
+
 
 console.log("目前人數:"+datainf.roomSize)
 
@@ -2880,7 +2850,17 @@ if(datainf.roomSize==4){
 
 lopal=4
 
+
+setTimeout(() => {
+
 roomstar()
+
+$(".pledstanby").hide()
+
+}, 3000);
+
+
+
 
 }
 
@@ -2891,7 +2871,26 @@ roomstar()
             window.location.href = "/";
         });
 
+socket.on("allche", (cheinf) => {
+
+chelength=JSON.parse(cheinf)
+
+for(let i=1;i<5;i++){
+
+$(".playerpic"+i).html('')
+
+}
+for(let i=1;i<chelength.length;i++){
+
+$(".playerpic"+i).html('<img src="stanbypled/cv'+chelength[i]+'.png"></div>').show()
+
+}
+
+});
+
 socket.on("playerDisconnected", (datainf) => {
+
+if(allplad.length!=0){
 
 console.log(allplad)
 
@@ -2902,6 +2901,8 @@ lop=allplad.indexOf(datainf.playerId)
 $(".pler"+lop).hide()
 
 lopal--
+
+}
 
 });
 
@@ -2921,6 +2922,9 @@ socket.on("hi", () => {
 
 });
 
+setInterval(() => {
+  fetch("https://mj-production-43c2.up.railway.app/ping");
+}, 1 * 60 * 1000);
 
 //////////////////////////////////////////////////////
 
@@ -4364,6 +4368,16 @@ return
 }
 
 ////////////////////////////////////////////////////////
+
+v41.pause();
+
+v41.currentTime = 0
+
+setTimeout(() => {
+
+///v41.play();
+
+}, 50);
 
 ephchick=1
 
