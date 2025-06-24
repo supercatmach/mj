@@ -135,7 +135,7 @@ io.to(socket.id).emit("hi", []);
     socket.on("waninRoom", () => {
 
 const MAX_PLAYERS = 4;
-const preferredCounts = [3, 2, 1]; // 優先找人數3，再2，再1
+const preferredCounts = [3, 2, 1,0]; // 優先找人數3，再2，再1
 
 let foundRoomKey = null;
 
