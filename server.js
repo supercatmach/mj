@@ -2,19 +2,17 @@ const express = require("express");
 const path = require("path");
 const http = require("http");
 const { Server } = require("socket.io");
-const helmet = require("helmet");  // 引入 helmet
-
+const helmet = require("helmet");
 
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
-    cors: {
-        origin: "*",  // 允許所有來源
-        methods: ["GET", "POST"]
-    }
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"]
+  }
 });
 
-// 使用 helmet 設定 CSP
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
@@ -26,7 +24,7 @@ app.use(
         "https://cdnjs.cloudflare.com",
         "https://cdn.jsdelivr.net"
       ],
-      scriptSrcAttr: ["'self'", "'unsafe-inline'"], 
+      scriptSrcAttr: ["'self'", "'unsafe-inline'"],
       styleSrc: ["'self'", "'unsafe-inline'"],
       imgSrc: ["'self'", "data:"],
       connectSrc: [
@@ -45,9 +43,10 @@ app.use(
       ],
       objectSrc: ["'none'"],
       frameAncestors: ["'self'"]
-    },
+    }
   })
 );
+
 app.get("/ping", (req, res) => {
   res.send("pong");
 });
@@ -64,16 +63,7 @@ const longCacheFolders = [
   'word'
 ];
 
-// 靜態檔案先處理
-app.use(express.static(path.join(__dirname, 'public')));
-
-// API 路由等可寫在這裡...
-
-// 這行是針對 SPA，如果找不到其他路由就回傳 index.html
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
+// 1. 先設定 longCacheFolders 的靜態路由（長快取）
 longCacheFolders.forEach(folder => {
   app.use(`/${folder}`, express.static(path.join(__dirname, 'public', folder), {
     maxAge: '1y',
@@ -81,15 +71,28 @@ longCacheFolders.forEach(folder => {
   }));
 });
 
-// 2. zutop.js 長快取（放 public 根目錄）
+// 2. zutop.js 長快取
 app.use('/zutop.js', express.static(path.join(__dirname, 'public', 'zutop.js'), {
   maxAge: '1y',
   immutable: true
 }));
 
+// 3. 其他靜態檔案用一般快取（或無快取，依需求調整）
+// 這裡可以用 maxAge: 0 避免 JS, CSS 快取問題
+app.use(express.static(path.join(__dirname, 'public'), {
+  maxAge: 0
+}));
+
+// 4. 根路由不快取 index.html
 app.get('/', (req, res) => {
   res.set('Cache-Control', 'no-cache');
-  res.sendFile(path.join(__dirname, 'public/index.html'));
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+// 5. catch-all，非靜態檔案請求回傳 index.html（SPA 用）
+// 如果你不是 SPA，可以考慮刪掉這段
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 function createRoomStructure(hostId) {
