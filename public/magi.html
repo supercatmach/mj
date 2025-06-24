@@ -2857,7 +2857,7 @@ reconnectInterval=null
 
         const socket = io("https://mj-production-43c2.up.railway.app");
         const urlParams = new URLSearchParams(window.location.search);
-        const roomId = urlParams.get("room");
+        const roomId = "025024"///urlParams.get("room");
 
         if (roomId) {
             socket.emit("joinRoom", roomId);
@@ -3648,6 +3648,10 @@ gtcd=2
 ////////////////////////////////////
 
 socket.on("star", (card) => {
+
+
+cantoutcd=[]///不能捨的牌
+
 
 allmgd=64
 
@@ -4452,6 +4456,11 @@ return
 
 
 ////////////////////////////////////////////////////////
+if(epgtw=="gun"){
+
+nogunwin=1///槓上開花
+
+}
 
 if(epgtw=="gun"&&card[0]=="X"){
 
@@ -4531,6 +4540,10 @@ if(epgtw=="gun"&&card[0]!="X"&&card[1]=="X"){
 
 ephchick=0
 
+gunwin=1///搶槓
+
+outcardple=ple
+
 $(".gun"+ple).show()
 
 $("."+pldname[ple]+" .e"+((Number(card[0])+1)*4)).show().animate({top:"0px",left:"0px"},200);
@@ -4543,9 +4556,90 @@ plmgd=plmgd.filter(Number)
 
 sorcard()
 
-socket.emit("gunget",JSON.stringify([roomId]));
+socket.emit("needgetcardgun",JSON.stringify([roomId,allplad[ple]]));
+
+socket.emit("epghpk",JSON.stringify([roomId,0]));
+
+///socket.emit("gunget",JSON.stringify([roomId]));
 
 }
+
+if(ple!=0){
+
+plmgd.sort(function (a, b) {
+
+return a - b
+
+});
+
+sortCad()
+
+tsp=manum///組數
+
+tsp+=(crdeye>0)?1:0///組數
+
+if(tsp+etmgd.length>=4&&lbmgd==0){
+
+bkmgd2=JSON.parse(JSON.stringify(plmgd))///複製
+
+plmgd.push(Number(card[0]))
+
+plmgd.sort(function (a, b) {
+
+return a - b
+
+});
+
+sortCad()
+
+tsptin=manum///組數
+
+tsptin+=(crdeye>0)?1:0///組數
+
+if(tsptin+etmgd.length==6){
+
+epgh=["epgh1b","epgh2b","epgh3b","epgh4b","epgh5b","epgh6"]
+
+caneph=[[],[],[],[],[],[],[]]///可吃碰槓胡的牌
+
+plmgd=JSON.parse(JSON.stringify(bkmgd2))///複製
+
+plmgd.push(Number(card[0]))
+
+caneph[5]=[Number(card[0])]
+
+socket.emit("epghpk",JSON.stringify([roomId,3]));
+
+if(lbmgd==1){
+
+socket.emit("win",JSON.stringify([roomId,plmgd,lbmgd,flmgd,etmgd]));
+
+socket.emit("needgetcard",JSON.stringify([roomId,0]));
+
+return
+
+}
+
+epgh[4]="epgh5"
+
+for(let i=0;i<6;i++){
+
+$('.'+epgh[i]).show()
+
+}
+
+return
+
+}///if(tsptin+etmgd.length==6){
+
+}///if(tsp+etmgd.length>=4&&lbmgd==0){
+
+socket.emit("needgetcardgun",JSON.stringify([roomId,allplad[ple]]));
+
+socket.emit("epghpk",JSON.stringify([roomId,0]));
+
+}
+
 
 return
 
@@ -5269,6 +5363,8 @@ ple=allplad.indexOf(pladr)
 
 flocd[ple].push(Number(mtd+102))
 
+nogunwin=1///槓上開花
+
 console.log(mtd)
 
 if(ple==3){
@@ -5336,6 +5432,10 @@ $(".etpghword img").hide();
 ///$(".etpgword img").hide()
 
 myturn=0
+
+nogunwin=0///槓上開花
+
+gunwin=0///搶槓
 
 pled=JSON.parse(outcardinf)[0]
 mtd=JSON.parse(outcardinf)[1]
@@ -5721,23 +5821,29 @@ socket.emit("eat",JSON.stringify([roomId,allcaneat]));
 
 socket.emit("needgetcard",JSON.stringify([roomId,pled]));
 
+myturn=0
+
 return
 
 }
 
 allcaneat=allcaneat.filter(Number)
 
+console.log(allcaneat)
+
+console.log(plmgd)
+
 s=0
 
 for(let i=allech[0];i<17;i++){
 
-if(allcaneat.indexOf(plmgd[s])==-1){
+if(allcaneat.indexOf(plmgd[s])==-1||plmgd[s]==Number(filename)){
 
 $("."+pldname[0]+" .d"+i+" div").css("filter","sepia(100%) brightness(50%)")
 
 }
 
-if(allcaneat.indexOf(plmgd[s])!=-1){
+if(allcaneat.indexOf(plmgd[s])!=-1&&plmgd[s]!=Number(filename)){
 
 $("."+pldname[0]+" .d"+i+" div").css("filter","sepia(0%) brightness(100%)")
 
@@ -5754,6 +5860,8 @@ break
 }
 
 myturn=3
+
+return
 
 }
 
@@ -5781,11 +5889,14 @@ for(let i=allech[0];i<18;i++){
 $("."+pldname[0]+" .d"+i+" div").css("filter","sepia(0%) brightness(100%)")
 
 }
+
 $(".etpghword img").hide();
 
 socket.emit("eat",JSON.stringify([roomId,allcaneat]));
 
 socket.emit("needgetcard",JSON.stringify([roomId,pled]));
+
+myturn=0
 
 return
 
@@ -5799,19 +5910,17 @@ allcaneat=allcaneat.concat(caneph[1][2])
 
 }
 
-allcaneat=[]
-
 s=0
 
 for(let i=allech[0];i<17;i++){
 
-if(allcaneat.indexOf(plmgd[s])==-1){
+if(allcaneat.indexOf(plmgd[s])==-1||plmgd[s]==Number(filename)){
 
 $("."+pldname[0]+" .d"+i+" div").css("filter","sepia(100%) brightness(50%)")
 
 }
 
-if(allcaneat.indexOf(plmgd[s])!=-1){
+if(allcaneat.indexOf(plmgd[s])!=-1&&plmgd[s]!=Number(filename)){
 
 $("."+pldname[0]+" .d"+i+" div").css("filter","sepia(0%) brightness(100%)")
 
@@ -5828,6 +5937,9 @@ break
 }
 
 myturn=2
+
+return
+
 
 }
 /////////////////////////////////////////////////////////////
@@ -5853,6 +5965,8 @@ $("."+pldname[0]+" .d"+i+" div").css("filter","sepia(0%) brightness(100%)")
 socket.emit("gun",JSON.stringify([roomId,caneph[3]]));
 
 socket.emit("needgetcard",JSON.stringify([roomId,pled]));
+
+myturn=0
 
 return
 

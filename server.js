@@ -424,6 +424,45 @@ rooms[roomId].pled=rooms[roomId].players.indexOf(socket.id)
 
 ///////////////////////////////////////////////////////
 
+socket.on("needgetcardgun", (roomIdinf) => {
+
+roomId=JSON.parse(roomIdinf)[0]
+neepl=JSON.parse(roomIdinf)[1]
+
+rooms[roomId].alps++
+
+console.log(rooms[roomId].alps)
+
+if(rooms[roomId].alps==rooms[roomId].players.length){
+
+var n = Math.floor(Math.random() * 144)+1;///
+
+n=(n<137)?Math.ceil(n/4):n-136+34
+
+while(n<=34&&rooms[roomId].allmgd[n]>3||n>34&&rooms[roomId].allmgd[n]>0){///抽出一開始的16張牌(不能重覆)
+
+var n = Math.floor(Math.random() * 144)+1;///
+
+n=(n<137)?Math.ceil(n/4):n-136+34
+
+}
+
+rooms[roomId].allmgd[n]++
+
+console.log("發送給玩家:"+neepl+"牌:"+n)
+
+io.to(roomId).emit("getnewcard2", JSON.stringify(neepl));
+
+io.to(neepl).emit("getnewcard", JSON.stringify(n));
+
+rooms[roomId].pled=rooms[roomId].players.indexOf(neepl)
+
+}
+
+});
+
+///////////////////////////////////////////////////////
+
 socket.on("gunget", (roomIdinf) => {
 
 roomId=JSON.parse(roomIdinf)[0]
