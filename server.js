@@ -93,25 +93,28 @@ io.to(socket.id).emit("hi", []);
     });
     socket.on("waninRoom", () => {
 
-const foundRoomKey = Object.entries(rooms).find(
-  ([key, room]) => room.players.length >= 3
-)?.[0];
+const MAX_PLAYERS = 4;
+const preferredCounts = [3, 2, 1]; // 優先找人數3，再2，再1
 
-if (foundRoomKey) {
+let foundRoomKey = null;
 
-socket.emit("roomCreated", { roomId: foundRoomKey });
+for (const count of preferredCounts) {
+  foundRoomKey = Object.entries(rooms).find(
+    ([key, room]) => room.players.length === count
+  )?.[0];
 
+  if (foundRoomKey) break; // 找到符合條件的房間就跳出
 }
 
-if (!foundRoomKey || Object.keys(rooms).length === 0) {
-
-        const roomId = socket.id;  // 直接用 socket.id 當作房間 ID
-        rooms[roomId] = { host: socket.id, players: [] ,playerid: [] ,playerpic: [] ,ynstar:0,ynfriend:0,alps:0,epgh:[],pled:0,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
-        socket.join(roomId);
-        io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
-        socket.emit("roomCreated", { roomId });
-        console.log(`房間 ${roomId} 創建成功`);
-
+if (foundRoomKey) {
+  // 找到合適的房間
+  socket.emit("roomJoined", { roomId: foundRoomKey });
+} else {
+  // 沒有合適的房間，創建新房間
+  const newRoomId = generateNewRoomId(); // 你自己定義的生成房號方法
+  rooms[newRoomId] = { host: socket.id, players: [] ,playerid: [] ,playerpic: [] ,ynstar:0,ynfriend:0,alps:0,epgh:[],pled:0,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
+  console.log(`房間 ${newRoomId} 創建成功`);
+  socket.emit("roomCreated", { roomId: newRoomId });
 }
 
     });
@@ -119,6 +122,7 @@ if (!foundRoomKey || Object.keys(rooms).length === 0) {
         const roomId = socket.id;  // 直接用 socket.id 當作房間 ID
         rooms[roomId] = { host: socket.id, players: [] ,playerid: [] ,playerpic: [] ,ynstar:0,ynfriend:1,alps:0,epgh:[],pled:0,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
         socket.join(roomId);
+        cleanEmptyRooms()
         io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
         socket.emit("roomCreated", { roomId });
         console.log(`房間 ${roomId} 創建成功`);
@@ -203,6 +207,17 @@ delete rooms[roomId];
 
     });
 
+function cleanEmptyRooms() {
+  const roomKeys = Object.keys(rooms);
+  if (roomKeys.length > 10) {
+    for (const key of roomKeys) {
+      if (rooms[key].players.length === 0) {
+        delete rooms[key];
+        console.log(`刪除空房間: ${key}`);
+      }
+    }
+  }
+}
 
 function befgame(roominf){
 
