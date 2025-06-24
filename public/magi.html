@@ -2815,15 +2815,17 @@ idfme=""
 reconnectInterval=null
 lopal=0
 
+let storedCharich = sessionStorage.getItem("charich");
 
-
-charich=(sessionStorage.getItem("charich")!=null)?sessionStorage.getItem("charich"):Math.floor(Math.random() * 8)+"c"
+charich = (storedCharich === null || storedCharich === "null")
+  ? Math.floor(Math.random() * 8) + "c"
+  : storedCharich;
 
 console.log(charich)
 
         const socket = io("https://mj-production-43c2.up.railway.app");
         const urlParams = new URLSearchParams(window.location.search);
-        const roomId = "025024"///urlParams.get("room");
+        const roomId = urlParams.get("room");
 
         if (roomId) {
             socket.emit("joinRoom", roomId);
@@ -2900,7 +2902,7 @@ console.log(allplad)
 
 lop=allplad.indexOf(datainf.playerId)
 
-$(".pler"+lop).hide()
+$(".pler"+lop).html("")
 
 lopal--
 
@@ -3505,6 +3507,238 @@ cantakenb=0
 function roomstar(){
 
 socket.emit("myname",(""));
+
+$(".gh1").hide()
+
+tinmsalf=0///手動聽牌
+
+$(".etpghword img").hide()
+
+$(".outshowcad div").hide()
+
+$(".etpgword img").hide()
+
+$(".tizunword img").hide()
+
+plmgd=[]
+
+flmgd=[]
+
+otmgd=[]
+
+etmgd=[]
+
+lamgd=[]
+
+gunall=[]
+
+flocd=[[],[],[],[]]///四個玩家的花牌
+
+lbmgd=0///是否聽牌
+
+allot=[1,1,1,1]
+
+allfl=[1,1,1,1]
+
+allet=[1,1,1,1]
+
+allech=[1,1,1,1]
+
+ramgd=[[],[],[],[]]///四個玩家暗槓的牌
+
+lomgd=[[],[],[],[]]///四個玩家聽的牌
+
+etnum=[0,0,0,0]///四個玩家吃碰槓的組數
+
+
+myturn=0///我可以捨牌的情況
+
+handcardout=1///吃碰槓後手牌減少數量
+
+ephchick=0
+
+wincard=1///胡的牌
+
+gtcd=0///抽牌進度
+
+sittwind=[]///各家風位
+
+fowtwind=[]///各家花位
+
+nogunwin=0///槓上開花
+
+gunwin=0///搶槓
+
+for(let i=1;i<18;i++){
+
+$(".m"+i).show()
+
+}
+
+
+
+
+$(".dicem1").attr('class','dice1');
+$(".dicem2").attr('class','dice2');
+$(".dicem3").attr('class','dice3');
+
+cantakenb=0
+
+
+$("."+pldname[0]+" .ds17").attr('class','d17');
+
+$("."+pldname[1]+" .ds17").attr('class','d17');
+
+$("."+pldname[2]+" .ds17").attr('class','d17');
+
+$("."+pldname[3]+" .ds17").attr('class','d17');
+
+for(let i=1;i<18;i++){
+
+$("."+pldname[0]+" .d"+i).hide()
+$("."+pldname[1]+" .d"+i).hide()
+$("."+pldname[2]+" .d"+i).hide()
+$("."+pldname[3]+" .d"+i).hide()
+
+$("."+pldname[0]+" .d"+i+" .c1").html("")
+$("."+pldname[1]+" .d"+i+" .c1").html("")
+$("."+pldname[2]+" .d"+i+" .c1").html("")
+$("."+pldname[3]+" .d"+i+" .c1").html("")
+
+$("."+pldname[0]+" .d"+i).animate({},10,function(){
+
+$(this).css({'transform':'translateX('+(0-540+i*60)+'px) rotateX(0deg)'})
+
+})
+
+$("."+pldname[1]+" .d"+i).animate({},10,function(){
+
+$(this).css({'transform':'translateX('+(0-540+i*60)+'px) rotateX(0deg)'})
+
+})
+
+$("."+pldname[2]+" .d"+i).animate({},10,function(){
+
+$(this).css({'transform':'translateX('+(0-540+i*60)+'px) rotateX(0deg)'})
+
+})
+
+$("."+pldname[3]+" .d"+i).animate({},10,function(){
+
+$(this).css({'transform':'translateX('+(0-540+i*60)+'px) rotateX(0deg)'})
+
+})
+
+}
+
+$("."+pldname[0]+" .d17").animate({},10,function(){
+
+$(this).css({'transform':'translateX(520px)  rotateX(0deg)'})
+
+})
+
+$("."+pldname[1]+" .d17").animate({},10,function(){
+
+$(this).css({'transform':'translateX(520px)  rotateX(0deg)'})
+
+})
+
+$("."+pldname[2]+" .d17").animate({},10,function(){
+
+$(this).css({'transform':'translateX(520px)  rotateX(0deg)'})
+
+})
+
+$("."+pldname[3]+" .d17").animate({},10,function(){
+
+$(this).css({'transform':'translateX(520px)  rotateX(0deg)'})
+
+})
+
+for(let i=1;i<18;i++){
+
+$(".m"+i).show()
+
+}
+
+
+$(".pler1").html('<img src="watse/cv' + plerK[1].slice(0, -1) + 'l.png">');
+$(".pler2").html('<img src="watse/cv' + plerK[2].slice(0, -1) + 'c.png">');
+$(".pler3").html('<img src="watse/cv' + plerK[3].slice(0, -1) + 'r.png">');
+
+
+for(let i=1;i<9;i++){
+
+$("."+pldname[0]+" .f"+i).hide().animate({top:"-50px",left:"10px"},10);
+$("."+pldname[1]+" .f"+i).hide().animate({top:"-50px",left:"10px"},10);
+$("."+pldname[2]+" .f"+i).hide().animate({top:"-50px",left:"10px"},10);
+$("."+pldname[3]+" .f"+i).hide().animate({top:"-50px",left:"10px"},10);
+
+$("."+pldname[0]+" .f"+i+" .c1").html("")
+$("."+pldname[1]+" .f"+i+" .c1").html("")
+$("."+pldname[2]+" .f"+i+" .c1").html("")
+$("."+pldname[3]+" .f"+i+" .c1").html("")
+
+}
+
+for(let i=1;i<31;i++){
+
+$("."+pldname[0]+" .o"+i).hide().animate({top:"-50px",left:"10px"},10);
+$("."+pldname[1]+" .o"+i).hide().animate({top:"-50px",left:"10px"},10);
+$("."+pldname[2]+" .o"+i).hide().animate({top:"-50px",left:"10px"},10);
+$("."+pldname[3]+" .o"+i).hide().animate({top:"-50px",left:"10px"},10);
+
+$("."+pldname[0]+" .o"+i+" .c1").html("")
+$("."+pldname[1]+" .o"+i+" .c1").html("")
+$("."+pldname[2]+" .o"+i+" .c1").html("")
+$("."+pldname[3]+" .o"+i+" .c1").html("")
+
+$("."+pldname[0]+" .o"+i+" div").css("filter","opacity(1)")
+$("."+pldname[1]+" .o"+i+" div").css("filter","opacity(1)")
+$("."+pldname[2]+" .o"+i+" div").css("filter","opacity(1)")
+$("."+pldname[3]+" .o"+i+" div").css("filter","opacity(1)")
+
+
+}
+
+for(let i=1;i<21;i++){
+
+$("."+pldname[0]+" .e"+i).hide().animate({top:"0px",left:"50px"},10);
+$("."+pldname[1]+" .e"+i).hide().animate({top:"0px",left:"50px"},10);
+$("."+pldname[2]+" .e"+i).hide().animate({top:"0px",left:"50px"},10);
+$("."+pldname[3]+" .e"+i).hide().animate({top:"0px",left:"50px"},10);
+
+$("."+pldname[0]+" .e"+i+" .c1").html("")
+$("."+pldname[1]+" .e"+i+" .c1").html("")
+$("."+pldname[2]+" .e"+i+" .c1").html("")
+$("."+pldname[3]+" .e"+i+" .c1").html("")
+
+$("."+pldname[0]+" .e"+i+" .c2").html('<img src="mach/l.png" style="width:30px;height:80px;">')
+$("."+pldname[0]+" .e"+i+" .c3").html('<img src="mach/0.png" style="width:60px;height:80px;">')
+$("."+pldname[0]+" .e"+i+" .c4").html('<img src="mach/r.png" style="width:30px;height:80px;">')
+$("."+pldname[0]+" .e"+i+" .c5").html('<img src="mach/u.png" style="width:60px;height:30px;">')
+$("."+pldname[0]+" .e"+i+" .c6").html('<img src="mach/d.png" style="width:60px;height:30px;">')
+
+$("."+pldname[1]+" .e"+i+" .c2").html('<img src="mach/l.png" style="width:30px;height:80px;">')
+$("."+pldname[1]+" .e"+i+" .c3").html('<img src="mach/0.png" style="width:60px;height:80px;">')
+$("."+pldname[1]+" .e"+i+" .c4").html('<img src="mach/r.png" style="width:30px;height:80px;">')
+$("."+pldname[1]+" .e"+i+" .c5").html('<img src="mach/u.png" style="width:60px;height:30px;">')
+$("."+pldname[1]+" .e"+i+" .c6").html('<img src="mach/d.png" style="width:60px;height:30px;">')
+
+$("."+pldname[2]+" .e"+i+" .c2").html('<img src="mach/l.png" style="width:30px;height:80px;">')
+$("."+pldname[2]+" .e"+i+" .c3").html('<img src="mach/0.png" style="width:60px;height:80px;">')
+$("."+pldname[2]+" .e"+i+" .c4").html('<img src="mach/r.png" style="width:30px;height:80px;">')
+$("."+pldname[2]+" .e"+i+" .c5").html('<img src="mach/u.png" style="width:60px;height:30px;">')
+$("."+pldname[2]+" .e"+i+" .c6").html('<img src="mach/d.png" style="width:60px;height:30px;">')
+
+$("."+pldname[3]+" .e"+i+" .c2").html('<img src="mach/l.png" style="width:30px;height:80px;">')
+$("."+pldname[3]+" .e"+i+" .c3").html('<img src="mach/0.png" style="width:60px;height:80px;">')
+$("."+pldname[3]+" .e"+i+" .c4").html('<img src="mach/r.png" style="width:30px;height:80px;">')
+$("."+pldname[3]+" .e"+i+" .c5").html('<img src="mach/u.png" style="width:60px;height:30px;">')
+$("."+pldname[3]+" .e"+i+" .c6").html('<img src="mach/d.png" style="width:60px;height:30px;">')
+
+}
+$(".bk60").hide()
 
 }
 
@@ -4158,7 +4392,6 @@ socket.emit("epghpk",JSON.stringify([roomId,3]));
 
 if(lbmgd==1){
 
-
 socket.emit("win",JSON.stringify([roomId,plmgd,lbmgd,flmgd,etmgd]));
 
 socket.emit("needgetcard",JSON.stringify([roomId,pled]));
@@ -4209,6 +4442,25 @@ if(gtcd==0){
 ///sorcard()///整理
 
 ///socket.emit("begin",JSON.stringify([roomId]));
+
+}
+
+if(flocd[0].length==7&&flocd[1].length==1||flocd[0].length==7&&flocd[2].length==1||flocd[0].length==7&&flocd[3].length==1){
+
+socket.emit("win",JSON.stringify([roomId,plmgd,lbmgd,flmgd,etmgd]));
+
+socket.emit("needgetcard",JSON.stringify([roomId,pled]));
+
+return
+
+}
+if(flocd[0].length==8){///八仙過海
+
+socket.emit("win",JSON.stringify([roomId,plmgd,lbmgd,flmgd,etmgd]));
+
+socket.emit("needgetcard",JSON.stringify([roomId,pled]));
+
+return
 
 }
 
@@ -5410,6 +5662,12 @@ $(".lasthandaury .f"+allfl[3]).show().animate({top:"0px",left:"0px"},200);
 
 allfl[3]++
 
+if(flocd[0].length==7||flocd[1].length==7||flocd[2].length==7){
+
+outcardple=3
+
+}
+
 }
 
 
@@ -5421,6 +5679,12 @@ $(".fonthandaury .f"+allfl[2]).show().animate({top:"0px",left:"0px"},200);
 
 allfl[2]++
 
+if(flocd[0].length==7||flocd[1].length==7||flocd[3].length==7){
+
+outcardple=2
+
+}
+
 }
 
 
@@ -5431,6 +5695,12 @@ $(".nexthandaury .f"+allfl[1]+" .c1").html('<img src="mach/'+mtd+'.png" style="w
 $(".nexthandaury .f"+allfl[1]).show().animate({top:"0px",left:"0px"},200);
 
 allfl[1]++
+
+if(flocd[0].length==7||flocd[3].length==7||flocd[2].length==7){
+
+outcardple=1
+
+}
 
 }
 

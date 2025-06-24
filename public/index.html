@@ -2,7 +2,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="connect-src 'self' https://catchat-a7zb.onrender.com https://mj-5x4w.onrender.com wss://mj-5x4w.onrender.com;">
+<meta http-equiv="Content-Security-Policy" content="connect-src 'self' https://mj-production-43c2.up.railway.app wss://mj-production-43c2.up.railway.app https://catchat-a7zb.onrender.com https://mj-5x4w.onrender.com wss://mj-5x4w.onrender.com;">
 <meta property="og:image" content="backg/endshures.jpg">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
@@ -2943,7 +2943,6 @@
 
 <img class="backindex" src="word/backindex.png" style="position:absolute;top:10px;left:10px;pointer-events: auto;">
 <img class="backindex2" src="word/backindex.png" style="position:absolute;top:10px;left:10px;pointer-events: auto;">
-<img class="coun3" src="word/coun3.png" style="position:absolute;top:10px;left:10px;pointer-events: auto;" onclick="incountie();$('.coun3').hide();">
 <img class="backindexword" src="backg/bkmy.png" style="position:absolute;top:50px;left:150px;pointer-events: auto;">
 <img class="inficon" src="word/inficon.png" style="position:absolute;top:10px;left:1740px;pointer-events: auto;">
 </div>
@@ -2967,12 +2966,14 @@
 </div>
 
 
-<div id="bk90" style="position:absolute;top:50%;left:50%;margin-left:-900;margin-top:-450;width:1800;height:900;display:none;">
+<div id="bk90" style="position:absolute;top:50%;left:50%;margin-left:-900;margin-top:-450;width:1800;height:900;display:none;" onclick="$('#bk90').hide();">
 <div style="background:#000000;position:absolute;top:0%;left:0%;width:100%;height:100%;overflow:hidden;filter:opacity(0.6);"></div>
-<div style="position:absolute;top:50%;left:50%;margin-left:-500;margin-top:-266;"><img class="concutie" src="word/coun1.png" onclick="incountie()"></div>
-<div style="position:absolute;top:50%;left:50%;margin-left:100;margin-top:-266;"><img class="readout" src="word/readout.png" onclick="saveLocalStorageAsQR()"></div>
-<div style="position:absolute;top:50%;left:50%;margin-left:-500;margin-top:66;" ><img class="exit" src="word/coun2.png"onclick="$('#bk90').hide()"></div>
-<div style="position:absolute;top:50%;left:50%;margin-left:100;margin-top:66;">
+<div style="position:absolute;top:50%;left:33%;margin-left:-500;margin-top:-266;"><img class="concutie" src="word/coun1.png" onclick="if(lasplmgd0!=null){incountie()}"></div>
+<div style="position:absolute;top:50%;left:66%;margin-left:-500;margin-top:-266;"><img class="concutie" src="word/coun3.png" onclick="sufpvpn(1)"></div>
+<div style="position:absolute;top:50%;left:99%;margin-left:-500;margin-top:-266;"><img class="readout" src="word/readout.png" onclick="if(lasplmgd0!=null){saveLocalStorageAsQR()}"></div>
+<div style="position:absolute;top:50%;left:33%;margin-left:-500;margin-top:66;" ><img class="exit" src="word/coun2.png" onclick="$('#bk90').hide();$('.pledstanby').hide();londing();"></div>
+<div style="position:absolute;top:50%;left:66%;margin-left:-500;margin-top:66;"><img class="concutie" src="word/coun4.png" onclick="sufpvpn(2)"></div>
+<div style="position:absolute;top:50%;left:99%;margin-left:-500;margin-top:66;">
     <img class="readin" style="cursor: pointer;" src="word/readin.png" onclick="triggerFileUpload()">
 </div>
 
@@ -3011,6 +3012,7 @@ window.addEventListener("resize", scaleContent);
 
 </script>
 
+<script src="https://mj-5x4w.onrender.com/socket.io/socket.io.js"></script>
 <script type="text/javascript" src="jquery2.min.js"></script>
 <script type="text/javascript" src="zutop.js"></script>
 <script type="text/javascript" src="people.js"></script>

@@ -175,12 +175,40 @@ function isValidBase64(str) {
 }
 ////////////////////////////////////////////
 
+function sufpvpn(dps){
+
+const socket = io("https://mj-production-43c2.up.railway.app");
+
+socket.on("hi", () => {
+
+console.log("伺服器確認重連成功");
+
+if(dps==2){///連線
+
+socket.emit("createRoom");
+
+}
+
+});
+
+
+socket.on("roomCreated", (rooms) => {
+
+console.log(rooms.roomId)
+
+window.location.href = `/magi.html?room=${rooms.roomId}`
+
+});
+
+}
+
+////////////////////////////////////////////
 
 lassave=0///上次紀錄
 
 if(lasplmgd0!=null){
 
-setTimeout('$("#bk90").show()',5000)
+///setTimeout('$("#bk90").show()',5000)
 
 ///setTimeout('countie()',11000)
 
@@ -1182,7 +1210,7 @@ $(".stanbylondingshap100").css("width","0px")
 
 $(".stanbylondingshap100").animate({width:'100%'},5000);
 
-setTimeout('$(".stanbylonding").hide();$(".pledstanby").show();$(".coun3").show();$("#bk90").show()',5000)
+setTimeout('$(".stanbylonding").hide();$(".pledstanby").show();$("#bk90").show()',5000)
 
 }
 
@@ -1197,6 +1225,8 @@ pledpic=(pledpic-1>-1)?pledpic-1:plerinfor.length-1
 $(".playerpic").html('<img src="stanbypled/cv'+plerinfor[pledpic].pic+'.png">')
 
 plerK[0]=plerinfor[pledpic].pic
+
+plerK[0]=(plerK[0]=="-1")?null:plerK[0]
 
 sessionStorage.setItem("charich", plerK[0]);
 
@@ -1235,7 +1265,6 @@ $(".g6").html("介紹:"+plerinfor[pledpic].inf)
 
 },false);
 
-
 sessionStorage.setItem("charich", "0c");
 
 arrowR = document.querySelector(".arrowR");
@@ -1247,6 +1276,8 @@ pledpic=(pledpic+1<plerinfor.length)?pledpic+1:0
 $(".playerpic").html('<img src="stanbypled/cv'+plerinfor[pledpic].pic+'.png">')
 
 plerK[0]=plerinfor[pledpic].pic
+
+plerK[0]=(plerK[0]=="-1")?null:plerK[0]
 
 sessionStorage.setItem("charich", plerK[0]);
 
@@ -1292,9 +1323,12 @@ playerpicOK = document.querySelector(".playerpic");
 
 playerpicOK.addEventListener("click",function () {
 
-$(".pledstanby").hide()
+$("#bk90").show()
 
-londing()
+
+///$(".pledstanby").hide()
+
+///londing()
 
 },false);
 
@@ -1310,8 +1344,6 @@ setTimeout('$(".stanbylonding").hide();$(".pledstanby").show()',5000)
 function londing(){
 
 localStorage.setItem("charich",JSON.stringify(plerK[0]));
-
-
 
 if(plerK[0]=="8l"){
 
