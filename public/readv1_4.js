@@ -12,12 +12,6 @@ document.oncontextmenu = function(){
 v41= new Audio("music\\v41.wav")
 v41.preload = "auto"
 
-v44=new Audio("music\\v44.wav");///骰子音效
-v44.preload = "auto"
-
-v47=new Audio("music\\v47.wav");///打出去音效
-v47.preload = "auto"
-
 for(let i=0;i<plerinfor.length;i++){
 
 if(plerinfor[i].cho!=0){
@@ -1705,12 +1699,6 @@ $(".bgige2").html(bgige2)///圈風局
 
 $(".bk30").show()
 
-v44.pause();
-
-v44.currentTime = 0
-
-v44.play();
-
 di1 = Math.floor(Math.random() * 6+1);
 di2 = Math.floor(Math.random() * 6+1);
 di3 = Math.floor(Math.random() * 6+1);
@@ -3367,12 +3355,6 @@ img.onload = function () {
   $("."+pldname[plednow]+" div .d17").show(); // 圖片載入完成後才顯示
 };
 
-v47.pause();
-
-v47.currentTime = 0
-
-v47.play();
-
 if(flocd[pled].length==1){
 
 for(let i=0;i<4;i++){
@@ -3391,9 +3373,7 @@ v41.pause();
 
 v41.currentTime = 0
 
-setTimeout(() => {
-    v41.play();
-}, 50);
+v41.play();
 
 if(pled<4){
 
@@ -3513,10 +3493,7 @@ v41.pause();
 
 v41.currentTime = 0
 
-
-setTimeout(() => {
-    v41.play();
-}, 50);
+v41.play();
 
 
 $(".mytake"+pled).show()
@@ -3830,9 +3807,7 @@ v41.pause();
 
 v41.currentTime = 0
 
-setTimeout(() => {
-    v41.play();
-}, 50);
+v41.play();
 
 setTimeout('winShow()',2000)///胡牌特效
 
@@ -3892,9 +3867,7 @@ v41.pause();
 
 v41.currentTime = 0
 
-setTimeout(() => {
-    v41.play();
-}, 50);
+v41.play();
 
 setTimeout('winShow()',1000)///胡牌特效
 
@@ -3918,9 +3891,7 @@ v41.pause();
 
 v41.currentTime = 0
 
-setTimeout(() => {
-    v41.play();
-}, 50);
+v41.play();
 
 setTimeout('winShow()',1000)///胡牌特效
 
@@ -4056,12 +4027,6 @@ if(epgmow==0){
 $("."+pldname[pled]+" div .d17").hide()
 
 }
-
-v47.pause();
-
-v47.currentTime = 0
-
-v47.play();
 
 cpd=plmgd[pled][mdt]
 
@@ -4217,9 +4182,11 @@ v41.pause();
 
 v41.currentTime = 0
 
-setTimeout(() => {
-    v41.play();
-}, 50);
+v41.pause();
+
+v41.currentTime = 0
+
+v41.play();
 
 setTimeout('winShow()',2000)///胡牌特效
 
@@ -4344,9 +4311,7 @@ v41.pause();
 
 v41.currentTime = 0
 
-setTimeout(() => {
-    v41.play();
-}, 50);
+v41.play();
 
 smokeshow(pled)
 
@@ -4567,9 +4532,7 @@ v41.pause();
 
 v41.currentTime = 0
 
-setTimeout(() => {
-    v41.play();
-}, 50);
+v41.play();
 
 setTimeout('outCad()',500)
 
@@ -4988,9 +4951,7 @@ v41.pause();
 
 v41.currentTime = 0
 
-setTimeout(() => {
-    v41.play();
-}, 50);
+v41.play();
 
 setTimeout('outCad()',500)
 
@@ -5418,9 +5379,7 @@ v41.pause();
 
 v41.currentTime = 0
 
-setTimeout(() => {
-    v41.play();
-}, 50);
+v41.play();
 
 setTimeout('winShow()',2000)///胡牌特效
 
@@ -5605,9 +5564,8 @@ v41.pause();
 
 v41.currentTime = 0
 
-setTimeout(() => {
-    v41.play();
-}, 50);
+v41.play();
+
 
 $(".eat"+pled).show()
 
@@ -5967,9 +5925,8 @@ v41.pause();
 
 v41.currentTime = 0
 
-setTimeout(() => {
-    v41.play();
-}, 50);
+v41.play();
+
 
 
 return;
@@ -5989,9 +5946,8 @@ v41.pause();
 
 v41.currentTime = 0
 
-setTimeout(() => {
-    v41.play();
-}, 50);
+v41.play();
+
 
 return
 
@@ -6201,12 +6157,6 @@ plmgd[pled].push(otc)
 $("."+pldname[pled]+" div .d17").hide()
 
 
-v47.pause();
-
-v47.currentTime = 0
-
-v47.play();
-
 
 cadlink=$("."+pldname[0]+" div .d"+mdt+" .c1").html().toString()
 
@@ -6381,10 +6331,7 @@ v41.pause();
 
 v41.currentTime = 0
 
-
-setTimeout(() => {
-    v41.play();
-}, 50);
+v41.play();
 
 
 $(".mytake"+pled).show()
