@@ -73,7 +73,7 @@ function createRoomStructure(hostId) {
 }
 
 const rooms = {};
-rooms["025024"] = { host: "貓貓", players: [] ,playerid: []  ,playerpic: [],ynstar:0,ynfriend:0,alps:0,epgh:[],pled:0,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
+///rooms["025024"] = { host: "貓貓", players: [] ,playerid: []  ,playerpic: [],ynstar:0,ynfriend:0,alps:0,epgh:[],pled:0,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
 
 io.on("connection", (socket) => {
 
@@ -195,6 +195,8 @@ io.to(roomId).emit("allche", JSON.stringify(rooms[roomId].playerpic));
     socket.on("delroom", (roominf) => {///刪除房間
 
 roomId=JSON.parse(roominf)[0]
+
+console.log("刪除房間"+roomId)
 
 delete rooms[roomId];
 
