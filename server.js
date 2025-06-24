@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const http = require("http");
 const { Server } = require("socket.io");
 const helmet = require("helmet");  // 引入 helmet
@@ -47,12 +48,39 @@ app.use(
     },
   })
 );
-
 app.get("/ping", (req, res) => {
   res.send("pong");
 });
 
-app.use(express.static("public"));
+const longCacheFolders = [
+  'backg',
+  'mach',
+  'madh',
+  'mati',
+  'meup',
+  'music',
+  'stanbypled',
+  'watse',
+  'word'
+];
+
+longCacheFolders.forEach(folder => {
+  app.use(`/${folder}`, express.static(path.join(__dirname, 'public', folder), {
+    maxAge: '1y',
+    immutable: true
+  }));
+});
+
+// 2. zutop.js 長快取（放 public 根目錄）
+app.use('/zutop.js', express.static(path.join(__dirname, 'public', 'zutop.js'), {
+  maxAge: '1y',
+  immutable: true
+}));
+
+app.get('/', (req, res) => {
+  res.set('Cache-Control', 'no-cache');
+  res.sendFile(path.join(__dirname, 'public/index.html'));
+});
 
 function createRoomStructure(hostId) {
   return {
