@@ -108,7 +108,7 @@ for (const count of preferredCounts) {
 
 if (foundRoomKey) {
   // 找到合適的房間
-  socket.emit("roomJoined", { roomId: foundRoomKey });
+  socket.emit("roomCreated", { roomId: foundRoomKey });
 } else {
   // 沒有合適的房間，創建新房間
         const roomId = socket.id;  // 直接用 socket.id 當作房間 ID
