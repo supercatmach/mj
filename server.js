@@ -122,6 +122,8 @@ socket.on("disconnect", (reason) => {
 
 rooms[roomId].playerpic = rooms[roomId].playerpic.filter(p => p.playerId !== socket.id);
 
+io.to(roomId).emit("allche", JSON.stringify(rooms[roomId].playerpic));
+
             io.to(roomId).emit("playerDisconnected", { playerId: socket.id });
 
             // 是房主或房間沒人 => 移除整個房間

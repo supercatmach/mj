@@ -2882,9 +2882,9 @@ for(let i=1;i<5;i++){
 $(".playerpic"+i).html('')
 
 }
-for(let i=1;i<chelength.length+1;i++){
+for(let i=0;i<chelength.length;i++){
 
-$(".playerpic"+i).html('<img src="stanbypled/cv'+chelength[i].che+'.png"></div>').show()
+$(".playerpic"+(i+1)).html('<img src="stanbypled/cv'+(chelength[i].che)+'.png"></div>').show()
 
 }
 
