@@ -119,6 +119,9 @@ socket.on("disconnect", (reason) => {
     for (const roomId in rooms) {
         if (rooms[roomId].players.includes(socket.id)) {
             // 通知房內其他玩家某人離線
+
+rooms[roomId].playerpic = rooms[roomId].playerpic.filter(p => p.playerId !== socket.id);
+
             io.to(roomId).emit("playerDisconnected", { playerId: socket.id });
 
             // 是房主或房間沒人 => 移除整個房間
@@ -150,7 +153,7 @@ rooms[roomId].ynstar=0
 
 roomId=JSON.parse(che)[0]
 
-rooms[roomId].playerpic.push(JSON.parse(che)[1]);
+rooms[roomId].playerpic.push({"che":JSON.parse(che)[1],"playerId":socket.id});
 
 io.to(roomId).emit("allche", JSON.stringify(rooms[roomId].playerpic));
 

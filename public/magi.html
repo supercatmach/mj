@@ -2875,14 +2875,16 @@ socket.on("allche", (cheinf) => {
 
 chelength=JSON.parse(cheinf)
 
+console.log(chelength)
+
 for(let i=1;i<5;i++){
 
 $(".playerpic"+i).html('')
 
 }
-for(let i=1;i<chelength.length;i++){
+for(let i=1;i<chelength.length+1;i++){
 
-$(".playerpic"+i).html('<img src="stanbypled/cv'+chelength[i]+'.png"></div>').show()
+$(".playerpic"+i).html('<img src="stanbypled/cv'+chelength[i].che+'.png"></div>').show()
 
 }
 
