@@ -111,10 +111,12 @@ if (foundRoomKey) {
   socket.emit("roomJoined", { roomId: foundRoomKey });
 } else {
   // 沒有合適的房間，創建新房間
-  const newRoomId = generateNewRoomId(); // 你自己定義的生成房號方法
-  rooms[newRoomId] = { host: socket.id, players: [] ,playerid: [] ,playerpic: [] ,ynstar:0,ynfriend:0,alps:0,epgh:[],pled:0,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
-  console.log(`房間 ${newRoomId} 創建成功`);
-  socket.emit("roomCreated", { roomId: newRoomId });
+        const roomId = socket.id;  // 直接用 socket.id 當作房間 ID
+        rooms[roomId] = { host: socket.id, players: [] ,playerid: [] ,playerpic: [] ,ynstar:0,ynfriend:0,alps:0,epgh:[],pled:0,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
+        socket.join(roomId);
+        io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
+        socket.emit("roomCreated", { roomId });
+        console.log(`房間 ${roomId} 創建成功`);
 }
 
     });
