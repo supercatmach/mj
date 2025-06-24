@@ -64,6 +64,16 @@ const longCacheFolders = [
   'word'
 ];
 
+// 靜態檔案先處理
+app.use(express.static(path.join(__dirname, 'public')));
+
+// API 路由等可寫在這裡...
+
+// 這行是針對 SPA，如果找不到其他路由就回傳 index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 longCacheFolders.forEach(folder => {
   app.use(`/${folder}`, express.static(path.join(__dirname, 'public', folder), {
     maxAge: '1y',
