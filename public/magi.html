@@ -2817,7 +2817,7 @@ lopal=0
 
 
 
-charich=(sessionStorage.getItem("charich")!=null)?sessionStorage.getItem("charich"):"0c"
+charich=(sessionStorage.getItem("charich")!=null)?sessionStorage.getItem("charich"):Math.floor(Math.random() * 8)+"c"
 
 console.log(charich)
 
@@ -3346,9 +3346,10 @@ $(".m"+i).show()
 }
 
 
-$(".pler1").html('<img src="watse/cv'+plerK[1]+'.png">')
-$(".pler2").html('<img src="watse/cv'+plerK[2]+'.png">')
-$(".pler3").html('<img src="watse/cv'+plerK[3]+'.png">')
+$(".pler1").html('<img src="watse/cv' + plerK[1].slice(0, -1) + 'l.png">');
+$(".pler2").html('<img src="watse/cv' + plerK[2].slice(0, -1) + 'c.png">');
+$(".pler3").html('<img src="watse/cv' + plerK[3].slice(0, -1) + 'r.png">');
+
 
 for(let i=1;i<9;i++){
 
@@ -3516,6 +3517,24 @@ allplad=JSON.parse(data)[1]
 myl=allplad.indexOf(idfme)
 
 allplad=allplad.slice(myl).concat(allplad.slice(0, myl));
+const cheMap = new Map();
+for (const entry of chelength) {
+  cheMap.set(entry.playerId, entry.che);
+}
+
+// 對 allplad 做對應查找
+for (let i = 0; i < allplad.length; i++) {
+  if (cheMap.has(allplad[i])) {
+    plerK[i] = cheMap.get(allplad[i]);
+  }
+}
+
+
+
+$(".pler1").html('<img src="watse/cv' + plerK[1].slice(0, -1) + 'l.png">');
+$(".pler2").html('<img src="watse/cv' + plerK[2].slice(0, -1) + 'c.png">');
+$(".pler3").html('<img src="watse/cv' + plerK[3].slice(0, -1) + 'r.png">');
+
 
 makrs=allplad.indexOf(JSON.parse(data)[2])
 
