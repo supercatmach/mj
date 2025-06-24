@@ -72,7 +72,7 @@ function createRoomStructure(hostId) {
   };
 }
 
-const rooms = {};  // { roomId: { host: socket.id, players: 1 } }
+const rooms = {};
 rooms["025024"] = { host: "貓貓", players: [] ,playerid: []  ,playerpic: [],ynstar:0,ynfriend:0,alps:0,epgh:[],pled:0,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
 
 io.on("connection", (socket) => {
@@ -91,7 +91,38 @@ io.to(socket.id).emit("hi", []);
         socket.emit("roomCreated", { roomId });
         console.log(`房間 ${roomId} 創建成功`);
     });
+    socket.on("waninRoom", () => {
 
+const foundRoomKey = Object.entries(rooms).find(
+  ([key, room]) => room.players.length >= 3
+)?.[0];
+
+if (foundRoomKey) {
+
+socket.emit("roomCreated", { roomId: foundRoomKey });
+
+}
+
+if (!foundRoomKey || Object.keys(rooms).length === 0) {
+
+        const roomId = socket.id;  // 直接用 socket.id 當作房間 ID
+        rooms[roomId] = { host: socket.id, players: [] ,playerid: [] ,playerpic: [] ,ynstar:0,ynfriend:0,alps:0,epgh:[],pled:0,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
+        socket.join(roomId);
+        io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
+        socket.emit("roomCreated", { roomId });
+        console.log(`房間 ${roomId} 創建成功`);
+
+}
+
+    });
+    socket.on("createRoom2", () => {
+        const roomId = socket.id;  // 直接用 socket.id 當作房間 ID
+        rooms[roomId] = { host: socket.id, players: [] ,playerid: [] ,playerpic: [] ,ynstar:0,ynfriend:1,alps:0,epgh:[],pled:0,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
+        socket.join(roomId);
+        io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
+        socket.emit("roomCreated", { roomId });
+        console.log(`房間 ${roomId} 創建成功`);
+    });
     // 玩家加入房間
     socket.on("joinRoom", (roomId) => {
         if (!rooms[roomId] || rooms[roomId].players.length >= 4||rooms[roomId].ynstar==1) {

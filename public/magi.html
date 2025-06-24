@@ -11,7 +11,7 @@
 <title>超科學麻將社</title>
 <script type="text/javascript" src="jquery2.min.js"></script>
 <script type="text/javascript" src="zutop.js"></script>
-<script src="https://mj-5x4w.onrender.com/socket.io/socket.io.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/socket.io-client@4.7.5/dist/socket.io.min.js"></script>
 <link rel="stylesheet" href="mystyle.css">
 <body>
 <div class="adown">
@@ -5523,7 +5523,7 @@ if(whtai.indexOf("人胡")!=-1){$(".tainame").html('<img src="word/humenhu.png">
 if(whtai.indexOf("地胡")!=-1){$(".tainame").html('<img src="word/grundhu.png">')}
 if(whtai.indexOf("天胡")!=-1){$(".tainame").html('<img src="word/godhu.png">')}
 
-setTimeout('$(".bk60").show(500)',1000)
+setTimeout('$(".bk60").fadeIn(500)',1000)
 
 if(pled!=makrs){
 

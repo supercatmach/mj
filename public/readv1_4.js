@@ -179,13 +179,29 @@ function sufpvpn(dps){
 
 const socket = io("https://mj-production-43c2.up.railway.app");
 
+$(".pledstanby").hide()
+
+$('#bk90').hide()
+
+$(".londing").show()
+
+$(".londingshap100").css("width","0px")
+
+$(".londingshap100").animate({width:'100%'},10000);
+
 socket.on("hi", () => {
 
 console.log("伺服器確認重連成功");
 
-if(dps==2){///連線
+if(dps==1){///連線
 
-socket.emit("createRoom");
+socket.emit("waninRoom");
+
+}
+
+if(dps==2){///創防
+
+socket.emit("createRoom2");
 
 }
 
@@ -196,7 +212,15 @@ socket.on("roomCreated", (rooms) => {
 
 console.log(rooms.roomId)
 
+$(".londingshap100").stop();
+
+$(".londingshap100").animate({width:'100%'},1000);
+
+setTimeout(() => {
+
 window.location.href = `/magi.html?room=${rooms.roomId}`
+
+},1000)
 
 });
 
