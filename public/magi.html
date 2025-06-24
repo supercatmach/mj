@@ -2827,7 +2827,7 @@ console.log(charich)
 
         if (roomId) {
             socket.emit("joinRoom", roomId);
-            socket.emit("myche", JSON.stringify(charich));
+            socket.emit("myche", JSON.stringify([roomId,charich]));
             document.getElementById("roomInfo").innerText = `房間: ${roomId}`;
         }
 

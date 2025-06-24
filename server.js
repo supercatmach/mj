@@ -148,7 +148,9 @@ rooms[roomId].ynstar=0
 
     socket.on("myche", (che) => {
 
-rooms[roomId].playerpic.push(JSON.parse(che));
+roomId=JSON.parse(che)[0]
+
+rooms[roomId].playerpic.push(JSON.parse(che)[1]);
 
         socket.emit("allche", JSON.stringify(rooms[roomId].playerpic));
     });
