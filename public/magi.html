@@ -2484,6 +2484,7 @@
 <div class="c5"><img src="mach/u.png"></div>
 <div class="c6"><img src="mach/d.png"></div>
 </div>
+<div class="sunche"></div>
 <div class="bgige2"></div>
 <div class="lifenum">
 <img src="word/mr4.png">
@@ -2621,6 +2622,7 @@
 <img src="word/01.png" style="height:150px;">
 <img src="word/ge.png" style="height:150px;">
 </div>
+
 <div id="dicemove1" style="position:absolute;top:50%;left:50%;">
 <div class="dice">
 <div class="dice1">
@@ -2705,6 +2707,9 @@
 
 
 <div style="position:absolute;top:50%;left:50%;margin-left:-900;margin-top:-450;width:1800;height:900;pointer-events: none;">
+
+<img class="backindex" src="word/backindex.png" style="position:absolute;top:10px;left:10px;pointer-events: auto;">
+
 <img class="inficon" src="word/inficon.png" style="position:absolute;top:10px;left:1740px;pointer-events: auto;">
 </div>
 <div class="stanbylonding" style="background-image: url('backg/endshure.jpg');">
@@ -2732,7 +2737,6 @@
 <p id="roomInfo"  style="display:none;"></p>
 
 <script>
-
 
 window.addEventListener("load", () => {
   // 所有圖片載入完才會執行這裡的程式碼
@@ -3007,6 +3011,17 @@ $(this).css({'transform':'translateX(520px)  rotateX(0deg)'})
 
 
 ///////////////////////////////////////////
+
+
+backindex2 = document.querySelector(".backindex");
+
+backindex2.addEventListener("click",function () {
+
+window.location.href = "/"
+
+return
+
+},false);
 
 nnyn = document.querySelector(".epgh6");
 
@@ -4008,6 +4023,8 @@ cantoutcd=[]///不能捨的牌
 
 
 allmgd=64
+
+$(".sunche").html("剩餘張數 "+(128-allmgd))
 
 for(let i=1;i<9;i++){
 
@@ -6162,6 +6179,8 @@ $(".outshowcad div").hide()
 cantakenb++
 
 allmgd++
+
+$(".sunche").html("剩餘張數 "+(128-allmgd))
 
 myturn=0
 

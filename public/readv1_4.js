@@ -3345,6 +3345,8 @@ $(".pler3").html('<img src="watse/cv'+plerK[3]+'.png">').show()
 
 var n = allmgd[0]
 
+$(".sunche").html("剩餘張數 "+(127-allmgd.length))
+
 while(allmgd.indexOf(n)!=-1){///抽出一開始的16張牌(不能重覆)
 
 var n = Math.floor(Math.random() * 144+1);///144
@@ -4999,6 +5001,8 @@ if(pled>3){
 pled=0
 
 }
+
+
 if(allmgd.length>=128){
 
 pled=makrs
