@@ -120,7 +120,7 @@ io.on("connection", (socket) => {
 
     console.log("新玩家連線:", socket.id);
 
-io.to(socket.id).emit("hi", []);
+io.to(socket.id).emit("hi", {socket.id});
 
 
     // 玩家創建房間

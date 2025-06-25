@@ -173,6 +173,9 @@ function sufpvpn(dps){
 
 const socket = io("https://mj-production-43c2.up.railway.app");
 
+
+if(dps!=3){///連線
+
 $(".pledstanby").hide()
 
 $('#bk90').hide()
@@ -182,6 +185,8 @@ $(".londing").show()
 $(".londingshap100").css("width","0px")
 
 $(".londingshap100").animate({width:'100%'},10000);
+
+}
 
 socket.on("hi", () => {
 
