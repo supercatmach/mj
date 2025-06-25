@@ -3845,9 +3845,25 @@ for (let i = 0; i < allplad.length; i++) {
 
 
 
-$(".pler1").html('<img src="watse/cv' + plerK[1].slice(0, -1) + 'l.png">');
-$(".pler2").html('<img src="watse/cv' + plerK[2].slice(0, -1) + 'c.png">');
-$(".pler3").html('<img src="watse/cv' + plerK[3].slice(0, -1) + 'r.png">');
+setlcr=["c","l","c","r"]
+
+for(let i=1;i<4;i++){
+
+if (isBase64Image(plerK[i])) {
+
+pledpicmyslef = document.createElement('img');
+pledpicmyslef.src = plerK[i];
+pledpicmyslef.style.height = "900px";
+
+$(".pler"+i).html(pledpicmyslef);
+
+} else {
+
+$(".pler"+i).html('<img src="watse/cv' + plerK[1].slice(0, -1) + setlcr[i]+'.png">');
+
+}
+
+}
 
 
 makrs=allplad.indexOf(JSON.parse(data)[2])
