@@ -571,16 +571,15 @@ left:100%;
 margin-left:-493px;
 display:none;
 }
-.pler2{
+.pler2 {
   position: absolute;
-  top: -50px;         /* 根據需求調整位置 */
+  top: -50px;
   left: 50%;
   transform: translateX(-50%);
-  display: inline-block;
   display: flex;
-  justify-content: center;   /* 左右置中 */
-  align-items: flex-start;   /* 上對齊 */
-display:none;
+  justify-content: center;
+  align-items: flex-start;
+  display: none;
 }
 .pler2 img {
   max-width: 80%;
