@@ -188,9 +188,9 @@ $(".londingshap100").animate({width:'100%'},10000);
 
 }
 
-socket.on("hi", () => {
+socket.on("hi", (plid) => {
 
-console.log("伺服器確認重連成功");
+console.log(plid+"伺服器確認重連成功");
 
 if(dps==1){///連線
 
