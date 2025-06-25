@@ -192,6 +192,8 @@ socket.on("hi", (plid) => {
 
 console.log(plid+"伺服器確認重連成功");
 
+$(".mypin").val(plid)
+
 if(dps==1){///連線
 
 socket.emit("waninRoom");
@@ -224,6 +226,15 @@ window.location.href = `/magi.html?room=${rooms.roomId}`
 });
 
 }
+
+////////////////////////////////////////////
+
+$("#copyBtn").click(function() {
+  const input = $(".mypin");
+  input.select();
+  document.execCommand("copy");
+
+});
 
 ////////////////////////////////////////////
 

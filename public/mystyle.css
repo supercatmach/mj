@@ -32,6 +32,12 @@ transform:translateX(900px) translateY(-350px) translateZ(-1100px) rotateY(180de
 transform:translateX(250px) translateY(-430px) translateZ(-250px) rotateY(-88deg); 
 
 }
+        /* 圖示樣式 */
+        .icon {
+            font-size: 40px; /* Font Awesome 需要使用 font-size 設定大小 */
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+        }
 .piclond{
 display:none;
 }

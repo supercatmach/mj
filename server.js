@@ -229,6 +229,14 @@ rooms[roomId].ynstar=0
         socket.emit("updateRooms", rooms);
     });
 
+socket.on("invit", (data) => {
+  const friendPin = data[0];
+  const roomId = data[1];
+
+io.to(friendPin).emit("roomCreated", roomId);
+
+});
+
     socket.on("myche", (che) => {
 
 roomId=JSON.parse(che)[0]
