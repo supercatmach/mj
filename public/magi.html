@@ -2932,6 +2932,8 @@ socket.on("hi", () => {
 
 $("#snedBtn").click(function() {
 
+console.log(roomId)
+
 socket.emit("invit", [$(".friendpin").val(),roomId]);
 
 });

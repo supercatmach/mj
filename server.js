@@ -230,8 +230,11 @@ rooms[roomId].ynstar=0
     });
 
 socket.on("invit", (data) => {
+
   const friendPin = data[0];
   const roomId = data[1];
+
+console.log(roomId)
 
 io.to(friendPin).emit("roomCreated", roomId);
 
