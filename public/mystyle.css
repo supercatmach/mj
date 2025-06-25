@@ -560,10 +560,9 @@ display:none;
 .pler2{
 position:absolute;
 height:900px;
-width:815px;
-top:0px;
+top:-110px;
 left:50%;
-margin-left:-407.5px;
+transform: translateX(-50%);
 display:none;
 }
 .pler3{
@@ -886,7 +885,7 @@ animation-fill-mode:forwards;
 margin-left:-900;
 margin-top:-450;
   transform-origin: center center;
-
+overflow:hidden;
 background-image: url('backg/class2.jpg');
 }
 
@@ -911,6 +910,7 @@ display:none;
     height:100%;
     transform-style:preserve-3d;
 display:none;
+
 
 }
 .table{

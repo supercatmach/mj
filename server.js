@@ -521,6 +521,14 @@ socket.on("getnewcard", (roomIdinf) => {
 
 roomId=JSON.parse(roomIdinf)[0]
 
+if(rooms[roomId].allmgd2==128){
+
+io.to(roomId).emit("nowin", []);
+
+}
+
+if(rooms[roomId].allmgd2<128){
+
 var n = Math.floor(Math.random() * 144)+1;///
 
 n=(n<137)?Math.ceil(n/4):n-136+34
@@ -547,6 +555,8 @@ io.to(socket.id).emit("getnewcard", JSON.stringify(n));
 
 rooms[roomId].pled=rooms[roomId].players.indexOf(socket.id)
 
+}
+
 });
 
 ///////////////////////////////////////////////////////
@@ -555,6 +565,14 @@ socket.on("needgetcardgun", (roomIdinf) => {
 
 roomId=JSON.parse(roomIdinf)[0]
 neepl=JSON.parse(roomIdinf)[1]
+
+if(rooms[roomId].allmgd2==128){
+
+io.to(roomId).emit("nowin", []);
+
+}
+
+if(rooms[roomId].allmgd2<128){
 
 rooms[roomId].alps++
 
@@ -590,6 +608,8 @@ rooms[roomId].pled=rooms[roomId].players.indexOf(neepl)
 
 }
 
+}
+
 });
 
 ///////////////////////////////////////////////////////
@@ -597,6 +617,14 @@ rooms[roomId].pled=rooms[roomId].players.indexOf(neepl)
 socket.on("gunget", (roomIdinf) => {
 
 roomId=JSON.parse(roomIdinf)[0]
+
+if(rooms[roomId].allmgd2==128){
+
+io.to(roomId).emit("nowin", []);
+
+}
+
+if(rooms[roomId].allmgd2<128){
 
 var n = Math.floor(Math.random() * 144)+1;///
 
@@ -623,6 +651,8 @@ io.to(roomId).emit("getnewcard2", JSON.stringify(socket.id));
 io.to(socket.id).emit("getnewcard", JSON.stringify(n));
 
 rooms[roomId].pled=rooms[roomId].players.indexOf(socket.id)
+
+}
 
 });
 
