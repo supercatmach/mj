@@ -236,7 +236,7 @@ socket.on("invit", (data) => {
 
 console.log(roomId)
 
-io.to(friendPin).emit("roomCreated", roomId);
+io.to(friendPin).emit("roomCreated", { roomId: data[1] });
 
 });
 
