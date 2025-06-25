@@ -560,7 +560,7 @@ display:none;
 .pler2{
 position:absolute;
 height:900px;
-top:-110px;
+top:-90px;
 left:50%;
 transform: translateX(-50%);
 display:none;
@@ -885,7 +885,7 @@ animation-fill-mode:forwards;
 margin-left:-900;
 margin-top:-450;
   transform-origin: center center;
-overflow:hidden;
+
 background-image: url('backg/class2.jpg');
 }
 
