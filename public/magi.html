@@ -2909,7 +2909,19 @@ $(".playerpic"+i).html('')
 }
 for(let i=0;i<chelength.length;i++){
 
-$(".playerpic"+(i+1)).html('<img src="stanbypled/cv'+(chelength[i].che)+'.png"></div>').show()
+if (isBase64Image(chelength[i])) {
+
+pledpicmyslef = document.createElement('img');
+pledpicmyslef.src = chelength[i];
+pledpicmyslef.style.height = "900px";
+
+$(".playerpic"+(i+1)).html(pledpicmyslef).show()
+
+} else {
+
+$(".playerpic"+(i+1)).html('<img src="stanbypled/cv'+(chelength[i].che)+'.png">').show()
+
+}
 
 }
 
