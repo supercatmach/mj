@@ -1178,6 +1178,7 @@ pledpicmyslef = document.createElement('img');
 pledpicmyslef.src = base64Image;
 pledpicmyslef.style.width=("width:500px")
 
+sessionStorage.setItem("charich", base64Image);
 
     }
 }

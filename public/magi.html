@@ -2821,9 +2821,25 @@ lopal=0
 
 let storedCharich = sessionStorage.getItem("charich");
 
+picself=0///是否為自己上傳的圖
+
+function isBase64Image(str) {
+  return typeof str === 'string' && str.startsWith("data:image/");
+}
+
+if (isBase64Image(storedCharich)) {
+
+picself=1
+
+  // 可以用來顯示圖片，例如放進 <img> 裡面
+
+} else {
+
 charich = (storedCharich === null || storedCharich === "null")
-  ? Math.floor(Math.random() * 8) + "c"
+  ? Math.floor(Math.random() * 2) + "c"
   : storedCharich;
+
+}
 
 console.log(charich)
 
@@ -3363,10 +3379,25 @@ $(".m"+i).show()
 
 }
 
+setlcr=["c","l","c","r"]
 
-$(".pler1").html('<img src="watse/cv' + plerK[1].slice(0, -1) + 'l.png">');
-$(".pler2").html('<img src="watse/cv' + plerK[2].slice(0, -1) + 'c.png">');
-$(".pler3").html('<img src="watse/cv' + plerK[3].slice(0, -1) + 'r.png">');
+for(let i=1;i<4;i++){
+
+if (isBase64Image(plerK[i])) {
+
+pledpicmyslef = document.createElement('img');
+pledpicmyslef.src = plerK[i];
+pledpicmyslef.style.height = "900px";
+
+$(".pler"+i).html(pledpicmyslef);
+
+} else {
+
+$(".pler"+i).html('<img src="watse/cv' + plerK[1].slice(0, -1) + setlcr[i]+'.png">');
+
+}
+
+}
 
 
 for(let i=1;i<9;i++){
@@ -3678,9 +3709,26 @@ $(".m"+i).show()
 }
 
 
-$(".pler1").html('<img src="watse/cv' + plerK[1].slice(0, -1) + 'l.png">');
-$(".pler2").html('<img src="watse/cv' + plerK[2].slice(0, -1) + 'c.png">');
-$(".pler3").html('<img src="watse/cv' + plerK[3].slice(0, -1) + 'r.png">');
+setlcr=["c","l","c","r"]
+
+for(let i=1;i<4;i++){
+
+if (isBase64Image(plerK[i])) {
+
+pledpicmyslef = document.createElement('img');
+pledpicmyslef.src = plerK[i];
+pledpicmyslef.style.height = "900px";
+
+$(".pler"+i).html(pledpicmyslef);
+
+} else {
+
+$(".pler"+i).html('<img src="watse/cv' + plerK[1].slice(0, -1) + setlcr[i]+'.png">');
+
+}
+
+}
+
 
 
 for(let i=1;i<9;i++){
@@ -5394,7 +5442,21 @@ winco+='<img src="word/co'+ykall[i]+'.png">'
 
 $(".winco").html(winco)///得分
 
+
+if (isBase64Image(plerK[pled])) {
+
+pledpicmyslef = document.createElement('img');
+pledpicmyslef.src = plerK[pled];
+pledpicmyslef.style.height = "900px";
+
+$(".winpler").html(pledpicmyslef)///人物
+
+} else {
+
 $(".winpler").html('<img src="watse/mtkv'+plerK[pled]+'.png">')///人物
+
+}
+
 
 egmgd[pled]+=yksd
 
