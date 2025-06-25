@@ -153,7 +153,7 @@ if (foundRoomKey) {
 } else {
   // 沒有合適的房間，創建新房間
         const roomId = socket.id;  // 直接用 socket.id 當作房間 ID
-        rooms[roomId] = { host: socket.id, players: [] ,playerid: [] ,playerpic: [] ,ynstar:0,ynfriend:0,alps:0,epgh:[],pled:0,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
+        rooms[roomId] = { host: socket.id, players: [] ,playerid: [] ,playerpic: [], allmgd2:0 ,ynstar:0,ynfriend:0,alps:0,epgh:[],pled:0,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
         socket.join(roomId);
         io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
         socket.emit("roomCreated", { roomId });
@@ -163,7 +163,7 @@ if (foundRoomKey) {
     });
     socket.on("createRoom2", () => {
         const roomId = socket.id;  // 直接用 socket.id 當作房間 ID
-        rooms[roomId] = { host: socket.id, players: [] ,playerid: [] ,playerpic: [] ,ynstar:0,ynfriend:1,alps:0,epgh:[],pled:0,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
+        rooms[roomId] = { host: socket.id, players: [] ,playerid: [] ,playerpic: [], allmgd2:0,ynstar:0,ynfriend:1,alps:0,epgh:[],pled:0,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
         socket.join(roomId);
         cleanEmptyRooms()
         io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
@@ -288,6 +288,7 @@ rooms[roomId].linmrs=0///連莊次數
 rooms[roomId].chnwind=28///圈位
 rooms[roomId].junwind=28///將位
 rooms[roomId].win=0///胡牌
+rooms[roomId].allmgd2=0
 
 
 
@@ -313,6 +314,7 @@ rooms[roomId].linmrs=0///連莊次數
 rooms[roomId].chnwind=28///圈位
 rooms[roomId].junwind=28///將位
 rooms[roomId].win=0///胡牌
+rooms[roomId].allmgd2=0
 
 }
 
@@ -475,6 +477,10 @@ n=(n<137)?Math.ceil(n/4):n-136+34
 }
 rooms[roomId].allmgd[n]++
 
+rooms[roomId].allmgd2++
+
+console.log("剩下張數:"+(144-rooms[roomId].allmgd2))
+
 plmgdnew.push(n)
 
 }
@@ -489,7 +495,7 @@ rooms[roomId].alps=0
 
 rooms[roomId].pled=rooms[roomId].makrs
 
-
+rooms[roomId].allmgd2=64
 
 
 }
@@ -529,6 +535,10 @@ n=(n<137)?Math.ceil(n/4):n-136+34
 
 rooms[roomId].allmgd[n]++
 
+rooms[roomId].allmgd2++
+
+console.log("剩下張數:"+(144-rooms[roomId].allmgd2))
+
 console.log("發送給玩家:"+socket.id+"牌:"+n)
 
 io.to(roomId).emit("getnewcard2", JSON.stringify(socket.id));
@@ -566,6 +576,10 @@ n=(n<137)?Math.ceil(n/4):n-136+34
 
 rooms[roomId].allmgd[n]++
 
+rooms[roomId].allmgd2++
+
+console.log("剩下張數:"+(144-rooms[roomId].allmgd2))
+
 console.log("發送給玩家:"+neepl+"牌:"+n)
 
 io.to(roomId).emit("getnewcard2", JSON.stringify(neepl));
@@ -597,6 +611,10 @@ n=(n<137)?Math.ceil(n/4):n-136+34
 }
 
 rooms[roomId].allmgd[n]++
+
+rooms[roomId].allmgd2++
+
+console.log("剩下張數:"+(144-rooms[roomId].allmgd2))
 
 console.log("發送給玩家:"+socket.id+"牌:"+n)
 
@@ -670,6 +688,10 @@ n=(n<137)?Math.ceil(n/4):n-136+34
 }
 
 rooms[roomId].allmgd[n]++
+
+rooms[roomId].allmgd2++
+
+console.log("剩下張數:"+(144-rooms[roomId].allmgd2))
 
 console.log("發送給玩家:"+rooms[roomId].players[rooms[roomId].makrs]+"牌:"+n)
 
