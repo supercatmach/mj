@@ -2737,7 +2737,7 @@
 window.addEventListener("load", () => {
   // 所有圖片載入完才會執行這裡的程式碼
   console.log("圖片全部載入完成！");
-$(".adown,.camera,.mycad,.nextcad,.fontcad,.lastcad,.space,.etpghwordbk,.smoking,.camera,.space,.table,.pler1,.pler2,.pler3").show(); // 揭示主畫面、DOM操作等
+$(".adown,.camera,.mycad,.nextcad,.fontcad,.lastcad,.space,.etpghwordbk,.smoking,.camera,.space,.table").show(); // 揭示主畫面、DOM操作等
 });
 
 inficon = document.querySelector(".inficon");
@@ -3855,11 +3855,11 @@ pledpicmyslef = document.createElement('img');
 pledpicmyslef.src = plerK[i];
 pledpicmyslef.style.height = "900px";
 
-$(".pler"+i).html(pledpicmyslef);
+$(".pler"+i).html(pledpicmyslef).show();
 
 } else {
 
-$(".pler"+i).html('<img src="watse/cv' + plerK[i].slice(0, -1) + setlcr[i]+'.png">');
+$(".pler"+i).html('<img src="watse/cv' + plerK[i].slice(0, -1) + setlcr[i]+'.png">').show();
 
 }
 
