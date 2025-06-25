@@ -2909,10 +2909,10 @@ $(".playerpic"+i).html('')
 }
 for(let i=0;i<chelength.length;i++){
 
-if (isBase64Image(chelength[i])) {
+if (isBase64Image(chelength[i+1])) {
 
 pledpicmyslef = document.createElement('img');
-pledpicmyslef.src = chelength[i];
+pledpicmyslef.src = chelength[i+1];
 pledpicmyslef.style.height = "900px";
 
 $(".playerpic"+(i+1)).html(pledpicmyslef).show()
