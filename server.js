@@ -479,8 +479,6 @@ rooms[roomId].allmgd[n]++
 
 rooms[roomId].allmgd2++
 
-console.log("剩下張數:"+(144-rooms[roomId].allmgd2))
-
 plmgdnew.push(n)
 
 }
@@ -547,7 +545,7 @@ rooms[roomId].allmgd[n]++
 
 rooms[roomId].allmgd2++
 
-console.log("剩下張數:"+(144-rooms[roomId].allmgd2))
+console.log("剩下張數:"+(128-rooms[roomId].allmgd2))
 
 console.log("發送給玩家:"+socket.id+"牌:"+n)
 
@@ -600,7 +598,7 @@ rooms[roomId].allmgd[n]++
 
 rooms[roomId].allmgd2++
 
-console.log("剩下張數:"+(144-rooms[roomId].allmgd2))
+console.log("剩下張數:"+(128-rooms[roomId].allmgd2))
 
 console.log("發送給玩家:"+neepl+"牌:"+n)
 
