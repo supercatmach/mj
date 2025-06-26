@@ -525,6 +525,8 @@ if(rooms[roomId].allmgd2==128){
 
 io.to(roomId).emit("nowin", []);
 
+console.log("留局")
+
 }
 
 if(rooms[roomId].allmgd2<128){
@@ -569,6 +571,8 @@ neepl=JSON.parse(roomIdinf)[1]
 if(rooms[roomId].allmgd2==128){
 
 io.to(roomId).emit("nowin", []);
+
+console.log("留局")
 
 }
 
@@ -622,6 +626,8 @@ if(rooms[roomId].allmgd2==128){
 
 io.to(roomId).emit("nowin", []);
 
+console.log("留局")
+
 }
 
 if(rooms[roomId].allmgd2<128){
@@ -642,7 +648,7 @@ rooms[roomId].allmgd[n]++
 
 rooms[roomId].allmgd2++
 
-console.log("剩下張數:"+(144-rooms[roomId].allmgd2))
+console.log("剩下張數:"+(128-rooms[roomId].allmgd2))
 
 console.log("發送給玩家:"+socket.id+"牌:"+n)
 
@@ -720,8 +726,6 @@ n=(n<137)?Math.ceil(n/4):n-136+34
 rooms[roomId].allmgd[n]++
 
 rooms[roomId].allmgd2++
-
-console.log("剩下張數:"+(144-rooms[roomId].allmgd2))
 
 console.log("發送給玩家:"+rooms[roomId].players[rooms[roomId].makrs]+"牌:"+n)
 
