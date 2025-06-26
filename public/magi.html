@@ -2851,7 +2851,7 @@ console.log(charich)
 
         const socket = io("https://mj-production-43c2.up.railway.app");
         const urlParams = new URLSearchParams(window.location.search);
-        const roomId = urlParams.get("room");
+        const roomId = "025024"///urlParams.get("room");
 
         if (roomId) {
             socket.emit("joinRoom", roomId);
