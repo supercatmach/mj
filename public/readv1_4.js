@@ -7490,228 +7490,164 @@ tspnew+=(crdeye>0)?1:0///組數
 
 
 function sortCad(){///整理方式
-
-manum=0///組數
-
-crdeye=0///眼
-
-dacadnum=[]///萬筒條各個組數
-
-cpf=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-
-canet=[]
-canet[0]=[]
-canet[1]=[3]
-canet[2]=[1,4]
-canet[3]=[2,5]
-canet[4]=[3,6]
-canet[5]=[4,7]
-canet[6]=[5,8]
-canet[7]=[6,9]
-canet[8]=[7]
-canet[9]=[]
-canet[10]=[12]
-canet[11]=[10,13]
-canet[12]=[11,14]
-canet[13]=[12,15]
-canet[14]=[13,16]
-canet[15]=[14,17]
-canet[16]=[15,18]
-canet[17]=[16]
-canet[18]=[]
-canet[19]=[21]
-canet[20]=[19,22]
-canet[21]=[20,23]
-canet[22]=[21,24]
-canet[23]=[22,25]
-canet[24]=[23,26]
-canet[25]=[24,27]
-canet[26]=[25]
-canet[27]=[]
-
-
-
-plmgd[pled].forEach(function(x) { cpf[x] = (cpf[x] || 0)+1; })///計算出現過的總張數
-
-cnmgd[pled]=[]
-
-gnmgd[pled]=[]
-
-etmgd[pled]=[]
-
-for(let i=1;i<35;i++){
-
-if(cpf[i]>=2){
-
-cnmgd[pled].push(i)///四個玩家可碰的牌
-
-}
-
-if(cpf[i]>=3){
-
-cnmgd[pled].push(i)///四個玩家可碰的牌
-
-gnmgd[pled].push(i)///四個玩家可槓的牌
-
-}
-
-}
-
-cpf.splice(0,1)
-
-cpf.length=34
-
-
-for(let i=27;i<34;i++){
-
-if(cpf[i]>0){///超過1
-
-cpf[i]=(cpf[i]<5)?cpf[i]:4
-
-if(zutop[cpf[i]]!=undefined){
-
-manum+=zutop[cpf[i]][0]///組數
-
-crdeye+=zutop[cpf[i]][1]///眼
-
-}
-
-}
-
-}
-
-for(let k=0;k<3;k++){
-
-lanhow=[]///連號
-
-for(let i=k*9;i<k*9+9;i++){
-
-if(cpf[i]>0&&i==k*9+8){///超過1
-
-cpf[i]=(cpf[i]<5)?cpf[i]:4
-
-lanhow.push(cpf[i])
-
-lanhow=lanhow.join("")
-
-if(zutop[lanhow]!=undefined){
-
-manum+=zutop[lanhow][0]///組數
-
-crdeye+=zutop[lanhow][1]///眼
-
-}
-
-if(zutop[lanhow]==undefined){
-
-manum+=0///組數
-
-crdeye+=0///眼
-
-}
-
-lanhow=[]
-
-break
-
-}
-
-
-if(cpf[i]>0){///超過1
-
-cpf[i]=(cpf[i]<5)?cpf[i]:4
-
-lanhow.push(cpf[i])
-
-for(let s=i+1;s<k*9+9;s++){
-
-if(cpf[s]>0){///超過1
-
-etmgd[pled]=etmgd[pled].concat(canet[s])
-
-cpf[s]=(cpf[s]<5)?cpf[s]:4
-
-lanhow.push(cpf[s])
-
-}
-
-if(cpf[s]==0&&cpf[s+1]>0&&s+1<=k*9+8){///
-
-etmgd[pled].push(s+1)
-
-}
-
-if(cpf[s]==0||s==k*9+8){///沒超過1
-
-lanhow=lanhow.join("")
-
-
-if(zutop[lanhow]!=undefined){
-
-manum+=zutop[lanhow][0]///組數
-
-crdeye+=zutop[lanhow][1]///眼
-
-}
-
-if(zutop[lanhow]==undefined){
-
-manum+=0///組數
-
-crdeye+=0///眼
-
-alert(lanhow)
-
-}
-
-lanhow=[]
-
-i=s///(s!=8)?s-1:s
-
-break
-
-}
-
-}
-
-}
-
-}
-
-dacadnum.push(manum+crdeye)
-
-}
-
-dacadnum[1]=dacadnum[1]-dacadnum[0]
-dacadnum[2]=dacadnum[2]-dacadnum[1]-dacadnum[0]
-dacadnum[3]=0
-
-for(let i=27;i<34;i++){
-
-if(cpf[i]>=2){///
-
-dacadnum[3]++
-
-}
-
-}
-
-for(let k=0;k<3;k++){
-
-for(let i=k*9;i<k*9+9;i++){
-
-if(cpf[i]>0&&cpf[i+1]>0&&cpf[i+2]>0&&i+2<k*9+9){
-
-etmgd[pled].push(i+2)
-
-}
-
-}
-
-}
-
-etmgd[pled]=etmgd[pled].filter( (el, i, arr) => arr.indexOf(el) === i);///移除重覆
-
+  manum = 0;      // 組數
+  crdeye = 0;     // 眼
+  dacadnum = [];  // 萬筒條各個組數
+
+  let cpf = Array(35).fill(0); // 出現張數計數陣列
+
+  // 連號參考用
+  let canet = [];
+  canet[0] = [];
+  canet[1] = [3];
+  canet[2] = [1,4];
+  canet[3] = [2,5];
+  canet[4] = [3,6];
+  canet[5] = [4,7];
+  canet[6] = [5,8];
+  canet[7] = [6,9];
+  canet[8] = [7];
+  canet[9] = [];
+  canet[10] = [12];
+  canet[11] = [10,13];
+  canet[12] = [11,14];
+  canet[13] = [12,15];
+  canet[14] = [13,16];
+  canet[15] = [14,17];
+  canet[16] = [15,18];
+  canet[17] = [16];
+  canet[18] = [];
+  canet[19] = [21];
+  canet[20] = [19,22];
+  canet[21] = [20,23];
+  canet[22] = [21,24];
+  canet[23] = [22,25];
+  canet[24] = [23,26];
+  canet[25] = [24,27];
+  canet[26] = [25];
+  canet[27] = [];
+
+  // 初始化陣列（避免 undefined）
+  if (!cnmgd[pled]) cnmgd[pled] = [];
+  if (!gnmgd[pled]) gnmgd[pled] = [];
+  if (!etmgd[pled]) etmgd[pled] = [];
+
+  // 計算該玩家牌張數
+  plmgd[pled].forEach(function(x) { 
+    cpf[x] = (cpf[x] || 0) + 1; 
+  });
+
+  // 判斷可碰、可槓的牌
+  cnmgd[pled] = [];
+  gnmgd[pled] = [];
+  etmgd[pled] = [];
+
+  for(let i=1; i<35; i++){
+    if(cpf[i] >= 2){
+      cnmgd[pled].push(i); // 可碰
+    }
+    if(cpf[i] >= 3){
+      gnmgd[pled].push(i); // 可槓
+    }
+  }
+
+  cpf.splice(0, 1); // 去掉 0 位置
+  cpf.length = 34;
+
+  // 字牌判斷（27~33）
+  for(let i=27; i<34; i++){
+    if(cpf[i] > 0){
+      cpf[i] = (cpf[i] < 5) ? cpf[i] : 4;
+      let key = String(cpf[i]);
+      if(zutop[key] !== undefined){
+        manum += zutop[key][0];
+        crdeye += zutop[key][1];
+      }
+    }
+  }
+
+  // 萬筒條連號判斷
+  for(let k=0; k<3; k++){
+    let lanhow = [];
+
+    for(let i = k*9; i < k*9 + 9; i++){
+      if(cpf[i] > 0 && i == k*9 + 8){
+        cpf[i] = (cpf[i] < 5) ? cpf[i] : 4;
+        lanhow.push(cpf[i]);
+        let key = lanhow.join("");
+        if(zutop[key] !== undefined){
+          manum += zutop[key][0];
+          crdeye += zutop[key][1];
+        }
+        lanhow = [];
+        break;
+      }
+
+      if(cpf[i] > 0){
+        cpf[i] = (cpf[i] < 5) ? cpf[i] : 4;
+        lanhow.push(cpf[i]);
+
+        for(let s = i + 1; s < k*9 + 9; s++){
+          if(cpf[s] > 0){
+            etmgd[pled] = etmgd[pled].concat(canet[s]);
+            cpf[s] = (cpf[s] < 5) ? cpf[s] : 4;
+            lanhow.push(cpf[s]);
+          }
+
+          if(cpf[s] == 0 && cpf[s+1] > 0 && s+1 <= k*9 + 8){
+            etmgd[pled].push(s + 1);
+          }
+
+          if(cpf[s] == 0 || s == k*9 + 8){
+            let key = lanhow.join("");
+            if(zutop[key] !== undefined){
+              manum += zutop[key][0];
+              crdeye += zutop[key][1];
+            } else {
+              alert("找不到 zutop key: " + key);
+            }
+            lanhow = [];
+            i = s; // 跳過已處理區塊
+            break;
+          }
+        }
+      }
+    }
+    dacadnum.push(manum + crdeye);
+  }
+
+  dacadnum[1] = (dacadnum[1] || 0) - (dacadnum[0] || 0);
+  dacadnum[2] = (dacadnum[2] || 0) - (dacadnum[1] || 0) - (dacadnum[0] || 0);
+  dacadnum[3] = 0;
+
+  for(let i=27; i<34; i++){
+    if(cpf[i] >= 2){
+      dacadnum[3]++;
+    }
+  }
+
+  // 萬筒條中有連續三張的，加入 etmgd[pled]
+  for(let k=0; k<3; k++){
+    for(let i = k*9; i < k*9 + 7; i++){
+      if(cpf[i] > 0 && cpf[i+1] > 0 && cpf[i+2] > 0){
+        etmgd[pled].push(i + 2);
+      }
+    }
+  }
+
+  // 移除 etmgd 重覆元素
+  etmgd[pled] = etmgd[pled].filter((el, idx, arr) => arr.indexOf(el) === idx);
+
+  // 回傳整理結果（依需求可修改）
+  return {
+    manum,
+    crdeye,
+    dacadnum,
+    cnmgd: cnmgd[pled],
+    gnmgd: gnmgd[pled],
+    etmgd: etmgd[pled],
+    cpf
+  };
 }
 
 
