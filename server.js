@@ -811,7 +811,7 @@ return b.num - a.num
 
 btop=Math.max(...Object.values(rooms[roomId].epghpk))
 
-if(rooms[roomId].alps==rooms[roomId].players.length&&rooms[roomId].epgh.length!=0||rooms[roomId].epgh.length!=0&&rooms[roomId].epgh[0].dwo=="mywin"){
+if(rooms[roomId].alps==rooms[roomId].players.length&&rooms[roomId].epgh.length!=0||||rooms[roomId].epgh.length!=0&&rooms[roomId].epghbk.length!=0&&rooms[roomId].epgh[0].num>=btop&&rooms[roomId].epgh[0].dwo.indexOf("win")==-1||rooms[roomId].epgh.length!=0&&rooms[roomId].epgh[0].dwo=="mywin"){
 
 rooms[roomId].epgh.sort(function (a, b) {///
 
