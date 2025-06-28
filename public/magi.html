@@ -3063,7 +3063,17 @@ console.log(caneph[5])
 
 plmgd.push(caneph[5][0])
 
+if(outcardple!=0){
+
 socket.emit("win",JSON.stringify([roomId,plmgd,lbmgd,flmgd,etmgd]));
+
+}
+
+if(outcardple==0){
+
+socket.emit("mywin",JSON.stringify([roomId,plmgd,lbmgd,flmgd,etmgd]));
+
+}
 
 socket.emit("needgetcard",JSON.stringify([roomId,pled]));
 
@@ -4504,7 +4514,7 @@ socket.emit("epghpk",JSON.stringify([roomId,3]));
 
 if(lbmgd==1){
 
-socket.emit("win",JSON.stringify([roomId,plmgd,lbmgd,flmgd,etmgd]));
+socket.emit("mywin",JSON.stringify([roomId,plmgd,lbmgd,flmgd,etmgd]));
 
 socket.emit("needgetcard",JSON.stringify([roomId,pled]));
 

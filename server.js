@@ -444,6 +444,24 @@ rooms[roomId].epgh.push({"num":mra,"ple":socket.id,"mtd":card,"dwo":"win","lbmgd
 
 })
 
+socket.on("mywin", (canephinf) => {
+
+roomId=JSON.parse(canephinf)[0]
+card=JSON.parse(canephinf)[1]
+lbmgd=JSON.parse(canephinf)[2]
+flmgd=JSON.parse(canephinf)[3]
+etmgd=JSON.parse(canephinf)[4]
+
+mra=3
+
+rooms[roomId].players2=rooms[roomId].players.concat(rooms[roomId].players)
+
+mra+=rooms[roomId].players2.indexOf(socket.id,rooms[roomId].pled)
+
+rooms[roomId].epgh.push({"num":mra,"ple":socket.id,"mtd":card,"dwo":"mywin","lbmgd":lbmgd,"flmgd":flmgd,"etmgd":etmgd})
+
+})
+
 function sratgame(roominf){
 
 rooms[roomId].allmgd=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
@@ -793,7 +811,7 @@ return b.num - a.num
 
 btop=Math.max(...Object.values(rooms[roomId].epghpk))
 
-if(rooms[roomId].alps==rooms[roomId].players.length&&rooms[roomId].epgh.length!=0||rooms[roomId].epgh.length!=0&&rooms[roomId].epgh[0].num>=btop&&rooms[roomId].epgh.length!=0){
+if(rooms[roomId].alps==rooms[roomId].players.length&&rooms[roomId].epgh.length!=0||rooms[roomId].epgh[0].dwo=="mywin"){
 
 rooms[roomId].epgh.sort(function (a, b) {///
 
@@ -801,7 +819,7 @@ return b.num - a.num
 
 });
 
-if(rooms[roomId].epgh[0].dwo!="win"){
+if(rooms[roomId].epgh[0].dwo!="win"&&rooms[roomId].epgh[0].dwo!="mywin"){
 
 io.to(roomId).emit("caneph", JSON.stringify([rooms[roomId].epgh[0].ple,rooms[roomId].epgh[0].mtd,rooms[roomId].epgh[0].dwo]));
 
@@ -809,7 +827,7 @@ rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].epgh[0].ple)
 
 }
 
-if(rooms[roomId].epgh[0].dwo=="win"){
+if(rooms[roomId].epgh[0].dwo=="win"||rooms[roomId].epgh[0].dwo=="mywin"){
 
 io.to(roomId).emit("caneph", JSON.stringify([rooms[roomId].epgh[0].ple,rooms[roomId].epgh[0].mtd,rooms[roomId].epgh[0].dwo,rooms[roomId].epgh[0].lbmgd,rooms[roomId].epgh[0].flmgd,rooms[roomId].epgh[0].etmgd]));
 
