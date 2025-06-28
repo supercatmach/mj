@@ -691,7 +691,7 @@ if(rooms[roomId].alps==rooms[roomId].players.length){
 
 console.log("確認各家吃碰槓胡")
 
-io.to(roomId).emit("befbegin", JSON.stringify([socket.id ,card]));
+io.to(roomId).emit("outchak", JSON.stringify([socket.id ,card]));
 
 rooms[roomId].alps=0
 
