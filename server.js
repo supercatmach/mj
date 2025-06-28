@@ -829,7 +829,7 @@ rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].epgh[0].ple)
 
 if(rooms[roomId].epgh[0].dwo=="win"||rooms[roomId].epgh[0].dwo=="mywin"){
 
-io.to(roomId).emit("caneph", JSON.stringify([rooms[roomId].epgh[0].ple,rooms[roomId].epgh[0].mtd,rooms[roomId].epgh[0].dwo,rooms[roomId].epgh[0].lbmgd,rooms[roomId].epgh[0].flmgd,rooms[roomId].epgh[0].etmgd]));
+io.to(roomId).emit("caneph", JSON.stringify([rooms[roomId].epgh[0].ple,rooms[roomId].epgh[0].mtd,"win",rooms[roomId].epgh[0].lbmgd,rooms[roomId].epgh[0].flmgd,rooms[roomId].epgh[0].etmgd]));
 
 console.log("胡牌:"+rooms[roomId].players2.indexOf(rooms[roomId].epgh[0].ple))
 
