@@ -678,6 +678,26 @@ rooms[roomId].pled=rooms[roomId].players.indexOf(socket.id)
 rooms[roomId].alps=0
 
 });
+///////////////////////////////////////////////////////
+
+socket.on("outchak", (roomIdinf) => {
+
+roomId=JSON.parse(roomIdinf)[0]
+card=JSON.parse(roomIdinf)[1]
+
+rooms[roomId].alps++
+
+if(rooms[roomId].alps==rooms[roomId].players.length){
+
+console.log("確認各家吃碰槓胡")
+
+io.to(roomId).emit("befbegin", JSON.stringify([socket.id ,card]));
+
+rooms[roomId].alps=0
+
+}
+
+});
 
 ///////////////////////////////////////////////////////
 

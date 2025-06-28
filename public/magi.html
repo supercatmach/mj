@@ -6135,7 +6135,34 @@ epgh[0]="epgh1"
 
 }
 
+}///if(mtd<28&&ple==3&&lopal==4){///吃
+
+if(ephchick==0){///如果沒有吃碰槓胡則返回
+
+socket.emit("epghpk",JSON.stringify([roomId,0]));
+
+console.log("本家無吃碰")
+
 }
+
+}///if(lbmgd==0){
+
+socket.emit("outchak",JSON.stringify([roomId,card]));
+
+}///if(ple!=0){
+
+});
+
+
+socket.on("outchak", (outchakinf) => {
+
+pled=JSON.parse(outchakinf)[0]
+mtd=JSON.parse(outchakinf)[1]
+mtd=Number(mtd)
+
+wincard=mtd
+
+ple=allplad.indexOf(pled)
 
 if(ephchick==1){
 
@@ -6145,24 +6172,13 @@ $('.'+epgh[i]).show()
 
 }
 
-}
+return
 
 }
 
 if(ephchick==0){///如果沒有吃碰槓胡則返回
 
-
-///setTimeout(() => {
-
 socket.emit("needgetcard",JSON.stringify([roomId,pled]));
-
-socket.emit("epghpk",JSON.stringify([roomId,0]));
-
-///}, 100);
-
-console.log("本家無吃碰")
-
-}
 
 }
 
