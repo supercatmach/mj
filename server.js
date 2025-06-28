@@ -578,7 +578,7 @@ if(rooms[roomId].allmgd2<128){
 
 rooms[roomId].alps++
 
-console.log(rooms[roomId].alps)
+console.log(rooms[roomId].alps,"needgetcardgun")
 
 if(rooms[roomId].alps==rooms[roomId].players.length){
 
@@ -725,7 +725,7 @@ roomId=JSON.parse(roomIdinf)[0]
 
 rooms[roomId].alps++
 
-console.log(rooms[roomId].alps)
+console.log(rooms[roomId].alps,"begin")
 
 if(rooms[roomId].alps==4){
 
