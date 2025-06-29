@@ -1171,6 +1171,8 @@ gtcd=2
 
 socket.on("outcard", (outcardinf) => {
 
+winp=0
+
 pled=JSON.parse(outcardinf)[0]
 mtd=JSON.parse(outcardinf)[1]
 mtd=Number(mtd)
@@ -1211,9 +1213,9 @@ plmgd.push(Number(mtd))
 
 socket.emit("epghpk",JSON.stringify([roomId,3]));
 
-socket.emit("win",JSON.stringify([roomId,plmgd,lbmgd,flmgd,etmgd]));
+winp=1
 
-socket.emit("needgetcard",JSON.stringify([roomId,pled]));
+ephchick=1
 
 return
 
@@ -1298,6 +1300,16 @@ wincard=mtd
 if(ephchick==1){
 
 bkmgds22=JSON.parse(JSON.stringify(plmgd))
+
+if(winp==1){
+
+socket.emit("win",JSON.stringify([roomId,plmgd,lbmgd,flmgd,etmgd]));
+
+socket.emit("needgetcard",JSON.stringify([roomId,pled]));
+
+return
+
+}
 
 console.log("進入吃碰判斷",pled)
 

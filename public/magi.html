@@ -5886,6 +5886,8 @@ sorcard()///整理
 
 socket.on("outcard", (outcardinf) => {
 
+winp=0
+
 $(".outshowcad div").hide()
 
 if(ephchick==0){
@@ -6053,17 +6055,15 @@ caneph[5]=[Number(mtd)]
 
 socket.emit("epghpk",JSON.stringify([roomId,3]));
 
+ephchick=1
+
 if(lbmgd==1){
 
-socket.emit("win",JSON.stringify([roomId,plmgd,lbmgd,flmgd,etmgd]));
-
-socket.emit("needgetcard",JSON.stringify([roomId,pled]));
+winp=1
 
 return
 
 }
-
-ephchick=1
 
 epgh[4]="epgh5"
 
@@ -6179,6 +6179,16 @@ mtd=Number(mtd)
 wincard=mtd
 
 ple=allplad.indexOf(pled)
+
+if(winp==1){
+
+socket.emit("win",JSON.stringify([roomId,plmgd,lbmgd,flmgd,etmgd]));
+
+socket.emit("needgetcard",JSON.stringify([roomId,pled]));
+
+return
+
+}
 
 if(ephchick==1){
 

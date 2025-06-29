@@ -798,6 +798,11 @@ ple=JSON.parse(roomIdinf)[1]
 
 if(rooms[roomId].win==1){
 
+rooms[roomId].alps=0
+
+}
+if(rooms[roomId].win==1){
+
 return
 
 }
