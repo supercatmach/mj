@@ -638,7 +638,7 @@ rooms[roomId].pled=rooms[roomId].players.indexOf(neepl)
 
 if(rooms[roomId].stat==1){
 
-rooms[roomId].alps=0
+///rooms[roomId].alps=0
 
 }
 

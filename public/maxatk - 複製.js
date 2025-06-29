@@ -1121,6 +1121,7 @@ socket.emit("outcard", JSON.stringify([roomId, card]));
 function countTotalImprovingTiles(plmgd, allmgd) {
   let totalLeftCount = 0;
   const originalHand = JSON.parse(JSON.stringify(plmgd));  // 備份
+  plmgd = JSON.parse(JSON.stringify(originalHand));        // 操作用複製品
 
   sortCad();
   const originalTsp = manum + (crdeye > 0 ? 1 : 0);
@@ -1130,19 +1131,19 @@ function countTotalImprovingTiles(plmgd, allmgd) {
     testHand.push(i);
     testHand.sort((a, b) => a - b);
 
-    plmgd = JSON.parse(JSON.stringify(testHand));  // 模擬用
+    plmgd = JSON.parse(JSON.stringify(testHand));  // 指向模擬手牌給 sortCad 使用
     sortCad();
     const newTsp = manum + (crdeye > 0 ? 1 : 0);
 
-    if (newTsp > originalTsp) {  // 改這行條件
+    if (newTsp > originalTsp+1) {
       const inHand = testHand.filter(x => x === i).length;
       const inAll = allmgd.filter(x => x === i).length;
-      const left = Math.max(0, 4 - (inHand + inAll - 1));  // 扣掉自己
+      const left = Math.max(0, 4 - (inHand + inAll - 1));  // 扣掉剛剛加進來那張
       totalLeftCount += left;
     }
   }
 
-  plmgd = JSON.parse(JSON.stringify(originalHand)); // 還原
+  plmgd = JSON.parse(JSON.stringify(originalHand)); // 最終還原
   return totalLeftCount;
 }
 ////////////////////////////////////////////////////
