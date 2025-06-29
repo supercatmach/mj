@@ -294,6 +294,7 @@ rooms[roomId].chnwind=28///圈位
 rooms[roomId].junwind=28///將位
 rooms[roomId].win=0///胡牌
 rooms[roomId].allmgd2=0
+rooms[roomId].stat=0
 
 
 
@@ -320,6 +321,7 @@ rooms[roomId].chnwind=28///圈位
 rooms[roomId].junwind=28///將位
 rooms[roomId].win=0///胡牌
 rooms[roomId].allmgd2=0
+rooms[roomId].stat=0
 
 }
 
@@ -476,6 +478,7 @@ rooms[roomId].alps=0
 rooms[roomId].epghpk=[]
 rooms[roomId].players2=[]
 rooms[roomId].win=0///胡牌
+rooms[roomId].stat=0
 
 rooms[roomId].alps=0
 
@@ -633,7 +636,11 @@ io.to(neepl).emit("getnewcard", JSON.stringify(n));
 
 rooms[roomId].pled=rooms[roomId].players.indexOf(neepl)
 
+if(rooms[roomId].stat==1){
+
 rooms[roomId].alps=0
+
+}
 
 }
 
@@ -745,6 +752,8 @@ console.log("補花完畢")
 io.to(roomId).emit("befbegin", []);
 
 rooms[roomId].alps=0
+
+rooms[roomId].stat=1
 
 }
 

@@ -1324,8 +1324,6 @@ mtd=Number(mtd)
 
 wincard=mtd
 
-if(ephchick==1){
-
 bkmgds22=JSON.parse(JSON.stringify(plmgd))
 
 if(winp==1){
@@ -1342,6 +1340,8 @@ return
 
 }
 
+if(ephchick==1&&(128-allmgd.length)>4){
+
 console.log("進入吃碰判斷",pled)
 
 simulateEatPonGun(ple, mtd, plmgd, allmgd, etmgd, roomId);
@@ -1354,7 +1354,7 @@ return
 
 }
 
-if(ephchick==0){///如果沒有吃碰槓胡則返回
+if(ephchick==0||(128-allmgd.length)<=4){///如果沒有吃碰槓胡則返回
 
 socket.emit("needgetcard",JSON.stringify([roomId,pled]));
 

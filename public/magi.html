@@ -2731,6 +2731,8 @@
 </div>
 </div>
 
+<div class="cnatetpg" style="position:absolute;top:60%;left:50%;margin-left:-228px;background:#ffffff;width:456;height:70;overflow:hidden;filter:opacity(0.6);display: flex;justify-content: center;align-items: center;font-size:30px;font-family:Microsoft JhengHei;font-weight:bolder;color:#000000;"><p>海底少於4張不能進行吃碰槓牌</p></div>
+
 </div>
 </div>
 <div id="stargame" style="display:none;"></div>
@@ -2815,6 +2817,8 @@ $(".adown,.camera,.mycad,.nextcad,.fontcad,.lastcad,.space,.etpghwordbk,.smoking
 $(".bk60").hide()
 
 $(".bk30").hide()
+
+$(".cnatetpg").hide()
 
 allplad=[]
 
@@ -6196,7 +6200,7 @@ return
 
 }
 
-if(ephchick==1){
+if(ephchick==1&&(128-allmgd)>4){
 
 for(let i=0;i<6;i++){
 
@@ -6208,7 +6212,15 @@ return
 
 }
 
-if(ephchick==0){///如果沒有吃碰槓胡則返回
+if(ephchick==0||(128-allmgd)<=4){///如果沒有吃碰槓胡則返回
+
+$(".cnatetpg").show()
+
+setTimeout(() => {
+
+$(".cnatetpg").hide()
+
+}, 1000);
 
 socket.emit("needgetcard",JSON.stringify([roomId,pled]));
 
