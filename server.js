@@ -710,6 +710,12 @@ card=JSON.parse(roomIdinf)[1]
 
 rooms[roomId].alps++
 
+if(rooms[roomId].win==1){
+
+rooms[roomId].alps=0
+
+}
+
 if(rooms[roomId].alps==rooms[roomId].players.length){
 
 console.log("確認各家吃碰槓胡")
