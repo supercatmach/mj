@@ -4640,9 +4640,13 @@ setTimeout('begStar()',500)
 
 socket.on("caneph", (data) => {
 
+$(".etpghword img").hide();
+
+if(epgtw!="tin"){
+
 $(".outshowcad div").hide()
 
-$(".etpghword img").hide();
+}
 
 pled=JSON.parse(data)[0]
 card=JSON.parse(data)[1]
@@ -4795,7 +4799,7 @@ setTimeout(() => {
 
 ephchick=1
 
-if(card[0]!="X"){
+if(card[1]!="X"){
 
 $("."+pldname[outcardple]+" .o"+(allot[outcardple]-1)+" div").css("filter","opacity(0.3)")
 
@@ -6962,7 +6966,7 @@ whtai.push("花槓")
 
 }
 
-if(gunwin==1){///搶槓胡
+if(gunwin==1&&mytsale==0){///搶槓胡
 
 yk0+=1
 

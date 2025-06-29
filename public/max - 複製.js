@@ -693,74 +693,57 @@ function findIsolated(plmgd, allmgd, cantoutcd) {
 
 /////////////////////////////////////////////////
 function findBestDiscardByImprovingAndKaozhang(plmgd, allmgd, cantoutcd) {
-  const originalHand = JSON.parse(JSON.stringify(plmgd));
+  const candidates = [];
+  const originalHand = JSON.parse(JSON.stringify(plmgd));  // 永遠保留原始手牌
   const baseImproving = countTotalImprovingTiles(originalHand, allmgd);
 
-  // 原始 TSP（不包含 etmgd）
+  // 計算原始 tsp
   plmgd = JSON.parse(JSON.stringify(originalHand));
   sortCad();
   const baseTSP = manum + (crdeye > 0 ? 1 : 0);
 
-  const candidates = [];
-
   for (let i = 0; i < originalHand.length; i++) {
     const testHand = JSON.parse(JSON.stringify(originalHand));
-    const card = testHand.splice(i, 1)[0];
+    const card = testHand.splice(i, 1)[0];  // 模擬捨出這張牌
 
-    if (cantoutcd.includes(card)) continue;
+    if (cantoutcd.includes(card)) continue;  // 跳過不能打的牌
 
     // 模擬新手牌分析
     plmgd = JSON.parse(JSON.stringify(testHand));
     plmgd.sort((a, b) => a - b);
     sortCad();
     const newTSP = manum + (crdeye > 0 ? 1 : 0);
-    const newEye = crdeye; // crdeye 在 sortCad() 後自動更新
+
+    if (newTSP < baseTSP) continue;  // 面子數降低，不能出
 
     const newImproving = countTotalImprovingTiles(plmgd, allmgd);
     const kaozhang = countTotalKaozhang(plmgd, allmgd);
 
     candidates.push({
-      card,
+      card: card,
       improving: newImproving,
-      kaozhang,
-      newTSP,
-      newEye
+      kaozhang: kaozhang,
+      newTSP: newTSP
     });
   }
 
-  // 第一階段：improving 不減，不看 TSP
-  const group1 = candidates.filter(c => c.improving >= baseImproving);
-  if (group1.length > 0) {
-    group1.sort((a, b) => a.kaozhang - b.kaozhang);
-    console.log(`[V3-1] card=${group1[0].card}`);
-    return [group1[0].card];
+  // 還原 plmgd
+  plmgd = JSON.parse(JSON.stringify(originalHand));
+
+  // 第一階段：只保留 improving 不變的情況
+  const group = candidates.filter(c => c.improving >= baseImproving);
+  if (group.length > 0) {
+    group.sort((a, b) => a.kaozhang - b.kaozhang);
+    console.log(`[V3-1] card=${group[0].card}, newTSP=${group[0].newTSP}, baseTSP=${baseTSP}`);
+    return [group[0].card];
   }
 
-  // 第二階段：TSP 不變的情況，細看 crdeye 與 improving
-  const group2 = candidates.filter(c => c.newTSP >= baseTSP);
-  if (group2.length > 0) {
-    const eyeBig = group2.filter(c => c.newEye > 1);
-    if (eyeBig.length > 0) {
-      eyeBig.sort((a, b) => a.newEye - b.newEye || b.improving - a.improving);
-      console.log(`[V3-2a] card=${eyeBig[0].card} (newEye>1)`);
-      return [eyeBig[0].card];
-    }
-
-    const eyeSmall = group2.filter(c => c.newEye <= 1);
-    if (eyeSmall.length > 0) {
-      eyeSmall.sort((a, b) => a.improving - b.improving);
-      console.log(`[V3-2b] card=${eyeSmall[0].card} (newEye<=1)`);
-      return [eyeSmall[0].card];
-    }
-  }
-
-  // fallback：無法維持 TSP，只能選最少損失 improving 的
+  // 第二階段：improving 雖然下降，但 tsp 不變，挑最少影響的
+  candidates.sort((a, b) => a.improving - b.improving);
   if (candidates.length > 0) {
-    candidates.sort((a, b) => a.improving - b.improving);
-    console.log(`[V3-3] fallback card=${candidates[0].card}`);
+    console.log(`[V3-2] card=${candidates[0].card}, newTSP=${candidates[0].newTSP}, baseTSP=${baseTSP}`);
     return [candidates[0].card];
   }
-
   return [];
 }
 //////////////////////////////////////////////////

@@ -3222,7 +3222,7 @@ whtai.push("花槓")
 
 }
 
-if(gunwin==1){///搶槓胡
+if(gunwin==1&&mytsale==0){///搶槓胡
 
 yk0+=1
 
@@ -7354,7 +7354,7 @@ return
 
 }
 
-if(cantoutcd.lrngth!=0){
+if(cantoutcd.length!=0){
 
 otruncd=otruncd.filter(e => cantoutcd.indexOf(plmgd[pled][e.td])==-1)
 
