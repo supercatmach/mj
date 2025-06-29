@@ -200,7 +200,7 @@ plmgd.push(Number(card[0]))
 
 socket.emit("epghpk",JSON.stringify([roomId,3]));
 
-socket.emit("win",JSON.stringify([roomId,plmgd,lbmgd,flmgd,etmgd]));
+socket.emit("mywin",JSON.stringify([roomId,plmgd,lbmgd,flmgd,etmgd]));
 
 socket.emit("needgetcard",JSON.stringify([roomId,0]));
 
@@ -362,6 +362,7 @@ function isSameSuit(a, b) {
 }
 ////////////////////////////////////////////////////////////////////
 function tryGunDecision(card, lbmgd) {
+
   const originalHand = JSON.parse(JSON.stringify(plmgd));
   const baseTSP = manum + (crdeye > 0 ? 1 : 0) + etmgd.length;
   const baseImproving = countTotalImprovingTiles(originalHand, allmgd);
@@ -382,14 +383,19 @@ function tryGunDecision(card, lbmgd) {
       const newTSP = manum + (crdeye > 0 ? 1 : 0) + etmgd.length;
       const newImproving = countTotalImprovingTiles(plmgd, allmgd);
 
-      if (newTSP >= baseTSP && newImproving >= baseImproving) {
+      if (newTSP+1 >= baseTSP && newImproving >= baseImproving) {
         const caneph = ["X", "X", i, "X"];
-        etmgd.push([i, i, i, i]);
+
+socket.emit("epghpk",JSON.stringify([roomId,2]));
+
+plmgd = JSON.parse(JSON.stringify(plmgdbkgun));
 
         socket.emit("gun", JSON.stringify([roomId, caneph]));
         socket.emit("needgetcard", JSON.stringify([roomId, 0]));
 
         console.log("執行暗槓", i);
+
+
         return true;
       }
     }
@@ -414,13 +420,20 @@ function tryGunDecision(card, lbmgd) {
         const newImproving = countTotalImprovingTiles(plmgd, allmgd);
 
         if (newTSP >= baseTSP && newImproving >= baseImproving) {
-          etmgd[j] = [tile, tile, tile, tile];
+
           const caneph = [j, "X", "X", tile];
+
+
+socket.emit("epghpk",JSON.stringify([roomId,2]));
+
+plmgd = JSON.parse(JSON.stringify(plmgdbkgun));
 
           socket.emit("gun", JSON.stringify([roomId, caneph]));
           socket.emit("needgetcard", JSON.stringify([roomId, 0]));
 
           console.log("執行加槓（摸牌）", tile);
+
+
           return true;
         }
       }
@@ -440,13 +453,19 @@ function tryGunDecision(card, lbmgd) {
         const newImproving = countTotalImprovingTiles(plmgd, allmgd);
 
         if (newTSP >= baseTSP && newImproving >= baseImproving) {
-          etmgd[j] = [tile, tile, tile, tile];
+
           const caneph = [j, "X", "X", tile];
+
+socket.emit("epghpk",JSON.stringify([roomId,2]));
+
+plmgd = JSON.parse(JSON.stringify(plmgdbkgun));
 
           socket.emit("gun", JSON.stringify([roomId, caneph]));
           socket.emit("needgetcard", JSON.stringify([roomId, 0]));
 
           console.log("執行加槓（手牌）", tile);
+
+
           return true;
         }
       }
@@ -517,7 +536,13 @@ return
 
 }
 
+plmgdbkgun = JSON.parse(JSON.stringify(plmgd));
+
 if (tryGunDecision(Number(card), lbmgd)) return;
+
+plmgd = JSON.parse(JSON.stringify(plmgdbkgun));
+
+
 
 if(lbmgd==0){
 
@@ -699,7 +724,7 @@ function findBestDiscardByImprovingAndKaozhang(plmgd, allmgd, cantoutcd) {
   // 原始 TSP（不包含 etmgd）
   plmgd = JSON.parse(JSON.stringify(originalHand));
   sortCad();
-  const baseTSP = manum + (crdeye > 0 ? 1 : 0);
+  const baseTSP = tsp
 
   const candidates = [];
 
@@ -713,7 +738,7 @@ function findBestDiscardByImprovingAndKaozhang(plmgd, allmgd, cantoutcd) {
     plmgd = JSON.parse(JSON.stringify(testHand));
     plmgd.sort((a, b) => a - b);
     sortCad();
-    const newTSP = manum + (crdeye > 0 ? 1 : 0);
+    const newTSP =  result.tsp
     const newEye = crdeye; // crdeye 在 sortCad() 後自動更新
 
     const newImproving = countTotalImprovingTiles(plmgd, allmgd);
@@ -727,18 +752,41 @@ function findBestDiscardByImprovingAndKaozhang(plmgd, allmgd, cantoutcd) {
       newEye
     });
   }
-
-  // 第一階段：improving 不減，不看 TSP
-  const group1 = candidates.filter(c => c.improving >= baseImproving);
-  if (group1.length > 0) {
-    group1.sort((a, b) => a.kaozhang - b.kaozhang);
-    console.log(`[V3-1] card=${group1[0].card}`);
-    return [group1[0].card];
+if (baseTSP + etmgd.length >= 5) { // 聽牌
+  const group3 = candidates.filter(c => c.improving >= baseImproving);
+  if (group3.length > 0) {
+    return [group3[0].card];
+  } else {
+    return [];
   }
+}
 
+// V3-1：TSP 不下降，盡量保持或提升 improving
+const group1 = candidates.filter(c => {
+  const valid = c.newTSP >= baseTSP && c.newTSP <= 6;
+  if (!valid) {
+    console.warn(`[V3-1濾除] card=${c.card} newTSP=${c.newTSP} baseTSP=${baseTSP}`);
+  }
+  return valid;
+});
+
+if (group1.length > 0) {
+  console.log("進入v3-1");
+
+  const group2 = group1.filter(c => c.improving >= baseImproving);
+  const targetGroup = group2.length > 0 ? group2 : group1;
+
+  targetGroup.sort((a, b) => a.kaozhang - b.kaozhang);
+  console.log(`[V3-1] card=${targetGroup[0].card}`);
+  return [targetGroup[0].card];
+}
   // 第二階段：TSP 不變的情況，細看 crdeye 與 improving
   const group2 = candidates.filter(c => c.newTSP >= baseTSP);
   if (group2.length > 0) {
+
+
+console.log("進入v3-2");
+
     const eyeBig = group2.filter(c => c.newEye > 1);
     if (eyeBig.length > 0) {
       eyeBig.sort((a, b) => a.newEye - b.newEye || b.improving - a.improving);
@@ -748,7 +796,11 @@ function findBestDiscardByImprovingAndKaozhang(plmgd, allmgd, cantoutcd) {
 
     const eyeSmall = group2.filter(c => c.newEye <= 1);
     if (eyeSmall.length > 0) {
-      eyeSmall.sort((a, b) => a.improving - b.improving);
+
+
+console.log("進入v3-2-2");
+
+      eyeSmall.sort((a, b) => b.improving - a.improving);
       console.log(`[V3-2b] card=${eyeSmall[0].card} (newEye<=1)`);
       return [eyeSmall[0].card];
     }
@@ -756,7 +808,7 @@ function findBestDiscardByImprovingAndKaozhang(plmgd, allmgd, cantoutcd) {
 
   // fallback：無法維持 TSP，只能選最少損失 improving 的
   if (candidates.length > 0) {
-    candidates.sort((a, b) => a.improving - b.improving);
+    candidates.sort((a, b) => b.improving - a.improving);
     console.log(`[V3-3] fallback card=${candidates[0].card}`);
     return [candidates[0].card];
   }
@@ -949,7 +1001,7 @@ if (result.ready) {
   console.log("每張剩餘張數：", result.leftcount);
   console.log("總共可胡：", result.total);
 
-console.log("捨牌 :",plmgd,"捨張 :",v1[0])
+console.log("v1捨牌 :",plmgd,"捨張 :",v1[0])
 
 socket.emit("outcard", JSON.stringify([roomId, v1[0]]));
 
@@ -962,7 +1014,7 @@ socket.emit("tin",JSON.stringify([roomId,v1[0]]));
 return
 } 
 
-console.log("捨牌 :",plmgd,"捨張 :",v1[0])
+console.log("v1捨牌 :",plmgd,"捨張 :",v1[0])
 
 socket.emit("outcard", JSON.stringify([roomId, v1[0]]));
 
@@ -985,7 +1037,7 @@ if (result.ready) {
   console.log("每張剩餘張數：", result.leftcount);
   console.log("總共可胡：", result.total);
 
-console.log("捨牌 :",plmgd,"捨張 :",v2[0])
+console.log("v2捨牌 :",plmgd,"捨張 :",v2[0])
 
 socket.emit("outcard", JSON.stringify([roomId, v2[0]]));
 
@@ -999,7 +1051,7 @@ socket.emit("tin",JSON.stringify([roomId,v2[0]]));
 return
 } 
 
-console.log("捨牌 :",plmgd,"捨張 :",v2[0])
+console.log("v2捨牌 :",plmgd,"捨張 :",v2[0])
 
 socket.emit("outcard", JSON.stringify([roomId, v2[0]]));
 
@@ -1051,7 +1103,7 @@ if (result.ready) {
   console.log("每張剩餘張數：", result.leftcount);
   console.log("總共可胡：", result.total);
 
-console.log("捨牌 :",plmgd,"捨張 :",v3[0])
+console.log("v3捨牌 :",plmgd,"捨張 :",v3[0])
 
 socket.emit("outcard", JSON.stringify([roomId, v3[0]]));
 
@@ -1065,7 +1117,7 @@ return
 
 } 
 
-console.log("捨牌 :",plmgd,"捨張 :",v3[0])
+console.log("v3捨牌 :",plmgd,"捨張 :",v3[0])
 
 socket.emit("outcard", JSON.stringify([roomId, v3[0]]));
 
@@ -1077,7 +1129,7 @@ return
 
 }
 
-console.log("捨牌 :",plmgd,"捨張 :",card)
+console.log("v1~v4無牌捨牌 :",plmgd,"捨張 :",card)
 
   const idx = plmgd.indexOf(card);
   if (idx !== -1) plmgd.splice(idx, 1);
@@ -1104,11 +1156,11 @@ function countTotalImprovingTiles(plmgd, allmgd) {
     testHand.push(i);
     testHand.sort((a, b) => a - b);
 
-    plmgd = testHand;  // 指向模擬手牌給 sortCad 使用
+    plmgd = JSON.parse(JSON.stringify(testHand));  // 指向模擬手牌給 sortCad 使用
     sortCad();
     const newTsp = manum + (crdeye > 0 ? 1 : 0);
 
-    if (newTsp > originalTsp) {
+    if (newTsp > originalTsp+1) {
       const inHand = testHand.filter(x => x === i).length;
       const inAll = allmgd.filter(x => x === i).length;
       const left = Math.max(0, 4 - (inHand + inAll - 1));  // 扣掉剛剛加進來那張
@@ -1217,7 +1269,7 @@ winp=1
 
 ephchick=1
 
-return
+bkmgdwin=JSON.parse(JSON.stringify(plmgd))///複製
 
 }
 
@@ -1303,6 +1355,10 @@ bkmgds22=JSON.parse(JSON.stringify(plmgd))
 
 if(winp==1){
 
+plmgd=JSON.parse(JSON.stringify(bkmgdwin))///複製
+
+console.log("win")
+
 socket.emit("win",JSON.stringify([roomId,plmgd,lbmgd,flmgd,etmgd]));
 
 socket.emit("needgetcard",JSON.stringify([roomId,pled]));
@@ -1313,7 +1369,9 @@ return
 
 console.log("進入吃碰判斷",pled)
 
-simulateEatPonGun(ple, mtd, plmgd, allmgd, etmgd, roomId);
+bkmgds22=JSON.parse(JSON.stringify(plmgd))
+
+tryEatPonGun(mtd, ple);
 
 plmgd=JSON.parse(JSON.stringify(bkmgds22))
 
@@ -1334,104 +1392,210 @@ socket.emit("needgetcard",JSON.stringify([roomId,pled]));
 
 ////////////////////////////////////////////////////////////////////
 
-function simulateEatPonGun(ple, mtd, plmgd, allmgd, etmgd, roomId) {
-  const original = JSON.parse(JSON.stringify(plmgd));
-  const originalTsp = (() => { sortCad(); return manum + (crdeye > 0 ? 1 : 0); })();
-  const originalEff = countEffectiveTiles(getEffectiveTiles(plmgd), allmgd, plmgd);
-  const etlen = etmgd.length;
-  let actions = [];
+function tryEatPonGun(mtd, ple) {
+  const originalHand = JSON.parse(JSON.stringify(plmgd));
+  const originalEtmgd = JSON.parse(JSON.stringify(etmgd));
 
-  // 槓
-  if (ple !== 3 && plmgd.filter(x => x === mtd).length >= 3) {
-    let simulated = plmgd.filter(x => x !== mtd).slice(0);
-    sortCad.call({ plmgd: simulated });
-    const tsp = manum + (crdeye > 0 ? 1 : 0);
-    const eff = countEffectiveTiles(getEffectiveTiles(simulated), allmgd, simulated);
-    if ((tsp + etlen + 1 > originalTsp + etlen) ||
-        ((tsp + etlen + 1 === originalTsp + etlen) && eff >= originalEff)) {
-      actions.push({ type: "gun", tiles: [mtd, mtd, mtd, mtd], newHand: simulated });
-    }
-  }
+  sortCad();
+  const baseTSP = manum + (crdeye > 0 ? 1 : 0);
+  const baseImproving = countTotalImprovingTiles(originalHand, allmgd);
 
-  // 碰
-  if (plmgd.filter(x => x === mtd).length >= 2) {
-    let newHands = plmgd.reduce((acc, val, i, arr) => {
-      if (val === mtd) {
-        for (let j = i + 1; j < arr.length; j++) {
-          if (arr[j] === mtd) {
-            let tmp = [...arr];
-            tmp.splice(j, 1);
-            tmp.splice(i, 1);
-            acc.push(tmp);
-            break;
-          }
-        }
-      }
-      return acc;
-    }, []);
-    newHands.forEach(newHand => {
-      sortCad.call({ plmgd: newHand });
-      const tsp = manum + (crdeye > 0 ? 1 : 0);
-      const eff = countEffectiveTiles(getEffectiveTiles(newHand), allmgd, newHand);
-      if ((tsp + etlen + 1 > originalTsp + etlen) ||
-          ((tsp + etlen + 1 === originalTsp + etlen) && eff >= originalEff)) {
-        actions.push({ type: "pon", tiles: [mtd, mtd, mtd], newHand });
-      }
-    });
-  }
-console.log(ple, mtd, plmgd, allmgd, etmgd, roomId)
-  // 吃
-  if (ple === 3) {
-    const g = Math.floor((mtd - 1) / 9);  // 判斷組別
-    const candidates = [
-      [mtd - 2, mtd - 1],
-      [mtd - 1, mtd + 1],
-      [mtd + 1, mtd + 2]
-    ];
-    for (let pair of candidates) {
-      if (pair.some(p => p < 1 || p > 34 || Math.floor((p - 1) / 9) !== g)) continue;
-      if (pair.every(p => plmgd.includes(p))) {
-        let newHand = plmgd.slice();
-        newHand.splice(newHand.indexOf(pair[0]), 1);
-        newHand.splice(newHand.indexOf(pair[1]), 1);
-        sortCad.call({ plmgd: newHand });
-        const tsp = manum + (crdeye > 0 ? 1 : 0);
-        const eff = countEffectiveTiles(getEffectiveTiles(newHand), allmgd, newHand);
-        if ((tsp + etlen + 1 > originalTsp + etlen) ||
-            ((tsp + etlen + 1 === originalTsp + etlen) && eff >= originalEff)) {
-          let sortedEat = [pair[0], mtd, pair[1]];
-          actions.push({ type: "eat", tiles: sortedEat, newHand });
-        }
-      }
-    }
-  }
+  const options = [];
 
-  // 測試每個模擬動作是否能成功進入出牌邏輯
-  for (let act of actions) {
-    let epgtw = act.type;
-    let cardGroup = act.tiles;
-    let testHand = JSON.parse(JSON.stringify(act.newHand));
-    cantoutcd = getCantOutCards(cardGroup, epgtw);
+  // 判斷可吃（只能左家，不能跨組）
+if (ple === 3) {
+  const groups = [
+    [mtd - 2, mtd , mtd - 1],
+    [mtd - 1, mtd , mtd + 1],
+    [mtd + 1, mtd , mtd + 2]
+  ];
 
-    let v1 = findBest(plmgd, allmgd, cantoutcd)
-    let v2 = findIsolated(plmgd, allmgd, cantoutcd)
-///    let v4 = findDefensiveByDangerScore(plmgd, allmgd, cantoutcd, alloutcd, ple, lbmgds);
-    let v3 = findBestDiscardByImprovingAndKaozhang(plmgd, allmgd, cantoutcd);
-///    let discard = v1[0] || v2[0] || v4[0] || v3[0] || null;
-    let discard = v1[0] || v2[0] || v3[0] || null;
+  for (let g of groups) {
+    // 限定數牌 1~27
+    if (g.some(x => x < 1 || x > 27)) continue;
 
-    if (discard !== null) {
+    const groupId = Math.floor((mtd - 1) / 9);
+    if (
+      Math.floor((g[0] - 1) / 9) !== groupId ||
+      Math.floor((g[2] - 1) / 9) !== groupId
+    ) continue;
 
-console.log("吃碰槓 :",plmgd,"吃的牌 :",cardGroup)
-
-plmgd=JSON.parse(JSON.stringify(bkmgds22))
-
-      socket.emit(epgtw, JSON.stringify([roomId, cardGroup]));
-      socket.emit("needgetcard", JSON.stringify([roomId, epgtw === "gun" ? 00 : 0]));
-      return;
+    const handCopy = originalHand.slice();
+    if (handCopy.includes(g[0]) && handCopy.includes(g[2])) {
+      const sim = simulateEatPonGun("eat", g, originalHand, originalEtmgd, baseTSP, baseImproving);
+      if (sim) options.push(sim);
     }
   }
 }
+
+  // 判斷可碰
+  if (originalHand.filter(x => x === mtd).length >= 2) {
+    const sim = simulateEatPonGun("pon", [mtd, mtd, mtd], originalHand, originalEtmgd, baseTSP, baseImproving);
+    if (sim) options.push(sim);
+  }
+
+  // 判斷可槓（不能是上家）
+  if (ple !== 3 && originalHand.filter(x => x === mtd).length >= 3) {
+    const sim = simulateEatPonGun("gun", [mtd, mtd, mtd, mtd], originalHand, originalEtmgd, baseTSP, baseImproving);
+    if (sim) options.push(sim);
+  }
+
+  // 選擇最佳方案（提升張數 > 靠張數 > 吃>槓>碰）
+  if (options.length > 0) {
+    options.sort((a, b) => {
+      if (b.improving !== a.improving) return b.improving - a.improving;
+      if (b.kaozhang !== a.kaozhang) return b.kaozhang - a.kaozhang;
+      const typeRank = { eat: 3, gun: 2, pon: 1 };
+
+  if (a.type === "eat" && b.type === "eat") {
+    // 特別處理吃牌三種組合的優先順序
+    const getEatRank = (group) => {
+      const mtd = group[1]; // mtd 一定在中間
+      const left = group[0];
+      const right = group[2];
+
+      if (left === mtd - 1 && right === mtd + 1) return 3; // 中間組合最高
+      else if (right === mtd + 2 || left === mtd - 2) return 1; // 兩邊組合最低
+      return 2; // 預備其他狀況（理論上不會有）
+    };
+
+    const rankA = getEatRank(a.group);
+    const rankB = getEatRank(b.group);
+    return rankB - rankA; // 數字大優先
+  }
+      return typeRank[b.type] - typeRank[a.type];
+    });
+
+    const best = options[0];
+
+plmgd=JSON.parse(JSON.stringify(bkmgds22))
+
+    // 發送 socket 消息
+    socket.emit(best.type, JSON.stringify([roomId, best.group]));
+    socket.emit("needgetcard", JSON.stringify([roomId, best.type === "gun" ? "00" : 0]));
+
+  console.log("吃碰槓",best.group);
+console.log(options);
+
+  }else {
+
+
+plmgd=JSON.parse(JSON.stringify(bkmgds22))
+
+socket.emit("needgetcard",JSON.stringify([roomId,pled]));
+
+socket.emit("epghpk",JSON.stringify([roomId,0]));
+
+  console.log("放棄吃碰槓",mtd);
+console.log(options);
+}
+}
+////////////////////////////////////////////////////////////////////
+
+function simulateEatPonGun(type, group, originalHand, originalEtmgd, baseTSP, baseImproving) {
+console.log(`[模擬 ${type}] 嘗試組合:`, group);
+  let hand = JSON.parse(JSON.stringify(originalHand));
+  let etmgdMock = JSON.parse(JSON.stringify(originalEtmgd));
+
+// 刪除 group 中除了「自己要吃碰槓的那張牌」以外的手牌
+if (type === "eat") {
+  const required = group.filter(x => x !== mtd);
+  for (let card of required) {
+    const idx = hand.indexOf(card);
+    if (idx !== -1) hand.splice(idx, 1);
+  }
+} else if (type === "pon") {
+  // 碰：刪掉其中 2 張 mtd
+  let removed = 0;
+  for (let i = 0; i < hand.length && removed < 2; i++) {
+    if (hand[i] === mtd) {
+      hand.splice(i, 1);
+      i--; // index 回退
+      removed++;
+    }
+  }
+} else if (type === "gun") {
+  // 槓：刪掉其中 3 張 mtd
+  let removed = 0;
+  for (let i = 0; i < hand.length && removed < 3; i++) {
+    if (hand[i] === mtd) {
+      hand.splice(i, 1);
+      i--;
+      removed++;
+    }
+  }
+}
+
+  // etmgd 模擬 +1 組
+  etmgdMock.push(group);
+
+  // 模擬 getCantOutCards()
+  const cantoutcd = getCantOutCards(group, type);
+console.log(`[模擬 ${type}] 禁打牌 cantoutcd:`, cantoutcd);
+console.log(`[模擬 ${type}] 剩下手牌:`, hand);
+
+  // 套用捨牌決策（V1~V3）
+
+let test;
+
+test = findBest(hand, allmgd, cantoutcd);
+if (test && test.length > 0) {
+ttl="v1"
+  console.log(`[模擬 ${type}] 使用 V1 找到:`, test);
+} else {
+  test = findIsolated(hand, allmgd, cantoutcd);
+  if (test && test.length > 0) {
+ttl="v2"
+    console.log(`[模擬 ${type}] 使用 V2 找到:`, test);
+  } else {
+    test = findBestDiscardByImprovingAndKaozhang(plmgd, allmgd, cantoutcd);
+    if (test && test.length > 0) {
+ttl="v3"
+      console.log(`[模擬 ${type}] 使用 V3 找到:`, test,ttl);
+    } 
+  }
+}
+if (!test || test.length === 0) {
+  console.log(`[模擬 ${type}] 組合 ${group} 無法找到合法捨牌，跳過`);
+  return null;
+}
+  if (test && test.length > 0) {
+    const discard = test[0];
+
+    // 模擬打掉之後的手牌 tsp
+    const simulatedHand = JSON.parse(JSON.stringify(hand));
+    const idx = simulatedHand.indexOf(discard);
+    if (idx !== -1) simulatedHand.splice(idx, 1);
+    plmgd = JSON.parse(JSON.stringify(simulatedHand)).slice();
+    sortCad();
+    const newTSP = manum + (crdeye > 0 ? 1 : 0);
+///console.log("模擬吃碰槓後 tsp + 組數:", newTSP + etmgdMock.length, "vs 原本:", baseTSP + originalEtmgd.length);
+console.log("模擬吃碰槓後 tsp + 組數:", newTSP, "vs 原本:", baseTSP);
+    // 判斷 tsp + etmgd 是否符合
+if(baseTSP + originalEtmgd.length>=5&& baseImproving <= countTotalImprovingTiles(simulatedHand, allmgd)){///已聽牌
+
+      const improving = countTotalImprovingTiles(simulatedHand, allmgd);
+      const kaozhang = countTotalKaozhang(simulatedHand, allmgd);
+      return {
+        type, group, improving, kaozhang
+      };
+
+}
+///    if (newTSP + etmgdMock.length >= baseTSP + originalEtmgd.length && baseImproving <= countTotalImprovingTiles(simulatedHand, allmgd)||ttl=="v1"||ttl=="v2") {
+
+      const improving = countTotalImprovingTiles(simulatedHand, allmgd);
+      const kaozhang = countTotalKaozhang(simulatedHand, allmgd);
+      return {
+        type, group, improving, kaozhang
+      };
+
+
+
+  }
+
+  return null;
+}
+
 ////////////////////////////////////////////////////////////////////
 function getEffectiveTiles(hand) {
   const eff = new Set();
@@ -1466,89 +1630,83 @@ function countEffectiveTiles(tiles, allmgd, hand) {
 
 
 function sortCad(){///整理方式
-   manum = 0;
-   crdeye = 0;
-   dacadnum = [];
 
-  let cpf = Array(35).fill(0);
 
-  plmgd.forEach(function(x) { cpf[x] = (cpf[x] || 0) + 1; });
+result = analyzeTWHand(plmgd);
+tsp = result.tsp;
+manum = result.manum;
+crdeye = result.crdeye;
 
-  cpf.splice(0, 1);  // 去掉第0位
-  cpf.length = 34;   // 確保長度
-
-  // 1. 單張字牌（27~33）
-  for (let i = 27; i < 34; i++) {
-    if (cpf[i] > 0) {
-      cpf[i] = (cpf[i] < 5) ? cpf[i] : 4;
-      let key = String(cpf[i]);
-      if (zutop[key] !== undefined) {
-        manum += zutop[key][0];
-        crdeye += zutop[key][1];
-      } else {
-        console.warn("zutop key 不存在（字牌單張）:", key);
-      }
-    }
-  }
-
-  // 2. 萬筒條連號區段
-  for (let k = 0; k < 3; k++) {
-    let lanhow = [];
-    for (let i = k * 9; i < k * 9 + 9; i++) {
-      if (cpf[i] > 0 && i == k * 9 + 8) {
-        cpf[i] = (cpf[i] < 5) ? cpf[i] : 4;
-        lanhow.push(cpf[i]);
-        let key = lanhow.join("");
-        if (zutop[key] !== undefined) {
-          manum += zutop[key][0];
-          crdeye += zutop[key][1];
-        } else {
-          console.warn("zutop key 不存在（連號尾端）:", key);
-        }
-        lanhow = [];
-        break;
-      }
-      if (cpf[i] > 0) {
-        cpf[i] = (cpf[i] < 5) ? cpf[i] : 4;
-        lanhow.push(cpf[i]);
-        for (let s = i + 1; s < k * 9 + 9; s++) {
-          if (cpf[s] > 0) {
-            cpf[s] = (cpf[s] < 5) ? cpf[s] : 4;
-            lanhow.push(cpf[s]);
-          }
-          if (cpf[s] == 0 || s == k * 9 + 8) {
-            let key = lanhow.join("");
-            if (zutop[key] !== undefined) {
-              manum += zutop[key][0];
-              crdeye += zutop[key][1];
-            } else {
-              console.warn("zutop key 不存在（連號中斷）:", key);
-            }
-            lanhow = [];
-            i = s;  // 跳過已處理的牌
-            break;
-          }
-        }
-      }
-    }
-    dacadnum.push(manum + crdeye); // 每段結果都存起來
-  }
-
-  // 修正 daccadnum 差分
-  dacadnum[1] = (dacadnum[1] || 0) - (dacadnum[0] || 0);
-  dacadnum[2] = (dacadnum[2] || 0) - (dacadnum[1] || 0) - (dacadnum[0] || 0);
-  dacadnum[3] = 0;
-
-  // 計算字牌對子數量
-  for (let i = 27; i < 34; i++) {
-    if (cpf[i] >= 2) {
-      dacadnum[3]++;
-    }
-  }
+tsp = Math.min(manum + (crdeye > 0 ? 1 : 0), 6);
 
 }
 
 ///////////////////////////////////////
+function analyzeTWHand(cards) {
+  const tileCount = Array(35).fill(0);
+  for (let c of cards) tileCount[c]++;
 
+  let maxManum = 0;
+  let hasEye = false;
+  let bestLeftTiles = cards.length;
+
+  function dfs(tcount, manum, eyeUsed, idx, left) {
+    // 超過5面子不用繼續
+    if (manum > 5) return;
+
+    // 更新最佳組合
+    if (manum > maxManum || (manum === maxManum && eyeUsed && (!hasEye || left < bestLeftTiles))) {
+      maxManum = manum;
+      hasEye = eyeUsed;
+      bestLeftTiles = left;
+    }
+
+    // 找下一張有牌的 index
+    while (idx <= 34 && tcount[idx] === 0) idx++;
+    if (idx > 34) return;
+
+    // 刻子
+    if (tcount[idx] >= 3) {
+      tcount[idx] -= 3;
+      dfs(tcount, manum + 1, eyeUsed, idx, left - 3);
+      tcount[idx] += 3;
+    }
+
+    // 順子（萬、索、筒）
+    if ((1 <= idx && idx <= 7) || (10 <= idx && idx <= 16) || (19 <= idx && idx <= 25)) {
+      if (tcount[idx] > 0 && tcount[idx + 1] > 0 && tcount[idx + 2] > 0) {
+        tcount[idx]--; tcount[idx + 1]--; tcount[idx + 2]--;
+        dfs(tcount, manum + 1, eyeUsed, idx, left - 3);
+        tcount[idx]++; tcount[idx + 1]++; tcount[idx + 2]++;
+      }
+    }
+
+    // 雀頭
+    if (!eyeUsed && tcount[idx] >= 2) {
+      tcount[idx] -= 2;
+      dfs(tcount, manum, true, idx, left - 2);
+      tcount[idx] += 2;
+    }
+
+    // 跳過
+    dfs(tcount, manum, eyeUsed, idx + 1, left);
+  }
+
+  dfs(tileCount.slice(), 0, false, 1, cards.length);
+
+  const tsp = maxManum + (hasEye ? 1 : 0);
+  const isWinningHand = (tsp === 6 && bestLeftTiles === 0);
+  const isReady = (tsp === 5 && bestLeftTiles === 1);
+
+return {
+  manum: maxManum,
+  crdeye: hasEye ? 1 : 0,  // 強制轉成 0 or 1
+  tsp: maxManum + (hasEye ? 1 : 0),
+  isReady,
+  isWinningHand,
+  leftTiles: bestLeftTiles
+};
+
+}
 
 /////////////////////////////////////////////////////////

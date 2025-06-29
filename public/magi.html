@@ -5046,7 +5046,7 @@ socket.emit("epghpk",JSON.stringify([roomId,3]));
 
 if(lbmgd==1){
 
-socket.emit("win",JSON.stringify([roomId,plmgd,lbmgd,flmgd,etmgd]));
+socket.emit("mywin",JSON.stringify([roomId,plmgd,lbmgd,flmgd,etmgd]));
 
 socket.emit("needgetcard",JSON.stringify([roomId,0]));
 
@@ -5065,6 +5065,8 @@ $('.'+epgh[i]).show()
 return
 
 }///if(tsptin+etmgd.length==6){
+
+plmgd=JSON.parse(JSON.stringify(bkmgd2))///複製
 
 }///if(tsp+etmgd.length>=4&&lbmgd==0){
 
@@ -6059,9 +6061,9 @@ ephchick=1
 
 if(lbmgd==1){
 
-winp=1
+bkmgdwin=JSON.parse(JSON.stringify(plmgd))///複製
 
-return
+winp=1
 
 }
 
@@ -6181,6 +6183,10 @@ wincard=mtd
 ple=allplad.indexOf(pled)
 
 if(winp==1){
+
+plmgd=JSON.parse(JSON.stringify(bkmgdwin))///複製
+
+console.log("win")
 
 socket.emit("win",JSON.stringify([roomId,plmgd,lbmgd,flmgd,etmgd]));
 

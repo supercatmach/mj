@@ -578,6 +578,8 @@ io.to(socket.id).emit("getnewcard", JSON.stringify(n));
 
 rooms[roomId].pled=rooms[roomId].players.indexOf(socket.id)
 
+rooms[roomId].alps=0
+
 }
 
 });
@@ -630,6 +632,8 @@ io.to(roomId).emit("getnewcard2", JSON.stringify(neepl));
 io.to(neepl).emit("getnewcard", JSON.stringify(n));
 
 rooms[roomId].pled=rooms[roomId].players.indexOf(neepl)
+
+rooms[roomId].alps=0
 
 }
 
