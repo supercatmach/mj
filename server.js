@@ -864,8 +864,17 @@ return
 
 }
 
+const epghpk = rooms[roomId].epghpk;
 
-if(rooms[roomId].alps==rooms[roomId].players.length&&rooms[roomId].epgh.length==0&&!rooms[roomId].epghpk.some(row => row.some(num => num > 0))){
+const noPositive = !(
+
+  Array.isArray(epghpk) &&
+
+  epghpk.some(row => Array.isArray(row) && row.some(num => num > 0))
+
+);
+
+if(rooms[roomId].alps==rooms[roomId].players.length&&rooms[roomId].epgh.length==0&&!noPositive){
 
 rooms[roomId].epgh=[]
 
