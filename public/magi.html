@@ -4642,15 +4642,15 @@ socket.on("caneph", (data) => {
 
 $(".etpghword img").hide();
 
+pled=JSON.parse(data)[0]
+card=JSON.parse(data)[1]
+epgtw=JSON.parse(data)[2]///哪一種狀態
+
 if(epgtw!="tin"){
 
 $(".outshowcad div").hide()
 
 }
-
-pled=JSON.parse(data)[0]
-card=JSON.parse(data)[1]
-epgtw=JSON.parse(data)[2]///哪一種狀態
 
 ple=allplad.indexOf(pled)
 
