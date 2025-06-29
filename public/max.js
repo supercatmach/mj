@@ -1,90 +1,5 @@
-
-
-function sortCad(){///整理方式
-   manum = 0;
-   crdeye = 0;
-   dacadnum = [];
-
-  let cpf = Array(35).fill(0);
-
-  plmgd.forEach(function(x) { cpf[x] = (cpf[x] || 0) + 1; });
-
-  cpf.splice(0, 1);  // 去掉第0位
-  cpf.length = 34;   // 確保長度
-
-  // 1. 單張字牌（27~33）
-  for (let i = 27; i < 34; i++) {
-    if (cpf[i] > 0) {
-      cpf[i] = (cpf[i] < 5) ? cpf[i] : 4;
-      let key = String(cpf[i]);
-      if (zutop[key] !== undefined) {
-        manum += zutop[key][0];
-        crdeye += zutop[key][1];
-      } else {
-        console.warn("zutop key 不存在（字牌單張）:", key);
-      }
-    }
-  }
-
-  // 2. 萬筒條連號區段
-  for (let k = 0; k < 3; k++) {
-    let lanhow = [];
-    for (let i = k * 9; i < k * 9 + 9; i++) {
-      if (cpf[i] > 0 && i == k * 9 + 8) {
-        cpf[i] = (cpf[i] < 5) ? cpf[i] : 4;
-        lanhow.push(cpf[i]);
-        let key = lanhow.join("");
-        if (zutop[key] !== undefined) {
-          manum += zutop[key][0];
-          crdeye += zutop[key][1];
-        } else {
-          console.warn("zutop key 不存在（連號尾端）:", key);
-        }
-        lanhow = [];
-        break;
-      }
-      if (cpf[i] > 0) {
-        cpf[i] = (cpf[i] < 5) ? cpf[i] : 4;
-        lanhow.push(cpf[i]);
-        for (let s = i + 1; s < k * 9 + 9; s++) {
-          if (cpf[s] > 0) {
-            cpf[s] = (cpf[s] < 5) ? cpf[s] : 4;
-            lanhow.push(cpf[s]);
-          }
-          if (cpf[s] == 0 || s == k * 9 + 8) {
-            let key = lanhow.join("");
-            if (zutop[key] !== undefined) {
-              manum += zutop[key][0];
-              crdeye += zutop[key][1];
-            } else {
-              console.warn("zutop key 不存在（連號中斷）:", key);
-            }
-            lanhow = [];
-            i = s;  // 跳過已處理的牌
-            break;
-          }
-        }
-      }
-    }
-    dacadnum.push(manum + crdeye); // 每段結果都存起來
-  }
-
-  // 修正 daccadnum 差分
-  dacadnum[1] = (dacadnum[1] || 0) - (dacadnum[0] || 0);
-  dacadnum[2] = (dacadnum[2] || 0) - (dacadnum[1] || 0) - (dacadnum[0] || 0);
-  dacadnum[3] = 0;
-
-  // 計算字牌對子數量
-  for (let i = 27; i < 34; i++) {
-    if (cpf[i] >= 2) {
-      dacadnum[3]++;
-    }
-  }
-
-}
-
-///////////////////////////////////////
 const zutop = require("./zutop2")
+
 console.log(zutop["1"]);
 
 const io = require("socket.io-client");
@@ -1518,6 +1433,91 @@ function countEffectiveTiles(tiles, allmgd, hand) {
 
 ////////////////////////////////////////////////////////////////////
 
+
+function sortCad(){///整理方式
+   manum = 0;
+   crdeye = 0;
+   dacadnum = [];
+
+  let cpf = Array(35).fill(0);
+
+  plmgd.forEach(function(x) { cpf[x] = (cpf[x] || 0) + 1; });
+
+  cpf.splice(0, 1);  // 去掉第0位
+  cpf.length = 34;   // 確保長度
+
+  // 1. 單張字牌（27~33）
+  for (let i = 27; i < 34; i++) {
+    if (cpf[i] > 0) {
+      cpf[i] = (cpf[i] < 5) ? cpf[i] : 4;
+      let key = String(cpf[i]);
+      if (zutop[key] !== undefined) {
+        manum += zutop[key][0];
+        crdeye += zutop[key][1];
+      } else {
+        console.warn("zutop key 不存在（字牌單張）:", key);
+      }
+    }
+  }
+
+  // 2. 萬筒條連號區段
+  for (let k = 0; k < 3; k++) {
+    let lanhow = [];
+    for (let i = k * 9; i < k * 9 + 9; i++) {
+      if (cpf[i] > 0 && i == k * 9 + 8) {
+        cpf[i] = (cpf[i] < 5) ? cpf[i] : 4;
+        lanhow.push(cpf[i]);
+        let key = lanhow.join("");
+        if (zutop[key] !== undefined) {
+          manum += zutop[key][0];
+          crdeye += zutop[key][1];
+        } else {
+          console.warn("zutop key 不存在（連號尾端）:", key);
+        }
+        lanhow = [];
+        break;
+      }
+      if (cpf[i] > 0) {
+        cpf[i] = (cpf[i] < 5) ? cpf[i] : 4;
+        lanhow.push(cpf[i]);
+        for (let s = i + 1; s < k * 9 + 9; s++) {
+          if (cpf[s] > 0) {
+            cpf[s] = (cpf[s] < 5) ? cpf[s] : 4;
+            lanhow.push(cpf[s]);
+          }
+          if (cpf[s] == 0 || s == k * 9 + 8) {
+            let key = lanhow.join("");
+            if (zutop[key] !== undefined) {
+              manum += zutop[key][0];
+              crdeye += zutop[key][1];
+            } else {
+              console.warn("zutop key 不存在（連號中斷）:", key);
+            }
+            lanhow = [];
+            i = s;  // 跳過已處理的牌
+            break;
+          }
+        }
+      }
+    }
+    dacadnum.push(manum + crdeye); // 每段結果都存起來
+  }
+
+  // 修正 daccadnum 差分
+  dacadnum[1] = (dacadnum[1] || 0) - (dacadnum[0] || 0);
+  dacadnum[2] = (dacadnum[2] || 0) - (dacadnum[1] || 0) - (dacadnum[0] || 0);
+  dacadnum[3] = 0;
+
+  // 計算字牌對子數量
+  for (let i = 27; i < 34; i++) {
+    if (cpf[i] >= 2) {
+      dacadnum[3]++;
+    }
+  }
+
+}
+
+///////////////////////////////////////
 
 
 /////////////////////////////////////////////////////////

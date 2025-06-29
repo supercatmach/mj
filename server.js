@@ -865,7 +865,7 @@ return
 }
 
 
-if(rooms[roomId].alps==rooms[roomId].players.length&&rooms[roomId].epgh.length==0&&rooms[roomId].epghpk.length!=0){
+if(rooms[roomId].alps==rooms[roomId].players.length&&rooms[roomId].epgh.length==0&&!rooms[roomId].epghpk.some(row => row.some(num => num > 0))){
 
 rooms[roomId].epgh=[]
 
