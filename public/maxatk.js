@@ -719,16 +719,15 @@ function findIsolated(plmgd, allmgd, cantoutcd) {
 }
 
 /////////////////////////////////////////////////
-function findBestDiscardByImprovingAndKaozhang(plmgd, allmgd, cantoutcd) {
-  const originalHand = JSON.parse(JSON.stringify(plmgd));
-  const baseImproving = countTotalImprovingTiles(originalHand, allmgd);
+function findBestDiscardByImprovingAndKaozhang(plmgd, allmgd, cantoutcd = []) {
+  const otorder = [];
+  const otruncd = [];
 
-  // 原始 TSP（不包含 etmgd）
-  plmgd = JSON.parse(JSON.stringify(originalHand));
+  const originalHand = JSON.parse(JSON.stringify(plmgd));
   sortCad();
   const baseTSP = manum + (crdeye > 0 ? 1 : 0);
-
-  const candidates = [];
+  const baseEye = crdeye;
+  const baseImproving = countTotalImprovingTiles(originalHand, allmgd);
 
   for (let i = 0; i < originalHand.length; i++) {
     const testHand = JSON.parse(JSON.stringify(originalHand));
@@ -736,59 +735,81 @@ function findBestDiscardByImprovingAndKaozhang(plmgd, allmgd, cantoutcd) {
 
     if (cantoutcd.includes(card)) continue;
 
-    // 模擬新手牌分析
+    // 模擬捨出後分析
     plmgd = JSON.parse(JSON.stringify(testHand));
-    plmgd.sort((a, b) => a - b);
     sortCad();
     const newTSP = manum + (crdeye > 0 ? 1 : 0);
-    const newEye = crdeye; // crdeye 在 sortCad() 後自動更新
+    const newEye = crdeye;
 
-    const newImproving = countTotalImprovingTiles(plmgd, allmgd);
-    const kaozhang = countTotalKaozhang(plmgd, allmgd);
+    // 只考慮 tsp 不變且面子總數未滿 6
+    if (newTSP === baseTSP && newTSP < 6) {
+      const newImproving = countTotalImprovingTiles(plmgd, allmgd);
+      const colcad = countAdjacentAvailableTiles(card, allmgd);
+      const lot = dacadnum[Math.floor(card / 9)];
+      const lose = daetp[pled][Math.floor(card / 9)];
 
-    candidates.push({
-      card,
-      improving: newImproving,
-      kaozhang,
-      newTSP,
-      newEye
-    });
-  }
-
-  // 第一階段：improving 不減，不看 TSP
-  const group1 = candidates.filter(c => c.improving >= baseImproving);
-  if (group1.length > 0) {
-    group1.sort((a, b) => b.kaozhang - a.kaozhang);
-    console.log(`[V3-1] card=${group1[0].card}`);
-    return [group1[0].card];
-  }
-
-  // 第二階段：TSP 不變的情況，細看 crdeye 與 improving
-  const group2 = candidates.filter(c => c.newTSP >= baseTSP);
-  if (group2.length > 0) {
-    const eyeBig = group2.filter(c => c.newEye > 1);
-    if (eyeBig.length > 0) {
-      eyeBig.sort((a, b) => a.newEye - b.newEye || b.improving - a.improving);
-      console.log(`[V3-2a] card=${eyeBig[0].card} (newEye>1)`);
-      return [eyeBig[0].card];
-    }
-
-    const eyeSmall = group2.filter(c => c.newEye <= 1);
-    if (eyeSmall.length > 0) {
-      eyeSmall.sort((a, b) => b.improving - a.improving);
-      console.log(`[V3-2b] card=${eyeSmall[0].card} (newEye<=1)`);
-      return [eyeSmall[0].card];
+      if (newImproving === baseImproving) {
+        otorder.push({ td: i, ot: lot, od: lose, oc: colcad });
+      } else {
+        const od = lot + lose + dacadnum[3] + daetp[pled][3];
+        if (baseEye > 1 && newEye >= 1) {
+          otruncd.push({ td: i, od, ot: newEye, oc: colcad });
+        } else {
+          otruncd.push({ td: i, od, ot: newImproving, oc: colcad });
+        }
+      }
     }
   }
 
-  // fallback：無法維持 TSP，只能選最少損失 improving 的
-  if (candidates.length > 0) {
-    candidates.sort((a, b) => b.improving - a.improving);
-    console.log(`[V3-3] fallback card=${candidates[0].card}`);
-    return [candidates[0].card];
+  plmgd = JSON.parse(JSON.stringify(originalHand));
+  sortCad();
+
+  // === 處理 otorder（進張維持者優先）===
+  if (otorder.length > 0) {
+    otorder.sort((a, b) => a.ot - b.ot);
+    const minLot = otorder[0].ot;
+    const group = otorder.filter(e => e.ot === minLot);
+    group.sort((a, b) => a.od - b.od);
+    const minLose = group[0].od;
+    const finalGroup = group.filter(e => e.od === minLose);
+    finalGroup.sort((a, b) => b.oc - a.oc);
+
+    outCad2(finalGroup[0].td);
+    return;
   }
 
-  return [];
+  // === 處理 otruncd（進張損失但可接受）===
+  if (otruncd.length > 0) {
+    const backup = JSON.parse(JSON.stringify(otruncd));
+    otruncd = otruncd.filter(e => e.od >= 5);
+    if (otruncd.length === 0) otruncd = backup;
+
+    if (baseEye > 1) {
+      otruncd.sort((a, b) => a.ot - b.ot);
+      const minEye = otruncd[0].ot;
+      const group = otruncd.filter(e => e.ot === minEye);
+      group.sort((a, b) => b.oc - a.oc);
+      outCad2(group[0].td);
+      return;
+    }
+
+    otruncd.sort((a, b) => b.ot - a.ot);
+    outCad2(otruncd[0].td);
+    return;
+  }
+}
+
+
+function countAdjacentAvailableTiles(card, allmgd) {
+  let total = 0;
+  for (let d = -2; d <= 2; d++) {
+    const t = card + d;
+    if (t >= 1 && t <= 34 && Math.floor(t / 9) === Math.floor(card / 9)) {
+      const used = allmgd.filter(x => x === t).length;
+      total += Math.max(0, 4 - used);
+    }
+  }
+  return total;
 }
 //////////////////////////////////////////////////
 
