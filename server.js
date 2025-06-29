@@ -114,9 +114,9 @@ function createRoomStructure(hostId) {
 }
 
 const { spawn } = require('child_process');
-const child = spawn('node', ['max.js'], {
-  stdio: 'inherit',
-});
+///const child = spawn('node', ['max.js'], {
+///  stdio: 'inherit',
+///});
 
 const rooms = {};
 rooms["025024"] = { host: "貓貓", players: [] ,playerid: [] ,playerpic: [] ,ynstar:0,ynfriend:0,alps:0,epgh:[],pled:0,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
@@ -861,6 +861,19 @@ rooms[roomId].alps=0
 return
 
 }
+
+}
+
+
+if(rooms[roomId].alps==rooms[roomId].players.length&&rooms[roomId].epgh.length==0&&rooms[roomId].epghpk.length!=0){
+
+rooms[roomId].epgh=[]
+
+rooms[roomId].epghpk=[]
+
+rooms[roomId].alps=0
+
+return
 
 }
 
