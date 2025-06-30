@@ -6063,6 +6063,8 @@ socket.emit("epghpk",JSON.stringify([roomId,3]));
 
 ephchick=1
 
+winp=2
+
 if(lbmgd==1){
 
 bkmgdwin=JSON.parse(JSON.stringify(plmgd))///複製
@@ -6200,7 +6202,7 @@ return
 
 }
 
-if(ephchick==1&&(128-allmgd)>4){
+if(ephchick==1&&(128-allmgd)>=5||winp==2){
 
 for(let i=0;i<6;i++){
 
@@ -6212,7 +6214,9 @@ return
 
 }
 
-if(ephchick==0||(128-allmgd)<=4){///如果沒有吃碰槓胡則返回
+if((128-allmgd)<5&&ephchick==1){///如果沒有吃碰槓胡則返回
+
+socket.emit("needgetcard",JSON.stringify([roomId,pled]));
 
 $(".cnatetpg").show()
 
@@ -6220,7 +6224,12 @@ setTimeout(() => {
 
 $(".cnatetpg").hide()
 
-}, 1000);
+}, 3000);
+
+
+}
+
+if(ephchick==0){///如果沒有吃碰槓胡則返回
 
 socket.emit("needgetcard",JSON.stringify([roomId,pled]));
 

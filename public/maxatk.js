@@ -68,6 +68,8 @@ allmgd=[]
 
 alloutcd=[[],[],[],[]]
 
+daetp=[0,0,0,0]
+
 });
 
 ////////////////////////////////////////////////////////////////////
@@ -548,13 +550,20 @@ plmgd = JSON.parse(JSON.stringify(plmgdbkgun));
 
 if(lbmgd==0){
 
+setTimeout(() => {
+
 outcard(Number(card))
+
+},500)
 
 return
 
 }
 
 if(lbmgd==1){
+
+
+setTimeout(() => {
 
 
 console.log("捨牌 :",plmgd,"捨張 :",Number(card))
@@ -564,6 +573,10 @@ console.log("捨牌 :",plmgd,"捨張 :",Number(card))
   plmgd.sort((a, b) => a - b);
 
 socket.emit("outcard", JSON.stringify([roomId, Number(card)]));
+
+
+},500)
+
 
 }
 
@@ -616,7 +629,7 @@ function lonmds() {
 
 ///////////////////////////////////////////////////////
 
-function findBest(plmgd, allmgd, cantoutcd) {
+function findBest(hand, allmgd, cantoutcd) {
   const candidate = [];
 
   // 統計手牌中 28~34 的出現次數
@@ -648,7 +661,7 @@ function findBest(plmgd, allmgd, cantoutcd) {
   return candidate.sort((a, b) => seenMap[b] - seenMap[a]);
 }
 //////////////////////////////////////////////////////////
-function findIsolated(plmgd, allmgd, cantoutcd) {
+function findIsolated(hand, allmgd, cantoutcd) {
   const groupRanges = [
     [1, 9],    // 萬子
     [10, 18],  // 筒子
@@ -717,88 +730,175 @@ function findIsolated(plmgd, allmgd, cantoutcd) {
   // 9. 回傳 tile 陣列（可加上備註）
   return result.map(obj => obj.tile);
 }
+//////////////////////////////////////////////////////////////
 
-/////////////////////////////////////////////////
-function findBestDiscardByImprovingAndKaozhang(plmgd, allmgd, cantoutcd = []) {
-  const otorder = [];
-  const otruncd = [];
 
-  const originalHand = JSON.parse(JSON.stringify(plmgd));
+function findDefensiveListenDiscardV5(hand, etlen, allmgd, cantoutcd, lbmgds) {
+  // 初始化與分析原始手牌
+  const originalHand = JSON.parse(JSON.stringify(hand));
+plmgd=JSON.parse(JSON.stringify(hand))
   sortCad();
   const baseTSP = manum + (crdeye > 0 ? 1 : 0);
   const baseEye = crdeye;
   const baseImproving = countTotalImprovingTiles(originalHand, allmgd);
 
-  for (let i = 0; i < originalHand.length; i++) {
-    const testHand = JSON.parse(JSON.stringify(originalHand));
-    const card = testHand.splice(i, 1)[0];
+ /// if (baseTSP + etlen < 4) return [];
 
+  const otlistenall = Array(35).fill().map(() => []);
+
+  const knownTiles = plmgd.concat(allmgd);
+  const otf = Array(35).fill(0);
+  knownTiles.forEach(x => { otf[x] = (otf[x] || 0) + 1; });
+
+  if (otf.some(e => e > 4)) return [];
+
+  const originalCopy = JSON.parse(JSON.stringify(plmgd));
+
+  for (let i = 1; i < 35; i++) {
+    if (otf[i] >= 4) continue;
+
+    plmgd.push(i);
+    plmgd.sort((a, b) => a - b);
+    sortCad();
+    const tsptemp = manum + (crdeye > 0 ? 1 : 0);
+
+    if (tsptemp + etlen === 6) {
+      const backupHand = JSON.parse(JSON.stringify(plmgd));
+
+      for (let s = 0; s < plmgd.length; s++) {
+        const pds = plmgd[s];
+        if (pds === i || cantoutcd.includes(pds)) continue;
+
+        const testHand = JSON.parse(JSON.stringify(plmgd));
+        testHand.splice(s, 1);
+        plmgd = JSON.parse(JSON.stringify(testHand));
+        sortCad();
+        const tspsim = manum + (crdeye > 0 ? 1 : 0);
+console.log("v4組數q",tsptemp + etlen,tspsim + etlen,plmgd)
+        if (tspsim + etlen === 6) {
+          if (!otlistenall[pds].includes(i)) {
+            otlistenall[pds].push(i);
+          }
+        }
+
+        plmgd = JSON.parse(JSON.stringify(backupHand));
+      }
+    }
+
+    plmgd = JSON.parse(JSON.stringify(originalCopy));
+  }
+
+  // 重算可見牌數
+  const allSeen = plmgd.concat(allmgd);
+  otf.fill(0);
+  allSeen.forEach(x => { otf[x] = (otf[x] || 0) + 1; });
+
+  const otlisten = [];
+
+  for (let i = 1; i < 35; i++) {
+    if (otlistenall[i].length === 0) continue;
+
+if (!plmgd.includes(i)) continue;
+
+let lisatk = 0;
+for (const winTile of otlistenall[i]) {
+  lisatk += 4 - otf[winTile];
+}
+
+otlisten.push({
+  td: i,
+  ot: lisatk,
+  ls: [...otlistenall[i]]
+});
+
+  }
+
+  if (otlisten.length === 0) return [];
+
+  otlisten.sort((a, b) => b.ot - a.ot);
+otlistenwho=otlisten[0].ot
+  return [otlisten[0].td];
+}
+/////////////////////////////////////////////////
+
+
+function findBestDiscardByImprovingAndKaozhang(hand, etlen ,allmgd, cantoutcd = []) {
+
+
+console.log(hand)
+  const originalHand = JSON.parse(JSON.stringify(hand));
+plmgd=JSON.parse(JSON.stringify(hand))
+  sortCad();
+  const baseTSP = manum + (crdeye > 0 ? 1 : 0);
+  const baseEye = crdeye;
+  const baseImproving = countTotalImprovingTiles(originalHand, allmgd);
+
+  const candidates = [];
+
+  for (let i = 0; i < originalHand.length; i++) {
+    const card = originalHand[i];
     if (cantoutcd.includes(card)) continue;
 
-    // 模擬捨出後分析
+    const testHand = [...originalHand];
+    testHand.splice(i, 1);
+
     plmgd = JSON.parse(JSON.stringify(testHand));
     sortCad();
     const newTSP = manum + (crdeye > 0 ? 1 : 0);
     const newEye = crdeye;
 
-    // 只考慮 tsp 不變且面子總數未滿 6
-    if (newTSP === baseTSP && newTSP < 6) {
+    if (newTSP === baseTSP && baseTSP + etlen < 6) {
       const newImproving = countTotalImprovingTiles(plmgd, allmgd);
-      const colcad = countAdjacentAvailableTiles(card, allmgd);
-      const lot = dacadnum[Math.floor(card / 9)];
-      const lose = daetp[pled][Math.floor(card / 9)];
+      const kaozhang = countAdjacentAvailableTiles(card, allmgd);
 
-      if (newImproving === baseImproving) {
-        otorder.push({ td: i, ot: lot, od: lose, oc: colcad });
-      } else {
-        const od = lot + lose + dacadnum[3] + daetp[pled][3];
-        if (baseEye > 1 && newEye >= 1) {
-          otruncd.push({ td: i, od, ot: newEye, oc: colcad });
-        } else {
-          otruncd.push({ td: i, od, ot: newImproving, oc: colcad });
-        }
-      }
+console.log(`模擬捨出 ${card} → improving=${newImproving}, kaozhang=${kaozhang}, tsp=${newTSP}, eye=${newEye}`);
+      candidates.push({
+        index: i,
+        card,
+        improving: newImproving,
+        eye: newEye,
+        kaozhang,
+      });
     }
   }
 
+  // 還原 plmgd
   plmgd = JSON.parse(JSON.stringify(originalHand));
   sortCad();
 
-  // === 處理 otorder（進張維持者優先）===
-  if (otorder.length > 0) {
-    otorder.sort((a, b) => a.ot - b.ot);
-    const minLot = otorder[0].ot;
-    const group = otorder.filter(e => e.ot === minLot);
-    group.sort((a, b) => a.od - b.od);
-    const minLose = group[0].od;
-    const finalGroup = group.filter(e => e.od === minLose);
-    finalGroup.sort((a, b) => b.oc - a.oc);
+  if (candidates.length === 0) return null;
 
-    outCad2(finalGroup[0].td);
-    return;
+  // 分群處理
+  const group1 = candidates.filter(c => c.improving === baseImproving);
+  const group2 = candidates.filter(c => c.improving < baseImproving);
+
+
+
+
+  if (group1.length > 0) {
+    group1.sort((a, b) => b.kaozhang - a.kaozhang); // 保留靠張多的
+
+    return [group1[0].card];
+
   }
 
-  // === 處理 otruncd（進張損失但可接受）===
-  if (otruncd.length > 0) {
-    const backup = JSON.parse(JSON.stringify(otruncd));
-    otruncd = otruncd.filter(e => e.od >= 5);
-    if (otruncd.length === 0) otruncd = backup;
+  // 進張下降情況，選下降最少且靠張最多的
+console.log("排序前", group2);
+group2.sort((a, b) => {
+  if (a.improving !== b.improving) return a.eye - b.eye;  // 進張多的在前
 
-    if (baseEye > 1) {
-      otruncd.sort((a, b) => a.ot - b.ot);
-      const minEye = otruncd[0].ot;
-      const group = otruncd.filter(e => e.ot === minEye);
-      group.sort((a, b) => b.oc - a.oc);
-      outCad2(group[0].td);
-      return;
+  if (baseEye > 1) {
+    if (a.eye !== b.eye) {
+      return a.eye - b.eye;  // eye 小的在前面
     }
-
-    otruncd.sort((a, b) => b.ot - a.ot);
-    outCad2(otruncd[0].td);
-    return;
   }
-}
 
+  return a.kaozhang - b.kaozhang; //靠張少的在前（升序）
+});
+console.log("排序後", group2);
+
+  return [group2[0].card];
+}
 
 function countAdjacentAvailableTiles(card, allmgd) {
   let total = 0;
@@ -811,6 +911,7 @@ function countAdjacentAvailableTiles(card, allmgd) {
   }
   return total;
 }
+
 //////////////////////////////////////////////////
 
 function tryDeclareReady(outcard) {
@@ -853,7 +954,7 @@ function tryDeclareReady(outcard) {
 }
 
 ////////////////////////////////////////////////////////
-function findDefensiveByDangerScore(plmgd, allmgd, cantoutcd, alloutcd, ple, lbmgds) {
+function findDefensiveByDangerScore(hand, allmgd, cantoutcd, alloutcd, ple, lbmgds) {
   const originalHand = JSON.parse(JSON.stringify(plmgd));
   const baseImproving = countTotalImprovingTiles(originalHand, allmgd);
 
@@ -985,6 +1086,37 @@ function getDangerScoresFromAlloutcd(alloutcd, targetIdx = null) {
 ///////////////////////////////////////
 function outcard(card) {
 
+bkmgd=JSON.parse(JSON.stringify(plmgd))///複製
+
+v4 = findDefensiveListenDiscardV5(plmgd, etmgd.length, allmgd, cantoutcd, lbmgds)
+
+plmgd=JSON.parse(JSON.stringify(bkmgd))///複製
+
+console.log("v4",v4)
+
+if(v4.length>0){
+
+
+console.log("捨出聽牌 :",plmgd,"捨張 :",v4[0],v4)
+
+socket.emit("outcard", JSON.stringify([roomId, v4[0]]));
+
+if(otlistenwho>4){
+
+lbmgd=1
+socket.emit("tin",JSON.stringify([roomId,v4[0]]));
+
+}
+
+  const idx = plmgd.indexOf(v4[0]);
+  if (idx !== -1) plmgd.splice(idx, 1);
+  plmgd.sort((a, b) => a - b);
+
+return
+
+}
+
+
 v1 = findBest(plmgd, allmgd, cantoutcd)
 
 if(v1.length>0){
@@ -1086,7 +1218,7 @@ console.log("轉打防守 :",plmgd,"捨張 :",v4[0])
 
 }
 
-v3=findBestDiscardByImprovingAndKaozhang(plmgd, allmgd, cantoutcd);
+v3=findBestDiscardByImprovingAndKaozhang(plmgd,etmgd.length, allmgd, cantoutcd );
 
 if(v3.length>0){
 
@@ -1131,6 +1263,8 @@ console.log("捨牌 :",plmgd,"捨張 :",card)
   if (idx !== -1) plmgd.splice(idx, 1);
   plmgd.sort((a, b) => a - b);
 
+
+
 socket.emit("outcard", JSON.stringify([roomId, card]));
 
 
@@ -1139,32 +1273,32 @@ socket.emit("outcard", JSON.stringify([roomId, card]));
 
 
 ////////////////////////////////////////////////////
-function countTotalImprovingTiles(plmgd, allmgd) {
-  let totalLeftCount = 0;
-  const originalHand = JSON.parse(JSON.stringify(plmgd));  // 備份
-
+function countTotalImprovingTiles(hand, allmgd) {
+  const originalHand = [...hand];
+  const backup = [...plmgd]; // 備份 plmgd
+  plmgd = [...originalHand];
   sortCad();
   const originalTsp = manum + (crdeye > 0 ? 1 : 0);
 
-  for (let i = 1; i <= 34; i++) {
-    let testHand = JSON.parse(JSON.stringify(originalHand));
-    testHand.push(i);
-    testHand.sort((a, b) => a - b);
+  let total = 0;
 
-    plmgd = JSON.parse(JSON.stringify(testHand));  // 模擬用
+  for (let i = 1; i <= 34; i++) {
+    const testHand = [...originalHand, i];
+    testHand.sort((a, b) => a - b);
+    plmgd = [...testHand];  // 明確指定要改全域 plmgd
     sortCad();
     const newTsp = manum + (crdeye > 0 ? 1 : 0);
 
-    if (newTsp > originalTsp) {  // 改這行條件
+    if (newTsp > originalTsp) {
       const inHand = testHand.filter(x => x === i).length;
       const inAll = allmgd.filter(x => x === i).length;
-      const left = Math.max(0, 4 - (inHand + inAll - 1));  // 扣掉自己
-      totalLeftCount += left;
+      const left = Math.max(0, 4 - (inHand + inAll - 1));
+      total += left;
     }
   }
 
-  plmgd = JSON.parse(JSON.stringify(originalHand)); // 還原
-  return totalLeftCount;
+  plmgd = [...backup]; // 還原
+  return total;
 }
 ////////////////////////////////////////////////////
 function countTotalKaozhang(plmgd, allmgd) {
@@ -1360,21 +1494,24 @@ return
 
 }
 
-if(ephchick==1&&(128-allmgd.length)>4){
+if(ephchick==1&&(128-allmgd.length)>=5){
+
+///socket.emit("needgetcard",JSON.stringify([roomId,pled]));
+
+
 
 console.log("進入吃碰判斷",pled)
 
 simulateEatPonGun(ple, mtd, plmgd, allmgd, etmgd, roomId);
 
-plmgd=JSON.parse(JSON.stringify(bkmgds22))
-
 console.log("離開吃碰判斷")
+
 
 return
 
 }
 
-if(ephchick==0||(128-allmgd.length)<=4){///如果沒有吃碰槓胡則返回
+if(ephchick==0||(128-allmgd.length)<5&&ephchick==1){///如果沒有吃碰槓胡則返回
 
 socket.emit("needgetcard",JSON.stringify([roomId,pled]));
 
@@ -1385,7 +1522,7 @@ socket.emit("needgetcard",JSON.stringify([roomId,pled]));
 
 ////////////////////////////////////////////////////////////////////
 
-function simulateEatPonGun(ple, mtd, plmgd, allmgd, etmgd, roomId) {
+function simulateEatPonGun(ple, mtd, hand, allmgd, etmgd, roomId) {
   const original = JSON.parse(JSON.stringify(plmgd));
   const originalTsp = (() => { sortCad(); return manum + (crdeye > 0 ? 1 : 0); })();
   const originalEff = countEffectiveTiles(getEffectiveTiles(plmgd), allmgd, plmgd);
@@ -1430,7 +1567,7 @@ function simulateEatPonGun(ple, mtd, plmgd, allmgd, etmgd, roomId) {
       }
     });
   }
-console.log(ple, mtd, plmgd, allmgd, etmgd, roomId)
+console.log(ple, mtd, plmgd, etmgd)
   // 吃
   if (ple === 3) {
     const g = Math.floor((mtd - 1) / 9);  // 判斷組別
@@ -1448,40 +1585,86 @@ console.log(ple, mtd, plmgd, allmgd, etmgd, roomId)
         sortCad.call({ plmgd: newHand });
         const tsp = manum + (crdeye > 0 ? 1 : 0);
         const eff = countEffectiveTiles(getEffectiveTiles(newHand), allmgd, newHand);
-        if ((tsp + etlen + 1 > originalTsp + etlen) ||
+        if ((tsp + etlen + 1 > originalTsp + etlen&&crdeye>0) ||
             ((tsp + etlen + 1 === originalTsp + etlen) && eff >= originalEff)) {
           let sortedEat = [pair[0], mtd, pair[1]];
           actions.push({ type: "eat", tiles: sortedEat, newHand });
+console.log({ type: "eat", tiles: sortedEat, newHand })
         }
       }
     }
   }
 
   // 測試每個模擬動作是否能成功進入出牌邏輯
-  for (let act of actions) {
-    let epgtw = act.type;
-    let cardGroup = act.tiles;
-    let testHand = JSON.parse(JSON.stringify(act.newHand));
-    cantoutcd = getCantOutCards(cardGroup, epgtw);
+console.log(actions)
+let resultV4 = null;
+let resultV1 = null;
+let resultV2 = null;
+let resultV22 = null;
+let resultV3 = null;
 
-    let v1 = findBest(plmgd, allmgd, cantoutcd)
-    let v2 = findIsolated(plmgd, allmgd, cantoutcd)
-///    let v4 = findDefensiveByDangerScore(plmgd, allmgd, cantoutcd, alloutcd, ple, lbmgds);
-    let v3 = findBestDiscardByImprovingAndKaozhang(plmgd, allmgd, cantoutcd);
-///    let discard = v1[0] || v2[0] || v4[0] || v3[0] || null;
-    let discard = v1[0] || v2[0] || v3[0] || null;
+for (let act of actions) {
+  const epgtw = act.type;
+  const cardGroup = act.tiles;
+  const testHand = JSON.parse(JSON.stringify(act.newHand));
+  cantoutcd = getCantOutCards(cardGroup, epgtw);
 
-    if (discard !== null) {
+  let v4 = findDefensiveListenDiscardV5(testHand, etlen + 1, allmgd, cantoutcd, lbmgds);
+  let v1 = findBest(testHand, allmgd, cantoutcd);
+  let v2 = findIsolated(testHand, allmgd, cantoutcd);
+  let v22 = findIsolated(testHand, allmgd, []);
 
-console.log("吃碰槓 :",plmgd,"吃的牌 :",cardGroup)
+let isDifferent =
+  v2?.length !== v22?.length ||
+  v2?.some((val, idx) => val !== v22?.[idx]);
 
-plmgd=JSON.parse(JSON.stringify(bkmgds22))
+  let v3 = findBestDiscardByImprovingAndKaozhang(testHand,etlen + 1, allmgd, cantoutcd );
+  if (typeof v3 === 'number') v3 = [v3]; // 統一格式
 
-      socket.emit(epgtw, JSON.stringify([roomId, cardGroup]));
-      socket.emit("needgetcard", JSON.stringify([roomId, epgtw === "gun" ? 00 : 0]));
-      return;
-    }
+   if (!resultV4 && v4?.[0] != null) {
+    resultV4 = { source: "V4", data: [cardGroup, epgtw] ,card:v4[0]};
   }
+
+  if (!resultV1 && v1?.[0] != null) {
+    resultV1 = { source: "V1", data: [cardGroup, epgtw],card:v1[0] };
+  }
+
+  if (!resultV2 && v2?.[0] != null) {
+    resultV2 = { source: "V2", data: [cardGroup, epgtw],card:v2[0] };
+  }
+
+if (isDifferent) {
+
+resultV2 = { source: "V22", data: [cardGroup, epgtw],card:v22[0] };
+
+}
+  if (!resultV3 && v3?.[0] != null) {
+    resultV3 = { source: "V3", data: [cardGroup, epgtw],card:v3[0] };
+  }
+}
+
+// 優先選擇順序
+let result = resultV4 || resultV1 || resultV2|| resultV22 || resultV3 || null;
+
+plmgd= JSON.parse(JSON.stringify(original));
+
+console.log(result)
+
+
+if (result&&result.source!="V22") {
+  console.log("吃碰槓 :", result.data, "吃的牌 :", result.data[0], "策略：", result.source,"捨出 : ",result.card);
+
+      socket.emit(result.data[1], JSON.stringify([roomId, result.data[0]]));
+      socket.emit("needgetcard", JSON.stringify([roomId, 0]));
+
+  return;
+}else{
+
+
+socket.emit("needgetcard",JSON.stringify([roomId,pled]));
+ console.log("不吃碰",plmgd)
+
+}
 }
 ////////////////////////////////////////////////////////////////////
 function getEffectiveTiles(hand) {

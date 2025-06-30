@@ -918,7 +918,11 @@ console.log(rooms[roomId].epghpk,rooms[roomId].alps,rooms[roomId].epgh)
 
 let nexpled=(rooms[roomId].pled+1<rooms[roomId].players.length)?rooms[roomId].players[rooms[roomId].pled+1]:rooms[roomId].players[0]
 
+setTimeout(() => {
+
 io.to(nexpled).emit("needgetcard", (""));
+
+},500)
 
 rooms[roomId].alps=0
 
