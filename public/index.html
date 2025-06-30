@@ -2917,10 +2917,28 @@
 </div>
 <div class="playerpicn" style="position:absolute;top:0%;left:636px;height:900px;width:500px;"></div>
 <div class="playerpicup" style="position:absolute;top:0%;left:636px;">
-    <input type="file" id="imgupload" accept=".png,image/png" style="position:absolute;top:-100px;height:1000px;width:500px;">
-    <div style="float:left;background:#ffffff;height:900px;width:500px;text-align:center;z-index:1;display: flex;justify-content: center;align-items: center;font-size:30px;font-family:Microsoft JhengHei;font-weight:bolder;color:#000000;">
-        自己上傳人物<p>(最大500x900pt,限去背.png?v=2檔)
-    </div>
+  <!-- Label 包住顯示區塊，讓使用者點擊會觸發 input -->
+  <label for="imgupload" style="
+      display: block;
+      background: #ffffff;
+      height: 900px;
+      width: 500px;
+      text-align: center;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 30px;
+      font-family: Microsoft JhengHei;
+      font-weight: bolder;
+      color: #000000;
+      cursor: pointer;
+    ">
+    自己上傳人物<br>(最大 500x900pt，限去背 .png 檔)
+  </label>
+
+  <!-- 隱藏 input，但可被 label 點擊 -->
+  <input type="file" id="imgupload" accept=".png,image/png" style="display: none;">
 </div>
 <img class="arrowL" src="backg/arrowL.jpg" style="position:absolute;top:0%;left:528px;filter:opacity(0.6);">
 <img class="arrowR" src="backg/arrowR.jpg" style="position:absolute;top:0%;left:100%;margin-left:-600px;filter:opacity(0.6);">

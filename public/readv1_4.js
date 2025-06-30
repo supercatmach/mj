@@ -1187,6 +1187,15 @@ sessionStorage.setItem("charich", base64Image);
 
 input.addEventListener('change', (e) => {
     const file = e.target.files[0]; // 取得選擇的檔案
+if (!file) return;
+
+const maxSize = 1 * 1024 * 1024;
+  if (file.size > maxSize) {
+    alert("圖片太大！請選擇小於 1MB 的 PNG 圖片！");
+    input.value = ""; // 清除選擇的檔案
+    return;
+  }
+
     if (file) {
         const reader = new FileReader();
 
