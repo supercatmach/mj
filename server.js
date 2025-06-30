@@ -922,7 +922,7 @@ setTimeout(() => {
 
 io.to(nexpled).emit("needgetcard", (""));
 
-},500)
+},300)
 
 rooms[roomId].alps=0
 

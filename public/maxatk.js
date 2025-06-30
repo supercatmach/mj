@@ -554,7 +554,7 @@ setTimeout(() => {
 
 outcard(Number(card))
 
-},500)
+},300)
 
 return
 
@@ -575,7 +575,7 @@ console.log("捨牌 :",plmgd,"捨張 :",Number(card))
 socket.emit("outcard", JSON.stringify([roomId, Number(card)]));
 
 
-},500)
+},300)
 
 
 }
@@ -1502,7 +1502,11 @@ if(ephchick==1&&(128-allmgd.length)>=5){
 
 console.log("進入吃碰判斷",pled)
 
+setTimeout(() => {
+
 simulateEatPonGun(ple, mtd, plmgd, allmgd, etmgd, roomId);
+
+},300)
 
 console.log("離開吃碰判斷")
 
