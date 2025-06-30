@@ -870,6 +870,8 @@ if(rooms[roomId].players2.indexOf(rooms[roomId].epgh[0].ple)!=rooms[roomId].makr
 
 rooms[roomId].makrs=(rooms[roomId].makrs+1<4)?rooms[roomId].makrs+1:0
 
+rooms[roomId].pled=rooms[roomId].makrs
+
 }
 
 rooms[roomId].win=1
