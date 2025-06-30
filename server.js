@@ -305,27 +305,6 @@ rooms[roomId].stat=0
 
 }
 
-function newgame(roominf){
-
-roomId=roominf
-
-rooms[roomId].allmgd=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-rooms[roomId].epgh=[]
-rooms[roomId].pled=0
-rooms[roomId].alps=0
-rooms[roomId].epghpk=[]
-rooms[roomId].players2=[]
-rooms[roomId].makrs=Math.floor(Math.random() * 4)///莊家
-rooms[roomId].linmrs=0///連莊次數
-rooms[roomId].chnwind=28///圈位
-rooms[roomId].junwind=28///將位
-rooms[roomId].win=0///胡牌
-rooms[roomId].allmgd2=0
-rooms[roomId].stat=0
-
-}
-
-
 socket.on("gamStar", (mtd) => {
 
 rooms[roomId].alps++
@@ -447,6 +426,8 @@ rooms[roomId].players2=rooms[roomId].players.concat(rooms[roomId].players).rever
 
 mra+=rooms[roomId].players2.indexOf(socket.id,rooms[roomId].players2.indexOf(rooms[roomId].pled))
 
+rooms[roomId].players2.reverse()
+
 rooms[roomId].epgh.push({"num":mra,"ple":socket.id,"mtd":card,"dwo":"win","lbmgd":lbmgd,"flmgd":flmgd,"etmgd":etmgd})
 
 })
@@ -464,6 +445,8 @@ mra=3
 rooms[roomId].players2=rooms[roomId].players.concat(rooms[roomId].players).reverse()
 
 mra+=rooms[roomId].players2.indexOf(socket.id,rooms[roomId].players2.indexOf(rooms[roomId].pled))
+
+rooms[roomId].players2.reverse()
 
 rooms[roomId].epgh.push({"num":mra,"ple":socket.id,"mtd":card,"dwo":"mywin","lbmgd":lbmgd,"flmgd":flmgd,"etmgd":etmgd})
 
@@ -869,8 +852,6 @@ console.log("莊家:"+rooms[roomId].makrs)
 if(rooms[roomId].players2.indexOf(rooms[roomId].epgh[0].ple)!=rooms[roomId].makrs){
 
 rooms[roomId].makrs=(rooms[roomId].makrs+1<4)?rooms[roomId].makrs+1:0
-
-rooms[roomId].pled=rooms[roomId].makrs
 
 }
 
