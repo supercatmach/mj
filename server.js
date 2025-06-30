@@ -424,7 +424,7 @@ mra=3
 
 rooms[roomId].players2=rooms[roomId].players.concat(rooms[roomId].players).reverse()
 
-mra+=rooms[roomId].players2.indexOf(socket.id,rooms[roomId].players2.indexOf(rooms[roomId].pled))
+mra+=rooms[roomId].players2.indexOf(socket.id,rooms[roomId].pled)
 
 rooms[roomId].players2.reverse()
 
@@ -444,7 +444,7 @@ mra=3
 
 rooms[roomId].players2=rooms[roomId].players.concat(rooms[roomId].players).reverse()
 
-mra+=rooms[roomId].players2.indexOf(socket.id,rooms[roomId].players2.indexOf(rooms[roomId].pled))
+mra+=rooms[roomId].players2.indexOf(socket.id,rooms[roomId].pled)
 
 rooms[roomId].players2.reverse()
 
