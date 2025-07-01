@@ -237,7 +237,7 @@ if(tsp+etmgd.length>=4){
 
 bkmgd2=JSON.parse(JSON.stringify(plmgd))///複製
 
-plmgd.push(Number(card[0]))
+plmgd.push(Number(card[3]))
 
 plmgd.sort(function (a, b) {
 
@@ -255,7 +255,7 @@ if(tsptin+etmgd.length==6){
 
 plmgd=JSON.parse(JSON.stringify(bkmgd2))///複製
 
-plmgd.push(Number(card[0]))
+plmgd.push(Number(card[3]))
 
 socket.emit("epghpk",JSON.stringify([roomId,3]));
 
