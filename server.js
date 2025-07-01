@@ -871,6 +871,8 @@ rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].epgh[0].ple)
 
 rooms[roomId].card=0
 
+console.log(rooms[roomId].epgh[0].dwo,rooms[roomId].alps)
+
 io.to(roomId).emit("caneph", JSON.stringify([rooms[roomId].epgh[0].ple,rooms[roomId].epgh[0].mtd,rooms[roomId].epgh[0].dwo]));
 
 }
