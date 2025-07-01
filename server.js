@@ -764,6 +764,8 @@ rooms[roomId].alps=0
 
 socket.on("befbegin", (roomIdinf) => {
 
+const  roomId=roomIdinf
+
 rooms[roomId].alps++
 
 if(rooms[roomId].alps==4){
