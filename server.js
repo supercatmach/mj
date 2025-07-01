@@ -138,7 +138,7 @@ invit(jorooms)
 
 function invit(jorooms=''){
 
-io.emit("wantinvit", roomId);
+io.emit("wantinvit", jorooms);
 
 }
 
