@@ -264,7 +264,7 @@ console.log("收到房間邀請AI",roomId)
 
 runClient('');
 
-io.emit("wantinvit", jorooms);
+io.emit("wantinvit", roomId);
 
 });
 
