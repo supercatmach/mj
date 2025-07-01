@@ -375,7 +375,7 @@ io.to(roomId).emit("dice", JSON.stringify([rooms[roomId].dice1,rooms[roomId].dic
 
 socket.on("myname", (roomsinf) => {
 
-const  roomId=roomsinf
+const roomId=roomsinf
 
 console.log("莊家:"+rooms[roomId].players[rooms[roomId].makrs])
 
@@ -385,8 +385,8 @@ io.to(socket.id).emit("myname", JSON.stringify([socket.id,rooms[roomId].players,
 
 socket.on("epghpk", (epghpkinf) => {
 
-const  roomId=JSON.parse(epghpkinf)[0]
-mrs=JSON.parse(epghpkinf)[1]///返回的層級
+const roomId=JSON.parse(epghpkinf)[0]
+const mrs=JSON.parse(epghpkinf)[1]///返回的層級
 
 
 if(mrs==3){
@@ -404,8 +404,8 @@ rooms[roomId].epghpk.push(mrs)
 
 socket.on("eat", (canephinf) => {
 
-const  roomId=JSON.parse(canephinf)[0]
-card=JSON.parse(canephinf)[1]
+const roomId=JSON.parse(canephinf)[0]
+const card=JSON.parse(canephinf)[1]
 
 console.log("吃"+card)
 
@@ -417,8 +417,8 @@ console.log(rooms[roomId].epgh)
 
 socket.on("pon", (canephinf) => {
 
-const  roomId=JSON.parse(canephinf)[0]
-card=JSON.parse(canephinf)[1]
+const roomId=JSON.parse(canephinf)[0]
+const card=JSON.parse(canephinf)[1]
 
 console.log("碰"+card)
 
@@ -430,8 +430,8 @@ console.log(rooms[roomId].epgh)
 
 socket.on("gun", (canephinf) => {
 
-const  roomId=JSON.parse(canephinf)[0]
-card=JSON.parse(canephinf)[1]
+const roomId=JSON.parse(canephinf)[0]
+const card=JSON.parse(canephinf)[1]
 
 console.log("槓"+card)
 
@@ -441,8 +441,8 @@ rooms[roomId].epgh.push({"num":2,"ple":socket.id,"mtd":card,"dwo":"gun"})
 
 socket.on("tin", (canephinf) => {
 
-const  roomId=JSON.parse(canephinf)[0]
-card=JSON.parse(canephinf)[1]
+const roomId=JSON.parse(canephinf)[0]
+const card=JSON.parse(canephinf)[1]
 
 io.to(roomId).emit("caneph", JSON.stringify([socket.id,card,"tin"]));
 
@@ -450,13 +450,13 @@ io.to(roomId).emit("caneph", JSON.stringify([socket.id,card,"tin"]));
 
 socket.on("win", (canephinf) => {
 
-const  roomId=JSON.parse(canephinf)[0]
-card=JSON.parse(canephinf)[1]
-lbmgd=JSON.parse(canephinf)[2]
-flmgd=JSON.parse(canephinf)[3]
-etmgd=JSON.parse(canephinf)[4]
+const roomId=JSON.parse(canephinf)[0]
+const card=JSON.parse(canephinf)[1]
+const lbmgd=JSON.parse(canephinf)[2]
+const flmgd=JSON.parse(canephinf)[3]
+const etmgd=JSON.parse(canephinf)[4]
 
-mra=3
+let mra=3
 
 rooms[roomId].players2=rooms[roomId].players.concat(rooms[roomId].players).reverse()
 
@@ -470,13 +470,13 @@ rooms[roomId].epgh.push({"num":mra,"ple":socket.id,"mtd":card,"dwo":"win","lbmgd
 
 socket.on("mywin", (canephinf) => {
 
-const  roomId=JSON.parse(canephinf)[0]
-card=JSON.parse(canephinf)[1]
-lbmgd=JSON.parse(canephinf)[2]
-flmgd=JSON.parse(canephinf)[3]
-etmgd=JSON.parse(canephinf)[4]
+const roomId=JSON.parse(canephinf)[0]
+const card=JSON.parse(canephinf)[1]
+const lbmgd=JSON.parse(canephinf)[2]
+const flmgd=JSON.parse(canephinf)[3]
+const etmgd=JSON.parse(canephinf)[4]
 
-mra=3
+let mra=3
 
 rooms[roomId].players2=rooms[roomId].players.concat(rooms[roomId].players).reverse()
 
@@ -490,7 +490,7 @@ rooms[roomId].epgh.push({"num":mra,"ple":socket.id,"mtd":card,"dwo":"mywin","lbm
 
 function sratgame(roominf){
 
-const  roomId=roominf
+const roomId=roominf
 
 rooms[roomId].allmgd=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 rooms[roomId].epgh=[]
@@ -501,7 +501,6 @@ rooms[roomId].players2=[]
 rooms[roomId].win=0///胡牌
 rooms[roomId].stat=0
 
-rooms[roomId].alps=0
 
 for(let s=0;s<rooms[roomId].players.length;s++){
 
@@ -509,17 +508,12 @@ plmgdnew=[]
 
 for(let i=0;i<16;i++){
 
-var n = Math.floor(Math.random() * 144)+1;///
+  let n = 0;
+  do {
+    n = Math.floor(Math.random() * 144) + 1;
+    n = (n < 137) ? Math.ceil(n / 4) : n - 136 + 34;
+  } while ((n <= 34 && rooms[roomId].allmgd[n] > 3) || (n > 34 && rooms[roomId].allmgd[n] > 0));
 
-n=(n<137)?Math.ceil(n/4):n-136+34
-
-while(n<=34&&rooms[roomId].allmgd[n]>3||n>34&&rooms[roomId].allmgd[n]>0){///抽出一開始的16張牌(不能重覆)
-
-var n = Math.floor(Math.random() * 144)+1;///
-
-n=(n<137)?Math.ceil(n/4):n-136+34
-
-}
 rooms[roomId].allmgd[n]++
 
 rooms[roomId].allmgd2++
@@ -549,8 +543,8 @@ rooms[roomId].allmgd2=64
 
 socket.on("flower", (roomIdinf) => {
 
-const  roomId=JSON.parse(roomIdinf)[0]
-card=JSON.parse(roomIdinf)[1]
+const roomId=JSON.parse(roomIdinf)[0]
+const card=JSON.parse(roomIdinf)[1]
 
 io.to(roomId).emit("flower", JSON.stringify([socket.id ,card]));
 
@@ -562,7 +556,7 @@ console.log("玩家:"+socket.id+"補花"+card)
 
 socket.on("getnewcard", (roomIdinf) => {
 
-const  roomId=JSON.parse(roomIdinf)[0]
+const roomId=JSON.parse(roomIdinf)[0]
 
 if(rooms[roomId].allmgd2==128){
 
@@ -574,17 +568,11 @@ console.log("留局")
 
 if(rooms[roomId].allmgd2<128){
 
-var n = Math.floor(Math.random() * 144)+1;///
-
-n=(n<137)?Math.ceil(n/4):n-136+34
-
-while(n<=34&&rooms[roomId].allmgd[n]>3||n>34&&rooms[roomId].allmgd[n]>0){///抽出一開始的16張牌(不能重覆)
-
-var n = Math.floor(Math.random() * 144)+1;///
-
-n=(n<137)?Math.ceil(n/4):n-136+34
-
-}
+  let n = 0;
+  do {
+    n = Math.floor(Math.random() * 144) + 1;
+    n = (n < 137) ? Math.ceil(n / 4) : n - 136 + 34;
+  } while ((n <= 34 && rooms[roomId].allmgd[n] > 3) || (n > 34 && rooms[roomId].allmgd[n] > 0));
 
 rooms[roomId].allmgd[n]++
 
@@ -616,8 +604,8 @@ rooms[roomId].alps=0
 
 socket.on("needgetcardgun", (roomIdinf) => {
 
-const  roomId=JSON.parse(roomIdinf)[0]
-neepl=JSON.parse(roomIdinf)[1]
+const roomId=JSON.parse(roomIdinf)[0]
+const neepl=JSON.parse(roomIdinf)[1]
 
 if(rooms[roomId].allmgd2==128){
 
@@ -635,17 +623,12 @@ console.log(rooms[roomId].alps,"needgetcardgun")
 
 if(rooms[roomId].alps==rooms[roomId].players.length){
 
-var n = Math.floor(Math.random() * 144)+1;///
+  let n = 0;
+  do {
+    n = Math.floor(Math.random() * 144) + 1;
+    n = (n < 137) ? Math.ceil(n / 4) : n - 136 + 34;
+  } while ((n <= 34 && rooms[roomId].allmgd[n] > 3) || (n > 34 && rooms[roomId].allmgd[n] > 0));
 
-n=(n<137)?Math.ceil(n/4):n-136+34
-
-while(n<=34&&rooms[roomId].allmgd[n]>3||n>34&&rooms[roomId].allmgd[n]>0){///抽出一開始的16張牌(不能重覆)
-
-var n = Math.floor(Math.random() * 144)+1;///
-
-n=(n<137)?Math.ceil(n/4):n-136+34
-
-}
 
 rooms[roomId].allmgd[n]++
 
@@ -685,17 +668,12 @@ console.log("留局")
 
 if(rooms[roomId].allmgd2<128){
 
-var n = Math.floor(Math.random() * 144)+1;///
+  let n = 0;
+  do {
+    n = Math.floor(Math.random() * 144) + 1;
+    n = (n < 137) ? Math.ceil(n / 4) : n - 136 + 34;
+  } while ((n <= 34 && rooms[roomId].allmgd[n] > 3) || (n > 34 && rooms[roomId].allmgd[n] > 0));
 
-n=(n<137)?Math.ceil(n/4):n-136+34
-
-while(n<=34&&rooms[roomId].allmgd[n]>3||n>34&&rooms[roomId].allmgd[n]>0){///抽出一開始的16張牌(不能重覆)
-
-var n = Math.floor(Math.random() * 144)+1;///
-
-n=(n<137)?Math.ceil(n/4):n-136+34
-
-}
 
 rooms[roomId].allmgd[n]++
 
@@ -719,7 +697,7 @@ rooms[roomId].pled=rooms[roomId].players.indexOf(socket.id)
 socket.on("outcard", (roomIdinf) => {
 
 const  roomId=JSON.parse(roomIdinf)[0]
-card=JSON.parse(roomIdinf)[1]
+const card=JSON.parse(roomIdinf)[1]
 
 rooms[roomId].epgh=[]
 rooms[roomId].epghpk=[]
@@ -738,7 +716,7 @@ rooms[roomId].alps=0
 socket.on("outchak", (roomIdinf) => {
 
 const  roomId=JSON.parse(roomIdinf)[0]
-card=JSON.parse(roomIdinf)[1]
+const card=JSON.parse(roomIdinf)[1]
 
 rooms[roomId].alps++
 
@@ -794,17 +772,12 @@ console.log(rooms[roomId].alps,"begin")
 
 if(rooms[roomId].alps==4){
 
-var n = Math.floor(Math.random() * 144)+1;///
+  let n = 0;
+  do {
+    n = Math.floor(Math.random() * 144) + 1;
+    n = (n < 137) ? Math.ceil(n / 4) : n - 136 + 34;
+  } while ((n <= 34 && rooms[roomId].allmgd[n] > 3) || (n > 34 && rooms[roomId].allmgd[n] > 0));
 
-n=(n<137)?Math.ceil(n/4):n-136+34
-
-while(n<=34&&rooms[roomId].allmgd[n]>3||n>34&&rooms[roomId].allmgd[n]>0){///抽出一開始的16張牌(不能重覆)
-
-var n = Math.floor(Math.random() * 144)+1;///
-
-n=(n<137)?Math.ceil(n/4):n-136+34
-
-}
 
 rooms[roomId].allmgd[n]++
 
@@ -830,7 +803,7 @@ console.log("開始打牌")
 socket.on("needgetcard", (roomIdinf) => {
 
 const  roomId=JSON.parse(roomIdinf)[0]
-ple=JSON.parse(roomIdinf)[1]
+const ple=JSON.parse(roomIdinf)[1]
 
 if(rooms[roomId].win==1){
 
@@ -845,7 +818,7 @@ return
 
 rooms[roomId].alps++
 
-btop=0
+const btop=0
 
 console.log(rooms[roomId].epghpk,rooms[roomId].alps,rooms[roomId].epgh)
 
@@ -861,7 +834,7 @@ return b.num - a.num
 
 }
 
-btop=Math.max(...Object.values(rooms[roomId].epghpk))
+const btop=Math.max(...Object.values(rooms[roomId].epghpk))
 
 if(rooms[roomId].alps==rooms[roomId].players.length&&rooms[roomId].epgh.length!=0||rooms[roomId].epgh.length!=0&&rooms[roomId].epghpk.length!=0&&rooms[roomId].epgh[0].num>=btop||rooms[roomId].epgh.length!=0&&rooms[roomId].epgh[0].dwo=="mywin"){
 
