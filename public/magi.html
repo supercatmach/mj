@@ -6053,6 +6053,10 @@ otmgd.push(mtd)
 
 ///socket.emit("needgetcard",JSON.stringify([roomId,pled]));
 
+socket.emit("outchak",JSON.stringify([roomId,mtd]));
+
+console.log("傳送確認吃碰槓")
+
 return
 
 }
@@ -6203,10 +6207,6 @@ console.log("本家無吃碰")
 }///if(lbmgd==0){
 
 }///if(ple!=0){
-
-socket.emit("outchak",JSON.stringify([roomId,mtd]));
-
-console.log("傳送確認吃碰槓")
 
 });
 

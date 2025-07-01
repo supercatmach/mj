@@ -927,6 +927,8 @@ rooms[roomId].epghpk=[]
 
 rooms[roomId].alps=0
 
+console.log("吃碰回傳延遲")
+
 return
 
 }
