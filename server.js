@@ -333,7 +333,7 @@ rooms[roomId].junwind=28///將位
 rooms[roomId].win=0///胡牌
 rooms[roomId].allmgd2=0
 rooms[roomId].stat=0
-
+rooms[roomId].card=0
 
 
     for (let i = 4 - 1; i > 0; i--) {
@@ -708,6 +708,7 @@ socket.on("outcard", (roomIdinf) => {
 const  roomId=JSON.parse(roomIdinf)[0]
 const card=JSON.parse(roomIdinf)[1]
 
+rooms[roomId].card=card
 rooms[roomId].epgh=[]
 rooms[roomId].epghpk=[]
 
@@ -853,7 +854,7 @@ return b.num - a.num
 
 });
 
-if(rooms[roomId].epgh[0].dwo!="win"&&rooms[roomId].epgh[0].dwo!="mywin"){
+if(rooms[roomId].epgh[0].dwo!="win"&&rooms[roomId].epgh[0].dwo!="mywin"&&rooms[roomId].card==rooms[roomId].epgh[0].mtd[1]){
 
 io.to(roomId).emit("caneph", JSON.stringify([rooms[roomId].epgh[0].ple,rooms[roomId].epgh[0].mtd,rooms[roomId].epgh[0].dwo]));
 
@@ -861,7 +862,7 @@ rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].epgh[0].ple)
 
 }
 
-if(rooms[roomId].epgh[0].dwo=="win"||rooms[roomId].epgh[0].dwo=="mywin"){
+if(rooms[roomId].epgh[0].dwo=="win"&&rooms[roomId].win==0||rooms[roomId].epgh[0].dwo=="mywin"&&rooms[roomId].win==0){
 
 io.to(roomId).emit("caneph", JSON.stringify([rooms[roomId].epgh[0].ple,rooms[roomId].epgh[0].mtd,"win",rooms[roomId].epgh[0].lbmgd,rooms[roomId].epgh[0].flmgd,rooms[roomId].epgh[0].etmgd]));
 
