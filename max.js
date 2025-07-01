@@ -1438,6 +1438,7 @@ allmgd.push(mtd)
 
 ephchick=0
 
+
 if(ple!=0){
 
 bkmgd=JSON.parse(JSON.stringify(plmgd))///複製

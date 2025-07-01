@@ -831,7 +831,7 @@ rooms[roomId].alps++
 
 const btop=0
 
-console.log(rooms[roomId].epghpk,rooms[roomId].alps,rooms[roomId].epgh,socket.id)
+console.log(rooms[roomId].epghpk,rooms[roomId].alps,rooms[roomId].epgh,socket.id,rooms[roomId].card)
 
 if(rooms[roomId].epghpk.length!=0){
 
@@ -905,9 +905,9 @@ rooms[roomId].alps=0
 
 return
 
-}
+}///
 
-}
+}///if(rooms[roomId].epghpk.length!=0){
 
 const epghpk = rooms[roomId].epghpk;
 
@@ -943,7 +943,7 @@ io.to(nexpled).emit("needgetcard", (""));
 
 rooms[roomId].alps=0
 
-console.log(rooms[roomId].epghpk,rooms[roomId].alps,rooms[roomId].epgh)
+///console.log(rooms[roomId].epghpk,rooms[roomId].alps,rooms[roomId].epgh)
 
 let nexpled=(rooms[roomId].pled+1<rooms[roomId].players.length)?rooms[roomId].players[rooms[roomId].pled+1]:rooms[roomId].players[0]
 
