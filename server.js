@@ -130,14 +130,13 @@ function runClient(name = '') {
   });
 }
 
-  const scripts = ['max.js', 'maxatk.js', 'maxsafe.js'];
+
+  const scripts2 = ['max.js', 'maxatk.js', 'maxsafe.js'];
 
   // 隨機選一個 JS 檔案
-  const script = scripts[Math.floor(Math.random() * scripts.length)];
+  const script2 = scripts2[Math.floor(Math.random() * scripts2.length)];
 
-  const child = spawn('node', [script, name], {
-    ///stdio: 'inherit',
-  });
+spawn('node', [script2, 'AI-04'], {  });
 
 
 const rooms = {};
