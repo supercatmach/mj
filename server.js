@@ -130,9 +130,6 @@ function runClient(name = '') {
   });
 }
 
-console.log('Spawning max.js for AI-04');
-spawn('node', ['max.js', 'AI-04'], { stdio: 'inherit' });
-
 
 const rooms = {};
 ///rooms["025024"] = { host: "貓貓", players: [] ,playerid: [] ,playerpic: [] ,ynstar:0,ynfriend:0,alps:0,epgh:[],pled:0,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
@@ -179,6 +176,7 @@ if (foundRoomKey) {
         io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
         socket.emit("roomCreated", { roomId });
         console.log(`房間 ${roomId} 創建成功`);
+
 }
 
     });
@@ -867,7 +865,7 @@ rooms[roomId].card=0
 
 }
 
-if(rooms[roomId].epgh[0].dwo=="win"&&rooms[roomId].win==0||rooms[roomId].epgh[0].dwo=="mywin"&&rooms[roomId].win==0){
+if(rooms[roomId].epgh[0].dwo=="win"&&rooms[roomId].epgh[0].num>=btop||rooms[roomId].epgh[0].dwo=="mywin"){
 
 io.to(roomId).emit("caneph", JSON.stringify([rooms[roomId].epgh[0].ple,rooms[roomId].epgh[0].mtd,"win",rooms[roomId].epgh[0].lbmgd,rooms[roomId].epgh[0].flmgd,rooms[roomId].epgh[0].etmgd]));
 
