@@ -395,11 +395,15 @@ socket.on("epghpk", (epghpkinf) => {
 const roomId=JSON.parse(epghpkinf)[0]
 let mrs=JSON.parse(epghpkinf)[1]///返回的層級
 
+if(mrs==3){
+
 rooms[roomId].players2=rooms[roomId].players.concat(rooms[roomId].players).reverse()
 
 mrs+=rooms[roomId].players2.indexOf(socket.id,rooms[roomId].pled)
 
 rooms[roomId].players2.reverse()
+
+}
 
 rooms[roomId].epghpk.push(mrs)
 
