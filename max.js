@@ -81,13 +81,13 @@ console.log(allplad)
 
 function begStar(){
 
-socket.emit("dice","dice");
+socket.emit("dice",roomId);
 
 }
 
 socket.on("dice", (data) => {
 
-socket.emit("gamStar","0");
+socket.emit("gamStar",roomId);
 
 gtcd=0
 

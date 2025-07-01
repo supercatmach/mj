@@ -257,9 +257,10 @@ console.log("收到房間邀請AI",roomId)
 
         }
 
+runClient('');
+
 io.emit("wantinvit", roomId);
 
-runClient('');
 
 });
 
@@ -334,7 +335,9 @@ rooms[roomId].stat=0
 
 }
 
-socket.on("gamStar", (mtd) => {
+socket.on("gamStar", (rooms) => {
+
+roomId=rooms
 
 rooms[roomId].alps++
 
@@ -348,7 +351,9 @@ sratgame(roomId)
 
 })
 
-socket.on("dice", (mtd) => {
+socket.on("dice", (rooms) => {
+
+roomId=rooms
 
 rooms[roomId].alps++
 

@@ -3913,7 +3913,7 @@ makrs=allplad.indexOf(JSON.parse(data)[2])
 console.log("莊家:"+makrs)
 
 
-socket.emit("dice","dice");
+socket.emit("dice",roomId);
 
 console.log(idfme)
 console.log(allplad)
@@ -4026,7 +4026,7 @@ $(".bk30").hide()
 
 console.log(sittwind)
 
-socket.emit("gamStar","0");
+socket.emit("gamStar",roomId);
 
 }
 
