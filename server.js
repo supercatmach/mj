@@ -129,17 +129,9 @@ function runClient(name ,jorooms='') {
 
  console.log(`${name || script} 已連線`);
 
-invit(jorooms)
-
   child.on('close', (code) => {
     console.log(`${name || script} 結束，退出碼: ${code}`);
   });
-}
-
-function invit(jorooms=''){
-
-io.emit("wantinvit", jorooms);
-
 }
 
 
@@ -271,6 +263,8 @@ console.log("收到房間邀請AI",roomId)
         }
 
 runClient('');
+
+io.emit("wantinvit", jorooms);
 
 });
 
