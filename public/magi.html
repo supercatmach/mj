@@ -6870,54 +6870,55 @@ whtai.push("圈風")
 
 ////////////////////////////////////////////////////////////////暗刻台
 
-dubnum=0
-
 dimwincad=0///扣除胡的牌
 
-cpd=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+dubnum = 0;
+cpf = Array(35).fill(0);
 
-plmgd.forEach(function(x) { cpd[x] = (cpd[x] || 0)+1; })///計算出現過的總張數
+if(mytsale!=1){///非自摸 扣掉胡牌
 
-ramgd[pled].forEach(function(x) { cpd[x] = (cpd[x] || 0)+1; })///暗槓
-
-for(let i=1;i<35;i++){
-
-if(cpd[i]==3||cpd[i]==4&&ramgd[pled].indexOf(i)!=-1){
-
-dubnum++
-
-if(dimwincad==0){
-
-dimwincad=(mytsale==0&&i==wincad)?1:0
+  const idx = plmgd.indexOf(wincad);
+  if (idx !== -1) plmgd.splice(idx, 1);
+  plmgd.sort((a, b) => a - b);
 
 }
 
-if(cpd[i]==3){
-
-for(let s=0;s<3;s++){
-
-delete plmgd[plmgd.indexOf(i)]
-
-plmg=plmgd.filter(Number)
-
+// 統計手牌張數
+for (let i = 0; i < plmgd.length; i++) {
+  cpf[plmgd[i]]++;
 }
 
+for (let i = 1; i < 35; i++) {
+  if (cpf[i] >= 3) {
+    // 先記錄原本的 tsp
+    sortCad();
+    const baseTSP = manum + ((crdeye > 0) ? 1 : 0);
+
+    // 直接在 plmgd 中移除三張相同的牌
+    let count = 0;
+    for (let j = plmgd.length - 1; j >= 0; j--) {
+      if (plmgd[j] === i) {
+        plmgd.splice(j, 1);
+        count++;
+        if (count === 3) break;
+      }
+    }
+
+    // 再次計算 tsp
+    sortCad();
+    const newTSP = manum + ((crdeye > 0) ? 1 : 0);
+
+    if (newTSP === baseTSP - 1) {
+      dubnum++;
+    }
+
+    // 若是 -2 則不動作
+    // 若需要處理多個三張組合，請更新 cpf[i] -= 3
+  }
 }
 
-}
 
-}
-
-
-plmgd.sort(function (a, b) {
-
-return a - b
-
-});
-
-sortCad()
-
-if(dubnum==5&&crdeye==1&&manum+etnum[pled]==0&&dimwincad==0){///五暗刻
+if(dubnum==5&&manum+etnum[pled]==0){///五暗刻
 
 yk0=yk0+8
 
@@ -6925,7 +6926,7 @@ whtai.push("五暗刻")
 
 }
 
-if(dubnum==4&&crdeye==1&&manum+etnum[pled]==1&&dimwincad==0){///四暗刻
+if(dubnum==4&&manum+etnum[pled]==1){///四暗刻
 
 yk0=yk0+5
 
@@ -6933,7 +6934,7 @@ whtai.push("四暗刻")
 
 }
 
-if(dubnum==3&&crdeye==1&&manum+etnum[pled]==2&&dimwincad==0){///三暗刻
+if(dubnum==3&&manum+etnum[pled]==2){///三暗刻
 
 yk0=yk0+2
 
@@ -6946,6 +6947,48 @@ plmgd=JSON.parse(JSON.stringify(bkmgd))///還原
 sortCad()
 
 ////////////////////////////////////////////////////////////////碰碰胡
+
+dubnum = 0;
+cpf = Array(35).fill(0);
+
+// 統計手牌張數
+for (let i = 0; i < plmgd.length; i++) {
+  cpf[plmgd[i]]++;
+}
+
+for (let i = 1; i < 35; i++) {
+  if (cpf[i] >= 3) {
+    // 先記錄原本的 tsp
+    sortCad();
+    const baseTSP = manum + ((crdeye > 0) ? 1 : 0);
+
+    // 直接在 plmgd 中移除三張相同的牌
+    let count = 0;
+    for (let j = plmgd.length - 1; j >= 0; j--) {
+      if (plmgd[j] === i) {
+        plmgd.splice(j, 1);
+        count++;
+        if (count === 3) break;
+      }
+    }
+
+    // 再次計算 tsp
+    sortCad();
+    const newTSP = manum + ((crdeye > 0) ? 1 : 0);
+
+    if (newTSP === baseTSP - 1) {
+      dubnum++;
+    }
+
+    // 若是 -2 則不動作
+    // 若需要處理多個三張組合，請更新 cpf[i] -= 3
+  }
+}
+
+plmgd=JSON.parse(JSON.stringify(bkmgd))///還原
+
+sortCad()
+
 
 for(let i=0;i<20;i++){
 
