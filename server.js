@@ -728,7 +728,7 @@ const card=JSON.parse(roomIdinf)[1]
 
 rooms[roomId].alps++
 
-console.log("outchak",rooms[roomId].alps)
+console.log("outchak",rooms[roomId].alps,socket.id)
 
 if(rooms[roomId].win==1){
 
@@ -937,7 +937,7 @@ return
 
 }
 
-if(rooms[roomId].alps==rooms[roomId].players.length&&rooms[roomId].epgh.length==0){
+if(rooms[roomId].alps==rooms[roomId].players.length&&rooms[roomId].epgh.length==0&&rooms[roomId].epghpk.length==3){
 
 setTimeout(() => {
 
