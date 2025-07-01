@@ -742,7 +742,7 @@ rooms[roomId].alps=0
 
 socket.on("befbegin", (roomIdinf) => {
 
-const  roomId=roomIdinf
+const  roomId=JSON.parse(roomIdinf)[0]
 
 rooms[roomId].alps++
 
