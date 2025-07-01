@@ -1497,14 +1497,14 @@ ephchick=1
 
 }///if(mtd<28&&ple==3&&lopal==4){///吃
 
+
+}///if(lbmgd==0){
+
 if(ephchick==0){///如果沒有吃碰槓胡則返回
 
 socket.emit("epghpk",JSON.stringify([roomId,0]));
 
 }
-
-}///if(lbmgd==0){
-
 }///if(ple!=0){
 
 socket.emit("outchak",JSON.stringify([roomId,mtd]));
