@@ -250,13 +250,15 @@ rooms[roomId].ynstar=0
 
 socket.on("wantinvit", (roomId) => {
 
+console.log("收到房間邀請AI",roomId)
+
         if (!rooms[roomId] || rooms[roomId].players.length >= 4) {///||rooms[roomId].players.length<=1
 
             return;
 
         }
 
-socket.emit("wantinvit", roomId);
+io.emit("wantinvit", roomId);
 
 runClient('');
 
