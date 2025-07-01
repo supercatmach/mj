@@ -397,7 +397,7 @@ let mrs=JSON.parse(epghpkinf)[1]///返回的層級
 
 rooms[roomId].players2=rooms[roomId].players.concat(rooms[roomId].players).reverse()
 
-mra+=rooms[roomId].players2.indexOf(socket.id,rooms[roomId].pled)
+mrs+=rooms[roomId].players2.indexOf(socket.id,rooms[roomId].pled)
 
 rooms[roomId].players2.reverse()
 
