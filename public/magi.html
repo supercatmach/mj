@@ -6208,6 +6208,10 @@ console.log("本家無吃碰")
 
 }///if(ple!=0){
 
+socket.emit("outchak",JSON.stringify([roomId,mtd]));
+
+console.log("傳送確認吃碰槓")
+
 });
 
 

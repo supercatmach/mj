@@ -831,7 +831,7 @@ rooms[roomId].alps++
 
 const btop=0
 
-console.log(rooms[roomId].epghpk,rooms[roomId].alps,rooms[roomId].epgh)
+console.log(rooms[roomId].epghpk,rooms[roomId].alps,rooms[roomId].epgh,socket.id)
 
 if(rooms[roomId].epghpk.length!=0){
 
