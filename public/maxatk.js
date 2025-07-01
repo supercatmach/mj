@@ -2,18 +2,23 @@ const zutop = require("./zutop2")
 
 console.log(zutop["1"]);
 
-const io = require("socket.io-client");
-        const socket = io("https://mj-production-43c2.up.railway.app");
-        const roomId = "025024"///urlParams.get("room");
+plgamealread=0///是否開始遊戲
 
-        if (roomId) {
-            socket.emit("joinRoom", roomId);
-            socket.emit("myche", JSON.stringify([roomId,Math.floor((Math.random() * 4)+5) + "c"]));
-        }
+lopal=0
+
+const io = require("socket.io-client");
+
+const socket = io("https://mj-production-43c2.up.railway.app");
 
 socket.on("playerJoined", (datainf) => {
 
+plgamealread=1///是否開始遊戲
+
+lopal++
+
 if(datainf.roomSize==4){
+
+plgamealread=2///是否開始遊戲
 
 lopal=4
 
@@ -25,6 +30,36 @@ socket.emit("dice","dice");
 
 });
 
+
+socket.on("playerDisconnected", (datainf) => {
+
+lopal--
+
+if(allplad.length!=0&&plgamealread==2||plgamealread==1&&lopal==1){
+
+console.log(datainf.playerId+"斷線了");
+
+lop=allplad.indexOf(datainf.playerId)
+
+process.exit(0);
+
+}
+
+});
+
+socket.on("wantinvit", (rooms) => {
+
+if(plgamealread==0){///尚未加入任何房間
+
+console.log("加入房間",rooms);
+
+socket.emit("joinRoom", rooms);
+
+socket.emit("myche", JSON.stringify([roomId,Math.floor((Math.random() * 4)+5) + "c"]));
+
+}
+
+});
 ///////////////////////////////////////////////
 
 socket.on("myname", (data) => {
@@ -70,7 +105,24 @@ alloutcd=[[],[],[],[]]
 
 daetp=[0,0,0,0]
 
+allmgds=65
+
 });
+
+
+socket.on("getnewcard2", (ples) => {
+
+console.log("剩下張數:",(128-allmgds))
+
+allmgds++
+
+})
+
+socket.on("flower", (flowerinf) => {
+
+///allmgds++
+
+})
 
 ////////////////////////////////////////////////////////////////////
 
@@ -774,7 +826,7 @@ plmgd=JSON.parse(JSON.stringify(hand))
         plmgd = JSON.parse(JSON.stringify(testHand));
         sortCad();
         const tspsim = manum + (crdeye > 0 ? 1 : 0);
-console.log("v4組數q",tsptemp + etlen,tspsim + etlen,plmgd)
+///console.log("v4組數q",tsptemp + etlen,tspsim + etlen,plmgd)
         if (tspsim + etlen === 6) {
           if (!otlistenall[pds].includes(i)) {
             otlistenall[pds].push(i);
@@ -851,7 +903,7 @@ plmgd=JSON.parse(JSON.stringify(hand))
       const newImproving = countTotalImprovingTiles(plmgd, allmgd);
       const kaozhang = countAdjacentAvailableTiles(card, allmgd);
 
-console.log(`模擬捨出 ${card} → improving=${newImproving}, kaozhang=${kaozhang}, tsp=${newTSP}, eye=${newEye}`);
+///console.log(`模擬捨出 ${card} → improving=${newImproving}, kaozhang=${kaozhang}, tsp=${newTSP}, eye=${newEye}`);
       candidates.push({
         index: i,
         card,
@@ -883,7 +935,7 @@ console.log(`模擬捨出 ${card} → improving=${newImproving}, kaozhang=${kaoz
   }
 
   // 進張下降情況，選下降最少且靠張最多的
-console.log("排序前", group2);
+///console.log("排序前", group2);
 group2.sort((a, b) => {
   if (a.improving !== b.improving) return a.eye - b.eye;  // 進張多的在前
 
@@ -895,7 +947,7 @@ group2.sort((a, b) => {
 
   return a.kaozhang - b.kaozhang; //靠張少的在前（升序）
 });
-console.log("排序後", group2);
+///console.log("排序後", group2);
 
   return [group2[0].card];
 }
@@ -954,7 +1006,7 @@ function tryDeclareReady(outcard) {
 }
 
 ////////////////////////////////////////////////////////
-function findDefensiveByDangerScore(hand, allmgd, cantoutcd, alloutcd, ple, lbmgds) {
+function findDefensiveByDangerScore(hand, allmgd, cantoutcd, alloutcd, lbmgds) {
   const originalHand = JSON.parse(JSON.stringify(plmgd));
   const baseImproving = countTotalImprovingTiles(originalHand, allmgd);
 
@@ -962,46 +1014,26 @@ function findDefensiveByDangerScore(hand, allmgd, cantoutcd, alloutcd, ple, lbmg
   const totalTing = lbmgds.reduce((a, b) => a + b, 0);
   let targetPlayer = null;
 
-  if (totalTing >= 2) {
-    // 若有 2 人以上聽牌，就對所有聽牌者防守
-    targetPlayer = null;  // null 表示對全部分析
-  } else if (lbmgds[1] === 1) {
-    // 只防守下家
-    targetPlayer = 1;
-  } else {
-    // 沒人聽牌，不做防守
-    return [];
-  }
-
   // 生成危險分數表（只針對要防的玩家）
   const dangerMap = getDangerScoresFromAlloutcd(alloutcd, targetPlayer);  // 加入 targetPlayer 支援
 
   const candidates = [];
 
-  for (let i = 0; i < originalHand.length; i++) {
-    const card = originalHand[i];
-    if (cantoutcd.includes(card)) continue;
+const seen = new Set();
+for (let i = 0; i < originalHand.length; i++) {
+  const card = originalHand[i];
+  if (seen.has(card)) continue;
+  seen.add(card);
+  const dangerScore = dangerMap[card] || 0;
+  candidates.push({ card, dangerScore });
+}
 
-    const testHand = originalHand.slice();
-    testHand.splice(i, 1);
-    plmgd = JSON.parse(JSON.stringify(testHand));
-    plmgd.sort((a, b) => a - b);
-    sortCad();
-    const newTSP = manum + (crdeye > 0 ? 1 : 0);
-
-    if (newTSP < manum + (crdeye > 0 ? 1 : 0)) continue;
-
-    const improving = countTotalImprovingTiles(plmgd, allmgd);
-    if (improving < baseImproving - 2) continue;
-
-    const dangerScore = dangerMap[card] || 0;
-    candidates.push({ card, dangerScore, improving });
-  }
+plmgd=JSON.parse(JSON.stringify(hand))
 
   if (candidates.length === 0) return [];
 
   candidates.sort((a, b) => a.dangerScore - b.dangerScore || b.improving - a.improving);
-  return [candidates[0].card];
+  return candidates;
 }
 //////////////////////////////////////////////////////
 function getDangerScoresFromAlloutcd(alloutcd, targetIdx = null) {
@@ -1074,7 +1106,40 @@ function getDangerScoresFromAlloutcd(alloutcd, targetIdx = null) {
   return dangerMap;
 }
 //////////////////////////////////////////////////////
+function selectBestCompromiseDiscard(outcards, dangerCandidates) {
+  if (!Array.isArray(outcards) || outcards.length === 0) return [];
 
+  // 如果沒有危險資訊，直接回傳最優先的進攻牌
+  if (!Array.isArray(dangerCandidates) || dangerCandidates.length === 0) {
+    return [outcards[0]];
+  }
+
+  const dangerMap = {};
+  for (let dc of dangerCandidates) {
+    dangerMap[dc.card] = dc.dangerScore;
+  }
+
+  // 優先選擇第一張安全的牌
+  for (let card of outcards) {
+    if (!dangerMap[card] || dangerMap[card] === 0) {
+      return [card];
+    }
+  }
+
+  // 全是危險牌 → 選 dangerScore 最小的
+  let bestCard = outcards[0];
+  let minDanger = dangerMap[bestCard] ?? Infinity;
+
+  for (let card of outcards) {
+    const danger = dangerMap[card] ?? Infinity;
+    if (danger < minDanger) {
+      minDanger = danger;
+      bestCard = card;
+    }
+  }
+
+  return [bestCard];
+}
 //////////////////////////////////////////////////////
 
 ///////////////////////////////////////////
@@ -1086,16 +1151,39 @@ function getDangerScoresFromAlloutcd(alloutcd, targetIdx = null) {
 ///////////////////////////////////////
 function outcard(card) {
 
+
+const tingCount = lbmgds.reduce((a, b) => a + b, 0);
+
+dangerCandidates = findDefensiveByDangerScore(plmgd, allmgd, cantoutcd, alloutcd, lbmgds);
+
+const totalTing = lbmgds.reduce((a, b) => a + b, 0);
+
+if (totalTing >= 2||(128-allmgds)<=12) {
+
+  const idx = plmgd.indexOf(dangerCandidates[0].card);
+  if (idx !== -1) plmgd.splice(idx, 1);
+  plmgd.sort((a, b) => a - b);
+
+console.log("捨出防守 :",plmgd,"捨張 :",dangerCandidates[0].card,dangerCandidates)
+
+socket.emit("outcard", JSON.stringify([roomId, dangerCandidates[0].card]));
+
+return
+
+}
+
+
 bkmgd=JSON.parse(JSON.stringify(plmgd))///複製
 
-v4 = findDefensiveListenDiscardV5(plmgd, etmgd.length, allmgd, cantoutcd, lbmgds)
+v4s = findDefensiveListenDiscardV5(plmgd, etmgd.length, allmgd, cantoutcd, lbmgds)
+
+v4=selectBestCompromiseDiscard(v4s, dangerCandidates);
 
 plmgd=JSON.parse(JSON.stringify(bkmgd))///複製
 
-console.log("v4",v4)
+///console.log("v4",v4)
 
 if(v4.length>0){
-
 
 console.log("捨出聽牌 :",plmgd,"捨張 :",v4[0],v4)
 
@@ -1117,7 +1205,9 @@ return
 }
 
 
-v1 = findBest(plmgd, allmgd, cantoutcd)
+v1s = findBest(plmgd, allmgd, cantoutcd)
+
+v1=selectBestCompromiseDiscard(v1s, dangerCandidates);
 
 if(v1.length>0){
 
@@ -1153,7 +1243,10 @@ socket.emit("outcard", JSON.stringify([roomId, v1[0]]));
 return
 
 }
-v2=findIsolated(plmgd, allmgd, cantoutcd)
+
+v2s=findIsolated(plmgd, allmgd, cantoutcd)
+
+v2=selectBestCompromiseDiscard(v2s, dangerCandidates);
 
 if(v2.length>0){
 
@@ -1191,34 +1284,10 @@ return
 
 }
 
-const tingCount = 0///lbmgds.reduce((a, b) => a + b, 0);
 
-if (tingCount >= 1) {
+v3s=findBestDiscardByImprovingAndKaozhang(plmgd,etmgd.length, allmgd, cantoutcd );
 
-v4 = findDefensiveByDangerScore(plmgd, allmgd, cantoutcd, alloutcd, ple, lbmgds);
-
-if (v4.length > 0) {
-  result = tryDeclareReady(v4[0]);
-  if (result.ready) {
-  console.log("可以喊聽！",plmgd);
-  console.log("聽牌：", result.tingpai);
-  console.log("每張剩餘張數：", result.leftcount);
-  console.log("總共可胡：", result.total);
-  }
-  // 捨牌
-
-console.log("轉打防守 :",plmgd,"捨張 :",v4[0])
-
-  socket.emit("outcard", JSON.stringify([roomId, v4[0]]));
-  const idx = plmgd.indexOf(v4[0]);
-  if (idx !== -1) plmgd.splice(idx, 1);
-  plmgd.sort((a, b) => a - b);
-  return;
-}
-
-}
-
-v3=findBestDiscardByImprovingAndKaozhang(plmgd,etmgd.length, allmgd, cantoutcd );
+v3=selectBestCompromiseDiscard(v3s, dangerCandidates);
 
 if(v3.length>0){
 
@@ -1257,15 +1326,17 @@ return
 
 }
 
-console.log("捨牌 :",plmgd,"捨張 :",card)
+dangerCandidates[0].card
 
-  const idx = plmgd.indexOf(card);
+console.log("捨牌 :",plmgd,"捨張 :",dangerCandidates[0].card)
+
+  const idx = plmgd.indexOf(dangerCandidates[0].card);
   if (idx !== -1) plmgd.splice(idx, 1);
   plmgd.sort((a, b) => a - b);
 
 
 
-socket.emit("outcard", JSON.stringify([roomId, card]));
+socket.emit("outcard", JSON.stringify([roomId, dangerCandidates[0].card]));
 
 
 
@@ -1494,7 +1565,7 @@ return
 
 }
 
-if(ephchick==1&&(128-allmgd.length)>=5){
+if(ephchick==1&&(128-allmgds)>=5){
 
 ///socket.emit("needgetcard",JSON.stringify([roomId,pled]));
 
@@ -1515,7 +1586,7 @@ return
 
 }
 
-if(ephchick==0||(128-allmgd.length)<5&&ephchick==1){///如果沒有吃碰槓胡則返回
+if(ephchick==0||(128-allmgds)<5&&ephchick==1){///如果沒有吃碰槓胡則返回
 
 socket.emit("needgetcard",JSON.stringify([roomId,pled]));
 
@@ -1571,9 +1642,9 @@ function simulateEatPonGun(ple, mtd, hand, allmgd, etmgd, roomId) {
       }
     });
   }
-console.log(ple, mtd, plmgd, etmgd)
+///console.log(ple, mtd, plmgd, etmgd)
   // 吃
-  if (ple === 3) {
+  if (ple === 3 && mtd >= 1 && mtd <= 27) {
     const g = Math.floor((mtd - 1) / 9);  // 判斷組別
     const candidates = [
       [mtd - 2, mtd - 1],
@@ -1581,7 +1652,7 @@ console.log(ple, mtd, plmgd, etmgd)
       [mtd + 1, mtd + 2]
     ];
     for (let pair of candidates) {
-      if (pair.some(p => p < 1 || p > 34 || Math.floor((p - 1) / 9) !== g)) continue;
+      if (pair.some(p => p < 1 || p > 27 || Math.floor((p - 1) / 9) !== g)) continue;
       if (pair.every(p => plmgd.includes(p))) {
         let newHand = plmgd.slice();
         newHand.splice(newHand.indexOf(pair[0]), 1);

@@ -2855,7 +2855,7 @@ console.log(charich)
 
         const socket = io("https://mj-production-43c2.up.railway.app");
         const urlParams = new URLSearchParams(window.location.search);
-        const roomId = "025024"///urlParams.get("room");
+        const roomId = urlParams.get("room");
 
         if (roomId) {
             socket.emit("joinRoom", roomId);
@@ -4365,7 +4365,12 @@ for(let i=0;i<plmgd.length;i++){
     if (
       Array.isArray(item) &&
       item.length === 3 &&
-      item.every(n => n === plmgd[i])
+      item.every(n => n === plmgd[i])&&
+      lbmgd==0||
+      item.length === 3 &&
+      item.every(n => n === Number(card))&&
+      lbmgd==11
+
     ) {
 
 ephchick=2

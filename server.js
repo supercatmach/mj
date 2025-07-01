@@ -114,12 +114,26 @@ function createRoomStructure(hostId) {
 }
 
 const { spawn } = require('child_process');
-///const child = spawn('node', ['max.js'], {
-///  stdio: 'inherit',
-///});
+
+function runClient(name = '') {
+  const scripts = ['max.js', 'maxatk.js', 'maxsafe.js'];
+
+  // 隨機選一個 JS 檔案
+  const script = scripts[Math.floor(Math.random() * scripts.length)];
+
+  const child = spawn('node', [script, name], {
+    stdio: 'inherit',
+  });
+
+  child.on('close', (code) => {
+    console.log(`${name || script} 結束，退出碼: ${code}`);
+  });
+}
+
+runClient('');///上線後就開起
 
 const rooms = {};
-rooms["025024"] = { host: "貓貓", players: [] ,playerid: [] ,playerpic: [] ,ynstar:0,ynfriend:0,alps:0,epgh:[],pled:0,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
+///rooms["025024"] = { host: "貓貓", players: [] ,playerid: [] ,playerpic: [] ,ynstar:0,ynfriend:0,alps:0,epgh:[],pled:0,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
 
 io.on("connection", (socket) => {
 
@@ -233,6 +247,20 @@ rooms[roomId].ynstar=0
     socket.on("getRooms", () => {
         socket.emit("updateRooms", rooms);
     });
+
+socket.on("wantinvit", (roomId) => {
+
+        if (!rooms[roomId] || rooms[roomId].players.length >= 4||rooms[roomId].players.length<=1) {
+
+            return;
+
+        }
+
+socket.emit("wantinvit", roomId);
+
+runClient('');
+
+});
 
 socket.on("invit", (data) => {
 

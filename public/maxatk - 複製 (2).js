@@ -2,23 +2,18 @@ const zutop = require("./zutop2")
 
 console.log(zutop["1"]);
 
-plgamealread=0///是否開始遊戲
-
-lopal=0
-
 const io = require("socket.io-client");
+        const socket = io("https://mj-production-43c2.up.railway.app");
+        const roomId = "025024"///urlParams.get("room");
 
-const socket = io("https://mj-production-43c2.up.railway.app");
+        if (roomId) {
+            socket.emit("joinRoom", roomId);
+            socket.emit("myche", JSON.stringify([roomId,Math.floor((Math.random() * 4)+5) + "c"]));
+        }
 
 socket.on("playerJoined", (datainf) => {
 
-plgamealread=1///是否開始遊戲
-
-lopal++
-
 if(datainf.roomSize==4){
-
-plgamealread=2///是否開始遊戲
 
 lopal=4
 
@@ -30,36 +25,6 @@ socket.emit("dice","dice");
 
 });
 
-
-socket.on("playerDisconnected", (datainf) => {
-
-lopal--
-
-if(allplad.length!=0&&plgamealread==2||plgamealread==1&&lopal==1){
-
-console.log(datainf.playerId+"斷線了");
-
-lop=allplad.indexOf(datainf.playerId)
-
-process.exit(0);
-
-}
-
-});
-
-socket.on("wantinvit", (rooms) => {
-
-if(plgamealread==0){///尚未加入任何房間
-
-console.log("加入房間",rooms);
-
-socket.emit("joinRoom", rooms);
-
-socket.emit("myche", JSON.stringify([roomId,Math.floor((Math.random() * 4)+5) + "c"]));
-
-}
-
-});
 ///////////////////////////////////////////////
 
 socket.on("myname", (data) => {
