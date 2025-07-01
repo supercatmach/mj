@@ -122,7 +122,7 @@ function runClient(name = '') {
   const script = scripts[Math.floor(Math.random() * scripts.length)];
 
   const child = spawn('node', [script, name], {
-    ///stdio: 'inherit',
+    stdio: 'inherit',
   });
 
   child.on('close', (code) => {
@@ -130,8 +130,8 @@ function runClient(name = '') {
   });
 }
 
-
-spawn('node', ['max.js', 'AI-04'], {  });
+console.log('Spawning max.js for AI-04');
+spawn('node', ['max.js', 'AI-04'], { stdio: 'inherit' });
 
 
 const rooms = {};
@@ -863,6 +863,8 @@ io.to(roomId).emit("caneph", JSON.stringify([rooms[roomId].epgh[0].ple,rooms[roo
 
 rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].epgh[0].ple)
 
+rooms[roomId].card=0
+
 }
 
 if(rooms[roomId].epgh[0].dwo=="win"&&rooms[roomId].win==0||rooms[roomId].epgh[0].dwo=="mywin"&&rooms[roomId].win==0){
@@ -880,6 +882,8 @@ rooms[roomId].makrs=(rooms[roomId].makrs+1<4)?rooms[roomId].makrs+1:0
 }
 
 rooms[roomId].win=1
+
+rooms[roomId].card=0
 
 console.log("新莊家:"+rooms[roomId].makrs)
 
