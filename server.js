@@ -707,11 +707,11 @@ rooms[roomId].epghpk=[]
 
 console.log("玩家:"+socket.id+"打出牌:"+card)
 
-io.to(roomId).emit("outcard", JSON.stringify([socket.id ,card]));
-
 rooms[roomId].pled=rooms[roomId].players.indexOf(socket.id)
 
 rooms[roomId].alps=0
+
+io.to(roomId).emit("outcard", JSON.stringify([socket.id ,card]));
 
 });
 ///////////////////////////////////////////////////////
@@ -733,9 +733,9 @@ if(rooms[roomId].alps==rooms[roomId].players.length){
 
 console.log("確認各家吃碰槓胡")
 
-io.to(roomId).emit("outchak", JSON.stringify([socket.id ,card]));
-
 rooms[roomId].alps=0
+
+io.to(roomId).emit("outchak", JSON.stringify([socket.id ,card]));
 
 }
 
@@ -753,11 +753,11 @@ if(rooms[roomId].alps==4){
 
 console.log("補花完畢")
 
-io.to(roomId).emit("befbegin", []);
-
 rooms[roomId].alps=0
 
 rooms[roomId].stat=1
+
+io.to(roomId).emit("befbegin", []);
 
 }
 
@@ -841,6 +841,8 @@ const btop=Math.max(...Object.values(rooms[roomId].epghpk))
 
 if(rooms[roomId].alps==rooms[roomId].players.length&&rooms[roomId].epgh.length!=0||rooms[roomId].epgh.length!=0&&rooms[roomId].epghpk.length!=0&&rooms[roomId].epgh[0].num>=btop||rooms[roomId].epgh.length!=0&&rooms[roomId].epgh[0].dwo=="mywin"){
 
+rooms[roomId].alps=0
+
 rooms[roomId].epgh.sort(function (a, b) {///
 
 return b.num - a.num
@@ -857,11 +859,11 @@ rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].epgh[0].ple)
 
 if(rooms[roomId].epgh[0].dwo!="win"&&rooms[roomId].epgh[0].dwo!="mywin"&&rooms[roomId].card==rooms[roomId].epgh[0].mtd[1]){
 
-io.to(roomId).emit("caneph", JSON.stringify([rooms[roomId].epgh[0].ple,rooms[roomId].epgh[0].mtd,rooms[roomId].epgh[0].dwo]));
-
 rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].epgh[0].ple)
 
 rooms[roomId].card=0
+
+io.to(roomId).emit("caneph", JSON.stringify([rooms[roomId].epgh[0].ple,rooms[roomId].epgh[0].mtd,rooms[roomId].epgh[0].dwo]));
 
 }
 
@@ -915,17 +917,11 @@ rooms[roomId].epgh=[]
 
 rooms[roomId].epghpk=[]
 
-rooms[roomId].alps=0
-
 return
 
 }
 
 if(rooms[roomId].alps==rooms[roomId].players.length&&rooms[roomId].epgh.length==0){
-
-console.log(rooms[roomId].epghpk,rooms[roomId].alps,rooms[roomId].epgh)
-
-let nexpled=(rooms[roomId].pled+1<rooms[roomId].players.length)?rooms[roomId].players[rooms[roomId].pled+1]:rooms[roomId].players[0]
 
 setTimeout(() => {
 
@@ -934,6 +930,10 @@ io.to(nexpled).emit("needgetcard", (""));
 },300)
 
 rooms[roomId].alps=0
+
+console.log(rooms[roomId].epghpk,rooms[roomId].alps,rooms[roomId].epgh)
+
+let nexpled=(rooms[roomId].pled+1<rooms[roomId].players.length)?rooms[roomId].players[rooms[roomId].pled+1]:rooms[roomId].players[0]
 
 }
 
