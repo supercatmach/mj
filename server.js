@@ -386,7 +386,7 @@ io.to(socket.id).emit("myname", JSON.stringify([socket.id,rooms[roomId].players,
 socket.on("epghpk", (epghpkinf) => {
 
 const roomId=JSON.parse(epghpkinf)[0]
-const mrs=JSON.parse(epghpkinf)[1]///返回的層級
+let mrs=JSON.parse(epghpkinf)[1]///返回的層級
 
 
 if(mrs==3){
