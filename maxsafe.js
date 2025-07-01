@@ -261,10 +261,6 @@ socket.emit("epghpk",JSON.stringify([roomId,3]));
 
 socket.emit("mywin",JSON.stringify([roomId,plmgd,lbmgd,flmgd,etmgd]));
 
-socket.emit("needgetcard",JSON.stringify([roomId,0]));
-
-return
-
 return
 
 }///if(tsptin+etmgd.length==6){
