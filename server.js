@@ -122,13 +122,20 @@ function runClient(name = '') {
   const script = scripts[Math.floor(Math.random() * scripts.length)];
 
   const child = spawn('node', [script, name], {
-    stdio: 'inherit',
+    ///stdio: 'inherit',
   });
 
   child.on('close', (code) => {
     console.log(`${name || script} 結束，退出碼: ${code}`);
   });
 }
+
+
+setTimeout(() => {
+
+runClient('')
+
+},1000)
 
 
 const rooms = {};
@@ -388,14 +395,11 @@ socket.on("epghpk", (epghpkinf) => {
 const roomId=JSON.parse(epghpkinf)[0]
 let mrs=JSON.parse(epghpkinf)[1]///返回的層級
 
+rooms[roomId].players2=rooms[roomId].players.concat(rooms[roomId].players).reverse()
 
-if(mrs==3){
+mra+=rooms[roomId].players2.indexOf(socket.id,rooms[roomId].pled)
 
-rooms[roomId].players2=rooms[roomId].players.concat(rooms[roomId].players)
-
-mrs+=rooms[roomId].players2.indexOf(socket.id,rooms[roomId].pled)
-
-}
+rooms[roomId].players2.reverse()
 
 rooms[roomId].epghpk.push(mrs)
 
