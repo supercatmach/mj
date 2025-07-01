@@ -6039,7 +6039,7 @@ ephchick=0
 
 if(ple==0){
 
-
+ephchick=0
 
 $(".muhandaury .o"+allot[0]+" .c1").html('<img src="mach/'+mtd+'.png?v=2" style="width:60px;height:80px;">')
 
@@ -6205,6 +6205,8 @@ console.log("本家無吃碰")
 }///if(ple!=0){
 
 socket.emit("outchak",JSON.stringify([roomId,mtd]));
+
+console.log("傳送確認吃碰槓")
 
 });
 

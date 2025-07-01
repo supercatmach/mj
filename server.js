@@ -115,19 +115,31 @@ function createRoomStructure(hostId) {
 
 const { spawn } = require('child_process');
 
-function runClient(name = '') {
+function runClient(name ,jorooms='') {
   const scripts = ['max.js', 'maxatk.js', 'maxsafe.js'];
 
   // 隨機選一個 JS 檔案
   const script = scripts[Math.floor(Math.random() * scripts.length)];
 
   const child = spawn('node', [script, name], {
+
     ///stdio: 'inherit',
+
+invit(jorooms)
+
   });
+
+ console.log(`${name || script} 已連線`);
 
   child.on('close', (code) => {
     console.log(`${name || script} 結束，退出碼: ${code}`);
   });
+}
+
+function invit(jorooms=''){
+
+io.emit("wantinvit", roomId);
+
 }
 
 
@@ -258,13 +270,7 @@ console.log("收到房間邀請AI",roomId)
 
         }
 
-io.emit("wantinvit", roomId);
-
-setTimeout(() => {
-
 runClient('');
-
-},1000)
 
 });
 
