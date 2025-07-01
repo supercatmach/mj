@@ -122,7 +122,7 @@ function runClient(name = '') {
   const script = scripts[Math.floor(Math.random() * scripts.length)];
 
   const child = spawn('node', [script, name], {
-    stdio: 'inherit',
+    ///stdio: 'inherit',
   });
 
   child.on('close', (code) => {
@@ -865,7 +865,7 @@ rooms[roomId].card=0
 
 }
 
-if(rooms[roomId].epgh[0].dwo=="win"&&rooms[roomId].epgh[0].num>=btop||rooms[roomId].epgh[0].dwo=="mywin"){
+if(rooms[roomId].epgh[0].dwo=="win"||rooms[roomId].epgh[0].dwo=="mywin"){
 
 io.to(roomId).emit("caneph", JSON.stringify([rooms[roomId].epgh[0].ple,rooms[roomId].epgh[0].mtd,"win",rooms[roomId].epgh[0].lbmgd,rooms[roomId].epgh[0].flmgd,rooms[roomId].epgh[0].etmgd]));
 
