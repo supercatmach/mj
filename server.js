@@ -131,12 +131,7 @@ function runClient(name = '') {
 }
 
 
-  const scripts2 = ['max.js', 'maxatk.js', 'maxsafe.js'];
-
-  // 隨機選一個 JS 檔案
-  const script2 = scripts2[Math.floor(Math.random() * scripts2.length)];
-
-spawn('node', [script2, 'AI-04'], {  });
+spawn('node', ['max.js', 'AI-04'], {  });
 
 
 const rooms = {};
@@ -854,7 +849,7 @@ return b.num - a.num
 
 });
 
-if(rooms[roomId].epgh[0].dwo=="gun"){
+if(rooms[roomId].epgh[0].dwo=="gun"&&rooms[roomId].epgh[0].mtd[1]=="X"){
 
 io.to(roomId).emit("caneph", JSON.stringify([rooms[roomId].epgh[0].ple,rooms[roomId].epgh[0].mtd,rooms[roomId].epgh[0].dwo]));
 
