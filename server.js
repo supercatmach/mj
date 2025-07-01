@@ -346,6 +346,8 @@ console.log("玩家準備就緒:"+rooms[roomId].alps)
 
 if(rooms[roomId].alps==rooms[roomId].players.length){
 
+rooms[roomId].alps=0
+
 sratgame(roomId)
 
 }
@@ -640,13 +642,13 @@ console.log("剩下張數:"+(128-rooms[roomId].allmgd2))
 
 console.log("發送給玩家:"+neepl+"牌:"+n)
 
-io.to(roomId).emit("getnewcard2", JSON.stringify(neepl));
-
-io.to(neepl).emit("getnewcard", JSON.stringify(n));
-
 rooms[roomId].pled=rooms[roomId].players.indexOf(neepl)
 
 rooms[roomId].alps=0
+
+io.to(roomId).emit("getnewcard2", JSON.stringify(neepl));
+
+io.to(neepl).emit("getnewcard", JSON.stringify(n));
 
 }
 
@@ -790,13 +792,16 @@ console.log("發送給玩家:"+rooms[roomId].players[rooms[roomId].makrs]+"牌:"
 
 ///io.to(roomId).emit("begin", []);
 
+rooms[roomId].pled=rooms[roomId].makrs
+
+rooms[roomId].alps=0
+
+console.log("開始打牌")
+
 io.to(roomId).emit("getnewcard2", JSON.stringify(rooms[roomId].players[rooms[roomId].makrs]));
 
 io.to(rooms[roomId].players[rooms[roomId].makrs]).emit("getnewcard", JSON.stringify(n));
 
-rooms[roomId].pled=rooms[roomId].makrs
-
-console.log("開始打牌")
 
 }
 
@@ -916,6 +921,8 @@ if(rooms[roomId].alps==rooms[roomId].players.length&&rooms[roomId].epgh.length==
 rooms[roomId].epgh=[]
 
 rooms[roomId].epghpk=[]
+
+rooms[roomId].alps=0
 
 return
 
