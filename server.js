@@ -130,12 +130,14 @@ function runClient(name = '') {
   });
 }
 
+  const scripts = ['max.js', 'maxatk.js', 'maxsafe.js'];
 
-setTimeout(() => {
+  // 隨機選一個 JS 檔案
+  const script = scripts[Math.floor(Math.random() * scripts.length)];
 
-runClient('')
-
-},1000)
+  const child = spawn('node', [script, name], {
+    ///stdio: 'inherit',
+  });
 
 
 const rooms = {};
