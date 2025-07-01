@@ -24,7 +24,7 @@ lopal=4
 
 socket.emit("myname",roomId);
 
-socket.emit("dice","dice");
+socket.emit("dice",roomId);
 
 }
 
