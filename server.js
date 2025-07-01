@@ -277,7 +277,7 @@ io.to(friendPin).emit("roomCreated", { roomId: data[1] });
 
     socket.on("myche", (che) => {
 
-roomId=JSON.parse(che)[0]
+const  roomId=JSON.parse(che)[0]
 
 rooms[roomId].playerpic.push({"che":JSON.parse(che)[1],"playerId":socket.id});
 
@@ -287,7 +287,7 @@ io.to(roomId).emit("allche", JSON.stringify(rooms[roomId].playerpic));
 
     socket.on("delroom", (roominf) => {///刪除房間
 
-roomId=JSON.parse(roominf)[0]
+const  roomId=JSON.parse(roominf)[0]
 
 console.log("刪除房間"+roomId)
 
@@ -310,7 +310,7 @@ function cleanEmptyRooms() {
 
 function befgame(roominf){
 
-roomId=roominf
+const  roomId=roominf
 
 rooms[roomId].allmgd=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 rooms[roomId].alps=0
@@ -375,7 +375,7 @@ io.to(roomId).emit("dice", JSON.stringify([rooms[roomId].dice1,rooms[roomId].dic
 
 socket.on("myname", (roomsinf) => {
 
-roomId=roomsinf
+const  roomId=roomsinf
 
 console.log("莊家:"+rooms[roomId].players[rooms[roomId].makrs])
 
@@ -385,7 +385,7 @@ io.to(socket.id).emit("myname", JSON.stringify([socket.id,rooms[roomId].players,
 
 socket.on("epghpk", (epghpkinf) => {
 
-roomId=JSON.parse(epghpkinf)[0]
+const  roomId=JSON.parse(epghpkinf)[0]
 mrs=JSON.parse(epghpkinf)[1]///返回的層級
 
 
@@ -404,7 +404,7 @@ rooms[roomId].epghpk.push(mrs)
 
 socket.on("eat", (canephinf) => {
 
-roomId=JSON.parse(canephinf)[0]
+const  roomId=JSON.parse(canephinf)[0]
 card=JSON.parse(canephinf)[1]
 
 console.log("吃"+card)
@@ -417,7 +417,7 @@ console.log(rooms[roomId].epgh)
 
 socket.on("pon", (canephinf) => {
 
-roomId=JSON.parse(canephinf)[0]
+const  roomId=JSON.parse(canephinf)[0]
 card=JSON.parse(canephinf)[1]
 
 console.log("碰"+card)
@@ -430,7 +430,7 @@ console.log(rooms[roomId].epgh)
 
 socket.on("gun", (canephinf) => {
 
-roomId=JSON.parse(canephinf)[0]
+const  roomId=JSON.parse(canephinf)[0]
 card=JSON.parse(canephinf)[1]
 
 console.log("槓"+card)
@@ -441,7 +441,7 @@ rooms[roomId].epgh.push({"num":2,"ple":socket.id,"mtd":card,"dwo":"gun"})
 
 socket.on("tin", (canephinf) => {
 
-roomId=JSON.parse(canephinf)[0]
+const  roomId=JSON.parse(canephinf)[0]
 card=JSON.parse(canephinf)[1]
 
 io.to(roomId).emit("caneph", JSON.stringify([socket.id,card,"tin"]));
@@ -450,7 +450,7 @@ io.to(roomId).emit("caneph", JSON.stringify([socket.id,card,"tin"]));
 
 socket.on("win", (canephinf) => {
 
-roomId=JSON.parse(canephinf)[0]
+const  roomId=JSON.parse(canephinf)[0]
 card=JSON.parse(canephinf)[1]
 lbmgd=JSON.parse(canephinf)[2]
 flmgd=JSON.parse(canephinf)[3]
@@ -470,7 +470,7 @@ rooms[roomId].epgh.push({"num":mra,"ple":socket.id,"mtd":card,"dwo":"win","lbmgd
 
 socket.on("mywin", (canephinf) => {
 
-roomId=JSON.parse(canephinf)[0]
+const  roomId=JSON.parse(canephinf)[0]
 card=JSON.parse(canephinf)[1]
 lbmgd=JSON.parse(canephinf)[2]
 flmgd=JSON.parse(canephinf)[3]
@@ -490,6 +490,8 @@ rooms[roomId].epgh.push({"num":mra,"ple":socket.id,"mtd":card,"dwo":"mywin","lbm
 
 function sratgame(roominf){
 
+const  roomId=roominf
+
 rooms[roomId].allmgd=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 rooms[roomId].epgh=[]
 rooms[roomId].pled=0
@@ -500,8 +502,6 @@ rooms[roomId].win=0///胡牌
 rooms[roomId].stat=0
 
 rooms[roomId].alps=0
-
-roomId=roominf
 
 for(let s=0;s<rooms[roomId].players.length;s++){
 
@@ -549,7 +549,7 @@ rooms[roomId].allmgd2=64
 
 socket.on("flower", (roomIdinf) => {
 
-roomId=JSON.parse(roomIdinf)[0]
+const  roomId=JSON.parse(roomIdinf)[0]
 card=JSON.parse(roomIdinf)[1]
 
 io.to(roomId).emit("flower", JSON.stringify([socket.id ,card]));
@@ -562,7 +562,7 @@ console.log("玩家:"+socket.id+"補花"+card)
 
 socket.on("getnewcard", (roomIdinf) => {
 
-roomId=JSON.parse(roomIdinf)[0]
+const  roomId=JSON.parse(roomIdinf)[0]
 
 if(rooms[roomId].allmgd2==128){
 
@@ -616,7 +616,7 @@ rooms[roomId].alps=0
 
 socket.on("needgetcardgun", (roomIdinf) => {
 
-roomId=JSON.parse(roomIdinf)[0]
+const  roomId=JSON.parse(roomIdinf)[0]
 neepl=JSON.parse(roomIdinf)[1]
 
 if(rooms[roomId].allmgd2==128){
@@ -673,7 +673,7 @@ rooms[roomId].alps=0
 
 socket.on("gunget", (roomIdinf) => {
 
-roomId=JSON.parse(roomIdinf)[0]
+const  roomId=JSON.parse(roomIdinf)[0]
 
 if(rooms[roomId].allmgd2==128){
 
@@ -718,7 +718,7 @@ rooms[roomId].pled=rooms[roomId].players.indexOf(socket.id)
 ///////////////////////////////////////////////////////
 socket.on("outcard", (roomIdinf) => {
 
-roomId=JSON.parse(roomIdinf)[0]
+const  roomId=JSON.parse(roomIdinf)[0]
 card=JSON.parse(roomIdinf)[1]
 
 rooms[roomId].epgh=[]
@@ -737,7 +737,7 @@ rooms[roomId].alps=0
 
 socket.on("outchak", (roomIdinf) => {
 
-roomId=JSON.parse(roomIdinf)[0]
+const  roomId=JSON.parse(roomIdinf)[0]
 card=JSON.parse(roomIdinf)[1]
 
 rooms[roomId].alps++
@@ -784,7 +784,7 @@ rooms[roomId].stat=1
 
 socket.on("begin", (roomIdinf) => {
 
-roomId=JSON.parse(roomIdinf)[0]
+const  roomId=JSON.parse(roomIdinf)[0]
 
 rooms[roomId].alps++
 
@@ -827,7 +827,7 @@ console.log("開始打牌")
 
 socket.on("needgetcard", (roomIdinf) => {
 
-roomId=JSON.parse(roomIdinf)[0]
+const  roomId=JSON.parse(roomIdinf)[0]
 ple=JSON.parse(roomIdinf)[1]
 
 if(rooms[roomId].win==1){
