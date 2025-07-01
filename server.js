@@ -125,11 +125,11 @@ function runClient(name ,jorooms='') {
 
     ///stdio: 'inherit',
 
-invit(jorooms)
-
   });
 
  console.log(`${name || script} 已連線`);
+
+invit(jorooms)
 
   child.on('close', (code) => {
     console.log(`${name || script} 結束，退出碼: ${code}`);
