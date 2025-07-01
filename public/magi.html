@@ -5397,7 +5397,14 @@ rlmgd2=[]
 
 for(let i=0;i<rlmgd[pled].length;i++){
 
+
 rlmgd2=rlmgd2.concat(rlmgd[pled][i])
+
+if(rlmgd[pled][i].length==3){
+
+rlmgd2=rlmgd2.concat(rlmgd[pled][i][1])
+
+}
 
 }
 

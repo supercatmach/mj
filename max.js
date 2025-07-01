@@ -59,6 +59,9 @@ socket.emit("joinRoom", rooms);
 
 socket.emit("myche", JSON.stringify([roomId,Math.floor((Math.random() * 4)+5) + "c"]));
 
+setInterval(() => {
+  fetch("https://mj-production-43c2.up.railway.app/ping");
+}, 1 * 60 * 1000);
 }
 
 });
