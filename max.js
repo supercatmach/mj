@@ -51,6 +51,8 @@ socket.on("wantinvit", (rooms) => {
 
 if(plgamealread==0){///尚未加入任何房間
 
+roomId=rooms
+
 console.log("加入房間",rooms);
 
 socket.emit("joinRoom", rooms);
@@ -1325,8 +1327,6 @@ socket.emit("outcard", JSON.stringify([roomId, v3[0]]));
 return
 
 }
-
-dangerCandidates[0].card
 
 console.log("捨牌 :",plmgd,"捨張 :",dangerCandidates[0].card)
 

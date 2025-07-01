@@ -51,6 +51,8 @@ socket.on("wantinvit", (rooms) => {
 
 if(plgamealread==0){///尚未加入任何房間
 
+roomId=rooms
+
 console.log("加入房間",rooms);
 
 socket.emit("joinRoom", rooms);
@@ -606,7 +608,7 @@ setTimeout(() => {
 
 outcard(Number(card))
 
-},300)
+},100)
 
 return
 
@@ -627,7 +629,7 @@ console.log("捨牌 :",plmgd,"捨張 :",Number(card))
 socket.emit("outcard", JSON.stringify([roomId, Number(card)]));
 
 
-},300)
+},100)
 
 
 }
@@ -1152,32 +1154,9 @@ function selectBestCompromiseDiscard(outcards, dangerCandidates) {
 function outcard(card) {
 
 
-const tingCount = lbmgds.reduce((a, b) => a + b, 0);
-
-dangerCandidates = findDefensiveByDangerScore(plmgd, allmgd, cantoutcd, alloutcd, lbmgds);
-
-const totalTing = lbmgds.reduce((a, b) => a + b, 0);
-
-if (totalTing >= 2||(128-allmgds)<=12) {
-
-  const idx = plmgd.indexOf(dangerCandidates[0].card);
-  if (idx !== -1) plmgd.splice(idx, 1);
-  plmgd.sort((a, b) => a - b);
-
-console.log("捨出防守 :",plmgd,"捨張 :",dangerCandidates[0].card,dangerCandidates)
-
-socket.emit("outcard", JSON.stringify([roomId, dangerCandidates[0].card]));
-
-return
-
-}
-
-
 bkmgd=JSON.parse(JSON.stringify(plmgd))///複製
 
-v4s = findDefensiveListenDiscardV5(plmgd, etmgd.length, allmgd, cantoutcd, lbmgds)
-
-v4=selectBestCompromiseDiscard(v4s, dangerCandidates);
+v4 = findDefensiveListenDiscardV5(plmgd, etmgd.length, allmgd, cantoutcd, lbmgds)
 
 plmgd=JSON.parse(JSON.stringify(bkmgd))///複製
 
@@ -1205,9 +1184,7 @@ return
 }
 
 
-v1s = findBest(plmgd, allmgd, cantoutcd)
-
-v1=selectBestCompromiseDiscard(v1s, dangerCandidates);
+v1 = findBest(plmgd, allmgd, cantoutcd)
 
 if(v1.length>0){
 
@@ -1244,9 +1221,7 @@ return
 
 }
 
-v2s=findIsolated(plmgd, allmgd, cantoutcd)
-
-v2=selectBestCompromiseDiscard(v2s, dangerCandidates);
+v2=findIsolated(plmgd, allmgd, cantoutcd)
 
 if(v2.length>0){
 
@@ -1285,9 +1260,7 @@ return
 }
 
 
-v3s=findBestDiscardByImprovingAndKaozhang(plmgd,etmgd.length, allmgd, cantoutcd );
-
-v3=selectBestCompromiseDiscard(v3s, dangerCandidates);
+v3=findBestDiscardByImprovingAndKaozhang(plmgd,etmgd.length, allmgd, cantoutcd );
 
 if(v3.length>0){
 
@@ -1326,17 +1299,15 @@ return
 
 }
 
-dangerCandidates[0].card
+console.log("捨牌 :",plmgd,"捨張 :",plmgd[0])
 
-console.log("捨牌 :",plmgd,"捨張 :",dangerCandidates[0].card)
-
-  const idx = plmgd.indexOf(dangerCandidates[0].card);
+  const idx = plmgd.indexOf(plmgd[0]);
   if (idx !== -1) plmgd.splice(idx, 1);
   plmgd.sort((a, b) => a - b);
 
 
 
-socket.emit("outcard", JSON.stringify([roomId, dangerCandidates[0].card]));
+socket.emit("outcard", JSON.stringify([roomId, plmgd[0]]));
 
 
 
@@ -1577,7 +1548,7 @@ setTimeout(() => {
 
 simulateEatPonGun(ple, mtd, plmgd, allmgd, etmgd, roomId);
 
-},300)
+},10)
 
 console.log("離開吃碰判斷")
 
