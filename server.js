@@ -131,8 +131,6 @@ function runClient(name = '') {
 }
 
 
-runClient('');///上線後就開起
-
 const rooms = {};
 ///rooms["025024"] = { host: "貓貓", players: [] ,playerid: [] ,playerpic: [] ,ynstar:0,ynfriend:0,alps:0,epgh:[],pled:0,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
 
