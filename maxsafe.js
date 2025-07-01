@@ -22,7 +22,7 @@ plgamealread=2///是否開始遊戲
 
 lopal=4
 
-socket.emit("myname",(""));
+socket.emit("myname",roomId);
 
 socket.emit("dice","dice");
 
