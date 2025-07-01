@@ -728,6 +728,8 @@ const card=JSON.parse(roomIdinf)[1]
 
 rooms[roomId].alps++
 
+console.log("outchak",rooms[roomId].alps)
+
 if(rooms[roomId].win==1){
 
 rooms[roomId].alps=0
@@ -736,7 +738,7 @@ rooms[roomId].alps=0
 
 if(rooms[roomId].alps==rooms[roomId].players.length){
 
-console.log("確認各家吃碰槓胡")
+console.log("確認各家吃碰槓胡",rooms[roomId].card)
 
 rooms[roomId].alps=0
 
