@@ -260,8 +260,11 @@ console.log("收到房間邀請AI",roomId)
 
 io.emit("wantinvit", roomId);
 
+setTimeout(() => {
+
 runClient('');
 
+},1000)
 
 });
 
