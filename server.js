@@ -710,7 +710,7 @@ rooms[roomId].card=card
 rooms[roomId].epgh=[]
 rooms[roomId].epghpk=[]
 
-console.log("玩家:"+socket.id+"打出牌:"+card)
+console.log("玩家:"+socket.id+"打出牌:"+card,rooms[roomId].alps)
 
 rooms[roomId].pled=rooms[roomId].players.indexOf(socket.id)
 

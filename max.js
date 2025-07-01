@@ -1152,6 +1152,7 @@ function selectBestCompromiseDiscard(outcards, dangerCandidates) {
 ///////////////////////////////////////
 function outcard(card) {
 
+ephchick=0
 
 const tingCount = lbmgds.reduce((a, b) => a + b, 0);
 
