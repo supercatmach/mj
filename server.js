@@ -257,9 +257,9 @@ console.log("收到房間邀請AI",roomId)
 
         }
 
-runClient('');
-
 io.emit("wantinvit", roomId);
+
+runClient('');
 
 
 });
@@ -335,9 +335,9 @@ rooms[roomId].stat=0
 
 }
 
-socket.on("gamStar", (rooms) => {
+socket.on("gamStar", (roomsinf) => {
 
-roomId=rooms
+roomId=roomsinf
 
 rooms[roomId].alps++
 
@@ -351,9 +351,9 @@ sratgame(roomId)
 
 })
 
-socket.on("dice", (rooms) => {
+socket.on("dice", (roomsinf) => {
 
-roomId=rooms
+roomId=roomsinf
 
 rooms[roomId].alps++
 
@@ -955,3 +955,6 @@ const PORT = process.env.PORT || 10000;
 server.listen(PORT, () => {
     console.log(`伺服器運行中： http://localhost:${PORT}`);
 });
+
+
+runClient('');
