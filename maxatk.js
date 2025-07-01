@@ -233,7 +233,7 @@ tsp=manum///組數
 
 tsp+=(crdeye>0)?1:0///組數
 
-if(tsp+etmgd.length>=4&&lbmgd==0){
+if(tsp+etmgd.length>=4){
 
 bkmgd2=JSON.parse(JSON.stringify(plmgd))///複製
 
@@ -262,8 +262,6 @@ socket.emit("epghpk",JSON.stringify([roomId,3]));
 socket.emit("mywin",JSON.stringify([roomId,plmgd,lbmgd,flmgd,etmgd]));
 
 socket.emit("needgetcard",JSON.stringify([roomId,0]));
-
-return
 
 return
 
