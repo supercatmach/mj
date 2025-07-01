@@ -2700,11 +2700,11 @@
 <div class="playerpic4" style="position:absolute;left:75%;width:450;height:900;"></div>
 </div>
 
-<div class="inputpin" style="position:absolute;top:70px;left:75%;width:400;height:177;background-image: url('word/ivew.png?v=2');">
+<div class="inputpin" style="position:absolute;top:70px;left:75%;width:401;height:178;background-image: url('word/ivew.png?v=2');">
 <input type="text" class="friendpin" style="position:absolute;top:70px;left:50%;font-size:26px;margin-left:-150px;width:250px;height:50px;">
 <span id="snedBtn"><i class="fa-regular fa-paper-plane icon" style="position:absolute;top:75px;left:78%;"></i></span>
 </div>
-
+<div class="aijoin" style="position:absolute;top:270px;left:75%;width:401;height:178;background-image: url('word/aijoin.png?v=2');"></div>
 
 <div style="position:absolute;top:50%;left:50%;margin-left:-900;margin-top:-450;width:1800;height:900;pointer-events: none;">
 
@@ -2982,6 +2982,14 @@ $(".friendpin").val("")
 
 });
 
+
+$(".aijoin").click(function() {
+
+console.log(roomId)
+
+socket.emit("wantinvit", roomId);
+
+});
 
 setInterval(() => {
   fetch("https://mj-production-43c2.up.railway.app/ping");

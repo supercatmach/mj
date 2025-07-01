@@ -250,7 +250,7 @@ rooms[roomId].ynstar=0
 
 socket.on("wantinvit", (roomId) => {
 
-        if (!rooms[roomId] || rooms[roomId].players.length >= 4||rooms[roomId].players.length<=1) {
+        if (!rooms[roomId] || rooms[roomId].players.length >= 4) {///||rooms[roomId].players.length<=1
 
             return;
 
