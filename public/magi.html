@@ -3535,7 +3535,7 @@ setTimeout(() => {
 
 console.log("莊家:"+makrs)
 
-socket.emit("dice","dice");
+socket.emit("dice",roomId);
 
 }, 100);
 
@@ -3610,7 +3610,7 @@ cantakenb=0
 
 function roomstar(){
 
-socket.emit("myname",(""));
+socket.emit("myname",roomId);
 
 $(".gh1").hide()
 

@@ -337,7 +337,7 @@ rooms[roomId].stat=0
 
 socket.on("gamStar", (roomsinf) => {
 
-roomId=roomsinf
+const roomId=roomsinf
 
 rooms[roomId].alps++
 
@@ -353,7 +353,7 @@ sratgame(roomId)
 
 socket.on("dice", (roomsinf) => {
 
-roomId=roomsinf
+const roomId=roomsinf
 
 rooms[roomId].alps++
 
@@ -373,7 +373,9 @@ io.to(roomId).emit("dice", JSON.stringify([rooms[roomId].dice1,rooms[roomId].dic
 
 })
 
-socket.on("myname", (mtd) => {
+socket.on("myname", (roomsinf) => {
+
+roomId=roomsinf
 
 console.log("莊家:"+rooms[roomId].players[rooms[roomId].makrs])
 
@@ -956,5 +958,3 @@ server.listen(PORT, () => {
     console.log(`伺服器運行中： http://localhost:${PORT}`);
 });
 
-
-runClient('');
