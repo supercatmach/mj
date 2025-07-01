@@ -913,23 +913,9 @@ return
 
 }///if(rooms[roomId].epghpk.length!=0){
 
-const epghpk = rooms[roomId].epghpk;
+if(rooms[roomId].alps==rooms[roomId].players.length&&rooms[roomId].epgh.length==0&&rooms[roomId].epghpk.length!=3){
 
-const noPositive = !(
-
-  Array.isArray(epghpk) &&
-
-  epghpk.some(row => Array.isArray(row) && row.some(num => num > 0))
-
-);
-
-if(rooms[roomId].alps==rooms[roomId].players.length&&rooms[roomId].epgh.length==0&&!noPositive){
-
-rooms[roomId].epgh=[]
-
-rooms[roomId].epghpk=[]
-
-rooms[roomId].alps=0
+rooms[roomId].alps--
 
 console.log("吃碰回傳延遲")
 
