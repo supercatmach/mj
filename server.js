@@ -318,6 +318,7 @@ const  roomId=roominf
 
 rooms[roomId].allmgd=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 rooms[roomId].alps=0
+rooms[roomId].alps2=0
 rooms[roomId].epgh=[]
 rooms[roomId].pled=0
 rooms[roomId].epghpk=[]
@@ -503,11 +504,12 @@ rooms[roomId].allmgd=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 rooms[roomId].epgh=[]
 rooms[roomId].pled=0
 rooms[roomId].alps=0
+rooms[roomId].alps2=0
 rooms[roomId].epghpk=[]
 rooms[roomId].players2=[]
 rooms[roomId].win=0///胡牌
 rooms[roomId].stat=0
-
+rooms[roomId].card=0
 
 for(let s=0;s<rooms[roomId].players.length;s++){
 
@@ -726,9 +728,9 @@ socket.on("outchak", (roomIdinf) => {
 const  roomId=JSON.parse(roomIdinf)[0]
 const card=JSON.parse(roomIdinf)[1]
 
-rooms[roomId].alps++
+rooms[roomId].alps2++
 
-console.log("outchak",rooms[roomId].alps,socket.id)
+console.log("outchak",rooms[roomId].alps2,socket.id)
 
 if(rooms[roomId].win==1){
 
@@ -736,11 +738,11 @@ rooms[roomId].alps=0
 
 }
 
-if(rooms[roomId].alps==rooms[roomId].players.length){
+if(rooms[roomId].alps2==rooms[roomId].players.length){
 
 console.log("確認各家吃碰槓胡",rooms[roomId].card)
 
-rooms[roomId].alps=0
+rooms[roomId].alps2=0
 
 io.to(roomId).emit("outchak", JSON.stringify([socket.id ,card]));
 
