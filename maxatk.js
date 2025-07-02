@@ -205,7 +205,7 @@ epgtw=JSON.parse(data)[2]///哪一種狀態
 
 ple=allplad.indexOf(pled)
 
-if(ephchick==1&&ple!=0&&epgtw!="gun"){///如果有吃碰槓.但是被強制取消則返回
+if(ephchick==1&&ple!=0&&epgtw!="gun"&&epgtw!="tin"){///如果有吃碰槓.但是被強制取消則返回
 
 socket.emit("needgetcard",JSON.stringify([roomId,pled]));
 
