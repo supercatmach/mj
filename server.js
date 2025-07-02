@@ -888,7 +888,7 @@ const btop=Math.max(...Object.values(rooms[roomId].epghpk))
 
 console.log(rooms[roomId].epghpk,rooms[roomId].epgh,socket.id,rooms[roomId].card,socket.id)
 
-if(rooms[roomId].alps3==rooms[roomId].players.length||rooms[roomId].epgh.length!=0&&rooms[roomId].epghpk.length!=0&&rooms[roomId].epgh[0].num>=btop||rooms[roomId].epgh.length!=0&&rooms[roomId].epgh[0].dwo=="mywin"){
+if(rooms[roomId].alps3==rooms[roomId].players.length&&rooms[roomId].epgh.length!=0&&rooms[roomId].epghpk.length!=0||rooms[roomId].epgh.length!=0&&rooms[roomId].epghpk.length!=0&&rooms[roomId].epgh[0].num>=btop||rooms[roomId].epgh.length!=0&&rooms[roomId].epgh[0].dwo=="mywin"){
 
 console.log(rooms[roomId].epgh[0].dwo,rooms[roomId].epgh[0].ple)
 
@@ -909,6 +909,10 @@ rooms[roomId].alps3=0
 rooms[roomId].alps=0
 
 rooms[roomId].alps4=4
+
+rooms[roomId].epgh=[]
+
+rooms[roomId].epghpk=[]
 
 return
 
@@ -947,6 +951,10 @@ rooms[roomId].card=[]
 console.log("新莊家:"+rooms[roomId].makrs)
 
 }
+
+rooms[roomId].epgh=[]
+
+rooms[roomId].epghpk=[]
 
 rooms[roomId].alps3=0
 
