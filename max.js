@@ -1448,10 +1448,12 @@ alloutcd[ple].push(mtd)
 
 allmgd.push(mtd)
 
-ephchick=0
+
 
 
 if(ple!=0){
+
+ephchick=0
 
 bkmgd=JSON.parse(JSON.stringify(plmgd))///複製
 
