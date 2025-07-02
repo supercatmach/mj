@@ -782,6 +782,8 @@ rooms[roomId].alps2=0
 
 rooms[roomId].alps=0
 
+rooms[roomId].alps4=0
+
 io.to(roomId).emit("outchak", JSON.stringify([socket.id ,card]));
 
 }
