@@ -906,6 +906,8 @@ rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].epgh[0].ple)
 
 }
 
+
+
 if(rooms[roomId].epgh[0].dwo!="win"&&rooms[roomId].epgh[0].dwo!="mywin"){
 
 rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].epgh[0].ple)
@@ -944,6 +946,11 @@ rooms[roomId].alps=0
 
 rooms[roomId].alps4++
 
+if(rooms[roomId].epgh[0].dwo=="gun"){
+
+rooms[roomId].alps4=0
+
+}
 
 }///
 
