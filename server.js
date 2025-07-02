@@ -810,7 +810,7 @@ console.log("發送給玩家:"+rooms[roomId].players[rooms[roomId].makrs]+"牌:"
 
 rooms[roomId].pled=rooms[roomId].makrs
 
-rooms[roomId].alps=0
+///rooms[roomId].alps=0
 
 console.log("開始打牌")
 
