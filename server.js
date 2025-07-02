@@ -601,7 +601,7 @@ rooms[roomId].pled=rooms[roomId].players.indexOf(socket.id)
 
 if(rooms[roomId].stat==1){
 
-rooms[roomId].alps=0
+///rooms[roomId].alps=0
 
 }
 
@@ -649,7 +649,7 @@ console.log("發送給玩家:"+neepl+"牌:"+n)
 
 rooms[roomId].pled=rooms[roomId].players.indexOf(neepl)
 
-rooms[roomId].alps=0
+///rooms[roomId].alps=0
 
 io.to(roomId).emit("getnewcard2", JSON.stringify(neepl));
 
