@@ -908,7 +908,7 @@ rooms[roomId].alps3=0
 
 rooms[roomId].alps=0
 
-rooms[roomId].alps4=0
+rooms[roomId].alps4=4
 
 return
 
