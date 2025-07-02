@@ -3091,8 +3091,6 @@ socket.emit("mywin",JSON.stringify([roomId,plmgd,lbmgd,flmgd,etmgd]));
 
 }
 
-socket.emit("needgetcard",JSON.stringify([roomId,pled]));
-
 return;
 
 
@@ -3191,8 +3189,6 @@ return;
 
 socket.emit("gun",JSON.stringify([roomId,caneph[3]]));
 
-socket.emit("needgetcard",JSON.stringify([roomId,pled]));
-
 return;
 
 
@@ -3203,8 +3199,6 @@ ppyn = document.querySelector(".epgh2");
 ppyn.addEventListener("click",function (event) {
 
 socket.emit("pon",JSON.stringify([roomId,caneph[2]]));
-
-socket.emit("needgetcard",JSON.stringify([roomId,pled]));
 
 $(".etpghword img").hide();
 
@@ -3223,8 +3217,6 @@ $(".etpghword img").hide();
 if(caneph[1].length==1){
 
 socket.emit("eat",JSON.stringify([roomId,caneph[1][0]]));
-
-socket.emit("needgetcard",JSON.stringify([roomId,pled]));
 
 }
 
@@ -4540,8 +4532,6 @@ if(lbmgd==1){
 
 socket.emit("mywin",JSON.stringify([roomId,plmgd,lbmgd,flmgd,etmgd]));
 
-socket.emit("needgetcard",JSON.stringify([roomId,pled]));
-
 return
 
 }
@@ -4595,16 +4585,12 @@ if(flocd[0].length==7&&flocd[1].length==1||flocd[0].length==7&&flocd[2].length==
 
 socket.emit("win",JSON.stringify([roomId,plmgd,lbmgd,flmgd,etmgd]));
 
-socket.emit("needgetcard",JSON.stringify([roomId,pled]));
-
 return
 
 }
 if(flocd[0].length==8){///八仙過海
 
 socket.emit("win",JSON.stringify([roomId,plmgd,lbmgd,flmgd,etmgd]));
-
-socket.emit("needgetcard",JSON.stringify([roomId,pled]));
 
 return
 
@@ -6232,8 +6218,6 @@ console.log("win")
 
 socket.emit("win",JSON.stringify([roomId,plmgd,lbmgd,flmgd,etmgd]));
 
-socket.emit("needgetcard",JSON.stringify([roomId,pled]));
-
 return
 
 }
@@ -6251,8 +6235,6 @@ return
 }
 
 if((128-allmgd)<5&&ephchick==1){///如果沒有吃碰槓胡則返回
-
-socket.emit("needgetcard",JSON.stringify([roomId,pled]));
 
 $(".cnatetpg").show()
 
@@ -6377,8 +6359,6 @@ $(".etpghword img").hide();
 
 socket.emit("eat",JSON.stringify([roomId,allcaneat]));
 
-socket.emit("needgetcard",JSON.stringify([roomId,pled]));
-
 myturn=0
 
 return
@@ -6452,8 +6432,6 @@ $(".etpghword img").hide();
 
 socket.emit("eat",JSON.stringify([roomId,allcaneat]));
 
-socket.emit("needgetcard",JSON.stringify([roomId,pled]));
-
 myturn=0
 
 return
@@ -6522,8 +6500,6 @@ $("."+pldname[0]+" .d"+i+" div").css("filter","sepia(0%) brightness(100%)")
 
 socket.emit("gun",JSON.stringify([roomId,caneph[3]]));
 
-socket.emit("needgetcard",JSON.stringify([roomId,pled]));
-
 myturn=0
 
 return
@@ -6552,8 +6528,6 @@ $("."+pldname[0]+" .d"+i+" div").css("filter","sepia(0%) brightness(100%)")
 }
 
 socket.emit("gun",JSON.stringify([roomId,caneph[3]]));
-
-socket.emit("needgetcard",JSON.stringify([roomId,pled]));
 
 outcardple=0
 

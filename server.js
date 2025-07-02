@@ -319,6 +319,7 @@ const  roomId=roominf
 rooms[roomId].allmgd=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 rooms[roomId].alps=0
 rooms[roomId].alps2=0
+rooms[roomId].alps3=0
 rooms[roomId].epgh=[]
 rooms[roomId].pled=0
 rooms[roomId].epghpk=[]
@@ -421,6 +422,10 @@ rooms[roomId].epgh.push({"num":1,"ple":socket.id,"mtd":card,"dwo":"eat"})
 
 console.log(rooms[roomId].epgh)
 
+rooms[roomId].alps3++
+
+needcaneph(roomId)
+
 })
 
 socket.on("pon", (canephinf) => {
@@ -434,6 +439,10 @@ rooms[roomId].epgh.push({"num":2,"ple":socket.id,"mtd":card,"dwo":"pon"})
 
 console.log(rooms[roomId].epgh)
 
+rooms[roomId].alps3++
+
+needcaneph(roomId)
+
 })
 
 socket.on("gun", (canephinf) => {
@@ -444,6 +453,10 @@ const card=JSON.parse(canephinf)[1]
 console.log("槓"+card)
 
 rooms[roomId].epgh.push({"num":2,"ple":socket.id,"mtd":card,"dwo":"gun"})
+
+rooms[roomId].alps3++
+
+needcaneph(roomId)
 
 })
 
@@ -474,6 +487,10 @@ rooms[roomId].players2.reverse()
 
 rooms[roomId].epgh.push({"num":mra,"ple":socket.id,"mtd":card,"dwo":"win","lbmgd":lbmgd,"flmgd":flmgd,"etmgd":etmgd})
 
+rooms[roomId].alps3++
+
+needcaneph(roomId)
+
 })
 
 socket.on("mywin", (canephinf) => {
@@ -494,6 +511,10 @@ rooms[roomId].players2.reverse()
 
 rooms[roomId].epgh.push({"num":mra,"ple":socket.id,"mtd":card,"dwo":"mywin","lbmgd":lbmgd,"flmgd":flmgd,"etmgd":etmgd})
 
+rooms[roomId].alps3++
+
+needcaneph(roomId)
+
 })
 
 function sratgame(roominf){
@@ -505,6 +526,7 @@ rooms[roomId].epgh=[]
 rooms[roomId].pled=0
 rooms[roomId].alps=0
 rooms[roomId].alps2=0
+rooms[roomId].alps3=0
 rooms[roomId].epghpk=[]
 rooms[roomId].players2=[]
 rooms[roomId].win=0///胡牌
@@ -823,11 +845,7 @@ io.to(rooms[roomId].players[rooms[roomId].makrs]).emit("getnewcard", JSON.string
 
 })
 
-
-socket.on("needgetcard", (roomIdinf) => {
-
-const  roomId=JSON.parse(roomIdinf)[0]
-const ple=JSON.parse(roomIdinf)[1]
+function needcaneph(roomId){
 
 if(rooms[roomId].win==1){
 
@@ -840,11 +858,7 @@ return
 
 }
 
-rooms[roomId].alps++
-
 const btop=0
-
-console.log(rooms[roomId].epghpk,rooms[roomId].alps,rooms[roomId].epgh,socket.id,rooms[roomId].card)
 
 if(rooms[roomId].epghpk.length!=0){
 
@@ -860,7 +874,9 @@ return b.num - a.num
 
 const btop=Math.max(...Object.values(rooms[roomId].epghpk))
 
-if(rooms[roomId].alps==rooms[roomId].players.length&&rooms[roomId].epgh.length!=0||rooms[roomId].epgh.length!=0&&rooms[roomId].epghpk.length!=0&&rooms[roomId].epgh[0].num>=btop||rooms[roomId].epgh.length!=0&&rooms[roomId].epgh[0].dwo=="mywin"){
+console.log(rooms[roomId].epghpk,rooms[roomId].epgh,socket.id,rooms[roomId].card)
+
+if(rooms[roomId].alps3==rooms[roomId].players.length||rooms[roomId].epgh.length!=0&&rooms[roomId].epghpk.length!=0&&rooms[roomId].epgh[0].num>=btop||rooms[roomId].epgh.length!=0&&rooms[roomId].epgh[0].dwo=="mywin"){
 
 rooms[roomId].epgh.sort(function (a, b) {///
 
@@ -879,10 +895,6 @@ rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].epgh[0].ple)
 if(rooms[roomId].epgh[0].dwo!="win"&&rooms[roomId].epgh[0].dwo!="mywin"&&rooms[roomId].card[1]==rooms[roomId].epgh[0].mtd[1]){
 
 rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].epgh[0].ple)
-
-rooms[roomId].card=[]
-
-rooms[roomId].alps=4
 
 console.log(rooms[roomId].epgh[0].dwo,rooms[roomId].alps)
 
@@ -912,33 +924,38 @@ console.log("新莊家:"+rooms[roomId].makrs)
 
 }
 
-rooms[roomId].epgh=[]
-
-rooms[roomId].epghpk=[]
-
-return
+rooms[roomId].alps3=0
 
 }///
 
 }///if(rooms[roomId].epghpk.length!=0){
 
+}
 
-if(rooms[roomId].alps==rooms[roomId].players.length&&rooms[roomId].epgh.length!=0&&rooms[roomId].card.length!=0){
 
-console.log("玩家:"+rooms[roomId].card[0]+"打出牌:"+rooms[roomId].card[1],rooms[roomId].alps)
+socket.on("needgetcard", (roomIdinf) => {
 
-rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].card[0])
+const  roomId=JSON.parse(roomIdinf)[0]
+const ple=JSON.parse(roomIdinf)[1]
+
+if(rooms[roomId].win==1){
 
 rooms[roomId].alps=0
 
-io.to(roomId).emit("outcard", JSON.stringify(rooms[roomId].card));
+rooms[roomId].alps3=0
+
+}
+if(rooms[roomId].win==1){
 
 return
 
 }
 
+rooms[roomId].alps3++
 
-if(rooms[roomId].alps==rooms[roomId].players.length&&rooms[roomId].epgh.length==0&&rooms[roomId].epghpk.length==3){
+rooms[roomId].alps++
+
+if(rooms[roomId].alps==rooms[roomId].players.length){
 
 setTimeout(() => {
 
@@ -948,21 +965,7 @@ io.to(nexpled).emit("needgetcard", (""));
 
 console.log(rooms[roomId].epghpk,rooms[roomId].alps,rooms[roomId].epgh)
 
-let nexpled=(rooms[roomId].pled+1<rooms[roomId].players.length)?rooms[roomId].players[rooms[roomId].pled+1]:rooms[roomId].players[0]
-
-return
-
-}
-
-if(rooms[roomId].alps==rooms[roomId].players.length&&rooms[roomId].epgh.length==0&&rooms[roomId].card.length==0){
-
-setTimeout(() => {
-
-io.to(nexpled).emit("needgetcard", (""));
-
-},300)
-
-console.log(rooms[roomId].epghpk,rooms[roomId].alps,rooms[roomId].epgh)
+rooms[roomId].alps3=0
 
 let nexpled=(rooms[roomId].pled+1<rooms[roomId].players.length)?rooms[roomId].players[rooms[roomId].pled+1]:rooms[roomId].players[0]
 
