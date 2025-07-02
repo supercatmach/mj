@@ -914,6 +914,8 @@ rooms[roomId].epgh=[]
 
 rooms[roomId].epghpk=[]
 
+rooms[roomId].card=[]
+
 return
 
 }
@@ -956,11 +958,13 @@ rooms[roomId].epgh=[]
 
 rooms[roomId].epghpk=[]
 
+rooms[roomId].card=[]
+
 rooms[roomId].alps3=0
 
 rooms[roomId].alps=0
 
-rooms[roomId].alps4++
+rooms[roomId].alps4=4
 
 
 }///
@@ -989,9 +993,7 @@ return
 }
 
 
-rooms[roomId].alps4++
-
-console.log("needgetcard",rooms[roomId].alps4,socket.id)
+console.log("needgetcard",rooms[roomId].alps3,socket.id)
 
 rooms[roomId].alps3++
 
@@ -1030,7 +1032,7 @@ rooms[roomId].alps=0
 
 rooms[roomId].alps3=0
 
-rooms[roomId].alps4=0
+rooms[roomId].alps4=4
 
 io.to(roomId).emit("outcard", JSON.stringify(rooms[roomId].card));
 
@@ -1057,7 +1059,7 @@ rooms[roomId].alps3=0
 
 rooms[roomId].alps=0
 
-rooms[roomId].alps4++
+rooms[roomId].alps4=4
 
 return
 
