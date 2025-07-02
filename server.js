@@ -330,7 +330,7 @@ rooms[roomId].junwind=28///將位
 rooms[roomId].win=0///胡牌
 rooms[roomId].allmgd2=0
 rooms[roomId].stat=0
-rooms[roomId].card=0
+rooms[roomId].card=[]
 
 
     for (let i = 4 - 1; i > 0; i--) {
@@ -509,7 +509,7 @@ rooms[roomId].epghpk=[]
 rooms[roomId].players2=[]
 rooms[roomId].win=0///胡牌
 rooms[roomId].stat=0
-rooms[roomId].card=0
+rooms[roomId].card=[]
 
 for(let s=0;s<rooms[roomId].players.length;s++){
 
@@ -708,17 +708,24 @@ socket.on("outcard", (roomIdinf) => {
 const  roomId=JSON.parse(roomIdinf)[0]
 const card=JSON.parse(roomIdinf)[1]
 
-rooms[roomId].card=card
+rooms[roomId].card=[socket.id ,card]
 rooms[roomId].epgh=[]
 rooms[roomId].epghpk=[]
 
-console.log("玩家:"+socket.id+"打出牌:"+card,rooms[roomId].alps)
+console.log("outcard",rooms[roomId].alps,socket.id)
 
-rooms[roomId].pled=rooms[roomId].players.indexOf(socket.id)
+if(rooms[roomId].alps==rooms[roomId].players.length){
+
+console.log("玩家:"+rooms[roomId].card[0]+"打出牌:"+rooms[roomId].card[1],rooms[roomId].alps)
+
+rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].card[0])
 
 rooms[roomId].alps=0
 
-io.to(roomId).emit("outcard", JSON.stringify([socket.id ,card]));
+io.to(roomId).emit("outcard", JSON.stringify(rooms[roomId].card));
+
+
+}
 
 });
 ///////////////////////////////////////////////////////
@@ -743,6 +750,8 @@ if(rooms[roomId].alps2==rooms[roomId].players.length){
 console.log("確認各家吃碰槓胡",rooms[roomId].card)
 
 rooms[roomId].alps2=0
+
+rooms[roomId].alps=0
 
 io.to(roomId).emit("outchak", JSON.stringify([socket.id ,card]));
 
@@ -853,8 +862,6 @@ const btop=Math.max(...Object.values(rooms[roomId].epghpk))
 
 if(rooms[roomId].alps==rooms[roomId].players.length&&rooms[roomId].epgh.length!=0||rooms[roomId].epgh.length!=0&&rooms[roomId].epghpk.length!=0&&rooms[roomId].epgh[0].num>=btop||rooms[roomId].epgh.length!=0&&rooms[roomId].epgh[0].dwo=="mywin"){
 
-rooms[roomId].alps=0
-
 rooms[roomId].epgh.sort(function (a, b) {///
 
 return b.num - a.num
@@ -869,11 +876,11 @@ rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].epgh[0].ple)
 
 }
 
-if(rooms[roomId].epgh[0].dwo!="win"&&rooms[roomId].epgh[0].dwo!="mywin"&&rooms[roomId].card==rooms[roomId].epgh[0].mtd[1]){
+if(rooms[roomId].epgh[0].dwo!="win"&&rooms[roomId].epgh[0].dwo!="mywin"&&rooms[roomId].card[1]==rooms[roomId].epgh[0].mtd[1]){
 
 rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].epgh[0].ple)
 
-rooms[roomId].card=0
+rooms[roomId].card=[]
 
 console.log(rooms[roomId].epgh[0].dwo,rooms[roomId].alps)
 
@@ -897,7 +904,7 @@ rooms[roomId].makrs=(rooms[roomId].makrs+1<4)?rooms[roomId].makrs+1:0
 
 rooms[roomId].win=1
 
-rooms[roomId].card=0
+rooms[roomId].card=[]
 
 console.log("新莊家:"+rooms[roomId].makrs)
 
@@ -907,25 +914,28 @@ rooms[roomId].epgh=[]
 
 rooms[roomId].epghpk=[]
 
-rooms[roomId].alps=0
-
 return
 
 }///
 
 }///if(rooms[roomId].epghpk.length!=0){
 
-if(rooms[roomId].alps==rooms[roomId].players.length&&rooms[roomId].epgh.length==0&&rooms[roomId].epghpk.length!=3){
 
-rooms[roomId].alps--
+if(rooms[roomId].alps==rooms[roomId].players.length&&rooms[roomId].epgh.length!=0&&rooms[roomId].card.length!=0){
 
-console.log("吃碰回傳延遲")
+console.log("玩家:"+rooms[roomId].card[0]+"打出牌:"+rooms[roomId].card[1],rooms[roomId].alps)
+
+rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].card[0])
+
+rooms[roomId].alps=0
+
+io.to(roomId).emit("outcard", JSON.stringify(rooms[roomId].card));
 
 return
 
 }
 
-if(rooms[roomId].alps==rooms[roomId].players.length&&rooms[roomId].epgh.length==0){
+if(rooms[roomId].alps==rooms[roomId].players.length&&rooms[roomId].epgh.length==0&&rooms[roomId].card.length==0){
 
 setTimeout(() => {
 
@@ -935,7 +945,7 @@ io.to(nexpled).emit("needgetcard", (""));
 
 rooms[roomId].alps=0
 
-///console.log(rooms[roomId].epghpk,rooms[roomId].alps,rooms[roomId].epgh)
+console.log(rooms[roomId].epghpk,rooms[roomId].alps,rooms[roomId].epgh)
 
 let nexpled=(rooms[roomId].pled+1<rooms[roomId].players.length)?rooms[roomId].players[rooms[roomId].pled+1]:rooms[roomId].players[0]
 

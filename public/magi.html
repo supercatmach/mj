@@ -6053,22 +6053,21 @@ otmgd.push(mtd)
 
 ///socket.emit("needgetcard",JSON.stringify([roomId,pled]));
 
-socket.emit("outchak",JSON.stringify([roomId,mtd]));
+///socket.emit("outchak",JSON.stringify([roomId,mtd]));
 
-console.log("傳送確認吃碰槓")
+///console.log("傳送確認吃碰槓")
 
-return
+///return
 
 }
 
+if(ple!=0){
 
 epgh=["epgh1b","epgh2b","epgh3b","epgh4b","epgh5b","epgh6"]
 
 caneph=[[],[],[],[],[],[],[]]///可吃碰槓胡的牌
 
 ephchick=0///是否有吃碰槓胡的牌
-
-if(ple!=0){
 
 bkmgd=JSON.parse(JSON.stringify(plmgd))///複製
 
