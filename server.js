@@ -886,7 +886,7 @@ return b.num - a.num
 }
 const btop=Math.max(...Object.values(rooms[roomId].epghpk))
 
-console.log(rooms[roomId].epghpk,rooms[roomId].epgh,socket.id,rooms[roomId].card)
+console.log(rooms[roomId].epghpk,rooms[roomId].epgh,socket.id,rooms[roomId].card,socket.id)
 
 if(rooms[roomId].alps3==rooms[roomId].players.length||rooms[roomId].epgh.length!=0&&rooms[roomId].epghpk.length!=0&&rooms[roomId].epgh[0].num>=btop||rooms[roomId].epgh.length!=0&&rooms[roomId].epgh[0].dwo=="mywin"){
 
@@ -983,7 +983,7 @@ return
 
 rooms[roomId].alps4++
 
-
+console.log("needgetcard",rooms[roomId].alps4,socket.id)
 
 
 
