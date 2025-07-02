@@ -320,6 +320,7 @@ rooms[roomId].allmgd=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 rooms[roomId].alps=0
 rooms[roomId].alps2=0
 rooms[roomId].alps3=0
+rooms[roomId].alps4=0
 rooms[roomId].epgh=[]
 rooms[roomId].pled=0
 rooms[roomId].epghpk=[]
@@ -527,6 +528,7 @@ rooms[roomId].pled=0
 rooms[roomId].alps=0
 rooms[roomId].alps2=0
 rooms[roomId].alps3=0
+rooms[roomId].alps4=0
 rooms[roomId].epghpk=[]
 rooms[roomId].players2=[]
 rooms[roomId].win=0///胡牌
@@ -623,7 +625,7 @@ rooms[roomId].pled=rooms[roomId].players.indexOf(socket.id)
 
 if(rooms[roomId].stat==1){
 
-///rooms[roomId].alps=0
+rooms[roomId].alps4=4
 
 }
 
@@ -734,9 +736,9 @@ rooms[roomId].card=[socket.id ,card]
 rooms[roomId].epgh=[]
 rooms[roomId].epghpk=[]
 
-console.log("outcard",rooms[roomId].alps,socket.id)
+console.log("outcard",rooms[roomId].alps4,socket.id)
 
-if(rooms[roomId].alps==rooms[roomId].players.length){
+if(rooms[roomId].alps4==rooms[roomId].players.length){
 
 console.log("玩家:"+rooms[roomId].card[0]+"打出牌:"+rooms[roomId].card[1],rooms[roomId].alps)
 
@@ -744,8 +746,11 @@ rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].card[0])
 
 rooms[roomId].alps=0
 
+rooms[roomId].alps4=0
+
 io.to(roomId).emit("outcard", JSON.stringify(rooms[roomId].card));
 
+rooms[roomId].card=[]
 
 }
 
@@ -845,6 +850,10 @@ io.to(rooms[roomId].players[rooms[roomId].makrs]).emit("getnewcard", JSON.string
 
 })
 
+
+
+
+
 function needcaneph(roomId){
 
 if(rooms[roomId].win==1){
@@ -871,7 +880,6 @@ return b.num - a.num
 });
 
 }
-
 const btop=Math.max(...Object.values(rooms[roomId].epghpk))
 
 console.log(rooms[roomId].epghpk,rooms[roomId].epgh,socket.id,rooms[roomId].card)
@@ -926,6 +934,11 @@ console.log("新莊家:"+rooms[roomId].makrs)
 
 rooms[roomId].alps3=0
 
+rooms[roomId].alps=0
+
+rooms[roomId].alps4++
+
+
 }///
 
 }///if(rooms[roomId].epghpk.length!=0){
@@ -951,6 +964,13 @@ return
 
 }
 
+
+rooms[roomId].alps4++
+
+
+
+
+
 rooms[roomId].alps3++
 
 rooms[roomId].alps++
@@ -965,11 +985,41 @@ io.to(nexpled).emit("needgetcard", (""));
 
 console.log(rooms[roomId].epghpk,rooms[roomId].alps,rooms[roomId].epgh)
 
+rooms[roomId].alps=0
+
 rooms[roomId].alps3=0
+
+rooms[roomId].alps4=4
 
 let nexpled=(rooms[roomId].pled+1<rooms[roomId].players.length)?rooms[roomId].players[rooms[roomId].pled+1]:rooms[roomId].players[0]
 
+return
+
 }
+
+
+if(rooms[roomId].alps4==rooms[roomId].players.length&&rooms[roomId].card.length!=0){
+
+console.log("玩家:"+rooms[roomId].card[0]+"打出牌:"+rooms[roomId].card[1],rooms[roomId].alps)
+
+rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].card[0])
+
+rooms[roomId].alps=0
+
+rooms[roomId].alps3=0
+
+rooms[roomId].alps4=0
+
+io.to(roomId).emit("outcard", JSON.stringify(rooms[roomId].card));
+
+rooms[roomId].card=[]
+
+return
+
+}
+
+
+
 
 });
 

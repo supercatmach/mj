@@ -233,11 +233,11 @@ tsp=manum///組數
 
 tsp+=(crdeye>0)?1:0///組數
 
-if(tsp+etmgd.length>=4&&lbmgd==0){
+if(tsp+etmgd.length>=4){
 
 bkmgd2=JSON.parse(JSON.stringify(plmgd))///複製
 
-plmgd.push(Number(card[0]))
+plmgd.push(Number(card[3]))
 
 plmgd.sort(function (a, b) {
 
@@ -255,15 +255,11 @@ if(tsptin+etmgd.length==6){
 
 plmgd=JSON.parse(JSON.stringify(bkmgd2))///複製
 
-plmgd.push(Number(card[0]))
+plmgd.push(Number(card[3]))
 
 socket.emit("epghpk",JSON.stringify([roomId,3]));
 
 socket.emit("mywin",JSON.stringify([roomId,plmgd,lbmgd,flmgd,etmgd]));
-
-socket.emit("needgetcard",JSON.stringify([roomId,0]));
-
-return
 
 return
 
@@ -452,7 +448,6 @@ socket.emit("epghpk",JSON.stringify([roomId,2]));
 plmgd = JSON.parse(JSON.stringify(plmgdbkgun));
 
         socket.emit("gun", JSON.stringify([roomId, caneph]));
-        socket.emit("needgetcard", JSON.stringify([roomId, 0]));
 
         console.log("執行暗槓", i);
 
@@ -490,7 +485,6 @@ socket.emit("epghpk",JSON.stringify([roomId,2]));
 plmgd = JSON.parse(JSON.stringify(plmgdbkgun));
 
           socket.emit("gun", JSON.stringify([roomId, caneph]));
-          socket.emit("needgetcard", JSON.stringify([roomId, 0]));
 
           console.log("執行加槓（摸牌）", tile);
 
@@ -522,7 +516,6 @@ socket.emit("epghpk",JSON.stringify([roomId,2]));
 plmgd = JSON.parse(JSON.stringify(plmgdbkgun));
 
           socket.emit("gun", JSON.stringify([roomId, caneph]));
-          socket.emit("needgetcard", JSON.stringify([roomId, 0]));
 
           console.log("執行加槓（手牌）", tile);
 
@@ -590,8 +583,6 @@ plmgd.push(wincard)
 socket.emit("epghpk",JSON.stringify([roomId,3]));
 
 socket.emit("mywin",JSON.stringify([roomId,plmgd,lbmgd,flmgd,etmgd]));
-
-socket.emit("needgetcard",JSON.stringify([roomId,pled]));
 
 return
 
@@ -1530,13 +1521,13 @@ ephchick=1
 
 }///if(mtd<28&&ple==3&&lopal==4){///吃
 
+}///if(lbmgd==0){
+
 if(ephchick==0){///如果沒有吃碰槓胡則返回
 
 socket.emit("epghpk",JSON.stringify([roomId,0]));
 
 }
-
-}///if(lbmgd==0){
 
 }///if(ple!=0){
 
@@ -1561,8 +1552,6 @@ plmgd=JSON.parse(JSON.stringify(bkmgdwin))///複製
 console.log("win")
 
 socket.emit("win",JSON.stringify([roomId,plmgd,lbmgd,flmgd,etmgd]));
-
-socket.emit("needgetcard",JSON.stringify([roomId,pled]));
 
 return
 
@@ -1733,7 +1722,6 @@ if (result&&result.source!="V22") {
   console.log("吃碰槓 :", result.data, "吃的牌 :", result.data[0], "策略：", result.source,"捨出 : ",result.card);
 
       socket.emit(result.data[1], JSON.stringify([roomId, result.data[0]]));
-      socket.emit("needgetcard", JSON.stringify([roomId, 0]));
 
   return;
 }else{
