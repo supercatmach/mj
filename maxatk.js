@@ -1705,8 +1705,11 @@ if (result&&result.source!="V22") {
   return;
 }else{
 
+ephchick=0
 
 socket.emit("needgetcard",JSON.stringify([roomId,pled]));
+
+
  console.log("不吃碰",plmgd)
 
 }
