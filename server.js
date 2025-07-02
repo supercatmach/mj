@@ -673,7 +673,7 @@ console.log("發送給玩家:"+neepl+"牌:"+n)
 
 rooms[roomId].pled=rooms[roomId].players.indexOf(neepl)
 
-///rooms[roomId].alps=0
+rooms[roomId].alps4=4
 
 io.to(roomId).emit("getnewcard2", JSON.stringify(neepl));
 
@@ -719,6 +719,8 @@ console.log("發送給玩家:"+socket.id+"牌:"+n)
 io.to(roomId).emit("getnewcard2", JSON.stringify(socket.id));
 
 io.to(socket.id).emit("getnewcard", JSON.stringify(n));
+
+rooms[roomId].alps4=4
 
 rooms[roomId].pled=rooms[roomId].players.indexOf(socket.id)
 
