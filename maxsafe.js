@@ -205,6 +205,16 @@ epgtw=JSON.parse(data)[2]///哪一種狀態
 
 ple=allplad.indexOf(pled)
 
+if(epgtw=="tin"){
+
+lbmgds[ple]=1
+
+ephchick=(ephchick==1)?1:0
+
+return
+
+}
+
 if(ephchick==1&&ple!=0&&epgtw!="gun"&&epgtw!="tin"){///如果有吃碰槓.但是被強制取消則返回
 
 socket.emit("needgetcard",JSON.stringify([roomId,pled]));
@@ -337,12 +347,6 @@ socket.emit("gunget",JSON.stringify([roomId]));
 }
 
 return
-
-}
-
-if(epgtw=="tin"){
-
-lbmgds[ple]=1
 
 }
 ////////////////////////////////
