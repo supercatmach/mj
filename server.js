@@ -886,6 +886,8 @@ console.log(rooms[roomId].epghpk,rooms[roomId].epgh,socket.id,rooms[roomId].card
 
 if(rooms[roomId].alps3==rooms[roomId].players.length||rooms[roomId].epgh.length!=0&&rooms[roomId].epghpk.length!=0&&rooms[roomId].epgh[0].num>=btop||rooms[roomId].epgh.length!=0&&rooms[roomId].epgh[0].dwo=="mywin"){
 
+console.log(rooms[roomId].epgh[0].dwo,rooms[roomId].epgh[0].ple)
+
 rooms[roomId].epgh.sort(function (a, b) {///
 
 return b.num - a.num

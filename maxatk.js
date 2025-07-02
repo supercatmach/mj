@@ -112,6 +112,8 @@ daetp=[0,0,0,0]
 
 allmgds=65
 
+ephchick=0
+
 });
 
 
