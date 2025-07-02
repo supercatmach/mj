@@ -902,7 +902,7 @@ rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].epgh[0].ple)
 
 }
 
-if(rooms[roomId].epgh[0].dwo!="win"&&rooms[roomId].epgh[0].dwo!="mywin"&&rooms[roomId].card[1]==rooms[roomId].epgh[0].mtd[1]){
+if(rooms[roomId].epgh[0].dwo!="win"&&rooms[roomId].epgh[0].dwo!="mywin"){
 
 rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].epgh[0].ple)
 

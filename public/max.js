@@ -112,6 +112,8 @@ daetp=[0,0,0,0]
 
 allmgds=65
 
+ephchick=0
+
 });
 
 
@@ -201,7 +203,16 @@ pled=JSON.parse(data)[0]
 card=JSON.parse(data)[1]
 epgtw=JSON.parse(data)[2]///哪一種狀態
 
+
 ple=allplad.indexOf(pled)
+
+
+if(ephchick==1&&ple!=0){///如果有吃碰槓.但是被強制取消則返回
+
+socket.emit("needgetcard",JSON.stringify([roomId,pled]));
+
+}
+
 
 if(epgtw=="gun"&&card[0]!="X"&&card[1]=="X"){
 
