@@ -904,6 +904,14 @@ io.to(roomId).emit("caneph", JSON.stringify([rooms[roomId].epgh[0].ple,rooms[roo
 
 rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].epgh[0].ple)
 
+rooms[roomId].alps3=0
+
+rooms[roomId].alps=0
+
+rooms[roomId].alps4=0
+
+return
+
 }
 
 
@@ -946,11 +954,6 @@ rooms[roomId].alps=0
 
 rooms[roomId].alps4++
 
-if(rooms[roomId].epgh[0].dwo=="gun"){
-
-rooms[roomId].alps4=0
-
-}
 
 }///
 
