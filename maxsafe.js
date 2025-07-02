@@ -219,6 +219,7 @@ if(ephchick==1&&ple!=0&&epgtw!="gun"&&epgtw!="tin"){///如果有吃碰槓.但是
 
 socket.emit("needgetcard",JSON.stringify([roomId,pled]));
 
+ephchick=0
 }
 
 if(epgtw=="gun"&&card[0]!="X"&&card[1]=="X"){
