@@ -4554,6 +4554,8 @@ $('.'+epgh[i]).show()
 
 }
 
+ephchick=0
+
 return
 
 }
@@ -4687,6 +4689,8 @@ $(".outshowcad div").hide()
 ple=allplad.indexOf(pled)
 
 if(ephchick==1&&ple!=0&&epgtw!="gun"&&epgtw!="tin"){///如果有吃碰槓.但是被強制取消則返回
+
+ephchick=0
 
 socket.emit("needgetcard",JSON.stringify([roomId,pled]));
 
@@ -5082,6 +5086,8 @@ for(let i=0;i<6;i++){
 $('.'+epgh[i]).show()
 
 }
+
+ephchick=1
 
 return
 
@@ -6033,8 +6039,6 @@ ephchick=0
 
 if(ple==0){
 
-///ephchick=0
-
 $(".muhandaury .o"+allot[0]+" .c1").html('<img src="mach/'+mtd+'.png?v=2" style="width:60px;height:80px;">')
 
 $(".muhandaury .d17").hide()
@@ -6047,11 +6051,11 @@ otmgd.push(mtd)
 
 ///socket.emit("needgetcard",JSON.stringify([roomId,pled]));
 
-///socket.emit("outchak",JSON.stringify([roomId,mtd]));
+socket.emit("outchak",JSON.stringify([roomId,mtd]));
 
-///console.log("傳送確認吃碰槓")
+console.log("傳送確認吃碰槓")
 
-///return
+return
 
 }
 
@@ -6237,6 +6241,8 @@ for(let i=0;i<6;i++){
 $('.'+epgh[i]).show()
 
 }
+
+ephchick=1
 
 return
 
