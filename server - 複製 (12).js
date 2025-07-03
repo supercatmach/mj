@@ -323,7 +323,7 @@ rooms[roomId].alps3=0
 rooms[roomId].alps4=4
 rooms[roomId].epgh=[]
 rooms[roomId].pled=0
-rooms[roomId].epghpk={}
+rooms[roomId].epghpk=[]
 rooms[roomId].players2=[]
 rooms[roomId].makrs=0///莊家
 rooms[roomId].linmrs=0///連莊次數
@@ -407,8 +407,8 @@ rooms[roomId].players2.reverse()
 
 }
 
-if (!rooms[roomId].epgh[socket.id]) rooms[roomId].epgh[socket.id] = [];
-rooms[roomId].epgh[socket.id].push(mrs);
+rooms[roomId].epghpk.push(mrs)
+
 
 })
 
@@ -529,7 +529,7 @@ rooms[roomId].alps=0
 rooms[roomId].alps2=0
 rooms[roomId].alps3=0
 rooms[roomId].alps4=4
-rooms[roomId].epghpk={}
+rooms[roomId].epghpk=[]
 rooms[roomId].players2=[]
 rooms[roomId].win=0///胡牌
 rooms[roomId].stat=0
@@ -736,7 +736,7 @@ const card=JSON.parse(roomIdinf)[1]
 
 rooms[roomId].card=[socket.id ,card]
 rooms[roomId].epgh=[]
-rooms[roomId].epghpk={}
+rooms[roomId].epghpk=[]
 
 console.log("outcard",rooms[roomId].alps4,socket.id)
 
@@ -873,45 +873,36 @@ return
 
 const btop=0
 
-if(Object.keys(rooms[roomId].epghpk).length!=0){
+if(rooms[roomId].epghpk.length!=0){
 
 if(rooms[roomId].epgh.length!=0){
 
-let maxVal = -Infinity;
-let maxKey = null;
+rooms[roomId].epgh.sort(function (a, b) {///
 
-for (let key in rooms[roomId].epghpk) {
-  let arr = rooms[roomId].epghpk[key];
-  let localMax = Math.max(...arr); // 找出這個 key 的陣列最大值
-  if (localMax > maxVal) {
-    maxVal = localMax;
-    maxKey = key;
-  }
+return b.num - a.num
+
+});
+
 }
+const btop=Math.max(...Object.values(rooms[roomId].epghpk))
 
-console.log("最大值:", maxVal);   // 2
-console.log("對應的 key:", maxKey); // "A02"
+console.log(rooms[roomId].epghpk,rooms[roomId].epgh,socket.id,rooms[roomId].card,socket.id)
 
+if(rooms[roomId].epgh.length!=0&&rooms[roomId].epghpk.length!=0&&rooms[roomId].epgh[0].num>=btop||rooms[roomId].epgh.length!=0&&rooms[roomId].epgh[0].dwo=="mywin"){
 
+console.log(rooms[roomId].epgh[0].dwo,rooms[roomId].epgh[0].ple)
 
-const woep=rooms[roomId].players.indexOf(socket.id)
+rooms[roomId].epgh.sort(function (a, b) {///
 
-const btop=maxVal///最大值
-const btoper=maxKey///優先權的人
+return b.num - a.num
 
-if(woep==btoper){
+});
 
-for(let i=0;i<rooms[roomId].epgh.length;i++){
+if(rooms[roomId].epgh[0].dwo=="gun"&&rooms[roomId].epgh[0].mtd[1]=="X"){
 
-if(rooms[roomId].epgh[i].ple==btoper){
+io.to(roomId).emit("caneph", JSON.stringify([rooms[roomId].epgh[0].ple,rooms[roomId].epgh[0].mtd,rooms[roomId].epgh[0].dwo]));
 
-
-
-if(rooms[roomId].epgh[i].dwo=="gun"&&rooms[roomId].epgh[i].mtd[1]=="X"){
-
-io.to(roomId).emit("caneph", JSON.stringify([rooms[roomId].epgh[i].ple,rooms[roomId].epgh[i].mtd,rooms[roomId].epgh[i].dwo]));
-
-rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].epgh[i].ple)
+rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].epgh[0].ple)
 
 rooms[roomId].alps3=0
 
@@ -921,42 +912,39 @@ rooms[roomId].alps4=4
 
 rooms[roomId].epgh=[]
 
-rooms[roomId].epghpk={}
+rooms[roomId].epghpk=[]
 
 rooms[roomId].card=[]
 
 return
 
-}///if(rooms[roomId].epgh[i].dwo=="gun"&&rooms[roomId].epgh[i].mtd[1]=="X"){
+}
 
 
 
-if(rooms[roomId].epgh[i].dwo!="win"&&rooms[roomId].epgh[i].dwo!="mywin"){
+if(rooms[roomId].epgh[0].dwo!="win"&&rooms[roomId].epgh[0].dwo!="mywin"){
 
-rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].epgh[i].ple)
+rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].epgh[0].ple)
 
-console.log(rooms[roomId].epgh[i].dwo,rooms[roomId].alps)
+console.log(rooms[roomId].epgh[0].dwo,rooms[roomId].alps)
 
-io.to(roomId).emit("caneph", JSON.stringify([rooms[roomId].epgh[i].ple,rooms[roomId].epgh[i].mtd,rooms[roomId].epgh[i].dwo]));
+io.to(roomId).emit("caneph", JSON.stringify([rooms[roomId].epgh[0].ple,rooms[roomId].epgh[0].mtd,rooms[roomId].epgh[0].dwo]));
 
-}///if(rooms[roomId].epgh[i].dwo!="win"&&rooms[roomId].epgh[i].dwo!="mywin"){
+}
 
+if(rooms[roomId].epgh[0].dwo=="win"||rooms[roomId].epgh[0].dwo=="mywin"){
 
+io.to(roomId).emit("caneph", JSON.stringify([rooms[roomId].epgh[0].ple,rooms[roomId].epgh[0].mtd,"win",rooms[roomId].epgh[0].lbmgd,rooms[roomId].epgh[0].flmgd,rooms[roomId].epgh[0].etmgd]));
 
-
-if(rooms[roomId].epgh[i].dwo=="win"||rooms[roomId].epgh[i].dwo=="mywin"){
-
-io.to(roomId).emit("caneph", JSON.stringify([rooms[roomId].epgh[i].ple,rooms[roomId].epgh[i].mtd,"win",rooms[roomId].epgh[i].lbmgd,rooms[roomId].epgh[i].flmgd,rooms[roomId].epgh[i].etmgd]));
-
-console.log("胡牌:"+rooms[roomId].players2.indexOf(rooms[roomId].epgh[i].ple))
+console.log("胡牌:"+rooms[roomId].players2.indexOf(rooms[roomId].epgh[0].ple))
 
 console.log("莊家:"+rooms[roomId].makrs)
 
-if(rooms[roomId].players2.indexOf(rooms[roomId].epgh[i].ple)!=rooms[roomId].makrs){
+if(rooms[roomId].players2.indexOf(rooms[roomId].epgh[0].ple)!=rooms[roomId].makrs){
 
 rooms[roomId].makrs=(rooms[roomId].makrs+1<4)?rooms[roomId].makrs+1:0
 
-}///if(rooms[roomId].players2.indexOf(rooms[roomId].epgh[i].ple)!=rooms[roomId].makrs){
+}
 
 rooms[roomId].win=1
 
@@ -964,11 +952,11 @@ rooms[roomId].card=[]
 
 console.log("新莊家:"+rooms[roomId].makrs)
 
-}///if(rooms[roomId].epgh[i].dwo=="win"||rooms[roomId].epgh[i].dwo=="mywin"){
+}
 
 rooms[roomId].epgh=[]
 
-rooms[roomId].epghpk={}
+rooms[roomId].epghpk=[]
 
 rooms[roomId].card=[]
 
@@ -979,13 +967,7 @@ rooms[roomId].alps=0
 rooms[roomId].alps4=4
 
 
-}///if(rooms[roomId].epgh[i].ple==btoper){
-
-}///for(let i=0;i<rooms[roomId].epgh.length;i++){
-
-}///if(woep==btoper){
-
-}///if(rooms[roomId].epgh.length!=0){
+}///
 
 }///if(rooms[roomId].epghpk.length!=0){
 
@@ -1061,13 +1043,7 @@ return
 }
 
 
-if(rooms[roomId].alps3==rooms[roomId].players.length&&rooms[roomId].epgh.length!=0&&Object.keys(rooms[roomId].epghpk).length!=0){
-
-rooms[roomId].epgh.sort(function (a, b) {///
-
-return b.num - a.num
-
-});
+if(rooms[roomId].alps3==rooms[roomId].players.length&&rooms[roomId].epgh.length!=0&&rooms[roomId].epghpk.length!=0){
 
 rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].epgh[0].ple)
 
@@ -1077,7 +1053,7 @@ io.to(roomId).emit("caneph", JSON.stringify([rooms[roomId].epgh[0].ple,rooms[roo
 
 rooms[roomId].epgh=[]
 
-rooms[roomId].epghpk={}
+rooms[roomId].epghpk=[]
 
 rooms[roomId].alps3=0
 
