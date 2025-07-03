@@ -1,4 +1,4 @@
-const zutop = require("./zutop2")
+const zutop = require("./zutop")
 
 console.log(zutop["1"]);
 
