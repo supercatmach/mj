@@ -217,7 +217,7 @@ return
 
 if(ephchick==1&&ple!=0&&epgtw!="gun"&&epgtw!="tin"){///如果有吃碰槓.但是被強制取消則返回
 
-socket.emit("needgetcard",JSON.stringify([roomId,pled]));
+///socket.emit("needgetcard",JSON.stringify([roomId,pled]));
 
 ephchick=0
 }
