@@ -407,8 +407,8 @@ rooms[roomId].players2.reverse()
 
 }
 
-if (!rooms[roomId].epgh[socket.id]) rooms[roomId].epgh[socket.id] = [];
-rooms[roomId].epgh[socket.id].push(mrs);
+if (!rooms[roomId].epghpk[socket.id]) rooms[roomId].epghpk[socket.id] = [];
+rooms[roomId].epghpk[socket.id].push(mrs);
 
 })
 
