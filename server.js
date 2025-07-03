@@ -985,6 +985,34 @@ rooms[roomId].alps4=4
 
 }///if(woep==btoper){
 
+if(rooms[roomId].alps3==3){
+
+rooms[roomId].epgh.sort(function (a, b) {///
+
+return b.num - a.num
+
+});
+
+rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].epgh[0].ple)
+
+console.log(rooms[roomId].epgh[0].dwo,rooms[roomId].alps)
+
+io.to(roomId).emit("caneph", JSON.stringify([rooms[roomId].epgh[0].ple,rooms[roomId].epgh[0].mtd,rooms[roomId].epgh[0].dwo]));
+
+rooms[roomId].epgh=[]
+
+rooms[roomId].epghpk={}
+
+rooms[roomId].alps3=0
+
+rooms[roomId].alps=0
+
+rooms[roomId].alps4=4
+
+return
+
+}
+
 }///if(rooms[roomId].epgh.length!=0){
 
 }///if(rooms[roomId].epghpk.length!=0){
