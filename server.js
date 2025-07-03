@@ -425,7 +425,7 @@ console.log(rooms[roomId].epgh)
 
 rooms[roomId].alps3++
 
-needcaneph(roomId)
+needcaneph(roomId,socket.id)
 
 })
 
@@ -442,7 +442,7 @@ console.log(rooms[roomId].epgh)
 
 rooms[roomId].alps3++
 
-needcaneph(roomId)
+needcaneph(roomId,socket.id)
 
 })
 
@@ -457,7 +457,7 @@ rooms[roomId].epgh.push({"num":2,"ple":socket.id,"mtd":card,"dwo":"gun"})
 
 rooms[roomId].alps3++
 
-needcaneph(roomId)
+needcaneph(roomId,socket.id)
 
 })
 
@@ -490,7 +490,7 @@ rooms[roomId].epgh.push({"num":mra,"ple":socket.id,"mtd":card,"dwo":"win","lbmgd
 
 rooms[roomId].alps3++
 
-needcaneph(roomId)
+needcaneph(roomId,socket.id)
 
 })
 
@@ -514,7 +514,7 @@ rooms[roomId].epgh.push({"num":mra,"ple":socket.id,"mtd":card,"dwo":"mywin","lbm
 
 rooms[roomId].alps3++
 
-needcaneph(roomId)
+needcaneph(roomId,socket.id)
 
 })
 
@@ -858,7 +858,7 @@ io.to(rooms[roomId].players[rooms[roomId].makrs]).emit("getnewcard", JSON.string
 
 
 
-function needcaneph(roomId){
+function needcaneph(roomId,player){
 
 if(rooms[roomId].win==1){
 
@@ -873,7 +873,7 @@ return
 
 if(Object.keys(rooms[roomId].epghpk).length!=0){
 
-console.log("needcaneph",rooms[roomId].epghpk,rooms[roomId].epgh)
+console.log("needcaneph",rooms[roomId].epghpk,rooms[roomId].epgh,player)
 
 if(rooms[roomId].epgh.length!=0){
 
@@ -894,7 +894,7 @@ console.log("對應的 key:", maxKey); // "A02"
 
 
 
-const woep=rooms[roomId].players.indexOf(socket.id)
+const woep=player
 
 const btop=maxVal///最大值
 const btoper=maxKey///優先權的人
