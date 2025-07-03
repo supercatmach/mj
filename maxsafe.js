@@ -224,6 +224,8 @@ ephchick=0
 
 if(epgtw=="gun"&&card[0]!="X"&&card[1]=="X"){
 
+ephchick=0
+
 if(ple==0){
 
 delete plmgd[plmgd.indexOf(Number(card[3]))]
@@ -301,6 +303,8 @@ return
 
 if(epgtw=="gun"&&card[0]=="X"){
 
+ephchick=0
+
 if(ple==0){
 
 delete plmgd[plmgd.indexOf(Number(card[3]))]
@@ -327,6 +331,8 @@ return
 
 
 if(epgtw=="gun"&&card[0]!="X"&&card[1]!="X"){
+
+ephchick=0
 
 if(ple==0){
 
@@ -363,6 +369,8 @@ setTimeout(begStar,11000)
 ///////////////////////////////////
 
 if(epgtw=="eat"||epgtw=="pon"){
+
+ephchick=0
 
 if(ple==0){
 
@@ -1576,7 +1584,7 @@ return
 
 }
 
-if(ephchick==1&&(128-allmgds)>=5){
+if(ephchick==1&&(128-allmgds)>=5&&ple!=0){
 
 ///socket.emit("needgetcard",JSON.stringify([roomId,pled]));
 
