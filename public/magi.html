@@ -3564,6 +3564,7 @@ lomgd=[[],[],[],[]]///四個玩家聽的牌
 
 etnum=[0,0,0,0]///四個玩家吃碰槓的組數
 
+
 myturn=0///我可以捨牌的情況
 
 pldname=["muhandaury","nexthandaury","fonthandaury","lasthandaury"]
@@ -4925,6 +4926,8 @@ ephchick=0
 
 $(".gun"+ple).show()
 
+
+
 for(let s=0;s<4;s++){
 
 $("."+pldname[ple]+" .e"+allet[ple]+" .c1").html('<img src="mach/0.png?v=2" style="width:60px;height:80px;">')
@@ -4942,6 +4945,8 @@ $("."+pldname[ple]+" .e"+allet[ple]+" .c6").html('<img src="mach/u.png?v=2" styl
 $("."+pldname[ple]+" .e"+allet[ple]).show().animate({top:"0px",left:"0px"},200);
 
 allet[ple]++
+
+ramgd[ple].psuh("X")
 
 if(ple==0&&s==2){
 
@@ -6656,6 +6661,18 @@ plmgd.forEach(function(x) { cpf[x] = (cpf[x] || 0)+1; })///計算出現過的總
 
 rlmgd[pled].forEach(function(x) { cpf[x] = (cpf[x] || 0)+1; })///計算出現過的總張數
 
+for(let i=3;i<20;i++){
+
+if(rlmgd[pled][i]!=undefined){
+
+cpf[rlmgd[pled][i]]--
+
+}
+
+i+=3
+
+}
+
 for(let i=28;i<35;i++){
 
 cpf[i]=(cpf[i]==4)?3:cpf[i]
@@ -6736,6 +6753,8 @@ whtai.push("清一色")
 break
 
 }
+
+console.log(biword,nuword)
 
 if(biword+nuword==17&&biword>0){
 

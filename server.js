@@ -985,34 +985,6 @@ rooms[roomId].alps4=4
 
 }///if(woep==btoper){
 
-if(rooms[roomId].alps3==3){
-
-rooms[roomId].epgh.sort(function (a, b) {///
-
-return b.num - a.num
-
-});
-
-rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].epgh[0].ple)
-
-console.log(rooms[roomId].epgh[0].dwo,rooms[roomId].alps)
-
-io.to(roomId).emit("caneph", JSON.stringify([rooms[roomId].epgh[0].ple,rooms[roomId].epgh[0].mtd,rooms[roomId].epgh[0].dwo]));
-
-rooms[roomId].epgh=[]
-
-rooms[roomId].epghpk={}
-
-rooms[roomId].alps3=0
-
-rooms[roomId].alps=0
-
-rooms[roomId].alps4=4
-
-return
-
-}
-
 }///if(rooms[roomId].epgh.length!=0){
 
 }///if(rooms[roomId].epghpk.length!=0){
@@ -1042,6 +1014,67 @@ return
 rooms[roomId].alps3++
 
 console.log("needgetcard",rooms[roomId].alps3,socket.id)
+
+if(rooms[roomId].epghpk[socket.id].length!=0){
+
+
+let maxVal = -Infinity;
+let maxKey = null;
+
+for (let key in rooms[roomId].epghpk) {
+  let arr = rooms[roomId].epghpk[key];
+  let localMax = Math.max(...arr); // 找出這個 key 的陣列最大值
+  if (localMax > maxVal) {
+    maxVal = localMax;
+    maxKey = key;
+  }
+}
+
+console.log("最大值:", maxVal);   // 2
+console.log("對應的 key:", maxKey); // "A02"
+
+
+
+const woep=socket.id
+
+const btop=maxVal///最大值
+const btoper=maxKey///優先權的人
+
+if(woep==btoper){
+
+rooms[roomId].epghpk[socket.id]=[]///放棄優先權
+
+}
+
+if(rooms[roomId].alps3==rooms[roomId].players.length&&rooms[roomId].epgh.length!=0&&Object.keys(rooms[roomId].epghpk).length!=0){
+
+rooms[roomId].epgh.sort(function (a, b) {///
+
+return b.num - a.num
+
+});
+
+rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].epgh[0].ple)
+
+console.log(rooms[roomId].epgh[0].dwo,rooms[roomId].alps)
+
+io.to(roomId).emit("caneph", JSON.stringify([rooms[roomId].epgh[0].ple,rooms[roomId].epgh[0].mtd,rooms[roomId].epgh[0].dwo]));
+
+rooms[roomId].epgh=[]
+
+rooms[roomId].epghpk={}
+
+rooms[roomId].alps3=0
+
+rooms[roomId].alps=0
+
+rooms[roomId].alps4=4
+
+return
+
+}
+
+}
 
 rooms[roomId].alps++
 
