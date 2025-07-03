@@ -1015,7 +1015,7 @@ rooms[roomId].alps3++
 
 console.log("needgetcard",rooms[roomId].alps3,socket.id)
 
-if(rooms[roomId].epghpk[socket.id].length!=0){
+if(Array.isArray(rooms[roomId].epghpk[socket.id]) &&rooms[roomId].epghpk[socket.id].length!=0){
 
 
 let maxVal = -Infinity;
