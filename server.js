@@ -871,9 +871,9 @@ return
 
 }
 
-const btop=0
-
 if(Object.keys(rooms[roomId].epghpk).length!=0){
+
+console.log("needcaneph",rooms[roomId].epghpk,rooms[roomId].epgh)
 
 if(rooms[roomId].epgh.length!=0){
 
