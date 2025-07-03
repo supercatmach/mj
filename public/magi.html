@@ -6868,6 +6868,9 @@ whtai.push("圈風")
 dimwincad=0///扣除胡的牌
 
 dubnum = 0;
+
+ineyes=0
+
 cpf = Array(35).fill(0);
 
 if(mytsale!=1){///非自摸 扣掉胡牌
@@ -6876,6 +6879,17 @@ if(mytsale!=1){///非自摸 扣掉胡牌
   if (idx !== -1) plmgd.splice(idx, 1);
   plmgd.sort((a, b) => a - b);
 
+sortCad()
+
+if(crdeye==0){
+
+plmgd.push(wincad);
+plmgd.sort((a, b) => a - b);
+
+ineyes=1
+
+}
+
 }
 
 // 統計手牌張數
@@ -6883,37 +6897,63 @@ for (let i = 0; i < plmgd.length; i++) {
   cpf[plmgd[i]]++;
 }
 
-for (let i = 1; i < 35; i++) {
-  if (cpf[i] >= 3) {
-    // 先記錄原本的 tsp
-    sortCad();
-    const baseTSP = manum + ((crdeye > 0) ? 1 : 0);
+let i = 1;
 
-    // 直接在 plmgd 中移除三張相同的牌
-    let count = 0;
-    for (let j = plmgd.length - 1; j >= 0; j--) {
+let used = Array(35).fill(false); // 防止重複試同一個牌
+
+while (i < 35) {
+  if (cpf[i] >= 3 && !used[i]) {
+    sortCad();
+    let baseTSP = manum + ((crdeye > 0) ? 1 : 0);
+
+    // 移除三張牌 i
+    let removed = [];
+    for (let j = plmgd.length - 1; j >= 0 && removed.length < 3; j--) {
       if (plmgd[j] === i) {
+        removed.push(plmgd[j]);
         plmgd.splice(j, 1);
-        count++;
-        if (count === 3) break;
       }
     }
 
-    // 再次計算 tsp
     sortCad();
     const newTSP = manum + ((crdeye > 0) ? 1 : 0);
 
-    if (newTSP === baseTSP - 1) {
+    if (newTSP === baseTSP - 1 && crdeye > 0) {
       dubnum++;
+      // 已經成功處理，不用還原
+      used = Array(35).fill(false); // 重置 used（可能影響別的牌）
+      i = 1; // 重新開始
+    } else {
+      // 沒成功，還原
+      plmgd = plmgd.concat(removed);
+      plmgd.sort((a, b) => a - b);
+      used[i] = true; // 加入黑名單，下次不再試
+      i++; // 試下一張
     }
 
-    // 若是 -2 則不動作
-    // 若需要處理多個三張組合，請更新 cpf[i] -= 3
+    // 重建 cpf
+    cpf = Array(35).fill(0);
+    for (let k = 0; k < plmgd.length; k++) {
+      cpf[plmgd[k]]++;
+    }
+  } else {
+    i++;
   }
 }
 
 
-if(dubnum==5&&manum+etnum[pled]==0){///五暗刻
+if(mytsale!=1&&ineyes==0){///非自摸 扣掉胡牌
+
+plmgd.push(wincad);
+plmgd.sort((a, b) => a - b);
+
+}
+
+sortCad()
+
+
+
+if(dubnum==5&&manum+etnum[pled]==0&&crdeye==1){///五暗刻
 
 yk0=yk0+8
 
@@ -6921,7 +6961,7 @@ whtai.push("五暗刻")
 
 }
 
-if(dubnum==4&&manum+etnum[pled]==1){///四暗刻
+if(dubnum==4&&manum+etnum[pled]==1&&crdeye==1){///四暗刻
 
 yk0=yk0+5
 
@@ -6929,7 +6969,7 @@ whtai.push("四暗刻")
 
 }
 
-if(dubnum==3&&manum+etnum[pled]==2){///三暗刻
+if(dubnum==3&&manum+etnum[pled]==2&&crdeye==1){///三暗刻
 
 yk0=yk0+2
 
@@ -6950,35 +6990,51 @@ cpf = Array(35).fill(0);
 for (let i = 0; i < plmgd.length; i++) {
   cpf[plmgd[i]]++;
 }
+i = 1;
+used = Array(35).fill(false); // 防止重複試同一個牌
 
-for (let i = 1; i < 35; i++) {
-  if (cpf[i] >= 3) {
-    // 先記錄原本的 tsp
+while (i < 35) {
+  if (cpf[i] >= 3 && !used[i]) {
     sortCad();
-    const baseTSP = manum + ((crdeye > 0) ? 1 : 0);
+    let baseTSP = manum + ((crdeye > 0) ? 1 : 0);
 
-    // 直接在 plmgd 中移除三張相同的牌
-    let count = 0;
-    for (let j = plmgd.length - 1; j >= 0; j--) {
+    // 移除三張牌 i
+    let removed = [];
+    for (let j = plmgd.length - 1; j >= 0 && removed.length < 3; j--) {
       if (plmgd[j] === i) {
+        removed.push(plmgd[j]);
         plmgd.splice(j, 1);
-        count++;
-        if (count === 3) break;
       }
     }
 
-    // 再次計算 tsp
     sortCad();
     const newTSP = manum + ((crdeye > 0) ? 1 : 0);
 
-    if (newTSP === baseTSP - 1) {
+    if (newTSP === baseTSP - 1 && crdeye > 0) {
       dubnum++;
+      // 已經成功處理，不用還原
+      used = Array(35).fill(false); // 重置 used（可能影響別的牌）
+      i = 1; // 重新開始
+    } else {
+      // 沒成功，還原
+      plmgd = plmgd.concat(removed);
+      plmgd.sort((a, b) => a - b);
+      used[i] = true; // 加入黑名單，下次不再試
+      i++; // 試下一張
     }
 
-    // 若是 -2 則不動作
-    // 若需要處理多個三張組合，請更新 cpf[i] -= 3
+    // 重建 cpf
+    cpf = Array(35).fill(0);
+    for (let k = 0; k < plmgd.length; k++) {
+      cpf[plmgd[k]]++;
+    }
+  } else {
+    i++;
   }
 }
+
+sortCad()
+
 
 plmgd=JSON.parse(JSON.stringify(bkmgd))///還原
 

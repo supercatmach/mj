@@ -406,32 +406,37 @@ outcard(card[1])
 
 ////////////////////////////////////////////////////////////////////
 function getCantOutCards(card, epgtw) {
-  const cantoutcd = [Number(card[1])]; // 中間牌 (吃碰的那張牌) 必不能捨
+  const cantoutcd = [Number(card[1])]; // 中間牌必不能捨
 
   if (epgtw === "eat") {
     const c0 = Number(card[0]);
-    const c1 = Number(card[1]); // mtd 一定在中間
+    const c1 = Number(card[1]); // 中間
     const c2 = Number(card[2]);
 
-    // +1+2 檢查：mtd 最小
-    if (c1 < c0 && c1 < c2) {
-      const protect = c1 + 3;
-      if (isSameSuit(c1, protect)) cantoutcd.push(protect);
+    const min = Math.min(c0, c1, c2);
+    const max = Math.max(c0, c1, c2);
+
+    const isValidSuit = (a, b) => isSameSuit(a, b);
+
+    // 向下吃（如 2,3,4）-> mtd 是最大值 -> 保護 min -1
+    if (c1 === max) {
+      const protect = min - 1;
+      if (isValidSuit(min, protect)) cantoutcd.push(protect);
     }
 
-    // -1-2 檢查：mtd 最大
-    if (c1 > c0 && c1 > c2) {
-      const protect = c1 - 3;
-      if (isSameSuit(c1, protect)) cantoutcd.push(protect);
+    // 向上吃（如 4,5,6）-> mtd 是最小值 -> 保護 max +1
+    else if (c1 === min) {
+      const protect = max + 1;
+      if (isValidSuit(max, protect)) cantoutcd.push(protect);
     }
 
-    // +1-1 情況：中間值，無需額外保護
+    // 中間吃（如 3,4,5），不需要額外保護
   }
 
   return cantoutcd;
 }
 
-// 判斷是否同一花色區間：萬(1~9)、條(10~18)、筒(19~27)
+// 判斷是否同一花色
 function isSameSuit(a, b) {
   return Math.ceil(a / 9) === Math.ceil(b / 9);
 }

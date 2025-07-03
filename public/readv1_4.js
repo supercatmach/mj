@@ -3060,48 +3060,96 @@ dubnum=0
 
 dimwincad=0///扣除胡的牌
 
-cpd=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-
-plmgd[pled].forEach(function(x) { cpd[x] = (cpd[x] || 0)+1; })///計算出現過的總張數
-
-ramgd[pled].forEach(function(x) { cpd[x] = (cpd[x] || 0)+1; })///暗槓
-
-for(let i=1;i<35;i++){
-
-if(cpd[i]==3||cpd[i]==4&&ramgd[pled].indexOf(i)!=-1){
-
-dubnum++
-
-if(dimwincad==0){
-
-dimwincad=(mytsale==0&&i==wincad)?1:0
-
-}
-
-if(cpd[i]==3){
-
-for(let s=0;s<3;s++){
-
-delete plmgd[pled][plmgd[pled].indexOf(i)]
-
-plmgd[pled]=plmgd[pled].filter(Number)
-
-}
-
-}
-
-}
-
-}
+plmgd[pled]=plmgd[pled].concat(ramgd[pled])
 
 
-plmgd[pled].sort(function (a, b) {
+dubnum = 0;
 
-return a - b
+ineyes=0
 
-});
+cpf = Array(35).fill(0);
+
+if(mytsale!=1){///非自摸 扣掉胡牌
+
+  const idx = plmgd[pled].indexOf(wincad);
+  if (idx !== -1) plmgd[pled].splice(idx, 1);
+  plmgd[pled].sort((a, b) => a - b);
 
 sortCad()
+
+if(crdeye==0){
+
+plmgd[pled].push(wincad);
+plmgd[pled].sort((a, b) => a - b);
+
+ineyes=1
+
+}
+
+}
+
+// 統計手牌張數
+for (let i = 0; i < plmgd[pled].length; i++) {
+
+  cpf[plmgd[pled][i]]++;
+
+}
+
+
+let i = 1;
+let used = Array(35).fill(false); // 防止重複試同一個牌
+
+while (i < 35) {
+  if (cpf[i] >= 3 && !used[i]) {
+    sortCad();
+    let baseTSP = manum + ((crdeye > 0) ? 1 : 0);
+
+    // 移除三張牌 i
+    let removed = [];
+    for (let j = plmgd[pled].length - 1; j >= 0 && removed.length < 3; j--) {
+      if (plmgd[pled][j] === i) {
+        removed.push(plmgd[pled][j]);
+        plmgd[pled].splice(j, 1);
+      }
+    }
+
+    sortCad();
+    const newTSP = manum + ((crdeye > 0) ? 1 : 0);
+
+    if (newTSP === baseTSP - 1 && crdeye > 0) {
+      dubnum++;
+      // 已經成功處理，不用還原
+      used = Array(35).fill(false); // 重置 used（可能影響別的牌）
+      i = 1; // 重新開始
+    } else {
+      // 沒成功，還原
+      plmgd[pled] = plmgd[pled].concat(removed);
+      plmgd[pled].sort((a, b) => a - b);
+      used[i] = true; // 加入黑名單，下次不再試
+      i++; // 試下一張
+    }
+
+    // 重建 cpf
+    cpf = Array(35).fill(0);
+    for (let k = 0; k < plmgd[pled].length; k++) {
+      cpf[plmgd[pled][k]]++;
+    }
+  } else {
+    i++;
+  }
+}
+
+
+if(mytsale!=1&&ineyes==0){///非自摸 扣掉胡牌
+
+plmgd[pled].push(wincad);
+plmgd[pled].sort((a, b) => a - b);
+
+}
+
+sortCad()
+
+
 
 if(dubnum==5&&crdeye==1&&manum+eemgd[pled]==0&&dimwincad==0){///五暗刻
 
@@ -3261,7 +3309,7 @@ localStorage.setItem("ch8", 0);
 
 ///////////////////////////////////////////////////////
 
-if(allmgd.length==127&&mytsale==1){///海底撈月
+if(allmgd.length==128&&mytsale==1){///海底撈月
 
 yk0+=1
 
@@ -3269,7 +3317,7 @@ whtai.push("海底撈月")
 
 }
 
-if(allmgd.length==127&&mytsale==0){///河底撈魚
+if(allmgd.length==128&&mytsale==0){///河底撈魚
 
 yk0+=1
 
@@ -4237,6 +4285,8 @@ winpled=(winpled+1<4)?winpled+1:0
 
 pled=pledbk
 
+if(allmgd.length<125){
+
 gunpled=(pled+1<4)?pled+1:0
 
 for(let i=0;i<4;i++){
@@ -4357,6 +4407,8 @@ plmgd[pled]=JSON.parse(JSON.stringify(bkmgd[pled]))///還原
 
 }
 
+}
+
 pled=pledbk
 
 ponafter()
@@ -4368,6 +4420,8 @@ ponafter()
 function ponafter(){
 
 pledbk=pled
+
+if(allmgd.length<125){
 
 for(let i=0;i<4;i++){///碰牌
 
@@ -4577,6 +4631,8 @@ pled=pledbk
 
 }
 
+}
+
 eatafter()
 
 }
@@ -4589,6 +4645,8 @@ function eatafter(){
 ////////////////////////////////////
 
 pledbk=pled
+
+if(allmgd.length<125){
 
 eatout=0///吃牌後的捨牌判斷
 
@@ -4988,6 +5046,8 @@ setTimeout('outCad()',500)
 
 
 return
+
+}
 
 }
 
