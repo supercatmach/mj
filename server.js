@@ -531,7 +531,11 @@ console.log("取消"+card)
 
 delete rooms[roomId].epghpk[socket.id]
 
+if(!rooms[roomId].epgh.some(obj => obj.ple === socket.id)){
+
 rooms[roomId].alps4[card]++
+
+}
 
 rooms[roomId].alps++
 
@@ -740,6 +744,10 @@ rooms[roomId].allmgd[n]++
 
 rooms[roomId].allmgd2++
 
+rooms[roomId].epgh=[]
+
+rooms[roomId].epghpk={}
+
 rooms[roomId].resn=0
 
 console.log("剩下張數:"+(128-rooms[roomId].allmgd2))
@@ -790,6 +798,10 @@ rooms[roomId].allmgd[n]++
 
 rooms[roomId].allmgd2++
 
+rooms[roomId].epgh=[]
+
+rooms[roomId].epghpk={}
+
 rooms[roomId].resn=0
 
 console.log("剩下張數:"+(128-rooms[roomId].allmgd2))
@@ -834,6 +846,10 @@ if(rooms[roomId].allmgd2<128){
 rooms[roomId].allmgd[n]++
 
 rooms[roomId].allmgd2++
+
+rooms[roomId].epgh=[]
+
+rooms[roomId].epghpk={}
 
 rooms[roomId].resn=0
 
@@ -1043,8 +1059,6 @@ rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].epgh[i].ple)
 
 rooms[roomId].alps=0
 
-rooms[roomId].epgh=[]
-
 rooms[roomId].epghpk={}
 
 rooms[roomId].card=[]
@@ -1091,8 +1105,6 @@ rooms[roomId].card=[]
 console.log("新莊家:"+rooms[roomId].makrs)
 
 }///if(rooms[roomId].epgh[i].dwo=="win"||rooms[roomId].epgh[i].dwo=="mywin"){
-
-rooms[roomId].epgh=[]
 
 rooms[roomId].epghpk={}
 
