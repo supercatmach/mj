@@ -1063,8 +1063,6 @@ rooms[roomId].epghpk={}
 
 rooms[roomId].card=[]
 
-rooms[roomId].alps4=[rooms[roomId].players.length,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-
 return
 
 }///if(rooms[roomId].epgh[i].dwo=="gun"&&rooms[roomId].epgh[i].mtd[1]=="X"){

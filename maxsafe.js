@@ -222,13 +222,14 @@ return
 
 }
 
-if(ephchick==1&&ple!=0&&epgtw!="gun"&&epgtw!="tin"){///如果有吃碰槓.但是被強制取消則返回
+if(ephchick==1&&ple!=0&&epgtw!="tin"){///如果有吃碰槓.但是被強制取消則返回
 
 ///socket.emit("needgetcard",JSON.stringify([roomId,pled,card[1]]));
 
 socket.emit("noepgh",JSON.stringify([roomId,card[1]]));
 
 ephchick=0
+
 }
 
 if(epgtw=="gun"&&card[0]!="X"&&card[1]=="X"){
