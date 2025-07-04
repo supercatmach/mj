@@ -531,7 +531,7 @@ console.log("取消"+card)
 
 delete rooms[roomId].epghpk[socket.id]
 
-rooms[roomId].alps4[card[1]]++
+rooms[roomId].alps4[card]++
 
 rooms[roomId].alps++
 
