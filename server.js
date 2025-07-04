@@ -1079,7 +1079,7 @@ return
 
 }
 
-if(rooms[roomId].alps4[rooms[roomId].resn]!="不吃碰"){
+if(rooms[roomId].resn!="不吃碰"){
 
 rooms[roomId].alps4[rooms[roomId].resn]++
 
