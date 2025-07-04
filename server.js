@@ -291,11 +291,11 @@ console.log("收到房間邀請AI",roomId)
 
         }
 
-runClient('')
+///runClient('')
 
-io.emit("wantinvit", roomId);
+///io.emit("wantinvit", roomId);
 
-return
+///return
 
 if(Object.keys(allAIID).length>0){
 
@@ -324,7 +324,7 @@ console.log(allAIID)
 
 if(Object.keys(allAIID).length>=10){ return}
 
-///runClient('')
+runClient('')
 
 ///opeAI()
 
@@ -488,7 +488,7 @@ console.log(rooms[roomId].epgh)
 
 rooms[roomId].alps3++
 
-rooms[roomId].alps4[rooms[roomId].epgh[i].card[1]]++
+rooms[roomId].alps4[card[1]]++
 
 needcaneph(roomId,socket.id)
 
@@ -507,7 +507,7 @@ console.log(rooms[roomId].epgh)
 
 rooms[roomId].alps3++
 
-rooms[roomId].alps4[rooms[roomId].epgh[i].card[1]]++
+rooms[roomId].alps4[card[1]]++
 
 needcaneph(roomId,socket.id)
 
@@ -559,7 +559,7 @@ rooms[roomId].epgh.push({"num":mra,"ple":socket.id,"mtd":card,"dwo":"win","lbmgd
 
 rooms[roomId].alps3++
 
-rooms[roomId].alps4[rooms[roomId].epgh[i].card[1]]++
+rooms[roomId].alps4[card[card.length-1]]++
 
 needcaneph(roomId,socket.id)
 
@@ -585,7 +585,7 @@ rooms[roomId].epgh.push({"num":mra,"ple":socket.id,"mtd":card,"dwo":"mywin","lbm
 
 rooms[roomId].alps3++
 
-rooms[roomId].alps4[rooms[roomId].epgh[i].card[1]]++
+rooms[roomId].alps4[card[card.length-1]]++
 
 needcaneph(roomId,socket.id)
 
