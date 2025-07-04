@@ -1136,6 +1136,33 @@ return
 
 }
 
+
+if(rooms[roomId].alps4[card[1]]==rooms[roomId].players.length&&rooms[roomId].card.length!=0){
+
+console.log("玩家:"+rooms[roomId].card[0]+"打出牌:"+rooms[roomId].card[1],rooms[roomId].alps)
+
+rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].card[0])
+
+rooms[roomId].alps=0
+
+rooms[roomId].alps3=0
+
+rooms[roomId].epgh=[]
+
+rooms[roomId].epghpk={}
+
+rooms[roomId].alps4=[rooms[roomId].players.length,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+io.to(roomId).emit("outcard", JSON.stringify(rooms[roomId].card));
+
+rooms[roomId].card=[]
+
+
+
+return
+
+}
+
 }
 
 
