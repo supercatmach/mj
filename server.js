@@ -764,7 +764,11 @@ socket.on("outchak", (roomIdinf) => {
 const  roomId=JSON.parse(roomIdinf)[0]
 const card=JSON.parse(roomIdinf)[1]
 
+if(card==rooms[roomId].card[1]){
+
 rooms[roomId].alps2++
+
+}
 
 console.log("outchak",rooms[roomId].alps2,socket.id)
 
