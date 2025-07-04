@@ -320,9 +320,10 @@ rooms[roomId].allmgd=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 rooms[roomId].outmgd=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 rooms[roomId].alps=0
 rooms[roomId].alps3=0
-rooms[roomId].alps4=4
+rooms[roomId].alps4=[rooms[roomId].players,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 rooms[roomId].epgh=[]
 rooms[roomId].pled=0
+rooms[roomId].resn=0
 rooms[roomId].epghpk={}
 rooms[roomId].players2=[]
 rooms[roomId].makrs=0///莊家
@@ -526,9 +527,10 @@ rooms[roomId].allmgd=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 rooms[roomId].outmgd=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 rooms[roomId].epgh=[]
 rooms[roomId].pled=0
+rooms[roomId].resn=0
 rooms[roomId].alps=0
 rooms[roomId].alps3=0
-rooms[roomId].alps4=4
+rooms[roomId].alps4=[rooms[roomId].players,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 rooms[roomId].epghpk={}
 rooms[roomId].players2=[]
 rooms[roomId].win=0///胡牌
@@ -611,6 +613,8 @@ rooms[roomId].allmgd[n]++
 
 rooms[roomId].allmgd2++
 
+rooms[roomId].resn=0
+
 console.log("剩下張數:"+(128-rooms[roomId].allmgd2))
 
 console.log("發送給玩家:"+socket.id+"牌:"+n)
@@ -620,14 +624,6 @@ io.to(roomId).emit("getnewcard2", JSON.stringify(socket.id));
 io.to(socket.id).emit("getnewcard", JSON.stringify(n));
 
 rooms[roomId].pled=rooms[roomId].players.indexOf(socket.id)
-
-
-
-if(rooms[roomId].stat==1){
-
-rooms[roomId].alps4=4
-
-}
 
 }
 
@@ -667,13 +663,13 @@ rooms[roomId].allmgd[n]++
 
 rooms[roomId].allmgd2++
 
+rooms[roomId].resn=0
+
 console.log("剩下張數:"+(128-rooms[roomId].allmgd2))
 
 console.log("發送給玩家:"+neepl+"牌:"+n)
 
 rooms[roomId].pled=rooms[roomId].players.indexOf(neepl)
-
-rooms[roomId].alps4=4
 
 io.to(roomId).emit("getnewcard2", JSON.stringify(neepl));
 
@@ -712,6 +708,8 @@ rooms[roomId].allmgd[n]++
 
 rooms[roomId].allmgd2++
 
+rooms[roomId].resn=0
+
 console.log("剩下張數:"+(128-rooms[roomId].allmgd2))
 
 console.log("發送給玩家:"+socket.id+"牌:"+n)
@@ -719,8 +717,6 @@ console.log("發送給玩家:"+socket.id+"牌:"+n)
 io.to(roomId).emit("getnewcard2", JSON.stringify(socket.id));
 
 io.to(socket.id).emit("getnewcard", JSON.stringify(n));
-
-rooms[roomId].alps4=4
 
 rooms[roomId].pled=rooms[roomId].players.indexOf(socket.id)
 
@@ -740,7 +736,7 @@ rooms[roomId].epghpk={}
 
 console.log("outcard",rooms[roomId].alps4,socket.id)
 
-if(rooms[roomId].alps4==rooms[roomId].players.length){
+if(rooms[roomId].alps4[rooms[roomId].resn]==rooms[roomId].players.length){
 
 console.log("玩家:"+rooms[roomId].card[0]+"打出牌:"+rooms[roomId].card[1],rooms[roomId].alps)
 
@@ -750,7 +746,7 @@ rooms[roomId].alps=0
 
 rooms[roomId].alps3=0
 
-rooms[roomId].alps4=0
+rooms[roomId].alps4=[rooms[roomId].players,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 
 rooms[roomId].epgh=[]
 
@@ -790,7 +786,7 @@ rooms[roomId].outmgd=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 
 rooms[roomId].alps=0
 
-rooms[roomId].alps4=0
+rooms[roomId].alps4=[rooms[roomId].players,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 
 io.to(roomId).emit("outchak", JSON.stringify([socket.id ,card]));
 
@@ -857,6 +853,7 @@ io.to(roomId).emit("getnewcard2", JSON.stringify(rooms[roomId].players[rooms[roo
 
 io.to(rooms[roomId].players[rooms[roomId].makrs]).emit("getnewcard", JSON.stringify(n));
 
+rooms[roomId].resn=0
 
 }
 
@@ -925,7 +922,7 @@ rooms[roomId].alps3=0
 
 rooms[roomId].alps=0
 
-rooms[roomId].alps4=4
+rooms[roomId].alps4[rooms[roomId].epgh[i].mtd[1]]++
 
 rooms[roomId].epgh=[]
 
@@ -984,7 +981,7 @@ rooms[roomId].alps3=0
 
 rooms[roomId].alps=0
 
-rooms[roomId].alps4=4
+rooms[roomId].alps4[rooms[roomId].epgh[i].mtd[1]]++
 
 
 }///if(rooms[roomId].epgh[i].ple==btoper){
@@ -1006,6 +1003,8 @@ const  roomId=JSON.parse(roomIdinf)[0]
 const ple=JSON.parse(roomIdinf)[1]
 const resn=JSON.parse(roomIdinf)[2]
 
+rooms[roomId].resn=resn
+
 if(rooms[roomId].win==1){
 
 rooms[roomId].alps=0
@@ -1019,6 +1018,11 @@ return
 
 }
 
+if(rooms[roomId].alps4[rooms[roomId].resn]!="不吃碰"){
+
+rooms[roomId].alps4[rooms[roomId].resn]++
+
+}
 
 rooms[roomId].alps3++
 
@@ -1077,7 +1081,7 @@ rooms[roomId].alps3=0
 
 rooms[roomId].alps=0
 
-rooms[roomId].alps4=4
+rooms[roomId].alps4[rooms[roomId].epgh[0].mtd[1]]++
 
 return
 
@@ -1101,7 +1105,7 @@ rooms[roomId].alps=0
 
 rooms[roomId].alps3=0
 
-rooms[roomId].alps4=4
+rooms[roomId].alps4=[rooms[roomId].players,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 
 let nexpled=(rooms[roomId].pled+1<rooms[roomId].players.length)?rooms[roomId].players[rooms[roomId].pled+1]:rooms[roomId].players[0]
 
@@ -1110,7 +1114,7 @@ return
 }
 
 
-if(rooms[roomId].alps4==rooms[roomId].players.length&&rooms[roomId].card.length!=0){
+if(rooms[roomId].alps4[rooms[roomId].resn]==rooms[roomId].players.length&&rooms[roomId].card.length!=0){
 
 console.log("玩家:"+rooms[roomId].card[0]+"打出牌:"+rooms[roomId].card[1],rooms[roomId].alps)
 
@@ -1120,7 +1124,7 @@ rooms[roomId].alps=0
 
 rooms[roomId].alps3=0
 
-rooms[roomId].alps4=4
+rooms[roomId].alps4=[rooms[roomId].players,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 
 io.to(roomId).emit("outcard", JSON.stringify(rooms[roomId].card));
 
@@ -1153,7 +1157,7 @@ rooms[roomId].alps3=0
 
 rooms[roomId].alps=0
 
-rooms[roomId].alps4=4
+rooms[roomId].alps4[rooms[roomId].epgh[0].mtd[1]]++
 
 return
 
