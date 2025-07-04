@@ -320,6 +320,12 @@ if (allAIID[socket.id] === undefined) {
 }
 console.log("AI上線",neme,socket.id)
 
+console.log(allAIID)
+
+if(Object.keys(allAIID).length>=10){ return}
+
+///runClient('')
+
 ///opeAI()
 
 })
@@ -1027,6 +1033,8 @@ console.log("新莊家:"+rooms[roomId].makrs)
 
 }///if(rooms[roomId].epgh[i].dwo=="win"||rooms[roomId].epgh[i].dwo=="mywin"){
 
+rooms[roomId].alps4[rooms[roomId].epgh[i].mtd[1]]++
+
 rooms[roomId].epgh=[]
 
 rooms[roomId].epghpk={}
@@ -1036,9 +1044,6 @@ rooms[roomId].card=[]
 rooms[roomId].alps3=0
 
 rooms[roomId].alps=0
-
-rooms[roomId].alps4[rooms[roomId].epgh[i].mtd[1]]++
-
 
 }///if(rooms[roomId].epgh[i].ple==btoper){
 
