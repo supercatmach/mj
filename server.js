@@ -252,6 +252,8 @@ rooms[roomId].playerpic = rooms[roomId].playerpic.filter(p => p.playerId !== soc
 
 io.to(roomId).emit("allche", JSON.stringify(rooms[roomId].playerpic));
 
+delete allAIID[socket.id];
+
             io.to(roomId).emit("playerDisconnected", { playerId: socket.id });
 
             // 是房主或房間沒人 => 移除整個房間
@@ -289,6 +291,10 @@ console.log("收到房間邀請AI",roomId)
 
         }
 
+runClient('')
+
+io.emit("wantinvit", roomId);
+
 if(Object.keys(allAIID).length>0){
 
 io.to(Object.keys(allAIID)[0]).emit("wantinvit", roomId);
@@ -297,7 +303,7 @@ delete allAIID[Object.keys(allAIID)[0]];
 
 }
 
-opeAI()
+///opeAI()
 
 
 });
@@ -312,7 +318,7 @@ if (allAIID[socket.id] === undefined) {
 }
 console.log("AI上線",neme,socket.id)
 
-opeAI()
+///opeAI()
 
 })
 
