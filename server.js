@@ -770,6 +770,7 @@ socket.on("outchak", (roomIdinf) => {
 const  roomId=JSON.parse(roomIdinf)[0]
 const card=JSON.parse(roomIdinf)[1]
 
+
 rooms[roomId].outmgd[card]++
 
 
@@ -1003,6 +1004,7 @@ socket.on("needgetcard", (roomIdinf) => {
 
 const  roomId=JSON.parse(roomIdinf)[0]
 const ple=JSON.parse(roomIdinf)[1]
+const resn=JSON.parse(roomIdinf)[2]
 
 if(rooms[roomId].win==1){
 
@@ -1020,7 +1022,7 @@ return
 
 rooms[roomId].alps3++
 
-console.log("needgetcard",rooms[roomId].alps3,socket.id)
+console.log("needgetcard",rooms[roomId].alps3,socket.id,resn)
 
 if(Array.isArray(rooms[roomId].epghpk[socket.id]) &&rooms[roomId].epghpk[socket.id][0]!=0){
 

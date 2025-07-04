@@ -3051,7 +3051,7 @@ $("."+pldname[0]+" .d"+i+" div").css("filter","sepia(0%) brightness(100%)")
 
 $(".etpghword img").hide();
 
-socket.emit("needgetcard",JSON.stringify([roomId,pled]));
+socket.emit("needgetcard",JSON.stringify([roomId,pled,"不吃碰"]));
 
 
 ephchick=(ephchick==0)?0:1
@@ -6212,7 +6212,7 @@ console.log("本家無吃碰")
 
 socket.emit("outchak",JSON.stringify([roomId,mtd]));
 
-console.log("傳送確認吃碰槓")
+console.log("傳送確認吃碰槓",mtd)
 
 });
 
@@ -6269,7 +6269,9 @@ return
 
 if(ephchick==0){///如果沒有吃碰槓胡則返回
 
-socket.emit("needgetcard",JSON.stringify([roomId,pled]));
+socket.emit("needgetcard",JSON.stringify([roomId,pled,mtd]));
+
+console.log("needgetcard",mtd)
 
 }
 

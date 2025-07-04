@@ -1615,7 +1615,7 @@ return
 
 if(ephchick==0||(128-allmgds)<5&&ephchick==1){///如果沒有吃碰槓胡則返回
 
-socket.emit("needgetcard",JSON.stringify([roomId,pled]));
+socket.emit("needgetcard",JSON.stringify([roomId,pled,mtd]));
 
 }
 
@@ -1764,7 +1764,7 @@ if (result&&result.source!="V22") {
 
 ephchick=0
 
-socket.emit("needgetcard",JSON.stringify([roomId,pled]));
+socket.emit("needgetcard",JSON.stringify([roomId,pled,"不吃碰"]));
 
  console.log("不吃碰",plmgd)
 
