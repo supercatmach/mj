@@ -151,9 +151,9 @@ opeAI()
 }
 
 
-setTimeout(() => {
-
 allAIID={}///空閒的AI
+
+setTimeout(() => {
 
 runClient('')
 
