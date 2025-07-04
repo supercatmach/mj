@@ -523,6 +523,23 @@ rooms[roomId].epghpk[socket.id].push(mrs);
 
 })
 
+socket.on("noepgh", (canephinf) => {
+
+const roomId=JSON.parse(canephinf)[0]
+const card=JSON.parse(canephinf)[1]
+
+console.log("取消"+card)
+
+delete rooms[roomId].epghpk[socket.id]
+
+rooms[roomId].alps3++
+
+rooms[roomId].alps4[card[1]]++
+
+needcaneph(roomId,socket.id)
+
+})
+
 socket.on("eat", (canephinf) => {
 
 const roomId=JSON.parse(canephinf)[0]
@@ -1022,12 +1039,9 @@ console.log("對應的 key:", maxKey); // "A02"
 
 
 
-const woep=player
-
 const btop=maxVal///最大值
 const btoper=maxKey///優先權的人
 
-if(woep==btoper){
 
 for(let i=0;i<rooms[roomId].epgh.length;i++){
 
@@ -1108,8 +1122,6 @@ rooms[roomId].alps=0
 
 }///for(let i=0;i<rooms[roomId].epgh.length;i++){
 
-}///if(woep==btoper){
-
 }///if(rooms[roomId].epgh.length!=0){
 
 }///if(rooms[roomId].epghpk.length!=0){
@@ -1138,11 +1150,8 @@ return
 
 }
 
-if(rooms[roomId].resn!="不吃碰"){
 
 rooms[roomId].alps4[rooms[roomId].resn]++
-
-}
 
 rooms[roomId].alps3++
 
