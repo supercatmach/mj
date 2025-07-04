@@ -1001,6 +1001,8 @@ rooms[roomId].epghpk={}
 
 rooms[roomId].card=[]
 
+rooms[roomId].alps4=[rooms[roomId].players.length,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
 return
 
 }///if(rooms[roomId].epgh[i].dwo=="gun"&&rooms[roomId].epgh[i].mtd[1]=="X"){
@@ -1149,7 +1151,17 @@ rooms[roomId].alps3=0
 
 rooms[roomId].alps=0
 
+if(rooms[roomId].epgh[0].dwo!="gun"){
+
 rooms[roomId].alps4[rooms[roomId].epgh[0].mtd[1]]++
+
+}
+
+if(rooms[roomId].epgh[0].dwo=="gun"){
+
+rooms[roomId].alps4=[rooms[roomId].players.length,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+}
 
 return
 
