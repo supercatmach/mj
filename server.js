@@ -532,10 +532,6 @@ console.log("取消"+card)
 
 delete rooms[roomId].epghpk[socket.id]
 
-rooms[roomId].alps3++
-
-rooms[roomId].alps4[card[1]]++
-
 needcaneph(roomId,socket.id)
 
 })
@@ -1127,34 +1123,6 @@ return
 }///if(rooms[roomId].epgh.length!=0){
 
 }///if(rooms[roomId].epghpk.length!=0){
-
-if(rooms[roomId].alps3==rooms[roomId].players.length){
-
-setTimeout(() => {
-
-io.to(nexpled).emit("needgetcard", (""));
-
-},300)
-
-console.log(rooms[roomId].epghpk,rooms[roomId].alps,rooms[roomId].epgh)
-
-rooms[roomId].alps=0
-
-rooms[roomId].alps3=0
-
-rooms[roomId].epgh=[]
-
-rooms[roomId].epghpk={}
-
-rooms[roomId].card=[]
-
-rooms[roomId].alps4=[rooms[roomId].players.length,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-
-let nexpled=(rooms[roomId].pled+1<rooms[roomId].players.length)?rooms[roomId].players[rooms[roomId].pled+1]:rooms[roomId].players[0]
-
-return
-
-}
 
 }
 
