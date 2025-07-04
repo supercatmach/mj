@@ -317,8 +317,8 @@ function befgame(roominf){
 const  roomId=roominf
 
 rooms[roomId].allmgd=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+rooms[roomId].outmgd=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 rooms[roomId].alps=0
-rooms[roomId].alps2=0
 rooms[roomId].alps3=0
 rooms[roomId].alps4=4
 rooms[roomId].epgh=[]
@@ -523,10 +523,10 @@ function sratgame(roominf){
 const roomId=roominf
 
 rooms[roomId].allmgd=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+rooms[roomId].outmgd=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 rooms[roomId].epgh=[]
 rooms[roomId].pled=0
 rooms[roomId].alps=0
-rooms[roomId].alps2=0
 rooms[roomId].alps3=0
 rooms[roomId].alps4=4
 rooms[roomId].epghpk={}
@@ -764,13 +764,10 @@ socket.on("outchak", (roomIdinf) => {
 const  roomId=JSON.parse(roomIdinf)[0]
 const card=JSON.parse(roomIdinf)[1]
 
-if(card==rooms[roomId].card[1]){
+rooms[roomId].outmgd[card]++
 
-rooms[roomId].alps2++
 
-}
-
-console.log("outchak",rooms[roomId].alps2,socket.id)
+console.log("outchak",socket.id,rooms[roomId].outmgd[card],card)
 
 if(rooms[roomId].win==1){
 
@@ -778,11 +775,11 @@ rooms[roomId].alps=0
 
 }
 
-if(rooms[roomId].alps2==rooms[roomId].players.length){
+if(rooms[roomId].outmgd[card]==rooms[roomId].players.length){
 
 console.log("確認各家吃碰槓胡",rooms[roomId].card)
 
-rooms[roomId].alps2=0
+rooms[roomId].outmgd=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 
 rooms[roomId].alps=0
 
