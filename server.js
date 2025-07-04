@@ -180,7 +180,10 @@ io.to(socket.id).emit("hi", socket.id);
         io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
         socket.emit("roomCreated", { roomId });
         console.log(`房間 ${roomId} 創建成功`);
+        console.log(Object.keys(allAIID).length,"AI數量");
 if(Object.keys(allAIID).length<10){
+
+console.log("創建AI");
 
 runClient('')
 
