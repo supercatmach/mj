@@ -3051,7 +3051,7 @@ $("."+pldname[0]+" .d"+i+" div").css("filter","sepia(0%) brightness(100%)")
 
 $(".etpghword img").hide();
 
-socket.emit("needgetcard",JSON.stringify([roomId,pled,"不吃碰"]));
+socket.emit("needgetcard",JSON.stringify([roomId,pled,doethp]));
 
 
 ephchick=(ephchick==0)?0:1
@@ -4319,8 +4319,6 @@ socket.emit("getnewcard",JSON.stringify([roomId]));
 return
 
 }
-
-
 
 plmgd=plmgd.filter(num => num < 35);
 
@@ -5950,6 +5948,8 @@ gunwin=0///搶槓
 pled=JSON.parse(outcardinf)[0]
 mtd=JSON.parse(outcardinf)[1]
 mtd=Number(mtd)
+
+doethp=mtd///如果不吃碰回傳用
 
 wincard=mtd
 

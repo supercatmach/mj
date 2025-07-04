@@ -1734,7 +1734,7 @@ if (result&&result.source!="V22") {
 
 ephchick=0
 
-socket.emit("needgetcard",JSON.stringify([roomId,pled,"不吃碰"]));
+socket.emit("needgetcard",JSON.stringify([roomId,pled,mtd]));
 
 
  console.log("不吃碰",plmgd)
