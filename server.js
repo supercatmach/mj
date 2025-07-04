@@ -153,11 +153,11 @@ opeAI()
 
 allAIID={}///空閒的AI
 
-///setTimeout(() => {
+setTimeout(() => {
 
-///runClient('')
+runClient('')
 
-///},10000)
+},10000)
 
 
 const rooms = {};
@@ -806,7 +806,7 @@ rooms[roomId].card=[socket.id ,card]
 rooms[roomId].epgh=[]
 rooms[roomId].epghpk={}
 
-console.log("outcard",rooms[roomId].alps4,socket.id)
+console.log("outcard",rooms[roomId].alps4,socket.id,rooms[roomId].card)
 
 if(rooms[roomId].alps4[rooms[roomId].resn]==rooms[roomId].players.length){
 
@@ -1096,7 +1096,7 @@ rooms[roomId].alps4[rooms[roomId].resn]++
 
 rooms[roomId].alps3++
 
-console.log("needgetcard",rooms[roomId].alps3,socket.id,resn)
+console.log("needgetcard",rooms[roomId].alps3,socket.id,resn,rooms[roomId].alps4[rooms[roomId].resn],rooms[roomId].card)
 
 if(Array.isArray(rooms[roomId].epghpk[socket.id]) &&rooms[roomId].epghpk[socket.id][0]!=0){
 
