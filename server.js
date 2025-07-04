@@ -1118,6 +1118,8 @@ rooms[roomId].alps3=0
 
 rooms[roomId].alps=0
 
+return
+
 }///if(rooms[roomId].epgh[i].ple==btoper){
 
 }///for(let i=0;i<rooms[roomId].epgh.length;i++){
@@ -1125,6 +1127,34 @@ rooms[roomId].alps=0
 }///if(rooms[roomId].epgh.length!=0){
 
 }///if(rooms[roomId].epghpk.length!=0){
+
+if(rooms[roomId].alps3==rooms[roomId].players.length){
+
+setTimeout(() => {
+
+io.to(nexpled).emit("needgetcard", (""));
+
+},300)
+
+console.log(rooms[roomId].epghpk,rooms[roomId].alps,rooms[roomId].epgh)
+
+rooms[roomId].alps=0
+
+rooms[roomId].alps3=0
+
+rooms[roomId].epgh=[]
+
+rooms[roomId].epghpk={}
+
+rooms[roomId].card=[]
+
+rooms[roomId].alps4=[rooms[roomId].players.length,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+let nexpled=(rooms[roomId].pled+1<rooms[roomId].players.length)?rooms[roomId].players[rooms[roomId].pled+1]:rooms[roomId].players[0]
+
+return
+
+}
 
 }
 
