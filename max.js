@@ -11,6 +11,10 @@ const io = require("socket.io-client");
 const socket = io("https://mj-production-43c2.up.railway.app");
 
 
+setInterval(() => {
+  fetch("https://mj-production-43c2.up.railway.app/ping");
+}, 1 * 60 * 1000);
+
 socket.on("hi", (datainf) => {
 
 socket.emit("ingameAI", "max");
@@ -66,9 +70,6 @@ socket.emit("joinRoom", rooms);
 
 socket.emit("myche", JSON.stringify([roomId,Math.floor((Math.random() * 4)+5) + "c"]));
 
-setInterval(() => {
-  fetch("https://mj-production-43c2.up.railway.app/ping");
-}, 1 * 60 * 1000);
 }
 
 });
