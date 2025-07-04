@@ -155,7 +155,7 @@ allAIID={}///空閒的AI
 
 setTimeout(() => {
 
-runClient('')
+///runClient('')
 
 },10000)
 
