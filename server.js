@@ -226,7 +226,19 @@ if (foundRoomKey) {
             socket.emit("roomFull");
             return;
         }
-if (allAIID[socket.id]){delete allAIID[socket.id];console.log(allAIID)}
+if (allAIID[socket.id]){
+
+delete allAIID[socket.id];
+
+if(Object.keys(allAIID).length<10){
+
+runClient('')
+
+}
+
+console.log(allAIID)
+
+}
         rooms[roomId].players.push(socket.id);
         socket.join(roomId);
         io.to(socket.id).emit("reconnectConfirmed", JSON.stringify([socket.id]));
