@@ -153,11 +153,11 @@ opeAI()
 
 allAIID={}///空閒的AI
 
-setTimeout(() => {
+///setTimeout(() => {
 
-runClient('')
+///runClient('')
 
-},10000)
+///},10000)
 
 
 const rooms = {};
@@ -294,6 +294,8 @@ console.log("收到房間邀請AI",roomId)
 runClient('')
 
 io.emit("wantinvit", roomId);
+
+return
 
 if(Object.keys(allAIID).length>0){
 
