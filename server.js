@@ -533,7 +533,9 @@ delete rooms[roomId].epghpk[socket.id]
 
 rooms[roomId].alps4[card[1]]++
 
-needcaneph(roomId,socket.id)
+rooms[roomId].alps++
+
+needcaneph(roomId,socket.id,[card,card,card])
 
 })
 
@@ -550,7 +552,7 @@ console.log(rooms[roomId].epgh)
 
 rooms[roomId].alps4[card[1]]++
 
-needcaneph(roomId,socket.id)
+needcaneph(roomId,socket.id,card)
 
 })
 
@@ -567,7 +569,7 @@ console.log(rooms[roomId].epgh)
 
 rooms[roomId].alps4[card[1]]++
 
-needcaneph(roomId,socket.id)
+needcaneph(roomId,socket.id,card)
 
 })
 
@@ -584,7 +586,7 @@ rooms[roomId].resn=0
 
 rooms[roomId].alps4[card[1]]++
 
-needcaneph(roomId,socket.id)
+needcaneph(roomId,socket.id,card)
 
 })
 
@@ -617,7 +619,7 @@ rooms[roomId].epgh.push({"num":mra,"ple":socket.id,"mtd":card,"dwo":"win","lbmgd
 
 rooms[roomId].alps4[card[card.length-1]]++
 
-needcaneph(roomId,socket.id)
+needcaneph(roomId,socket.id,card)
 
 })
 
@@ -641,7 +643,7 @@ rooms[roomId].epgh.push({"num":mra,"ple":socket.id,"mtd":card,"dwo":"mywin","lbm
 
 rooms[roomId].alps4[card[card.length-1]]++
 
-needcaneph(roomId,socket.id)
+needcaneph(roomId,socket.id,card)
 
 })
 
@@ -986,7 +988,7 @@ rooms[roomId].resn=0
 
 
 
-function needcaneph(roomId,player){
+function needcaneph(roomId,player,card){
 
 if(rooms[roomId].win==1){
 
@@ -1107,6 +1109,26 @@ return
 }///if(rooms[roomId].epgh.length!=0){
 
 }///if(rooms[roomId].epghpk.length!=0){
+
+if(rooms[roomId].alps==rooms[roomId].players.length){
+
+setTimeout(() => {
+
+io.to(nexpled).emit("needgetcard", (""));
+
+},300)
+
+console.log(rooms[roomId].epghpk,rooms[roomId].alps,rooms[roomId].epgh)
+
+rooms[roomId].alps=0
+
+rooms[roomId].alps4=[rooms[roomId].players.length,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+let nexpled=(rooms[roomId].pled+1<rooms[roomId].players.length)?rooms[roomId].players[rooms[roomId].pled+1]:rooms[roomId].players[0]
+
+return
+
+}
 
 }
 
