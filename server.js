@@ -134,11 +134,38 @@ function runClient(name ,jorooms='') {
   });
 }
 
+function opeAI(){
+
+console.log(allAIID)
+
+if(Object.keys(allAIID).length>=10){ return}
+
+setTimeout(() => {
+
+runClient('')
+
+opeAI()
+
+},1500)
+
+}
+
+
+setTimeout(() => {
+
+allAIID={}///空閒的AI
+
+runClient('')
+
+},10000)
+
 
 const rooms = {};
 ///rooms["025024"] = { host: "貓貓", players: [] ,playerid: [] ,playerpic: [] ,ynstar:0,ynfriend:0,alps:0,epgh:[],pled:0,allmgd:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]};
 
 io.on("connection", (socket) => {
+
+
 
     console.log("新玩家連線:", socket.id);
 
@@ -262,11 +289,32 @@ console.log("收到房間邀請AI",roomId)
 
         }
 
-runClient('');
+if(Object.keys(allAIID).length>0){
 
-io.emit("wantinvit", roomId);
+io.to(Object.keys(allAIID)[0]).emit("wantinvit", roomId);
+
+delete allAIID[Object.keys(allAIID)[0]];
+
+}
+
+opeAI()
+
 
 });
+
+
+socket.on("ingameAI", (neme) => {
+
+if (allAIID[socket.id] === undefined) {
+
+  allAIID[socket.id] = neme;
+
+}
+console.log("AI上線",neme,socket.id)
+
+opeAI()
+
+})
 
 socket.on("invit", (data) => {
 

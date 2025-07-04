@@ -10,6 +10,13 @@ const io = require("socket.io-client");
 
 const socket = io("https://mj-production-43c2.up.railway.app");
 
+
+socket.on("hi", (datainf) => {
+
+socket.emit("ingameAI", "max");
+
+})
+
 socket.on("playerJoined", (datainf) => {
 
 plgamealread=1///是否開始遊戲
