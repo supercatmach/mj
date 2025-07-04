@@ -1120,6 +1120,12 @@ io.to(nexpled).emit("needgetcard", (""));
 
 console.log(rooms[roomId].epghpk,rooms[roomId].alps,rooms[roomId].epgh)
 
+rooms[roomId].epgh=[]
+
+rooms[roomId].epghpk={}
+
+rooms[roomId].card=[]
+
 rooms[roomId].alps=0
 
 rooms[roomId].alps4=[rooms[roomId].players.length,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
@@ -1172,6 +1178,12 @@ io.to(nexpled).emit("needgetcard", (""));
 
 console.log(rooms[roomId].epghpk,rooms[roomId].alps,rooms[roomId].epgh)
 
+rooms[roomId].epgh=[]
+
+rooms[roomId].epghpk={}
+
+rooms[roomId].card=[]
+
 rooms[roomId].alps=0
 
 rooms[roomId].alps4=[rooms[roomId].players.length,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
@@ -1197,6 +1209,11 @@ io.to(roomId).emit("outcard", JSON.stringify(rooms[roomId].card));
 
 rooms[roomId].card=[]
 
+rooms[roomId].epgh=[]
+
+rooms[roomId].epghpk={}
+
+rooms[roomId].card=[]
 return
 
 }
