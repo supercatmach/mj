@@ -748,7 +748,13 @@ rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].card[0])
 
 rooms[roomId].alps=0
 
+rooms[roomId].alps3=0
+
 rooms[roomId].alps4=0
+
+rooms[roomId].epgh=[]
+
+rooms[roomId].epghpk={}
 
 io.to(roomId).emit("outcard", JSON.stringify(rooms[roomId].card));
 
