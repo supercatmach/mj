@@ -180,6 +180,11 @@ io.to(socket.id).emit("hi", socket.id);
         io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
         socket.emit("roomCreated", { roomId });
         console.log(`房間 ${roomId} 創建成功`);
+if(Object.keys(allAIID).length<10){
+
+runClient('')
+
+}
     });
     socket.on("waninRoom", () => {
 
