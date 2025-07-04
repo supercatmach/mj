@@ -1765,8 +1765,6 @@ ephchick=0
 
 socket.emit("noepgh",JSON.stringify([roomId,pled,mtd]));
 
-socket.emit("needgetcard",JSON.stringify([roomId,pled,mtd]));
-
  console.log("不吃碰",plmgd)
 
 }
