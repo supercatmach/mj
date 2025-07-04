@@ -291,11 +291,11 @@ console.log("收到房間邀請AI",roomId)
 
         }
 
-///runClient('')
+runClient('')
 
-///io.emit("wantinvit", roomId);
+io.emit("wantinvit", roomId);
 
-///return
+return
 
 if(Object.keys(allAIID).length>0){
 
