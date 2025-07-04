@@ -777,7 +777,7 @@ rooms[roomId].alps=0
 
 if(rooms[roomId].outmgd[card]==rooms[roomId].players.length){
 
-console.log("確認各家吃碰槓胡",rooms[roomId].card)
+console.log("確認各家吃碰槓胡",card,rooms[roomId].outmgd[card])
 
 rooms[roomId].outmgd=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 
@@ -1016,7 +1016,7 @@ rooms[roomId].alps3++
 
 console.log("needgetcard",rooms[roomId].alps3,socket.id)
 
-if(Array.isArray(rooms[roomId].epghpk[socket.id]) &&rooms[roomId].epghpk[socket.id].length!=0){
+if(Array.isArray(rooms[roomId].epghpk[socket.id]) &&rooms[roomId].epghpk[socket.id][0]!=0){
 
 
 let maxVal = -Infinity;
@@ -1043,7 +1043,7 @@ const btoper=maxKey///優先權的人
 
 if(woep==btoper){
 
-rooms[roomId].epghpk[socket.id]=[]///放棄優先權
+rooms[roomId].epghpk[socket.id]=[0]///放棄優先權
 
 }
 
