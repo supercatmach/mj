@@ -488,6 +488,8 @@ console.log(rooms[roomId].epgh)
 
 rooms[roomId].alps3++
 
+rooms[roomId].alps4[rooms[roomId].epgh[i].card[1]]++
+
 needcaneph(roomId,socket.id)
 
 })
@@ -505,6 +507,8 @@ console.log(rooms[roomId].epgh)
 
 rooms[roomId].alps3++
 
+rooms[roomId].alps4[rooms[roomId].epgh[i].card[1]]++
+
 needcaneph(roomId,socket.id)
 
 })
@@ -519,6 +523,8 @@ console.log("槓"+card)
 rooms[roomId].epgh.push({"num":2,"ple":socket.id,"mtd":card,"dwo":"gun"})
 
 rooms[roomId].alps3++
+
+rooms[roomId].resn=0
 
 needcaneph(roomId,socket.id)
 
@@ -553,6 +559,8 @@ rooms[roomId].epgh.push({"num":mra,"ple":socket.id,"mtd":card,"dwo":"win","lbmgd
 
 rooms[roomId].alps3++
 
+rooms[roomId].alps4[rooms[roomId].epgh[i].card[1]]++
+
 needcaneph(roomId,socket.id)
 
 })
@@ -576,6 +584,8 @@ rooms[roomId].players2.reverse()
 rooms[roomId].epgh.push({"num":mra,"ple":socket.id,"mtd":card,"dwo":"mywin","lbmgd":lbmgd,"flmgd":flmgd,"etmgd":etmgd})
 
 rooms[roomId].alps3++
+
+rooms[roomId].alps4[rooms[roomId].epgh[i].card[1]]++
 
 needcaneph(roomId,socket.id)
 
@@ -938,6 +948,7 @@ return
 
 }
 
+
 if(Object.keys(rooms[roomId].epghpk).length!=0){
 
 console.log("needcaneph",rooms[roomId].epghpk,rooms[roomId].epgh,player)
@@ -983,8 +994,6 @@ rooms[roomId].pled=rooms[roomId].players.indexOf(rooms[roomId].epgh[i].ple)
 rooms[roomId].alps3=0
 
 rooms[roomId].alps=0
-
-rooms[roomId].alps4[rooms[roomId].epgh[i].mtd[1]]++
 
 rooms[roomId].epgh=[]
 
@@ -1032,8 +1041,6 @@ rooms[roomId].card=[]
 console.log("新莊家:"+rooms[roomId].makrs)
 
 }///if(rooms[roomId].epgh[i].dwo=="win"||rooms[roomId].epgh[i].dwo=="mywin"){
-
-rooms[roomId].alps4[rooms[roomId].epgh[i].mtd[1]]++
 
 rooms[roomId].epgh=[]
 
