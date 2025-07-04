@@ -264,8 +264,6 @@ rooms[roomId].playerpic = rooms[roomId].playerpic.filter(p => p.playerId !== soc
 
 io.to(roomId).emit("allche", JSON.stringify(rooms[roomId].playerpic));
 
-delete allAIID[socket.id];
-
             io.to(roomId).emit("playerDisconnected", { playerId: socket.id });
 
             // 是房主或房間沒人 => 移除整個房間
@@ -285,6 +283,21 @@ rooms[roomId].ynstar=0
     }
 
     io.emit("updateRooms", rooms); // 更新房間清單
+
+if (allAIID[socket.id]){
+
+delete allAIID[socket.id];
+
+if(Object.keys(allAIID).length<10){
+
+runClient('')
+
+}
+
+console.log(allAIID)
+
+}
+
     console.log(`玩家已斷線: ${socket.id}, 原因: ${reason}`);
 });
 
