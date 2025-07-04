@@ -291,11 +291,11 @@ console.log("收到房間邀請AI",roomId)
 
         }
 
-runClient('')
+///runClient('')
 
-io.emit("wantinvit", roomId);
+///io.emit("wantinvit", roomId);
 
-return
+///return
 
 if(Object.keys(allAIID).length>0){
 
@@ -525,6 +525,8 @@ rooms[roomId].epgh.push({"num":2,"ple":socket.id,"mtd":card,"dwo":"gun"})
 rooms[roomId].alps3++
 
 rooms[roomId].resn=0
+
+rooms[roomId].alps4[card[1]]++
 
 needcaneph(roomId,socket.id)
 
