@@ -521,11 +521,9 @@ let mrs=JSON.parse(epghpkinf)[1]///返回的層級
 
 if(mrs==3){
 
-rooms[roomId].players2=rooms[roomId].players.concat(rooms[roomId].players).reverse()
+rooms[roomId].players2=rooms[roomId].players.concat(rooms[roomId].players)
 
 mrs=17-(mrs+rooms[roomId].players2.indexOf(socket.id,rooms[roomId].pled))
-
-rooms[roomId].players2.reverse()
 
 }
 
@@ -627,11 +625,9 @@ const etmgd=JSON.parse(canephinf)[4]
 
 let mra=3
 
-rooms[roomId].players2=rooms[roomId].players.concat(rooms[roomId].players).reverse()
+rooms[roomId].players2=rooms[roomId].players.concat(rooms[roomId].players)
 
 mra=17-(mra+rooms[roomId].players2.indexOf(socket.id,rooms[roomId].pled))
-
-rooms[roomId].players2.reverse()
 
 rooms[roomId].epgh.push({"num":mra,"ple":socket.id,"mtd":card,"dwo":"win","lbmgd":lbmgd,"flmgd":flmgd,"etmgd":etmgd})
 
@@ -651,11 +647,9 @@ const etmgd=JSON.parse(canephinf)[4]
 
 let mra=3
 
-rooms[roomId].players2=rooms[roomId].players.concat(rooms[roomId].players).reverse()
+rooms[roomId].players2=rooms[roomId].players.concat(rooms[roomId].players)
 
 mra=17-(mra+rooms[roomId].players2.indexOf(socket.id,rooms[roomId].pled))
-
-rooms[roomId].players2.reverse()
 
 rooms[roomId].epgh.push({"num":mra,"ple":socket.id,"mtd":card,"dwo":"mywin","lbmgd":lbmgd,"flmgd":flmgd,"etmgd":etmgd})
 
