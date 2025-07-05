@@ -12,7 +12,6 @@ const io = new Server(server, {
     methods: ["GET", "POST"]
   }
 });
-
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
@@ -25,7 +24,11 @@ app.use(
         "https://cdn.jsdelivr.net"
       ],
       scriptSrcAttr: ["'self'", "'unsafe-inline'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
+      styleSrc: [
+        "'self'",
+        "'unsafe-inline'",
+        "https://cdnjs.cloudflare.com"   // <-- 新增允許 FontAwesome CSS 來源
+      ],
       imgSrc: ["'self'", "data:"],
       connectSrc: [
         "'self'",
@@ -39,14 +42,14 @@ app.use(
       fontSrc: [
         "'self'",
         "https://fonts.googleapis.com",
-        "https://fonts.gstatic.com"
+        "https://fonts.gstatic.com",
+        "https://cdnjs.cloudflare.com"  // <--- 建議也加上這裡，若FontAwesome用到字型
       ],
       objectSrc: ["'none'"],
       frameAncestors: ["'self'"]
     }
   })
 );
-
 app.get("/ping", (req, res) => {
   res.send("pong");
 });
