@@ -2820,7 +2820,11 @@ $(".bk30").hide()
 
 $(".cnatetpg").hide()
 
+$(".aijoin").hide()
+
 allplad=[]
+
+yoridis=""
 
 
 idfme=""
@@ -2910,6 +2914,12 @@ socket.on("allche", (cheinf) => {
 
 chelength=JSON.parse(cheinf)
 
+if(chelength[0].playerId==yoridis){
+
+$(".aijoin").show()
+
+}
+
 console.log(chelength)
 
 for(let i=1;i<5;i++){
@@ -2967,9 +2977,11 @@ socket.on("reconnectConfirmed", () => {
   }
 });
 
-socket.on("hi", () => {
+socket.on("hi", (idinf) => {
 
-  console.log("伺服器確認重連成功");
+yoridis=idinf
+
+  console.log("伺服器確認重連成功",idinf);
 
 
 });

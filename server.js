@@ -192,13 +192,16 @@ runClient('')
     socket.on("waninRoom", () => {
 
 const MAX_PLAYERS = 4;
-const preferredCounts = [3, 2, 1,0]; // 優先找人數3，再2，再1
+const preferredCounts = [3, 2, 1, 0]; // 優先找人數3，再2，再1
 
 let foundRoomKey = null;
 
 for (const count of preferredCounts) {
   foundRoomKey = Object.entries(rooms).find(
-    ([key, room]) => room.players.length === count
+    ([key, room]) =>
+      room.players.length === count &&
+      room.ynstar === 0 &&
+      room.ynfriend === 0
   )?.[0];
 
   if (foundRoomKey) break; // 找到符合條件的房間就跳出
@@ -511,7 +514,7 @@ if(mrs==3){
 
 rooms[roomId].players2=rooms[roomId].players.concat(rooms[roomId].players).reverse()
 
-mrs+=rooms[roomId].players2.indexOf(socket.id,rooms[roomId].pled)
+mrs=17-(mrs+rooms[roomId].players2.indexOf(socket.id,rooms[roomId].pled))
 
 rooms[roomId].players2.reverse()
 
@@ -615,7 +618,7 @@ let mra=3
 
 rooms[roomId].players2=rooms[roomId].players.concat(rooms[roomId].players).reverse()
 
-mra+=rooms[roomId].players2.indexOf(socket.id,rooms[roomId].pled)
+mra=17-(mra+rooms[roomId].players2.indexOf(socket.id,rooms[roomId].pled))
 
 rooms[roomId].players2.reverse()
 
@@ -639,7 +642,7 @@ let mra=3
 
 rooms[roomId].players2=rooms[roomId].players.concat(rooms[roomId].players).reverse()
 
-mra+=rooms[roomId].players2.indexOf(socket.id,rooms[roomId].pled)
+mra=17-(mra+rooms[roomId].players2.indexOf(socket.id,rooms[roomId].pled))
 
 rooms[roomId].players2.reverse()
 
