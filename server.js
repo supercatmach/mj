@@ -322,20 +322,6 @@ rooms[roomId].ynstar=0
 
     io.emit("updateRooms", rooms); // 更新房間清單
 
-if (allAIID[socket.id]){
-
-delete allAIID[socket.id];
-
-if(Object.keys(allAIID).length<10){
-
-runClient('')
-
-}
-
-console.log(allAIID)
-
-}
-
     console.log(`玩家已斷線: ${socket.id}, 原因: ${reason}`);
 });
 
@@ -365,6 +351,12 @@ if(Object.keys(allAIID).length>0){
 io.to(Object.keys(allAIID)[0]).emit("wantinvit", roomId);
 
 delete allAIID[Object.keys(allAIID)[0]];
+
+}
+
+if(Object.keys(allAIID).length==0){
+
+runClient('')
 
 }
 

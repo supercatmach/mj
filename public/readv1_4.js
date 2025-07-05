@@ -12,6 +12,49 @@ document.oncontextmenu = function(){
 v41= new Audio("music\\v41.wav")
 v41.preload = "auto"
 
+
+  const bgm = new Audio("music\\kawaii-dance-upbeat-japan-anime-edm-242104.mp3");
+  bgm.preload = "auto"
+  bgm.loop = true;
+  bgm.volume = 0.3; // 初始音量
+  bgm.play();
+
+  // 音量滑桿控制
+  const volumeSlider = document.getElementById("volumeSlider");
+  const volumeIcon = document.getElementById("volumeIcon");
+
+  volumeSlider.addEventListener("input", () => {
+    bgm.volume = parseFloat(volumeSlider.value);
+    updateVolumeIcon();
+  });
+
+  volumeIcon.addEventListener("click", () => {
+
+    // 點擊圖示切換靜音 / 回復
+    if (bgm.volume > 0) {
+      bgm.volume = 0;
+      volumeSlider.value = 0;
+    } else {
+      bgm.volume = 1;
+      volumeSlider.value = 1;
+    }
+    updateVolumeIcon();
+  });
+
+  function updateVolumeIcon() {
+    if (bgm.volume === 0) {
+      volumeIcon.className = "fas fa-volume-mute";
+    } else if (bgm.volume < 0.5) {
+      volumeIcon.className = "fas fa-volume-down";
+    } else {
+      volumeIcon.className = "fas fa-volume-up";
+    }
+  }
+  // 點擊啟動音樂（瀏覽器限制）
+  document.addEventListener("click", () => {
+    bgm.play();
+  }, { once: true });
+
 for(let i=0;i<plerinfor.length;i++){
 
 if(plerinfor[i].cho!=0){
