@@ -3297,6 +3297,21 @@ return;
 
 
 });
+
+
+////////////////////////////////
+
+function smokeshow(ply){
+
+if(ply==0){$(".smok0").show().animate({left:"-200"},500).fadeOut(100);setTimeout('$(".smok0").css("left","-50")',600)}
+if(ply==1){$(".smok1").show().animate({left:"1400",top:"700"},500).fadeOut(100);setTimeout('$(".smok1").css("left","1300").css("top","600")',600)}
+if(ply==2){$(".smok2").show().animate({left:"1200"},500).fadeOut(100);setTimeout('$(".smok2").css("left","1100")',600)}
+if(ply==3){$(".smok3").show().animate({left:"400",top:"150"},500).fadeOut(100);setTimeout('$(".smok3").css("left","350").css("top","200")',600)}
+
+}
+
+/////////////////////////////////
+
 ///////////////////////////////////////////////
 
 function begStar(){
@@ -4686,6 +4701,8 @@ pled=JSON.parse(data)[0]
 card=JSON.parse(data)[1]
 epgtw=JSON.parse(data)[2]///哪一種狀態
 
+ple=allplad.indexOf(pled)
+
 
 
 if(epgtw=="tin"){
@@ -4711,9 +4728,9 @@ if(epgtw!="tin"){
 
 $(".outshowcad div").hide()
 
-}
+smokeshow(ple)
 
-ple=allplad.indexOf(pled)
+}
 
 if(ephchick==1&&ple!=0&&epgtw!="tin"){///如果有吃碰槓.但是被強制取消則返回
 
