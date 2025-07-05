@@ -449,6 +449,7 @@ rooms[roomId].epgh=[]
 rooms[roomId].pled=0
 rooms[roomId].resn=0
 rooms[roomId].epghpk={}
+rooms[roomId].epghpk2={}
 rooms[roomId].players2=[]
 rooms[roomId].makrs=0///莊家
 rooms[roomId].linmrs=0///連莊次數
@@ -547,6 +548,12 @@ delete rooms[roomId].epghpk[socket.id]
 if(!rooms[roomId].epgh.some(obj => obj.ple === socket.id)){
 
 rooms[roomId].alps4[card]++
+
+}
+
+if(!rooms[roomId].epghpk2[socket.id]){
+
+rooms[roomId].epghpk2[socket.id]=[0]
 
 }
 
@@ -674,6 +681,7 @@ rooms[roomId].resn=0
 rooms[roomId].alps=0
 rooms[roomId].alps4=[rooms[roomId].players.length,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 rooms[roomId].epghpk={}
+rooms[roomId].epghpk2={}
 rooms[roomId].players2=[]
 rooms[roomId].win=0///胡牌
 rooms[roomId].stat=0
@@ -1154,6 +1162,8 @@ rooms[roomId].card=[]
 
 rooms[roomId].alps=0
 
+rooms[roomId].epghpk2={}
+
 rooms[roomId].alps4=[rooms[roomId].players.length,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 
 let nexpled=(rooms[roomId].pled+1<rooms[roomId].players.length)?rooms[roomId].players[rooms[roomId].pled+1]:rooms[roomId].players[0]
@@ -1211,13 +1221,16 @@ return
 
 }
 
-if(rooms[roomId].epghpk[socket.id]&&rooms[roomId].epghpk[socket.id].length!=0&&rooms[roomId].epghpk[socket.id][0]==0){
+if(!rooms[roomId].epghpk2[socket.id]){
 
 rooms[roomId].alps++
 
 rooms[roomId].alps4[rooms[roomId].resn]++
 
+rooms[roomId].epghpk2[socket.id]=[0]
+
 }
+
 
 console.log("needgetcard",socket.id,resn,rooms[roomId].alps4[rooms[roomId].resn],rooms[roomId].card)
 
@@ -1241,6 +1254,8 @@ rooms[roomId].epghpk={}
 rooms[roomId].card=[]
 
 rooms[roomId].alps=0
+
+rooms[roomId].epghpk2={}
 
 rooms[roomId].alps4=[rooms[roomId].players.length,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 
