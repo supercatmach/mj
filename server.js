@@ -537,7 +537,7 @@ socket.on("noepgh", (canephinf) => {
 const roomId=JSON.parse(canephinf)[0]
 const card=JSON.parse(canephinf)[1]
 
-console.log("取消"+card)
+console.log("取消",card,socket.id)
 
 delete rooms[roomId].epghpk[socket.id]
 
@@ -547,9 +547,9 @@ rooms[roomId].alps4[card]++
 
 }
 
-rooms[roomId].epgh.push({"num":0,"ple":socket.id,"mtd":card,"dwo":"noepgh"})
-
 rooms[roomId].alps++
+
+rooms[roomId].epgh.push({"num":0,"ple":socket.id,"mtd":card,"dwo":"noepgh"})
 
 needcaneph(roomId,socket.id,[card,card,card])
 
@@ -1055,7 +1055,7 @@ const btoper=maxKey///優先權的人
 
 for(let i=0;i<rooms[roomId].epgh.length;i++){
 
-if(rooms[roomId].epgh[i].ple==btoper){
+if(rooms[roomId].epgh[i].ple==btoper&&btop!=0){
 
 
 
@@ -1208,15 +1208,18 @@ return
 
 }
 
+if(rooms[roomId].epghpk[socket.id]&&rooms[roomId].epghpk[socket.id].length!=0&&rooms[roomId].epghpk[socket.id][0]==0){
+
+rooms[roomId].alps++
 
 rooms[roomId].alps4[rooms[roomId].resn]++
+
+}
 
 console.log("needgetcard",socket.id,resn,rooms[roomId].alps4[rooms[roomId].resn],rooms[roomId].card)
 
 
 
-
-rooms[roomId].alps++
 
 if(rooms[roomId].alps==rooms[roomId].players.length){
 

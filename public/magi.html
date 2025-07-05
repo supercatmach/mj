@@ -2761,11 +2761,9 @@ document.oncontextmenu = function(){
 v41= new Audio("music\\v41.wav")
 v41.preload = "auto"
 
-const bgm = new Audio("music\\party-game-bgm-vol2-242467.mp3");
-bgm.preload = "auto"
-bgm.loop = true;        // 重複播放
-bgm.autoplay = true;    // 自動播放（不一定有效，視瀏覽器政策）
-bgm.play();             // 播放（若無互動可能會失敗）
+const bgm = new Audio("https://raw.githubusercontent.com/supercatmach/mj/main/public/music/party-game-bgm-vol2-242467.mp3");
+bgm.loop = true;
+bgm.play();
 
 
 function scaleContent() {
@@ -4735,9 +4733,9 @@ smokeshow(ple)
 
 if(ephchick==1&&ple!=0&&epgtw!="tin"){///如果有吃碰槓.但是被強制取消則返回
 
-ephchick=(ephchick==1)?1:0
-
 socket.emit("noepgh",JSON.stringify([roomId,card[1]]));
+
+ephchick=0
 
 ///socket.emit("needgetcard",JSON.stringify([roomId,pled,card[1]]));
 
