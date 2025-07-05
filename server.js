@@ -540,6 +540,8 @@ rooms[roomId].alps4[card]++
 
 }
 
+rooms[roomId].epgh.push({"num":0,"ple":socket.id,"mtd":card,"dwo":"noepgh"})
+
 rooms[roomId].alps++
 
 needcaneph(roomId,socket.id,[card,card,card])
