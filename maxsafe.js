@@ -1468,6 +1468,22 @@ alloutcd[ple].push(mtd)
 allmgd.push(mtd)
 
 
+if(ple==0){
+
+socket.emit("epghpk",JSON.stringify([roomId,0]));
+
+socket.emit("outchak",JSON.stringify([roomId,mtd]));
+
+console.log("傳送確認吃碰槓")
+
+ephchick=0
+
+return
+
+}
+
+
+
 if(ple!=0){
 
 ephchick=0
