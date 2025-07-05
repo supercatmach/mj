@@ -131,6 +131,15 @@ function runClient(name ,jorooms='') {
 
   child.on('close', (code) => {
     console.log(`${name || script} 結束，退出碼: ${code}`);
+
+if(Object.keys(allAIID).length<10){
+
+console.log("創建AI");
+
+runClient('')
+
+}
+
   });
 }
 
