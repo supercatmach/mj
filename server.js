@@ -946,6 +946,8 @@ rooms[roomId].outmgd=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 
 rooms[roomId].alps=0
 
+rooms[roomId].epghpk2={}
+
 rooms[roomId].alps4=[rooms[roomId].players.length,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 
 io.to(roomId).emit("outchak", JSON.stringify([socket.id ,card]));
