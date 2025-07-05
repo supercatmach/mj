@@ -2914,7 +2914,7 @@ socket.on("allche", (cheinf) => {
 
 chelength=JSON.parse(cheinf)
 
-if(chelength[0].playerId==yoridis){
+if(chelength[0].playerId==yoridis&&chelength.length<3){
 
 $(".aijoin").show()
 
