@@ -229,8 +229,8 @@ if(ephchick==1&&ple!=0&&epgtw!="tin"){///如果有吃碰槓.但是被強制取�
 
 socket.emit("noepgh",JSON.stringify([roomId,card[1]]));
 
+ephchick=(ephchick==1)?1:0
 
-ephchick=0
 }
 
 if(epgtw=="gun"&&card[0]!="X"&&card[1]=="X"){

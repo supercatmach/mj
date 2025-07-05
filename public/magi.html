@@ -2761,11 +2761,11 @@ document.oncontextmenu = function(){
 v41= new Audio("music\\v41.wav")
 v41.preload = "auto"
 
-v44=new Audio("music\\v44.wav");///骰子音效
-v44.preload = "auto"
+vBGM=new Audio("music\\party-game-bgm-vol2-242467.mp3");///骰子音效
+vBGM.preload = "auto"
 
-v47=new Audio("music\\v47.wav");///打出去音效
-v47.preload = "auto"
+vBGM.play()
+
 
 function scaleContent() {
   const designWidth = 1800;
@@ -4734,7 +4734,7 @@ smokeshow(ple)
 
 if(ephchick==1&&ple!=0&&epgtw!="tin"){///如果有吃碰槓.但是被強制取消則返回
 
-ephchick=0
+ephchick=(ephchick==1)?1:0
 
 socket.emit("noepgh",JSON.stringify([roomId,card[1]]));
 

@@ -602,7 +602,7 @@ rooms[roomId].epgh.push({"num":2,"ple":socket.id,"mtd":card,"dwo":"gun"})
 
 rooms[roomId].resn=0
 
-rooms[roomId].alps4[card[1]]++
+rooms[roomId].alps4[card[3]]++
 
 needcaneph(roomId,socket.id,card)
 
@@ -1076,6 +1076,9 @@ rooms[roomId].alps=0
 rooms[roomId].epghpk={}
 
 rooms[roomId].card=[]
+
+rooms[roomId].epgh.splice(i, 1);
+
 
 return
 
