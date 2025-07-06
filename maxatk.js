@@ -67,7 +67,7 @@ console.log("加入房間",rooms);
 
 socket.emit("joinRoom", rooms);
 
-socket.emit("myche", JSON.stringify([roomId,Math.floor((Math.random() * 4)+5) + "c"]));
+socket.emit("myche", "maxatkc"]));
 
 
 }
