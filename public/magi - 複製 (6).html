@@ -11,6 +11,8 @@
 <meta property="og:image:height" content="630">
 <meta property="og:title" content="超科學麻將社">
 <title>超科學麻將社</title>
+<script type="text/javascript" src="jquery2.min.js"></script>
+<script type="text/javascript" src="zutop.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/socket.io-client@4.7.5/dist/socket.io.min.js"></script>
 <link rel="stylesheet" href="mystyle.css">
 <body>
@@ -2866,7 +2868,7 @@ console.log(charich)
             socket.emit("myche", JSON.stringify([roomId,charich]));
             document.getElementById("roomInfo").innerText = `房間: ${roomId}`;
         }
-socket.off("playerJoined");
+
         socket.on("playerJoined", (datainf) => {
 
 ///$(".playerpic"+lopal).html('<img src="stanbypled/cv'+(lopal-1)+'.png?v=3"></div>').show(500)
@@ -2921,12 +2923,12 @@ $(".londingtincode100").css("width","0px")
 }
 
         });
-socket.off("roomFull");
+
         socket.on("roomFull", () => {
 
             window.location.href = "/";
         });
-socket.off("allche");
+
 socket.on("allche", (cheinf) => {
 
 chelength=JSON.parse(cheinf)
@@ -2966,7 +2968,7 @@ $(".playerpic"+(i+1)).html('<img src="stanbypled/cv'+(chelength[i].che)+'.png?v=
 }
 
 });
-socket.off("playerDisconnected");
+
 socket.on("playerDisconnected", (datainf) => {
 
 if(allplad.length!=0){
@@ -2985,7 +2987,7 @@ lopal--
 
 });
 
-socket.off("reconnectConfirmed");
+
 socket.on("reconnectConfirmed", () => {
   console.log("伺服器確認重連成功");
   if (reconnectInterval) {
@@ -2994,7 +2996,6 @@ socket.on("reconnectConfirmed", () => {
   }
 });
 
-socket.off("hi");
 socket.on("hi", (idinf) => {
 
 yoridis=idinf
@@ -3902,7 +3903,7 @@ $(".bk60").hide()
 
 }
 
-socket.off("myname");
+
 socket.on("myname", (data) => {
 
 idfme=JSON.parse(data)[0]
@@ -3961,7 +3962,7 @@ $(".zun"+makrs).show()
 })
 
 ///////////////////////////////////////
-socket.off("dice");
+
 socket.on("dice", (data) => {
 
 di1 =JSON.parse(data)[0]
@@ -4069,7 +4070,7 @@ socket.emit("gamStar",roomId);
 }
 
 ///////////////////////////////////////
-socket.off("befbegin");
+
 socket.on("befbegin", (card) => {
 
 socket.emit("begin",JSON.stringify([roomId]));
@@ -4081,7 +4082,7 @@ gtcd=2
 })
 
 ////////////////////////////////////
-socket.off("star");
+
 socket.on("star", (card) => {
 
 
@@ -4347,7 +4348,7 @@ break
 }
 
 ////////////////////////////////////////////////
-socket.off("getnewcard");
+
 socket.on("getnewcard", (card) => {
 
 cantoutcd=[]///不能捨的牌
@@ -4672,7 +4673,7 @@ return
 })
 
 ////////////////////////////////////////////////////////////////////
-socket.off("nowin");
+
 socket.on("nowin", (data) => {///流局
 
 if(lopal!=4){
@@ -4693,7 +4694,7 @@ setTimeout('begStar()',500)
 
 
 ////////////////////////////////////////////////////////////////////
-socket.off("caneph");
+
 socket.on("caneph", (data) => {
 
 $(".etpghword img").hide();
@@ -5886,7 +5887,7 @@ setTimeout('begStar()',11000)
 
 
 //////////////////////////////////////////////////////////
-socket.off("flower");
+
 socket.on("flower", (flowerinf) => {
 
 pladr=JSON.parse(flowerinf)[0]///玩家
@@ -5971,7 +5972,7 @@ sorcard()///整理
 
 
 ////////////////////////////////////////////////
-socket.off("outcard");
+
 socket.on("outcard", (outcardinf) => {
 
 winp=0
@@ -6266,7 +6267,7 @@ console.log("傳送確認吃碰槓",mtd)
 
 });
 
-socket.off("outchak");
+
 socket.on("outchak", (outchakinf) => {
 
 pled=JSON.parse(outchakinf)[0]
@@ -6329,7 +6330,7 @@ console.log("needgetcard",mtd)
 });
 
 ////////////////////////////////////////////////
-socket.off("needgetcard");
+
 socket.on("needgetcard", (card) => {
 
 socket.emit("getnewcard",JSON.stringify([roomId,"new"]));
@@ -6337,7 +6338,7 @@ socket.emit("getnewcard",JSON.stringify([roomId,"new"]));
 })
 
 ////////////////////////////////////////////
-socket.off("getnewcard2");
+
 socket.on("getnewcard2", (ples) => {
 
 $(".outshowcad div").hide()
