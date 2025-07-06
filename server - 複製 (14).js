@@ -192,7 +192,14 @@ io.to(socket.id).emit("hi", socket.id);
         io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
         socket.emit("roomCreated", { roomId });
         console.log(`房間 ${roomId} 創建成功`);
+        console.log(Object.keys(allAIID).length,"AI數量");
+if(Object.keys(allAIID).length<10){
 
+console.log("創建AI");
+
+runClient('')
+
+}
     });
     socket.on("waninRoom", () => {
 
@@ -223,7 +230,14 @@ if (foundRoomKey) {
         io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
         socket.emit("roomCreated", { roomId });
         console.log(`房間 ${roomId} 創建成功`);
+        console.log(Object.keys(allAIID).length,"AI數量");
+if(Object.keys(allAIID).length<10){
 
+console.log("創建AI");
+
+runClient('')
+
+}
 }
 
     });
@@ -235,7 +249,14 @@ if (foundRoomKey) {
         io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
         socket.emit("roomCreated", { roomId });
         console.log(`房間 ${roomId} 創建成功`);
+        console.log(Object.keys(allAIID).length,"AI數量");
+if(Object.keys(allAIID).length<10){
 
+console.log("創建AI");
+
+runClient('')
+
+}
     });
     // 玩家加入房間
     socket.on("joinRoom", (roomId) => {
@@ -243,7 +264,19 @@ if (foundRoomKey) {
             socket.emit("roomFull");
             return;
         }
+if (allAIID[socket.id]){
 
+delete allAIID[socket.id];
+
+if(Object.keys(allAIID).length<10){
+
+runClient('')
+
+}
+
+console.log(allAIID)
+
+}
         rooms[roomId].players.push(socket.id);
         socket.join(roomId);
         io.to(socket.id).emit("reconnectConfirmed", JSON.stringify([socket.id]));
@@ -307,11 +340,11 @@ console.log("收到房間邀請AI",roomId)
 
         }
 
-runClient('')
+///runClient('')
 
-io.emit("wantinvit", roomId);
+///io.emit("wantinvit", roomId);
 
-return
+///return
 
 if(Object.keys(allAIID).length>0){
 
@@ -346,7 +379,7 @@ console.log(allAIID)
 
 if(Object.keys(allAIID).length>=10){ return}
 
-///runClient('')
+runClient('')
 
 ///opeAI()
 
