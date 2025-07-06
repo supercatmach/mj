@@ -483,6 +483,7 @@ mrs=17-(mrs+rooms[roomId].players2.indexOf(socket.id,rooms[roomId].pled))
 }
 
 if (!rooms[roomId].epghpk[socket.id]) rooms[roomId].epghpk[socket.id] = [];
+
 rooms[roomId].epghpk[socket.id].push(mrs);
 
 })
@@ -897,7 +898,7 @@ rooms[roomId].outmgd=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 
 rooms[roomId].alps=0
 
-rooms[roomId].epghpk={}
+rooms[roomId].epgh=[]
 
 rooms[roomId].epghpk2={}
 
