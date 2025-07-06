@@ -547,57 +547,57 @@ $("."+pldname[1]+" div .e"+i+" .c1").html("")
 $("."+pldname[2]+" div .e"+i+" .c1").html("")
 $("."+pldname[3]+" div .e"+i+" .c1").html("")
 
-$("."+pldname[0]+" div .e"+i+" .c2").html('<img src="mach/l.png?v=2" style="width:30px;height:80px;">')
-$("."+pldname[0]+" div .e"+i+" .c3").html('<img src="mach/0.png?v=2" style="width:60px;height:80px;">')
-$("."+pldname[0]+" div .e"+i+" .c4").html('<img src="mach/r.png?v=2" style="width:30px;height:80px;">')
-$("."+pldname[0]+" div .e"+i+" .c5").html('<img src="mach/u.png?v=2" style="width:60px;height:30px;">')
-$("."+pldname[0]+" div .e"+i+" .c6").html('<img src="mach/d.png?v=2" style="width:60px;height:30px;">')
+$("."+pldname[0]+" div .e"+i+" .c2").html('<img src="mach/l.png?v=3" style="width:30px;height:80px;">')
+$("."+pldname[0]+" div .e"+i+" .c3").html('<img src="mach/0.png?v=3" style="width:60px;height:80px;">')
+$("."+pldname[0]+" div .e"+i+" .c4").html('<img src="mach/r.png?v=3" style="width:30px;height:80px;">')
+$("."+pldname[0]+" div .e"+i+" .c5").html('<img src="mach/u.png?v=3" style="width:60px;height:30px;">')
+$("."+pldname[0]+" div .e"+i+" .c6").html('<img src="mach/d.png?v=3" style="width:60px;height:30px;">')
 
-$("."+pldname[1]+" div .e"+i+" .c2").html('<img src="mach/l.png?v=2" style="width:30px;height:80px;">')
-$("."+pldname[1]+" div .e"+i+" .c3").html('<img src="mach/0.png?v=2" style="width:60px;height:80px;">')
-$("."+pldname[1]+" div .e"+i+" .c4").html('<img src="mach/r.png?v=2" style="width:30px;height:80px;">')
-$("."+pldname[1]+" div .e"+i+" .c5").html('<img src="mach/u.png?v=2" style="width:60px;height:30px;">')
-$("."+pldname[1]+" div .e"+i+" .c6").html('<img src="mach/d.png?v=2" style="width:60px;height:30px;">')
+$("."+pldname[1]+" div .e"+i+" .c2").html('<img src="mach/l.png?v=3" style="width:30px;height:80px;">')
+$("."+pldname[1]+" div .e"+i+" .c3").html('<img src="mach/0.png?v=3" style="width:60px;height:80px;">')
+$("."+pldname[1]+" div .e"+i+" .c4").html('<img src="mach/r.png?v=3" style="width:30px;height:80px;">')
+$("."+pldname[1]+" div .e"+i+" .c5").html('<img src="mach/u.png?v=3" style="width:60px;height:30px;">')
+$("."+pldname[1]+" div .e"+i+" .c6").html('<img src="mach/d.png?v=3" style="width:60px;height:30px;">')
 
-$("."+pldname[2]+" div .e"+i+" .c2").html('<img src="mach/l.png?v=2" style="width:30px;height:80px;">')
-$("."+pldname[2]+" div .e"+i+" .c3").html('<img src="mach/0.png?v=2" style="width:60px;height:80px;">')
-$("."+pldname[2]+" div .e"+i+" .c4").html('<img src="mach/r.png?v=2" style="width:30px;height:80px;">')
-$("."+pldname[2]+" div .e"+i+" .c5").html('<img src="mach/u.png?v=2" style="width:60px;height:30px;">')
-$("."+pldname[2]+" div .e"+i+" .c6").html('<img src="mach/d.png?v=2" style="width:60px;height:30px;">')
+$("."+pldname[2]+" div .e"+i+" .c2").html('<img src="mach/l.png?v=3" style="width:30px;height:80px;">')
+$("."+pldname[2]+" div .e"+i+" .c3").html('<img src="mach/0.png?v=3" style="width:60px;height:80px;">')
+$("."+pldname[2]+" div .e"+i+" .c4").html('<img src="mach/r.png?v=3" style="width:30px;height:80px;">')
+$("."+pldname[2]+" div .e"+i+" .c5").html('<img src="mach/u.png?v=3" style="width:60px;height:30px;">')
+$("."+pldname[2]+" div .e"+i+" .c6").html('<img src="mach/d.png?v=3" style="width:60px;height:30px;">')
 
-$("."+pldname[3]+" div .e"+i+" .c2").html('<img src="mach/l.png?v=2" style="width:30px;height:80px;">')
-$("."+pldname[3]+" div .e"+i+" .c3").html('<img src="mach/0.png?v=2" style="width:60px;height:80px;">')
-$("."+pldname[3]+" div .e"+i+" .c4").html('<img src="mach/r.png?v=2" style="width:30px;height:80px;">')
-$("."+pldname[3]+" div .e"+i+" .c5").html('<img src="mach/u.png?v=2" style="width:60px;height:30px;">')
-$("."+pldname[3]+" div .e"+i+" .c6").html('<img src="mach/d.png?v=2" style="width:60px;height:30px;">')
+$("."+pldname[3]+" div .e"+i+" .c2").html('<img src="mach/l.png?v=3" style="width:30px;height:80px;">')
+$("."+pldname[3]+" div .e"+i+" .c3").html('<img src="mach/0.png?v=3" style="width:60px;height:80px;">')
+$("."+pldname[3]+" div .e"+i+" .c4").html('<img src="mach/r.png?v=3" style="width:30px;height:80px;">')
+$("."+pldname[3]+" div .e"+i+" .c5").html('<img src="mach/u.png?v=3" style="width:60px;height:30px;">')
+$("."+pldname[3]+" div .e"+i+" .c6").html('<img src="mach/d.png?v=3" style="width:60px;height:30px;">')
 
 }
 
 
-$(".gh2").html('<img src="word/op'+sittwind[0]+'.png?v=2" style="width:50px;height:50px;">')
+$(".gh2").html('<img src="word/op'+sittwind[0]+'.png?v=3" style="width:50px;height:50px;">')
 
 $(".gh1").show()
 
-bgige2='<img src="word/'+(chnwind-28)+'.png?v=2" style="height:40px;">'
-bgige2+='<img src="word/wn.png?v=2" style="height:40px;">'
-bgige2+='<img src="word/'+(junwind-28)+'.png?v=2" style="height:40px;">'
+bgige2='<img src="word/'+(chnwind-28)+'.png?v=3" style="height:40px;">'
+bgige2+='<img src="word/wn.png?v=3" style="height:40px;">'
+bgige2+='<img src="word/'+(junwind-28)+'.png?v=3" style="height:40px;">'
 linmrsany=linmrs.toString().split("")
 
 if(linmrsany.length>1){
 
 for(let i=0;i<linmrsany.length-1;i++){
 
-bgige+='<img src="word/'+linmrsany[i]+'.png?v=2" style="height:150px;">'
+bgige+='<img src="word/'+linmrsany[i]+'.png?v=3" style="height:150px;">'
 
-bgige2+='<img src="word/'+linmrsany[i]+'.png?v=2" style="height:40px;">'
-
-}
+bgige2+='<img src="word/'+linmrsany[i]+'.png?v=3" style="height:40px;">'
 
 }
 
-bgige2+='<img src="word/0'+(linmrs+1)+'.png?v=2" style="height:40px;">'
+}
 
-bgige2+='<img src="word/ge.png?v=2" style="height:40px;">'
+bgige2+='<img src="word/0'+(linmrs+1)+'.png?v=3" style="height:40px;">'
+
+bgige2+='<img src="word/ge.png?v=3" style="height:40px;">'
 
 $(".bgige2").html(bgige2)///圈風局
 
@@ -787,17 +787,17 @@ donlow=''
 
 for(let i=1;i<4;i++){
 
-donlow+='<img src="watse/cv'+plerK[i]+'.png?v=2">'
-donlow+='<img src="watse/gv'+plerK[i]+'.png?v=2">'
-donlow+='<img src="watse/hv'+plerK[i]+'.png?v=2">'
-donlow+='<img src="watse/gv'+plerK[i]+'.png?v=2">'
-donlow+='<img src="watse/kil'+plerK[i]+'.png?v=2">'
-donlow+='<img src="watse/mtkv'+plerK[i]+'.png?v=2">'
-donlow+='<img src="watse/nv'+plerK[i]+'.png?v=2">'
-donlow+='<img src="watse/psv'+plerK[i]+'.png?v=2">'
-donlow+='<img src="watse/ruv'+plerK[i]+'.png?v=2">'
+donlow+='<img src="watse/cv'+plerK[i]+'.png?v=3">'
+donlow+='<img src="watse/gv'+plerK[i]+'.png?v=3">'
+donlow+='<img src="watse/hv'+plerK[i]+'.png?v=3">'
+donlow+='<img src="watse/gv'+plerK[i]+'.png?v=3">'
+donlow+='<img src="watse/kil'+plerK[i]+'.png?v=3">'
+donlow+='<img src="watse/mtkv'+plerK[i]+'.png?v=3">'
+donlow+='<img src="watse/nv'+plerK[i]+'.png?v=3">'
+donlow+='<img src="watse/psv'+plerK[i]+'.png?v=3">'
+donlow+='<img src="watse/ruv'+plerK[i]+'.png?v=3">'
 
-$(".pler"+i).html('<img src="watse/cv'+plerK[i]+'.png?v=2">')
+$(".pler"+i).html('<img src="watse/cv'+plerK[i]+'.png?v=3">')
 
 }
 
@@ -812,9 +812,9 @@ pledpicmyslef.style.width=("width:500px")
 
 $(".piclond").html(donlow)
 
-$(".pler1").html('<img src="watse/cv'+plerK[1]+'.png?v=2">').show()
-$(".pler2").html('<img src="watse/cv'+plerK[2]+'.png?v=2">').show()
-$(".pler3").html('<img src="watse/cv'+plerK[3]+'.png?v=2">').show()
+$(".pler1").html('<img src="watse/cv'+plerK[1]+'.png?v=3">').show()
+$(".pler2").html('<img src="watse/cv'+plerK[2]+'.png?v=3">').show()
+$(".pler3").html('<img src="watse/cv'+plerK[3]+'.png?v=3">').show()
 
 
 $(".adown,.camera,.mycad,.nextcad,.fontcad,.lastcad,.space,.etpghwordbk,.smoking").show()
@@ -833,7 +833,7 @@ sortShowCad(i)///整理牌面顯示
 
 for(let s=0;s<flocd[i].length;s++){
 
-$("."+pldname[i]+" div .f"+(flocd[i].length)+" .c1").html('<img src="mach/'+plmgd[i][s]+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[i]+" div .f"+(flocd[i].length)+" .c1").html('<img src="mach/'+plmgd[i][s]+'.png?v=3" style="width:60px;height:80px;">')
 
 $("."+pldname[i]+" div .f"+(flocd[i].length)).show().animate({top:"0px",left:"0px"},200);
 
@@ -841,7 +841,7 @@ $("."+pldname[i]+" div .f"+(flocd[i].length)).show().animate({top:"0px",left:"0p
 
 for(let s=0;s<flocd[i].length;s++){
 
-$("."+pldname[i]+" div .f"+(s+1)+" .c1").html('<img src="mach/'+flocd[i][s]+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[i]+" div .f"+(s+1)+" .c1").html('<img src="mach/'+flocd[i][s]+'.png?v=3" style="width:60px;height:80px;">')
 
 $("."+pldname[i]+" div .f"+(s+1)).show().animate({top:"0px",left:"0px"},200);
 
@@ -850,7 +850,7 @@ $("."+pldname[i]+" div .f"+(s+1)).show().animate({top:"0px",left:"0px"},200);
 
 for(let s=0;s<otmgd[i].length;s++){
 
-$("."+pldname[i]+" div .o"+(s+1)+" .c1").html('<img src="mach/'+otmgd[i][s]+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[i]+" div .o"+(s+1)+" .c1").html('<img src="mach/'+otmgd[i][s]+'.png?v=3" style="width:60px;height:80px;">')
 
 $("."+pldname[i]+" div .o"+(s+1)).show().animate({top:"0px",left:"0px"},200);
 
@@ -866,21 +866,21 @@ for(let s=0;s<rlmgd[i].length;s+=4){
 
 if(ramgd[i].indexOf(rlmgd[i][s])==-1){
 
-$("."+pldname[i]+" div .e"+(s+1)+" .c1").html('<img src="mach/'+rlmgd[i][s]+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[i]+" div .e"+(s+1)+" .c1").html('<img src="mach/'+rlmgd[i][s]+'.png?v=3" style="width:60px;height:80px;">')
 
 $("."+pldname[i]+" div .e"+(s+1)).show().animate({top:"0px",left:"0px"},200);
 
-$("."+pldname[i]+" div .e"+(s+2)+" .c1").html('<img src="mach/'+rlmgd[i][s+1]+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[i]+" div .e"+(s+2)+" .c1").html('<img src="mach/'+rlmgd[i][s+1]+'.png?v=3" style="width:60px;height:80px;">')
 
 $("."+pldname[i]+" div .e"+(s+2)).show().animate({top:"0px",left:"0px"},200);
 
-$("."+pldname[i]+" div .e"+(s+3)+" .c1").html('<img src="mach/'+rlmgd[i][s+2]+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[i]+" div .e"+(s+3)+" .c1").html('<img src="mach/'+rlmgd[i][s+2]+'.png?v=3" style="width:60px;height:80px;">')
 
 $("."+pldname[i]+" div .e"+(s+3)).show().animate({top:"0px",left:"0px"},200);
 
 if(rbmgd[i].indexOf(s+4)!=-1){///明槓
 
-$("."+pldname[i]+" div .e"+(s+4)+" .c1").html('<img src="mach/'+rlmgd[i][s+3]+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[i]+" div .e"+(s+4)+" .c1").html('<img src="mach/'+rlmgd[i][s+3]+'.png?v=3" style="width:60px;height:80px;">')
 
 $("."+pldname[i]+" div .e"+(s+4)).show().animate({top:"0px",left:"0px"},200);
 
@@ -892,17 +892,17 @@ if(ramgd[i].indexOf(rlmgd[i][s])!=-1){///暗槓
 
 for(let t=1;t<4;t++){
 
-$("."+pldname[i]+" div .e"+(s+t)+" .c1").html('<img src="mach/0.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[i]+" div .e"+(s+t)+" .c1").html('<img src="mach/0.png?v=3" style="width:60px;height:80px;">')
 
-$("."+pldname[i]+" div .e"+(s+t)+" .c2").html('<img src="mach/r.png?v=2" style="width:30px;height:80px;">')
+$("."+pldname[i]+" div .e"+(s+t)+" .c2").html('<img src="mach/r.png?v=3" style="width:30px;height:80px;">')
 
-$("."+pldname[i]+" div .e"+(s+t)+" .c3").html('<img src="mach/'+rlmgd[i][s]+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[i]+" div .e"+(s+t)+" .c3").html('<img src="mach/'+rlmgd[i][s]+'.png?v=3" style="width:60px;height:80px;">')
 
-$("."+pldname[i]+" div .e"+(s+t)+" .c4").html('<img src="mach/l.png?v=2" style="width:30px;height:80px;">')
+$("."+pldname[i]+" div .e"+(s+t)+" .c4").html('<img src="mach/l.png?v=3" style="width:30px;height:80px;">')
 
-$("."+pldname[i]+" div .e"+(s+t)+" .c5").html('<img src="mach/d.png?v=2" style="width:60px;height:30px;">')
+$("."+pldname[i]+" div .e"+(s+t)+" .c5").html('<img src="mach/d.png?v=3" style="width:60px;height:30px;">')
 
-$("."+pldname[i]+" div .e"+(s+t)+" .c6").html('<img src="mach/u.png?v=2" style="width:60px;height:30px;">')
+$("."+pldname[i]+" div .e"+(s+t)+" .c6").html('<img src="mach/u.png?v=3" style="width:60px;height:30px;">')
 
 $("."+pldname[i]+" div .e"+(s+t)).show().animate({top:"0px",left:"0px"},200);
 
@@ -910,17 +910,17 @@ $("."+pldname[i]+" div .e"+(s+t)).show().animate({top:"0px",left:"0px"},200);
 
 if(i!=0){
 
-$("."+pldname[i]+" div .e"+(s+4)+" .c1").html('<img src="mach/0.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[i]+" div .e"+(s+4)+" .c1").html('<img src="mach/0.png?v=3" style="width:60px;height:80px;">')
 
-$("."+pldname[i]+" div .e"+(s+4)+" .c2").html('<img src="mach/r.png?v=2" style="width:30px;height:80px;">')
+$("."+pldname[i]+" div .e"+(s+4)+" .c2").html('<img src="mach/r.png?v=3" style="width:30px;height:80px;">')
 
-$("."+pldname[i]+" div .e"+(s+4)+" .c3").html('<img src="mach/'+rlmgd[i][s+3]+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[i]+" div .e"+(s+4)+" .c3").html('<img src="mach/'+rlmgd[i][s+3]+'.png?v=3" style="width:60px;height:80px;">')
 
-$("."+pldname[i]+" div .e"+(s+4)+" .c4").html('<img src="mach/l.png?v=2" style="width:30px;height:80px;">')
+$("."+pldname[i]+" div .e"+(s+4)+" .c4").html('<img src="mach/l.png?v=3" style="width:30px;height:80px;">')
 
-$("."+pldname[i]+" div .e"+(s+4)+" .c5").html('<img src="mach/d.png?v=2" style="width:60px;height:30px;">')
+$("."+pldname[i]+" div .e"+(s+4)+" .c5").html('<img src="mach/d.png?v=3" style="width:60px;height:30px;">')
 
-$("."+pldname[i]+" div .e"+(s+4)+" .c6").html('<img src="mach/u.png?v=2" style="width:60px;height:30px;">')
+$("."+pldname[i]+" div .e"+(s+4)+" .c6").html('<img src="mach/u.png?v=3" style="width:60px;height:30px;">')
 
 $("."+pldname[i]+" div .e"+(s+4)).show().animate({top:"0px",left:"0px"},200);
 
@@ -928,7 +928,7 @@ $("."+pldname[i]+" div .e"+(s+4)).show().animate({top:"0px",left:"0px"},200);
 
 if(i==0){///本家暗槓
 
-$("."+pldname[i]+" div .e"+(s+4)+" .c1").html('<img src="mach/'+rlmgd[i][s+3]+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[i]+" div .e"+(s+4)+" .c1").html('<img src="mach/'+rlmgd[i][s+3]+'.png?v=3" style="width:60px;height:80px;">')
 
 $("."+pldname[i]+" div .e"+(s+4)).show().animate({top:"0px",left:"0px"},200);
 
@@ -950,7 +950,7 @@ plmgd[i].push(otc)
 
 for(let s=0;s<plmgd[i].length;s++){
 
-$("."+pldname[i]+" div .d"+(ethan[i]+s)+" .c1").html('<img src="mach/'+plmgd[i][s]+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[i]+" div .d"+(ethan[i]+s)+" .c1").html('<img src="mach/'+plmgd[i][s]+'.png?v=3" style="width:60px;height:80px;">')
 
 $("."+pldname[i]+" div .d"+(ethan[i]+s)).show().animate({top:"0px",left:"0px"},200);
 
@@ -985,13 +985,13 @@ for(let s=0;s<egall.length;s++){
 
 if(egmgd[i]>-1){
 
-egnew+='<img src="word/mr'+egall[s]+'.png?v=2">'
+egnew+='<img src="word/mr'+egall[s]+'.png?v=3">'
 
 }
 
 if(egmgd[i]<0&&s!=0){
 
-egnew+='<img src="word/m'+egall[s]+'.png?v=2">'
+egnew+='<img src="word/m'+egall[s]+'.png?v=3">'
 
 }
 
@@ -1280,12 +1280,12 @@ $(".g4").html("牌零:"+plerinfor[pledpic].page)
 $(".g5").html("解鎖條件:"+plerinfor[pledpic].chk)
 $(".g6").html("介紹:"+plerinfor[pledpic].inf)
 
-$(".pler1").html('<img src="watse/cv1l.png?v=2">').show()
-$(".pler2").html('<img src="watse/cv2c.png?v=2">').show()
-$(".pler3").html('<img src="watse/cv3r.png?v=2">').show()
+$(".pler1").html('<img src="watse/cv1l.png?v=3">').show()
+$(".pler2").html('<img src="watse/cv2c.png?v=3">').show()
+$(".pler3").html('<img src="watse/cv3r.png?v=3">').show()
 
 
-$(".playerpic").html('<img src="stanbypled/cv0c.png?v=2">')
+$(".playerpic").html('<img src="stanbypled/cv0c.png?v=3">')
 
 $(".playerpicup").hide()
 
@@ -1309,7 +1309,7 @@ arrowL.addEventListener("click",function () {
 
 pledpic=(pledpic-1>-1)?pledpic-1:plerinfor.length-1
 
-$(".playerpic").html('<img src="stanbypled/cv'+plerinfor[pledpic].pic+'.png?v=2">')
+$(".playerpic").html('<img src="stanbypled/cv'+plerinfor[pledpic].pic+'.png?v=3">')
 
 plerK[0]=plerinfor[pledpic].pic
 
@@ -1360,7 +1360,7 @@ arrowR.addEventListener("click",function () {
 
 pledpic=(pledpic+1<plerinfor.length)?pledpic+1:0
 
-$(".playerpic").html('<img src="stanbypled/cv'+plerinfor[pledpic].pic+'.png?v=2">')
+$(".playerpic").html('<img src="stanbypled/cv'+plerinfor[pledpic].pic+'.png?v=3">')
 
 plerK[0]=plerinfor[pledpic].pic
 
@@ -1500,17 +1500,17 @@ donlow=''
 
 for(let i=1;i<4;i++){
 
-donlow+='<img src="watse/cv'+plerK[i]+'.png?v=2">'
-donlow+='<img src="watse/gv'+plerK[i]+'.png?v=2">'
-donlow+='<img src="watse/hv'+plerK[i]+'.png?v=2">'
-donlow+='<img src="watse/gv'+plerK[i]+'.png?v=2">'
-donlow+='<img src="watse/kil'+plerK[i]+'.png?v=2">'
-donlow+='<img src="watse/mtkv'+plerK[i]+'.png?v=2">'
-donlow+='<img src="watse/nv'+plerK[i]+'.png?v=2">'
-donlow+='<img src="watse/psv'+plerK[i]+'.png?v=2">'
-donlow+='<img src="watse/ruv'+plerK[i]+'.png?v=2">'
+donlow+='<img src="watse/cv'+plerK[i]+'.png?v=3">'
+donlow+='<img src="watse/gv'+plerK[i]+'.png?v=3">'
+donlow+='<img src="watse/hv'+plerK[i]+'.png?v=3">'
+donlow+='<img src="watse/gv'+plerK[i]+'.png?v=3">'
+donlow+='<img src="watse/kil'+plerK[i]+'.png?v=3">'
+donlow+='<img src="watse/mtkv'+plerK[i]+'.png?v=3">'
+donlow+='<img src="watse/nv'+plerK[i]+'.png?v=3">'
+donlow+='<img src="watse/psv'+plerK[i]+'.png?v=3">'
+donlow+='<img src="watse/ruv'+plerK[i]+'.png?v=3">'
 
-$(".pler"+i).html('<img src="watse/cv'+plerK[i]+'.png?v=2">')
+$(".pler"+i).html('<img src="watse/cv'+plerK[i]+'.png?v=3">')
 
 }
 
@@ -1587,13 +1587,13 @@ for(let i=0;i<egall.length;i++){
 
 if(egmgd[pled]>-1){
 
-egnew+='<img src="word/mr'+egall[i]+'.png?v=2">'
+egnew+='<img src="word/mr'+egall[i]+'.png?v=3">'
 
 }
 
 if(egmgd[pled]<0&&i!=0){
 
-egnew+='<img src="word/m'+egall[i]+'.png?v=2">'
+egnew+='<img src="word/m'+egall[i]+'.png?v=3">'
 
 }
 
@@ -1734,34 +1734,34 @@ if(ply==3){$(".smok3").show().animate({left:"400",top:"150"},500).fadeOut(100);s
 
 function starDice(){///骰骰子
 
-bgige='<img src="word/'+(chnwind-28)+'.png?v=2" style="height:150px;">'
-bgige+='<img src="word/wn.png?v=2" style="height:150px;">'
-bgige+='<img src="word/'+(junwind-28)+'.png?v=2" style="height:150px;">'
+bgige='<img src="word/'+(chnwind-28)+'.png?v=3" style="height:150px;">'
+bgige+='<img src="word/wn.png?v=3" style="height:150px;">'
+bgige+='<img src="word/'+(junwind-28)+'.png?v=3" style="height:150px;">'
 
-bgige2='<img src="word/'+(chnwind-28)+'.png?v=2" style="height:40px;">'
-bgige2+='<img src="word/wn.png?v=2" style="height:40px;">'
-bgige2+='<img src="word/'+(junwind-28)+'.png?v=2" style="height:40px;">'
+bgige2='<img src="word/'+(chnwind-28)+'.png?v=3" style="height:40px;">'
+bgige2+='<img src="word/wn.png?v=3" style="height:40px;">'
+bgige2+='<img src="word/'+(junwind-28)+'.png?v=3" style="height:40px;">'
 linmrsany=linmrs.toString().split("")
 
 if(linmrsany.length>1){
 
 for(let i=0;i<linmrsany.length-1;i++){
 
-bgige+='<img src="word/'+linmrsany[i]+'.png?v=2" style="height:150px;">'
+bgige+='<img src="word/'+linmrsany[i]+'.png?v=3" style="height:150px;">'
 
-bgige2+='<img src="word/'+linmrsany[i]+'.png?v=2" style="height:40px;">'
-
-}
+bgige2+='<img src="word/'+linmrsany[i]+'.png?v=3" style="height:40px;">'
 
 }
 
-bgige+='<img src="word/0'+(linmrs+1)+'.png?v=2" style="height:150px;">'
+}
 
-bgige+='<img src="word/ge.png?v=2" style="height:150px;">'
+bgige+='<img src="word/0'+(linmrs+1)+'.png?v=3" style="height:150px;">'
 
-bgige2+='<img src="word/0'+(linmrs+1)+'.png?v=2" style="height:40px;">'
+bgige+='<img src="word/ge.png?v=3" style="height:150px;">'
 
-bgige2+='<img src="word/ge.png?v=2" style="height:40px;">'
+bgige2+='<img src="word/0'+(linmrs+1)+'.png?v=3" style="height:40px;">'
+
+bgige2+='<img src="word/ge.png?v=3" style="height:40px;">'
 
 $(".bgige").html(bgige)///圈風局
 $(".bgige2").html(bgige2)///圈風局
@@ -1772,21 +1772,21 @@ di1 = Math.floor(Math.random() * 6+1);
 di2 = Math.floor(Math.random() * 6+1);
 di3 = Math.floor(Math.random() * 6+1);
 
-$(".dice1 .dc"+di1).html('<img src="word/di2.png?v=2" style="width:100px;height:100px;">')
-$(".dice1 .dc"+Math.abs(7-di1)).html('<img src="word/di5.png?v=2" style="width:100px;height:100px;">')
-$(".dice1 .dc2").html('<img src="word/di'+di1+'.png?v=2" style="width:100px;height:100px;">')
-$(".dice1 .dc4").html('<img src="word/di'+Math.abs(7-di1)+'.png?v=2" style="width:100px;height:100px;">')
+$(".dice1 .dc"+di1).html('<img src="word/di2.png?v=3" style="width:100px;height:100px;">')
+$(".dice1 .dc"+Math.abs(7-di1)).html('<img src="word/di5.png?v=3" style="width:100px;height:100px;">')
+$(".dice1 .dc2").html('<img src="word/di'+di1+'.png?v=3" style="width:100px;height:100px;">')
+$(".dice1 .dc4").html('<img src="word/di'+Math.abs(7-di1)+'.png?v=3" style="width:100px;height:100px;">')
 
-$(".dice2 .dc"+di2).html('<img src="word/dg5.png?v=2" style="width:100px;height:100px;">')
-$(".dice2 .dc"+Math.abs(7-di2)).html('<img src="word/dg6.png?v=2" style="width:100px;height:100px;">')
-$(".dice2 .dc5").html('<img src="word/dg'+di2+'.png?v=2" style="width:100px;height:100px;">')
-$(".dice2 .dc6").html('<img src="word/dg'+Math.abs(7-di2)+'.png?v=2" style="width:100px;height:100px;">')
+$(".dice2 .dc"+di2).html('<img src="word/dg5.png?v=3" style="width:100px;height:100px;">')
+$(".dice2 .dc"+Math.abs(7-di2)).html('<img src="word/dg6.png?v=3" style="width:100px;height:100px;">')
+$(".dice2 .dc5").html('<img src="word/dg'+di2+'.png?v=3" style="width:100px;height:100px;">')
+$(".dice2 .dc6").html('<img src="word/dg'+Math.abs(7-di2)+'.png?v=3" style="width:100px;height:100px;">')
 
 
-$(".dice3 .dc"+di3).html('<img src="word/db3.png?v=2" style="width:100px;height:100px;">')
-$(".dice3 .dc"+Math.abs(7-di3)).html('<img src="word/db1.png?v=2" style="width:100px;height:100px;">')
-$(".dice3 .dc3").html('<img src="word/db'+di3+'.png?v=2" style="width:100px;height:100px;">')
-$(".dice3 .dc1").html('<img src="word/db'+Math.abs(7-di3)+'.png?v=2" style="width:100px;height:100px;">')
+$(".dice3 .dc"+di3).html('<img src="word/db3.png?v=3" style="width:100px;height:100px;">')
+$(".dice3 .dc"+Math.abs(7-di3)).html('<img src="word/db1.png?v=3" style="width:100px;height:100px;">')
+$(".dice3 .dc3").html('<img src="word/db'+di3+'.png?v=3" style="width:100px;height:100px;">')
+$(".dice3 .dc1").html('<img src="word/db'+Math.abs(7-di3)+'.png?v=3" style="width:100px;height:100px;">')
 
 $(".dice1").attr('class','dicem1');
 $(".dice2").attr('class','dicem2');
@@ -1871,7 +1871,7 @@ for(let i=1;i<18;i++){
 
 cadlink=$("."+pldname[0]+" div .d"+i+" .c1").html().toString()
 
-if(otlistenod.indexOf(Number(cadlink.substring(15,cadlink.indexOf(".png?v=2"))))==-1){
+if(otlistenod.indexOf(Number(cadlink.substring(15,cadlink.indexOf(".png?v=3"))))==-1){
 
 $("."+pldname[0]+" div .d"+i+" div").css("filter","sepia(100%) brightness(50%)")
 
@@ -2062,9 +2062,9 @@ $(".m"+i).show()
 }
 
 
-$(".pler1").html('<img src="watse/cv'+plerK[1]+'.png?v=2">').show()
-$(".pler2").html('<img src="watse/cv'+plerK[2]+'.png?v=2">').show()
-$(".pler3").html('<img src="watse/cv'+plerK[3]+'.png?v=2">').show()
+$(".pler1").html('<img src="watse/cv'+plerK[1]+'.png?v=3">').show()
+$(".pler2").html('<img src="watse/cv'+plerK[2]+'.png?v=3">').show()
+$(".pler3").html('<img src="watse/cv'+plerK[3]+'.png?v=3">').show()
 
 for(let i=1;i<9;i++){
 
@@ -2112,29 +2112,29 @@ $("."+pldname[1]+" div .e"+i+" .c1").html("")
 $("."+pldname[2]+" div .e"+i+" .c1").html("")
 $("."+pldname[3]+" div .e"+i+" .c1").html("")
 
-$("."+pldname[0]+" div .e"+i+" .c2").html('<img src="mach/l.png?v=2" style="width:30px;height:80px;">')
-$("."+pldname[0]+" div .e"+i+" .c3").html('<img src="mach/0.png?v=2" style="width:60px;height:80px;">')
-$("."+pldname[0]+" div .e"+i+" .c4").html('<img src="mach/r.png?v=2" style="width:30px;height:80px;">')
-$("."+pldname[0]+" div .e"+i+" .c5").html('<img src="mach/u.png?v=2" style="width:60px;height:30px;">')
-$("."+pldname[0]+" div .e"+i+" .c6").html('<img src="mach/d.png?v=2" style="width:60px;height:30px;">')
+$("."+pldname[0]+" div .e"+i+" .c2").html('<img src="mach/l.png?v=3" style="width:30px;height:80px;">')
+$("."+pldname[0]+" div .e"+i+" .c3").html('<img src="mach/0.png?v=3" style="width:60px;height:80px;">')
+$("."+pldname[0]+" div .e"+i+" .c4").html('<img src="mach/r.png?v=3" style="width:30px;height:80px;">')
+$("."+pldname[0]+" div .e"+i+" .c5").html('<img src="mach/u.png?v=3" style="width:60px;height:30px;">')
+$("."+pldname[0]+" div .e"+i+" .c6").html('<img src="mach/d.png?v=3" style="width:60px;height:30px;">')
 
-$("."+pldname[1]+" div .e"+i+" .c2").html('<img src="mach/l.png?v=2" style="width:30px;height:80px;">')
-$("."+pldname[1]+" div .e"+i+" .c3").html('<img src="mach/0.png?v=2" style="width:60px;height:80px;">')
-$("."+pldname[1]+" div .e"+i+" .c4").html('<img src="mach/r.png?v=2" style="width:30px;height:80px;">')
-$("."+pldname[1]+" div .e"+i+" .c5").html('<img src="mach/u.png?v=2" style="width:60px;height:30px;">')
-$("."+pldname[1]+" div .e"+i+" .c6").html('<img src="mach/d.png?v=2" style="width:60px;height:30px;">')
+$("."+pldname[1]+" div .e"+i+" .c2").html('<img src="mach/l.png?v=3" style="width:30px;height:80px;">')
+$("."+pldname[1]+" div .e"+i+" .c3").html('<img src="mach/0.png?v=3" style="width:60px;height:80px;">')
+$("."+pldname[1]+" div .e"+i+" .c4").html('<img src="mach/r.png?v=3" style="width:30px;height:80px;">')
+$("."+pldname[1]+" div .e"+i+" .c5").html('<img src="mach/u.png?v=3" style="width:60px;height:30px;">')
+$("."+pldname[1]+" div .e"+i+" .c6").html('<img src="mach/d.png?v=3" style="width:60px;height:30px;">')
 
-$("."+pldname[2]+" div .e"+i+" .c2").html('<img src="mach/l.png?v=2" style="width:30px;height:80px;">')
-$("."+pldname[2]+" div .e"+i+" .c3").html('<img src="mach/0.png?v=2" style="width:60px;height:80px;">')
-$("."+pldname[2]+" div .e"+i+" .c4").html('<img src="mach/r.png?v=2" style="width:30px;height:80px;">')
-$("."+pldname[2]+" div .e"+i+" .c5").html('<img src="mach/u.png?v=2" style="width:60px;height:30px;">')
-$("."+pldname[2]+" div .e"+i+" .c6").html('<img src="mach/d.png?v=2" style="width:60px;height:30px;">')
+$("."+pldname[2]+" div .e"+i+" .c2").html('<img src="mach/l.png?v=3" style="width:30px;height:80px;">')
+$("."+pldname[2]+" div .e"+i+" .c3").html('<img src="mach/0.png?v=3" style="width:60px;height:80px;">')
+$("."+pldname[2]+" div .e"+i+" .c4").html('<img src="mach/r.png?v=3" style="width:30px;height:80px;">')
+$("."+pldname[2]+" div .e"+i+" .c5").html('<img src="mach/u.png?v=3" style="width:60px;height:30px;">')
+$("."+pldname[2]+" div .e"+i+" .c6").html('<img src="mach/d.png?v=3" style="width:60px;height:30px;">')
 
-$("."+pldname[3]+" div .e"+i+" .c2").html('<img src="mach/l.png?v=2" style="width:30px;height:80px;">')
-$("."+pldname[3]+" div .e"+i+" .c3").html('<img src="mach/0.png?v=2" style="width:60px;height:80px;">')
-$("."+pldname[3]+" div .e"+i+" .c4").html('<img src="mach/r.png?v=2" style="width:30px;height:80px;">')
-$("."+pldname[3]+" div .e"+i+" .c5").html('<img src="mach/u.png?v=2" style="width:60px;height:30px;">')
-$("."+pldname[3]+" div .e"+i+" .c6").html('<img src="mach/d.png?v=2" style="width:60px;height:30px;">')
+$("."+pldname[3]+" div .e"+i+" .c2").html('<img src="mach/l.png?v=3" style="width:30px;height:80px;">')
+$("."+pldname[3]+" div .e"+i+" .c3").html('<img src="mach/0.png?v=3" style="width:60px;height:80px;">')
+$("."+pldname[3]+" div .e"+i+" .c4").html('<img src="mach/r.png?v=3" style="width:30px;height:80px;">')
+$("."+pldname[3]+" div .e"+i+" .c5").html('<img src="mach/u.png?v=3" style="width:60px;height:30px;">')
+$("."+pldname[3]+" div .e"+i+" .c6").html('<img src="mach/d.png?v=3" style="width:60px;height:30px;">')
 
 }
 $(".bk60").hide()
@@ -2205,7 +2205,7 @@ setTimeout('gamStar2()',300)
 
 function gamStar(){///抽出一開始的16張牌(不能重覆)
 
-$(".gh2").html('<img src="word/op'+sittwind[0]+'.png?v=2" style="width:50px;height:50px;">')
+$(".gh2").html('<img src="word/op'+sittwind[0]+'.png?v=3" style="width:50px;height:50px;">')
 
 $(".gh1").show()
 
@@ -2249,7 +2249,7 @@ plmgd[i].push(Math.ceil(n/4))///放入玩家的手牌
 const cardIndex = plmgd[i].length;
 
 const img = new Image();
-img.src = "mach/"+Math.ceil(n/4)+".png?v=2";
+img.src = "mach/"+Math.ceil(n/4)+".png?v=3";
 
 img.onload = function () {
   $("."+pldname[i]+" div .d"+cardIndex+" .c1").html(img);
@@ -2269,7 +2269,7 @@ plmgd[i].push(n)///放入玩家的手牌
 const cardIndex = plmgd[i].length;
 
 const img = new Image();
-img.src = "mach/"+n+".png?v=2";
+img.src = "mach/"+n+".png?v=3";
 
 img.onload = function () {
   $("."+pldname[i]+" div .d"+cardIndex+" .c1").html(img);
@@ -2310,7 +2310,7 @@ if(plmgd[i][s]>=137){///花牌
 
 flocd[i].push(plmgd[i][s])
 
-$("."+pldname[i]+" div .f"+(flocd[i].length)+" .c1").html('<img src="mach/'+plmgd[i][s]+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[i]+" div .f"+(flocd[i].length)+" .c1").html('<img src="mach/'+plmgd[i][s]+'.png?v=3" style="width:60px;height:80px;">')
 
 $("."+pldname[i]+" div .f"+(flocd[i].length)).show().animate({top:"0px",left:"0px"},200);
 
@@ -2324,7 +2324,7 @@ if(n>=137&&allmgd.indexOf(n)==-1){
 
 flocd[i].push(n)
 
-$("."+pldname[i]+" div .f"+(flocd[i].length)+" .c1").html('<img src="mach/'+n+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[i]+" div .f"+(flocd[i].length)+" .c1").html('<img src="mach/'+n+'.png?v=3" style="width:60px;height:80px;">')
 
 $("."+pldname[i]+" div .f"+(flocd[i].length)).show().animate({top:"0px",left:"0px"},200);
 
@@ -2338,7 +2338,7 @@ plmgd[i][s]=(Math.ceil(n/4))///放入玩家的手牌
 
 allmgd.push(n)///放入全部的牌
 
-$("."+pldname[i]+" div .d"+(s+1)+" .c1").html('<img src="mach/'+Math.ceil(n/4)+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[i]+" div .d"+(s+1)+" .c1").html('<img src="mach/'+Math.ceil(n/4)+'.png?v=3" style="width:60px;height:80px;">')
 
 }
 
@@ -2370,7 +2370,7 @@ return a - b
 
 for(let s=0;s<plmgd[pld].length;s++){
 
-$("."+pldname[pld]+" div .d"+(ethan[pld]+s)+" .c1").html('<img src="mach/'+plmgd[pld][s]+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[pld]+" div .d"+(ethan[pld]+s)+" .c1").html('<img src="mach/'+plmgd[pld][s]+'.png?v=3" style="width:60px;height:80px;">')
 
 }
 
@@ -2468,25 +2468,25 @@ wincadhand=""
 
 for(let i=0;i<rlmgd[pled].length;i++){
 
-wincadhand+='<img src="meup/'+rlmgd[pled][i]+'.png?v=2" style="width:70px;">'
-wincadhand+='<img src="meup/'+rlmgd[pled][i+1]+'.png?v=2" style="width:70px;">'
-wincadhand+='<img src="meup/'+rlmgd[pled][i+2]+'.png?v=2" style="width:70px;">'
+wincadhand+='<img src="meup/'+rlmgd[pled][i]+'.png?v=3" style="width:70px;">'
+wincadhand+='<img src="meup/'+rlmgd[pled][i+1]+'.png?v=3" style="width:70px;">'
+wincadhand+='<img src="meup/'+rlmgd[pled][i+2]+'.png?v=3" style="width:70px;">'
 
 i+=3
 
 }
 
-wincadhand+='<img src="meup/n.png?v=2" style="width:70px;">'
+wincadhand+='<img src="meup/n.png?v=3" style="width:70px;">'
 
 for(let i=0;i<plmgd[pled].length;i++){
 
-wincadhand+='<img src="mati/'+plmgd[pled][i]+'.png?v=2" style="width:70px;">'
+wincadhand+='<img src="mati/'+plmgd[pled][i]+'.png?v=3" style="width:70px;">'
 
 }
 
-wincadhand+='<img src="meup/n.png?v=2" style="width:70px;">'
+wincadhand+='<img src="meup/n.png?v=3" style="width:70px;">'
 
-wincadhand+='<img src="mati/'+wincad+'.png?v=2" style="width:70px;">'
+wincadhand+='<img src="mati/'+wincad+'.png?v=3" style="width:70px;">'
 
 $(".wincadhand").html(wincadhand)///手牌
 
@@ -2494,15 +2494,15 @@ wincadflow=""
 
 for(let i=0;i<flocd[pled].length;i++){
 
-wincadflow+='<img src="mati/'+flocd[pled][i]+'.png?v=2" style="width:50px;">'
+wincadflow+='<img src="mati/'+flocd[pled][i]+'.png?v=3" style="width:50px;">'
 
 }
 
 $(".wincadflow").html(wincadflow)///花牌
 
-winge='<img src="word/'+(chnwind-28)+'.png?v=2" style="height:45px;">'
-winge+='<img src="word/wn.png?v=2" style="height:45px;">'
-winge+='<img src="word/'+(junwind-28)+'.png?v=2" style="height:45px;">'
+winge='<img src="word/'+(chnwind-28)+'.png?v=3" style="height:45px;">'
+winge+='<img src="word/wn.png?v=3" style="height:45px;">'
+winge+='<img src="word/'+(junwind-28)+'.png?v=3" style="height:45px;">'
 
 linmrsany=linmrs.toString().split("")
 
@@ -2510,15 +2510,15 @@ if(linmrsany.length>1){
 
 for(let i=0;i<linmrsany.length-1;i++){
 
-winge+='<img src="word/'+linmrsany[i]+'.png?v=2" style="height:45px;">'
+winge+='<img src="word/'+linmrsany[i]+'.png?v=3" style="height:45px;">'
 
 }
 
 }
 
-winge+='<img src="word/0'+(linmrs+1)+'.png?v=2" style="height:45px;">'
+winge+='<img src="word/0'+(linmrs+1)+'.png?v=3" style="height:45px;">'
 
-winge+='<img src="word/ge.png?v=2" style="height:45px;">'
+winge+='<img src="word/ge.png?v=3" style="height:45px;">'
 
 $(".winge").html(winge)///圈風局
 
@@ -2528,10 +2528,10 @@ ykany=yk0.toString().split("")
 
 for(let i=0;i<ykany.length;i++){
 
-wintaiall+='<img src="word/bw'+ykany[i]+'.png?v=2">'
+wintaiall+='<img src="word/bw'+ykany[i]+'.png?v=3">'
 
 }
-wintaiall+='<img src="word/sen2.png?v=2">'
+wintaiall+='<img src="word/sen2.png?v=3">'
 
 $(".wintaiall").html(wintaiall)///總台數
 
@@ -2593,17 +2593,17 @@ yksd=ykall
 ykall=ykall.toString().split("")
 
 
-winco='<img src="word/add.png?v=2">'
+winco='<img src="word/add.png?v=3">'
 
 for(let i=0;i<ykall.length;i++){
 
-winco+='<img src="word/co'+ykall[i]+'.png?v=2">'
+winco+='<img src="word/co'+ykall[i]+'.png?v=3">'
 
 }
 
 $(".winco").html(winco)///得分
 
-$(".winpler").html('<img src="watse/mtkv'+plerK[pled]+'.png?v=2">')///人物
+$(".winpler").html('<img src="watse/mtkv'+plerK[pled]+'.png?v=3">')///人物
 
 if(pled==0&&pledpicmyslef!=-1){
 
@@ -2621,13 +2621,13 @@ for(let i=0;i<egall.length;i++){
 
 if(egmgd[pled]>-1){
 
-egnew+='<img src="word/mr'+egall[i]+'.png?v=2">'
+egnew+='<img src="word/mr'+egall[i]+'.png?v=3">'
 
 }
 
 if(egmgd[pled]<0&&i!=0){
 
-egnew+='<img src="word/m'+egall[i]+'.png?v=2">'
+egnew+='<img src="word/m'+egall[i]+'.png?v=3">'
 
 }
 
@@ -2651,13 +2651,13 @@ for(let i=0;i<egall.length;i++){
 
 if(egmgd[s]>-1){
 
-egnew+='<img src="word/mr'+egall[i]+'.png?v=2">'
+egnew+='<img src="word/mr'+egall[i]+'.png?v=3">'
 
 }
 
 if(egmgd[s]<0&&i!=0){
 
-egnew+='<img src="word/m'+egall[i]+'.png?v=2">'
+egnew+='<img src="word/m'+egall[i]+'.png?v=3">'
 
 }
 
@@ -2679,13 +2679,13 @@ for(let i=0;i<egall.length;i++){
 
 if(egmgd[s]>-1){
 
-egnew+='<img src="word/mr'+egall[i]+'.png?v=2">'
+egnew+='<img src="word/mr'+egall[i]+'.png?v=3">'
 
 }
 
 if(egmgd[s]<0&&i!=0){
 
-egnew+='<img src="word/m'+egall[i]+'.png?v=2">'
+egnew+='<img src="word/m'+egall[i]+'.png?v=3">'
 
 }
 
@@ -2707,13 +2707,13 @@ for(let i=0;i<egall.length;i++){
 
 if(egmgd[s]>-1){
 
-egnew+='<img src="word/mr'+egall[i]+'.png?v=2">'
+egnew+='<img src="word/mr'+egall[i]+'.png?v=3">'
 
 }
 
 if(egmgd[s]<0&&i!=0){
 
-egnew+='<img src="word/m'+egall[i]+'.png?v=2">'
+egnew+='<img src="word/m'+egall[i]+'.png?v=3">'
 
 }
 
@@ -2729,30 +2729,30 @@ $("."+pldname[s]+" div .lifenum").html(egnew)
 
 
 $(".tainame").html('')
-if(whtai.indexOf("平胡")!=-1){$(".tainame").html('<img src="word/nopun.png?v=2">')}
-if(whtai.indexOf("全求人")!=-1){$(".tainame").html('<img src="word/plzother.png?v=2">')}
-if(whtai.indexOf("搶槓胡")!=-1){$(".tainame").html('<img src="word/othergunhu.png?v=2">')}
-if(whtai.indexOf("河底撈魚")!=-1){$(".tainame").html('<img src="word/lastfish.png?v=2">')}
-if(whtai.indexOf("海底撈月")!=-1){$(".tainame").html('<img src="word/lastmoon.png?v=2">')}
-if(whtai.indexOf("槓上開花")!=-1){$(".tainame").html('<img src="word/gunhu.png?v=2">')}
-if(whtai.indexOf("自摸")!=-1){$(".tainame").html('<img src="word/powtake.png?v=2">')}
-if(whtai.indexOf("門清一摸三")!=-1){$(".tainame").html('<img src="word/mytakeall.png?v=2">')}
-if(whtai.indexOf("三暗刻")!=-1){$(".tainame").html('<img src="word/punthree.png?v=2">')}
-if(whtai.indexOf("碰碰胡")!=-1){$(".tainame").html('<img src="word/punall.png?v=2">')}
-if(whtai.indexOf("四暗刻")!=-1){$(".tainame").html('<img src="word/punfour.png?v=2">')}
-if(whtai.indexOf("五暗刻")!=-1){$(".tainame").html('<img src="word/punfive.png?v=2">')}
-if(whtai.indexOf("七搶一")!=-1){$(".tainame").html('<img src="word/seventkone.png?v=2">')}
-if(whtai.indexOf("八仙過海")!=-1){$(".tainame").html('<img src="word/godtosee.png?v=2">')}
-if(whtai.indexOf("小三元")!=-1){$(".tainame").html('<img src="word/smothree.png?v=2">')}
-if(whtai.indexOf("大三元")!=-1){$(".tainame").html('<img src="word/bigthree.png?v=2">')}
-if(whtai.indexOf("小四喜")!=-1){$(".tainame").html('<img src="word/smofour.png?v=2">')}
-if(whtai.indexOf("大四喜")!=-1){$(".tainame").html('<img src="word/bigfour.png?v=2">')}
-if(whtai.indexOf("湊一色")!=-1){$(".tainame").html('<img src="word/onlynumber.png?v=2">')}
-if(whtai.indexOf("清一色")!=-1){$(".tainame").html('<img src="word/numberall.png?v=2">')}
-if(whtai.indexOf("字一色")!=-1){$(".tainame").html('<img src="word/wordall.png?v=2">')}
-if(whtai.indexOf("人胡")!=-1){$(".tainame").html('<img src="word/humenhu.png?v=2">')}
-if(whtai.indexOf("地胡")!=-1){$(".tainame").html('<img src="word/grundhu.png?v=2">')}
-if(whtai.indexOf("天胡")!=-1){$(".tainame").html('<img src="word/godhu.png?v=2">')}
+if(whtai.indexOf("平胡")!=-1){$(".tainame").html('<img src="word/nopun.png?v=3">')}
+if(whtai.indexOf("全求人")!=-1){$(".tainame").html('<img src="word/plzother.png?v=3">')}
+if(whtai.indexOf("搶槓胡")!=-1){$(".tainame").html('<img src="word/othergunhu.png?v=3">')}
+if(whtai.indexOf("河底撈魚")!=-1){$(".tainame").html('<img src="word/lastfish.png?v=3">')}
+if(whtai.indexOf("海底撈月")!=-1){$(".tainame").html('<img src="word/lastmoon.png?v=3">')}
+if(whtai.indexOf("槓上開花")!=-1){$(".tainame").html('<img src="word/gunhu.png?v=3">')}
+if(whtai.indexOf("自摸")!=-1){$(".tainame").html('<img src="word/powtake.png?v=3">')}
+if(whtai.indexOf("門清一摸三")!=-1){$(".tainame").html('<img src="word/mytakeall.png?v=3">')}
+if(whtai.indexOf("三暗刻")!=-1){$(".tainame").html('<img src="word/punthree.png?v=3">')}
+if(whtai.indexOf("碰碰胡")!=-1){$(".tainame").html('<img src="word/punall.png?v=3">')}
+if(whtai.indexOf("四暗刻")!=-1){$(".tainame").html('<img src="word/punfour.png?v=3">')}
+if(whtai.indexOf("五暗刻")!=-1){$(".tainame").html('<img src="word/punfive.png?v=3">')}
+if(whtai.indexOf("七搶一")!=-1){$(".tainame").html('<img src="word/seventkone.png?v=3">')}
+if(whtai.indexOf("八仙過海")!=-1){$(".tainame").html('<img src="word/godtosee.png?v=3">')}
+if(whtai.indexOf("小三元")!=-1){$(".tainame").html('<img src="word/smothree.png?v=3">')}
+if(whtai.indexOf("大三元")!=-1){$(".tainame").html('<img src="word/bigthree.png?v=3">')}
+if(whtai.indexOf("小四喜")!=-1){$(".tainame").html('<img src="word/smofour.png?v=3">')}
+if(whtai.indexOf("大四喜")!=-1){$(".tainame").html('<img src="word/bigfour.png?v=3">')}
+if(whtai.indexOf("湊一色")!=-1){$(".tainame").html('<img src="word/onlynumber.png?v=3">')}
+if(whtai.indexOf("清一色")!=-1){$(".tainame").html('<img src="word/numberall.png?v=3">')}
+if(whtai.indexOf("字一色")!=-1){$(".tainame").html('<img src="word/wordall.png?v=3">')}
+if(whtai.indexOf("人胡")!=-1){$(".tainame").html('<img src="word/humenhu.png?v=3">')}
+if(whtai.indexOf("地胡")!=-1){$(".tainame").html('<img src="word/grundhu.png?v=3">')}
+if(whtai.indexOf("天胡")!=-1){$(".tainame").html('<img src="word/godhu.png?v=3">')}
 
 ///setTimeout('$(".bk60").show(500)',1000)
 
@@ -3439,9 +3439,9 @@ $(".outshowcad div").hide()
 
 $(".etpgword img").hide()
 
-$(".pler1").html('<img src="watse/cv'+plerK[1]+'.png?v=2">').show()
-$(".pler2").html('<img src="watse/cv'+plerK[2]+'.png?v=2">').show()
-$(".pler3").html('<img src="watse/cv'+plerK[3]+'.png?v=2">').show()
+$(".pler1").html('<img src="watse/cv'+plerK[1]+'.png?v=3">').show()
+$(".pler2").html('<img src="watse/cv'+plerK[2]+'.png?v=3">').show()
+$(".pler3").html('<img src="watse/cv'+plerK[3]+'.png?v=3">').show()
 
 var n = allmgd[0]
 
@@ -3455,7 +3455,7 @@ if(n>=137&&allmgd.indexOf(n)==-1){
 
 flocd[pled].push(n)
 
-$("."+pldname[pled]+" div .f"+(flocd[pled].length)+" .c1").html('<img src="mach/'+n+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[pled]+" div .f"+(flocd[pled].length)+" .c1").html('<img src="mach/'+n+'.png?v=3" style="width:60px;height:80px;">')
 
 setTimeout('$("."+pldname[pled]+" div .f"+(flocd[pled].length)).show().animate({top:"0px",left:"0px"},200);',500)
 
@@ -3467,7 +3467,7 @@ plednow=pled
 
 
 const img = new Image();
-img.src = "mach/"+n+".png?v=2";
+img.src = "mach/"+n+".png?v=3";
 
 img.onload = function () {
   $("."+pldname[plednow]+" div .d17 .c1").html(img);
@@ -3561,13 +3561,13 @@ for(let i=1;i<4;i++){
 
 if(pled==i){
 
-$(".pler"+i).html('<img src="watse/ruv'+plerK[i]+'.png?v=2">')
+$(".pler"+i).html('<img src="watse/ruv'+plerK[i]+'.png?v=3">')
 
 }
 
 if(pled!=i){
 
-$(".pler"+i).html('<img src="watse/kil'+plerK[i]+'.png?v=2">')
+$(".pler"+i).html('<img src="watse/kil'+plerK[i]+'.png?v=3">')
 
 }
 
@@ -3586,7 +3586,7 @@ $(".flash"+pled).show()
 
 setTimeout('$(".flash"+'+pled+').hide()',500)
 
-$("."+pldname[pled]+" div .d17 .c1").html('<img src="mach/'+Math.ceil(n/4)+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[pled]+" div .d17 .c1").html('<img src="mach/'+Math.ceil(n/4)+'.png?v=3" style="width:60px;height:80px;">')
 
 $("."+pldname[pled]+" div .d17").animate({},10,function(){
 
@@ -3626,7 +3626,7 @@ return
 plednow=pled
 
 const img = new Image();
-img.src = "mach/"+Math.ceil(n/4)+".png?v=2";
+img.src = "mach/"+Math.ceil(n/4)+".png?v=3";
 
 img.onload = function () {
   $("."+pldname[plednow]+" div .d17 .c1").html(img);
@@ -3772,17 +3772,17 @@ for(let s=0;s<4;s++){
 
 rlmgd[pled].push(cpt)
 
-$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c1").html('<img src="mach/0.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c1").html('<img src="mach/0.png?v=3" style="width:60px;height:80px;">')
 
-$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c2").html('<img src="mach/r.png?v=2" style="width:30px;height:80px;">')
+$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c2").html('<img src="mach/r.png?v=3" style="width:30px;height:80px;">')
 
-$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c3").html('<img src="mach/'+cpt+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c3").html('<img src="mach/'+cpt+'.png?v=3" style="width:60px;height:80px;">')
 
-$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c4").html('<img src="mach/l.png?v=2" style="width:30px;height:80px;">')
+$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c4").html('<img src="mach/l.png?v=3" style="width:30px;height:80px;">')
 
-$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c5").html('<img src="mach/d.png?v=2" style="width:60px;height:30px;">')
+$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c5").html('<img src="mach/d.png?v=3" style="width:60px;height:30px;">')
 
-$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c6").html('<img src="mach/u.png?v=2" style="width:60px;height:30px;">')
+$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c6").html('<img src="mach/u.png?v=3" style="width:60px;height:30px;">')
 
 $("."+pldname[pled]+" div .e"+rlmgd[pled].length).show().animate({top:"0px",left:"0px"},200);
 
@@ -3879,13 +3879,13 @@ if(etnum[pled]+tsp==6){
 
 if(pled!=0){
 
-$(".pler"+pled).html('<img src="watse/hv'+plerK[pled]+'.png?v=2">')
+$(".pler"+pled).html('<img src="watse/hv'+plerK[pled]+'.png?v=3">')
 
 }
 
 if(pledbk!=0){
 
-$(".pler"+pledbk).html('<img src="watse/psv'+plerK[pledbk]+'.png?v=2">')
+$(".pler"+pledbk).html('<img src="watse/psv'+plerK[pledbk]+'.png?v=3">')
 
 }
 
@@ -3893,7 +3893,7 @@ $(".flash"+pled).show()
 
 setTimeout('$(".flash"+'+pled+').hide()',500)
 
-$("."+pldname[pled]+" div .d17 .c1").html('<img src="mach/'+cpt+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[pled]+" div .d17 .c1").html('<img src="mach/'+cpt+'.png?v=3" style="width:60px;height:80px;">')
 
 $("."+pldname[pled]+" div .d17").animate({},10,function(){
 
@@ -4174,7 +4174,7 @@ otmgd[pled].forEach(function(x) { cpo[x] = (cpo[x] || 0)+1; })///計算出現過
 
 if(pled!=0&&cpo[plmgd[pled][mdt]]>=1&&epgmow==0){
 
-$(".pler"+pled).html('<img src="watse/nv'+plerK[pled]+'.png?v=2">')
+$(".pler"+pled).html('<img src="watse/nv'+plerK[pled]+'.png?v=3">')
 
 }
 
@@ -4192,11 +4192,11 @@ cpd=plmgd[pled][mdt]
 
 otmgd[pled].push(plmgd[pled][mdt])
 
-$("."+pldname[pled]+" div .o"+otmgd[pled].length+" .c1").html('<img src="mach/'+plmgd[pled][mdt]+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[pled]+" div .o"+otmgd[pled].length+" .c1").html('<img src="mach/'+plmgd[pled][mdt]+'.png?v=3" style="width:60px;height:80px;">')
 
 $("."+pldname[pled]+" div .o"+otmgd[pled].length).show().animate({top:"0px",left:"0px"},200);
 
-$(".outshow"+pled).html('<img src="mach/'+plmgd[pled][mdt]+'.png?v=2">').show()
+$(".outshow"+pled).html('<img src="mach/'+plmgd[pled][mdt]+'.png?v=3">').show()
 
 delete plmgd[pled][mdt]
 
@@ -4255,13 +4255,13 @@ if(etnum[pled]+tsp==6){
 
 if(pled!=0){
 
-$(".pler"+pled).html('<img src="watse/hv'+plerK[pled]+'.png?v=2">')
+$(".pler"+pled).html('<img src="watse/hv'+plerK[pled]+'.png?v=3">')
 
 }
 
 if(pledbk!=0){
 
-$(".pler"+pledbk).html('<img src="watse/psv'+plerK[pledbk]+'.png?v=2">')
+$(".pler"+pledbk).html('<img src="watse/psv'+plerK[pledbk]+'.png?v=3">')
 
 }
 
@@ -4269,7 +4269,7 @@ $(".flash"+pled).show()
 
 setTimeout('$(".flash"+'+pled+').hide()',500)
 
-$("."+pldname[pled]+" div .d17 .c1").html('<img src="mach/'+cpd+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[pled]+" div .d17 .c1").html('<img src="mach/'+cpd+'.png?v=3" style="width:60px;height:80px;">')
 
 $("."+pldname[pled]+" div .d17").animate({},10,function(){
 
@@ -4394,7 +4394,7 @@ for(let s=0;s<4;s++){
 
 rlmgd[pled].push(cpd)
 
-$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c1").html('<img src="mach/'+cpd+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c1").html('<img src="mach/'+cpd+'.png?v=3" style="width:60px;height:80px;">')
 
 $("."+pldname[pled]+" div .e"+rlmgd[pled].length).show().animate({top:"0px",left:"0px"},200);
 
@@ -4597,7 +4597,7 @@ for(let s=0;s<3;s++){
 
 rlmgd[pled].push(cpd)
 
-$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c1").html('<img src="mach/'+cpd+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c1").html('<img src="mach/'+cpd+'.png?v=3" style="width:60px;height:80px;">')
 
 $("."+pldname[pled]+" div .e"+rlmgd[pled].length).show().animate({top:"0px",left:"0px"},200);
 
@@ -4605,7 +4605,7 @@ $("."+pldname[pled]+" div .e"+rlmgd[pled].length).show().animate({top:"0px",left
 
 rlmgd[pled].push(cpd)
 
-$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c1").html('<img src="mach/'+cpd+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c1").html('<img src="mach/'+cpd+'.png?v=3" style="width:60px;height:80px;">')
 
 $("."+pldname[pled]+" div .e"+rlmgd[pled].length).animate({top:"0px",left:"0px"},200);
 
@@ -4640,7 +4640,7 @@ $(".pun"+pled).show()
 
 if(pled!=0){
 
-$(".pler"+pled).html('<img src="watse/gv'+plerK[pled]+'.png?v=2">')
+$(".pler"+pled).html('<img src="watse/gv'+plerK[pled]+'.png?v=3">')
 
 }
 
@@ -4988,25 +4988,25 @@ return b.ot - a.ot
 
 rlmgd[pled].push(etall[0].cok[0])
 
-$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c1").html('<img src="mach/'+etall[0].cok[0]+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c1").html('<img src="mach/'+etall[0].cok[0]+'.png?v=3" style="width:60px;height:80px;">')
 
 $("."+pldname[pled]+" div .e"+rlmgd[pled].length).show().animate({top:"0px",left:"0px"},200);
 
 rlmgd[pled].push(cpd)
 
-$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c1").html('<img src="mach/'+cpd+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c1").html('<img src="mach/'+cpd+'.png?v=3" style="width:60px;height:80px;">')
 
 $("."+pldname[pled]+" div .e"+rlmgd[pled].length).show().animate({top:"0px",left:"0px"},200);
 
 rlmgd[pled].push(etall[0].cok[1])
 
-$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c1").html('<img src="mach/'+etall[0].cok[1]+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c1").html('<img src="mach/'+etall[0].cok[1]+'.png?v=3" style="width:60px;height:80px;">')
 
 $("."+pldname[pled]+" div .e"+rlmgd[pled].length).show().animate({top:"0px",left:"0px"},200);
 
 rlmgd[pled].push(cpd)
 
-$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c1").html('<img src="mach/'+cpd+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c1").html('<img src="mach/'+cpd+'.png?v=3" style="width:60px;height:80px;">')
 
 $("."+pldname[pled]+" div .e"+rlmgd[pled].length)
 
@@ -5064,7 +5064,7 @@ $(".eat"+pled).show()
 
 if(pled!=0){
 
-$(".pler"+pled).html('<img src="watse/gv'+plerK[pled]+'.png?v=2">')
+$(".pler"+pled).html('<img src="watse/gv'+plerK[pled]+'.png?v=3">')
 
 }
 
@@ -5324,34 +5324,34 @@ for(let s=0;s<4;s++){
 
 rlmgd[pled].push(cpd)
 
-$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c1").html('<img src="mach/0.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c1").html('<img src="mach/0.png?v=3" style="width:60px;height:80px;">')
 
-$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c2").html('<img src="mach/r.png?v=2" style="width:30px;height:80px;">')
+$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c2").html('<img src="mach/r.png?v=3" style="width:30px;height:80px;">')
 
-$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c3").html('<img src="mach/'+cpd+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c3").html('<img src="mach/'+cpd+'.png?v=3" style="width:60px;height:80px;">')
 
-$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c4").html('<img src="mach/l.png?v=2" style="width:30px;height:80px;">')
+$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c4").html('<img src="mach/l.png?v=3" style="width:30px;height:80px;">')
 
-$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c5").html('<img src="mach/d.png?v=2" style="width:60px;height:30px;">')
+$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c5").html('<img src="mach/d.png?v=3" style="width:60px;height:30px;">')
 
-$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c6").html('<img src="mach/u.png?v=2" style="width:60px;height:30px;">')
+$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c6").html('<img src="mach/u.png?v=3" style="width:60px;height:30px;">')
 
 $("."+pldname[pled]+" div .e"+rlmgd[pled].length).show().animate({top:"0px",left:"0px"},200);
 
 
 if(pled==0&&s==3){
 
-$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c1").html('<img src="mach/'+cpd+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c1").html('<img src="mach/'+cpd+'.png?v=3" style="width:60px;height:80px;">')
 
-$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c2").html('<img src="mach/l.png?v=2" style="width:30px;height:80px;">')
+$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c2").html('<img src="mach/l.png?v=3" style="width:30px;height:80px;">')
 
-$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c3").html('<img src="mach/0.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c3").html('<img src="mach/0.png?v=3" style="width:60px;height:80px;">')
 
-$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c4").html('<img src="mach/r.png?v=2" style="width:30px;height:80px;">')
+$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c4").html('<img src="mach/r.png?v=3" style="width:30px;height:80px;">')
 
-$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c5").html('<img src="mach/u.png?v=2" style="width:60px;height:30px;">')
+$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c5").html('<img src="mach/u.png?v=3" style="width:60px;height:30px;">')
 
-$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c6").html('<img src="mach/d.png?v=2" style="width:60px;height:30px;">')
+$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c6").html('<img src="mach/d.png?v=3" style="width:60px;height:30px;">')
 
 $("."+pldname[pled]+" div .e"+rlmgd[pled].length).show().animate({top:"0px",left:"0px"},200);
 
@@ -5401,7 +5401,7 @@ for(let s=0;s<4;s++){
 
 rlmgd[pled].push(cpd)
 
-$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c1").html('<img src="mach/'+cpd+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c1").html('<img src="mach/'+cpd+'.png?v=3" style="width:60px;height:80px;">')
 
 $("."+pldname[pled]+" div .e"+rlmgd[pled].length).show().animate({top:"0px",left:"0px"},200);
 
@@ -5467,7 +5467,7 @@ if(etnum[pled]+tsp==6){
 
 if(pled!=0){
 
-$(".pler"+pled).html('<img src="watse/hv'+plerK[pled]+'.png?v=2">')
+$(".pler"+pled).html('<img src="watse/hv'+plerK[pled]+'.png?v=3">')
 
 }
 
@@ -5475,7 +5475,7 @@ $(".flash"+pled).show()
 
 setTimeout('$(".flash"+'+pled+').hide()',500)
 
-$("."+pldname[pled]+" div .d17 .c1").html('<img src="mach/'+cpd+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[pled]+" div .d17 .c1").html('<img src="mach/'+cpd+'.png?v=3" style="width:60px;height:80px;">')
 
 $("."+pldname[pled]+" div .d17").animate({},10,function(){
 
@@ -5557,7 +5557,7 @@ for(let s=0;s<3;s++){
 
 rlmgd[pled].push(cpd)
 
-$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c1").html('<img src="mach/'+cpd+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c1").html('<img src="mach/'+cpd+'.png?v=3" style="width:60px;height:80px;">')
 
 $("."+pldname[pled]+" div .e"+rlmgd[pled].length).show().animate({top:"0px",left:"0px"},200);
 
@@ -5565,7 +5565,7 @@ $("."+pldname[pled]+" div .e"+rlmgd[pled].length).show().animate({top:"0px",left
 
 rlmgd[pled].push(cpd)
 
-$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c1").html('<img src="mach/'+cpd+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c1").html('<img src="mach/'+cpd+'.png?v=3" style="width:60px;height:80px;">')
 
 $("."+pldname[pled]+" div .e"+rlmgd[pled].length).animate({top:"0px",left:"0px"},200);
 
@@ -5600,7 +5600,7 @@ $(".pun"+pled).show()
 
 if(pled!=0){
 
-$(".pler"+pled).html('<img src="watse/gv'+plerK[pled]+'.png?v=2">')
+$(".pler"+pled).html('<img src="watse/gv'+plerK[pled]+'.png?v=3">')
 
 }
 
@@ -5640,25 +5640,25 @@ rcmgd[pledbk].push(otmgd[pledbk].length-1)
 
 rlmgd[pled].push(etall[0].cok[0])
 
-$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c1").html('<img src="mach/'+etall[0].cok[0]+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c1").html('<img src="mach/'+etall[0].cok[0]+'.png?v=3" style="width:60px;height:80px;">')
 
 $("."+pldname[pled]+" div .e"+rlmgd[pled].length).show().animate({top:"0px",left:"0px"},200);
 
 rlmgd[pled].push(cpd)
 
-$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c1").html('<img src="mach/'+cpd+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c1").html('<img src="mach/'+cpd+'.png?v=3" style="width:60px;height:80px;">')
 
 $("."+pldname[pled]+" div .e"+rlmgd[pled].length).show().animate({top:"0px",left:"0px"},200);
 
 rlmgd[pled].push(etall[0].cok[1])
 
-$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c1").html('<img src="mach/'+etall[0].cok[1]+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c1").html('<img src="mach/'+etall[0].cok[1]+'.png?v=3" style="width:60px;height:80px;">')
 
 $("."+pldname[pled]+" div .e"+rlmgd[pled].length).show().animate({top:"0px",left:"0px"},200);
 
 rlmgd[pled].push(cpd)
 
-$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c1").html('<img src="mach/'+cpd+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[pled]+" div .e"+rlmgd[pled].length+" .c1").html('<img src="mach/'+cpd+'.png?v=3" style="width:60px;height:80px;">')
 
 $("."+pldname[pled]+" div .e"+rlmgd[pled].length)
 
@@ -5704,7 +5704,7 @@ $(".eat"+pled).show()
 
 if(pled!=0){
 
-$(".pler"+pled).html('<img src="watse/gv'+plerK[pled]+'.png?v=2">')
+$(".pler"+pled).html('<img src="watse/gv'+plerK[pled]+'.png?v=3">')
 
 }
 
@@ -5893,7 +5893,7 @@ for(let i=1;i<18;i++){
 
 cadlink=$("."+pldname[0]+" div .d"+i+" .c1").html().toString()
 
-if(etallshow.indexOf(Number(cadlink.substring(15,cadlink.indexOf(".png?v=2"))))==-1){
+if(etallshow.indexOf(Number(cadlink.substring(15,cadlink.indexOf(".png?v=3"))))==-1){
 
 $("."+pldname[0]+" div .d"+i+" div").css("filter","sepia(100%) brightness(50%)")
 
@@ -5920,7 +5920,7 @@ return
 
 cadlink=$("."+pldname[0]+" div .d"+res+" .c1").html().toString()
 
-res=plmgd[pled].indexOf(Number(cadlink.substring(15,cadlink.indexOf(".png?v=2"))))
+res=plmgd[pled].indexOf(Number(cadlink.substring(15,cadlink.indexOf(".png?v=3"))))
 
 fiseat.push(plmgd[pled][res])
 
@@ -5976,7 +5976,7 @@ for(let i=1;i<18;i++){
 
 cadlink=$("."+pldname[0]+" div .d"+i+" .c1").html().toString()
 
-if(etallshow.indexOf(Number(cadlink.substring(15,cadlink.indexOf(".png?v=2"))))==-1){
+if(etallshow.indexOf(Number(cadlink.substring(15,cadlink.indexOf(".png?v=3"))))==-1){
 
 $("."+pldname[0]+" div .d"+i+" div").css("filter","sepia(100%) brightness(50%)")
 
@@ -5999,7 +5999,7 @@ return
 
 cadlink=$("."+pldname[0]+" div .d"+res2+" .c1").html().toString()
 
-res2=plmgd[pled].indexOf(Number(cadlink.substring(15,cadlink.indexOf(".png?v=2"))))
+res2=plmgd[pled].indexOf(Number(cadlink.substring(15,cadlink.indexOf(".png?v=3"))))
 
 fiseat.push(plmgd[pled][res2])
 
@@ -6273,7 +6273,7 @@ if(epgmow==0&&otlisten.length!=0){
 
 cadlink=$("."+pldname[0]+" div .d"+mdt+" .c1").html().toString()
 
-mdt=plmgd[pled].indexOf(Number(cadlink.substring(15,cadlink.indexOf(".png?v=2"))))
+mdt=plmgd[pled].indexOf(Number(cadlink.substring(15,cadlink.indexOf(".png?v=3"))))
 
 $("."+pldname[pled]+" div .d17").hide()
 
@@ -6293,7 +6293,7 @@ $("."+pldname[pled]+" div .d17").hide()
 
 cadlink=$("."+pldname[0]+" div .d"+mdt+" .c1").html().toString()
 
-mdt=plmgd[pled].indexOf(Number(cadlink.substring(15,cadlink.indexOf(".png?v=2"))))
+mdt=plmgd[pled].indexOf(Number(cadlink.substring(15,cadlink.indexOf(".png?v=3"))))
 
 }
 
@@ -6311,7 +6311,7 @@ return a - b
 
 cadlink=$("."+pldname[0]+" div .d"+mdt+" .c1").html().toString()
 
-mdt=plmgd[pled].indexOf(Number(cadlink.substring(15,cadlink.indexOf(".png?v=2"))))
+mdt=plmgd[pled].indexOf(Number(cadlink.substring(15,cadlink.indexOf(".png?v=3"))))
 
 ethan[pled]++
 
@@ -6369,7 +6369,7 @@ cpd=plmgd[pled][mdt]
 
 otmgd[pled].push(plmgd[pled][mdt])
 
-$("."+pldname[pled]+" div .o"+otmgd[pled].length+" .c1").html('<img src="mach/'+plmgd[pled][mdt]+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[pled]+" div .o"+otmgd[pled].length+" .c1").html('<img src="mach/'+plmgd[pled][mdt]+'.png?v=3" style="width:60px;height:80px;">')
 
 $("."+pldname[pled]+" div .o"+otmgd[pled].length).show().animate({top:"0px",left:"0px"},200);
 
@@ -6413,13 +6413,13 @@ for(let i=1;i<4;i++){
 
 if(pled==i){
 
-$(".pler"+i).html('<img src="watse/ruv'+plerK[i]+'.png?v=2">')
+$(".pler"+i).html('<img src="watse/ruv'+plerK[i]+'.png?v=3">')
 
 }
 
 if(pled!=i){
 
-$(".pler"+i).html('<img src="watse/kil'+plerK[i]+'.png?v=2">')
+$(".pler"+i).html('<img src="watse/kil'+plerK[i]+'.png?v=3">')
 
 }
 
@@ -6438,7 +6438,7 @@ $(".flash"+pled).show()
 
 setTimeout('$(".flash"+'+pled+').hide()',500)
 
-$("."+pldname[pled]+" div .d17 .c1").html('<img src="mach/'+otc+'.png?v=2" style="width:60px;height:80px;">')
+$("."+pldname[pled]+" div .d17 .c1").html('<img src="mach/'+otc+'.png?v=3" style="width:60px;height:80px;">')
 
 $("."+pldname[pled]+" div .d17").animate({},10,function(){
 
@@ -6668,7 +6668,7 @@ for(let i=1;i<18;i++){
 
 cadlink=$("."+pldname[0]+" div .d"+i+" .c1").html().toString()
 
-if(cantoutcd.indexOf(Number(cadlink.substring(15,cadlink.indexOf(".png?v=2"))))!=-1){
+if(cantoutcd.indexOf(Number(cadlink.substring(15,cadlink.indexOf(".png?v=3"))))!=-1){
 
 $("."+pldname[0]+" div .d"+i+" div").css("filter","sepia(100%) brightness(50%)")
 
@@ -6686,7 +6686,7 @@ for(let i=1;i<18;i++){
 
 cadlink=$("."+pldname[0]+" div .d"+i+" .c1").html().toString()
 
-if(rlmgd[0][rlmgd[0].length-1]==Number(cadlink.substring(15,cadlink.indexOf(".png?v=2")))){
+if(rlmgd[0][rlmgd[0].length-1]==Number(cadlink.substring(15,cadlink.indexOf(".png?v=3")))){
 
 $("."+pldname[0]+" div .d"+i+" div").css("filter","sepia(100%) brightness(50%)")
 
@@ -6703,7 +6703,7 @@ for(let i=1;i<18;i++){
 
 cadlink=$("."+pldname[0]+" div .d"+i+" .c1").html().toString()
 
-if(rlmgd[0][rlmgd[0].length-1]==Number(cadlink.substring(15,cadlink.indexOf(".png?v=2")))){
+if(rlmgd[0][rlmgd[0].length-1]==Number(cadlink.substring(15,cadlink.indexOf(".png?v=3")))){
 
 $("."+pldname[0]+" div .d"+i+" div").css("filter","sepia(100%) brightness(50%)")
 
