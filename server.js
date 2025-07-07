@@ -252,6 +252,8 @@ socket.on("wantinvit", (roomId) => {
 
         console.log("玩家",aiId,"加入房間",roomId);
 
+        sendToClient(roomId, "playerJoined", { playerId: aiId, roomSize: rooms[roomId].players.length });
+
         if (rooms[roomId].players.length == 4) {
             befgame(roomId)
             return;
