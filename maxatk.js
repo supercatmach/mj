@@ -1,7 +1,7 @@
-const { evaluateHand } = require("./zutop.js");
+const zutop = require("./zutop.js");
 const { parentPort , isMainThread} = require("worker_threads");
 
-console.log = () => {};
+console.log(zutop["1"]);
 
 plgamealread=0///是否開始遊戲
 
