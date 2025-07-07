@@ -408,7 +408,7 @@ const roomId=roomsinf
 
 console.log("莊家:"+rooms[roomId].players[rooms[roomId].makrs])
 
-sendToClient(from, "myname", JSON.stringify([socket.id,rooms[roomId].players,rooms[roomId].players[rooms[roomId].makrs]]));
+sendToClient(from, "myname", JSON.stringify([from,rooms[roomId].players,rooms[roomId].players[rooms[roomId].makrs]]));
 
 },
 
