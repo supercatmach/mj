@@ -1388,7 +1388,7 @@ if (totalTing >= 2||(128-allmgds)<=12) {
 
 console.log("捨出防守 :",plmgd,"捨張 :",dangerCandidates[0].card,dangerCandidates)
 
-socket.emit("outcard", JSON.stringify([roomId, dangerCandidates[0].card]));
+otemit.emit("outcard", JSON.stringify([roomId, dangerCandidates[0].card]));
 
 return
 
