@@ -265,9 +265,14 @@ socket.on("wantinvit", (roomId) => {
 
 
 function runClient(name, jorooms = '') {
-  const worker = new Worker('./maxatk.js', {
-    workerData: { name, jorooms }
-  });
+
+const scripts = ['max.js', 'maxatk.js', 'maxsafe.js'];
+
+const randomScript = scripts[Math.floor(Math.random() * scripts.length)];
+
+const worker = new Worker(randomScript, {
+  workerData: { name, jorooms }
+});
 
   aiWorkers[name] = worker;
   workerToAiId.set(worker, name);  // ✅ 修正這裡，用 name 當作 aiId
