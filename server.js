@@ -37,8 +37,10 @@ app.use(
         "wss://mj-5x4w.onrender.com",
         "https://catchat-a7zb.onrender.com",
         "wss://catchat-a7zb.onrender.com",
-        "https://mj-production-43c2.up.railway.app",
-        "wss://mj-production-43c2.up.railway.app"
+        "https://mj-sp1.up.railway.app",
+        "wss://mj-sp2.up.railway.app",
+        "https://mj-sp1.up.railway.app",
+        "wss://mj-sp2.up.railway.app"
       ],
       fontSrc: [
         "'self'",

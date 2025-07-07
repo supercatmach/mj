@@ -212,11 +212,36 @@ function isValidBase64(str) {
 }
 ////////////////////////////////////////////
 
+const serverList = [
+  "https://mj-sp1.up.railway.app",
+  "https://mj-sp2.up.railway.app"
+];
+
+async function findLiveServer() {
+  for (let url of serverList) {
+    try {
+      const res = await fetch(url + "/ping", { timeout: 2000 });
+      if (res.ok) return url;
+    } catch (e) {
+      // console.log(`${url} 掛了`);
+    }
+  }
+  throw new Error("找不到可用伺服器");
+}
+
 function sufpvpn(dps){
 
-const serverURL = "https://mj-production-43c2.up.railway.app";
+servertoURL=null
 
-const socket = io(serverURL);
+findLiveServer()
+  .then(serverURL => {
+    const socket = io(serverURL);
+servertoURL=serverURL
+    console.log("連到伺服器:", serverURL);
+  })
+  .catch(err => {
+    alert("目前所有伺服器都掛了，請稍後再試！");
+  });
 
 
 if(dps!=3){///連線
@@ -264,7 +289,7 @@ $(".londingshap100").animate({width:'100%'},1000);
 
 setTimeout(() => {
 
-window.location.href = `/magi.html?room=${rooms.roomId}&server=${encodeURIComponent(serverURL)}`
+window.location.href = `/magi.html?room=${rooms.roomId}&server=${encodeURIComponent(servertoURL)}`
 
 },1000)
 
