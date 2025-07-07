@@ -222,6 +222,21 @@ rooms[roomId].ynstar=0
                 // 否則只移除這名玩家
                 rooms[roomId].players = rooms[roomId].players.filter(
                     (playerId) => playerId !== socket.id
+
+const allAI = rooms[roomId].players.every(item => typeof item === "string" && item.startsWith("AI"));
+
+if (allAI){
+
+for(let i=0;i<rooms[roomId].players.length;i++){
+
+console.log("AI 判定任務結束，準備退出",rooms[roomId].players[i]);
+
+delete aiWorkers[rooms[roomId].players[i]];
+
+}
+
+}
+
                 );
             }
         }
