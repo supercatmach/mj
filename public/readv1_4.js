@@ -214,7 +214,9 @@ function isValidBase64(str) {
 
 function sufpvpn(dps){
 
-const socket = io("https://mj-production-43c2.up.railway.app");
+const serverURL = "https://mj-production-43c2.up.railway.app";
+
+const socket = io(serverURL);
 
 
 if(dps!=3){///連線
@@ -262,7 +264,7 @@ $(".londingshap100").animate({width:'100%'},1000);
 
 setTimeout(() => {
 
-window.location.href = `/magi.html?room=${rooms.roomId}`
+window.location.href = `/magi.html?room=${rooms.roomId}&server=${encodeURIComponent(serverURL)}`
 
 },1000)
 

@@ -2915,9 +2915,16 @@ charich = (storedCharich === null || storedCharich === "null")
 
 console.log(charich)
 
-        const socket = io("https://mj-production-43c2.up.railway.app");
-        const urlParams = new URLSearchParams(window.location.search);
-        const roomId = urlParams.get("room");
+const urlParams = new URLSearchParams(window.location.search);
+const roomId = urlParams.get("room");
+const serverURL = urlParams.get("server");
+
+if (!serverURL) {
+  alert("伺服器位址遺失，請回首頁重新進入");
+  throw new Error("無 server URL");
+}
+
+const socket = io(serverURL);
 
         if (roomId) {
             socket.emit("joinRoom", roomId);
