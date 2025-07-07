@@ -1,4 +1,4 @@
-const zutop = require("./zutop.js");
+const zutop = require("./zutop");
 const { parentPort , isMainThread} = require("worker_threads");
 
 console.log(zutop["1"]);
@@ -1388,7 +1388,7 @@ if (totalTing >= 1||(128-allmgds)<=24) {
 
 console.log("捨出防守 :",plmgd,"捨張 :",dangerCandidates[0].card,dangerCandidates)
 
-socket.emit("outcard", JSON.stringify([roomId, dangerCandidates[0].card]));
+otemit("outcard", JSON.stringify([roomId, dangerCandidates[0].card]));
 
 return
 
