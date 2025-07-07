@@ -26,6 +26,18 @@ function handleMessage(msg) {
 
 const eventHandlers = {
 
+wantinvit: (rooms) => {
+
+roomId=rooms
+
+console.log("加入房間",rooms);
+
+otemit("myche", JSON.stringify([roomId,"maxatkc"]));
+
+},
+
+///////////////////////////////////////////////
+
 playerJoined: (datainf) => {
 
 if(datainf.roomSize==4){
@@ -36,37 +48,11 @@ otemit("dice",roomId);
 
 }
 
-},playerDisconnected: (datainf) => {
+},
 
-  const idx = allplad.indexOf(datainf.playerId);
-  if (idx !== -1) allplad.splice(idx, 1);
+///////////////////////////////////////////////
 
-const allAI = allplad.every(item => typeof item === "string" && item.startsWith("AI"));
-
-if (allAI){
-
-  console.log("AI 判定任務結束，準備退出");
-  process.exit(0);
-
-
-}
-
-},wantinvit: (rooms) => {
-
-if(plgamealread==0){///尚未加入任何房間
-
-roomId=rooms
-
-console.log("加入房間",rooms);
-
-otemit("joinRoom", rooms);
-
-otemit("myche", JSON.stringify([roomId,"maxatkc"]));
-
-
-}
-
-},myname: (data) => {
+myname: (data) => {
 
 idfme=JSON.parse(data)[0]
 allplad=JSON.parse(data)[1]
@@ -77,21 +63,66 @@ allplad=allplad.slice(myl).concat(allplad.slice(0, myl));
 
 console.log(allplad)
 
-},getnewcard2: (ples) => {
+},
+
+///////////////////////////////////////////////
+
+dice: (data) => {
+
+otemit("gamStar",roomId);
+
+gtcd=0
+
+lbmgd=0
+
+lbmgds=[0,0,0,0]
+
+flmgd=[]
+
+etmgd=[]
+
+plmgd=[]
+
+allmgd=[]
+
+alloutcd=[[],[],[],[]]
+
+daetp=[0,0,0,0]
+
+allmgds=65
+
+ephchick=0
+
+},
+
+///////////////////////////////////////////////
+
+getnewcard2: (ples) => {
 
 console.log("剩下張數:",(128-allmgds))
 
 allmgds++
 
-},nowin: (data) => {///流局
+},
+
+///////////////////////////////////////////////
+
+nowin: (data) => {///流局
 
 setTimeout(begStar,500)
 
-},needgetcard: (card) => {
+},
+
+///////////////////////////////////////////////
+
+needgetcard: (card) => {
 
 otemit("getnewcard",JSON.stringify([roomId,"new"]));
 
-},star: (card) => {
+},
+
+///////////////////////////////////////////////
+star: (card) => {
 
 cantoutcd=[]///不能捨的牌
 
@@ -133,7 +164,11 @@ gtcd=1
 
 }, 2500);
 
-},caneph: (data) => {
+},
+
+///////////////////////////////////////////////
+
+caneph: (data) => {
 
 pled=JSON.parse(data)[0]
 card=JSON.parse(data)[1]
@@ -345,7 +380,11 @@ outcard(card[1])
 
 }
 
-},getnewcard: (card) => {
+},
+
+///////////////////////////////////////////////
+
+getnewcard: (card) => {
 
 cantoutcd=[]///不能捨的牌
 
@@ -454,39 +493,22 @@ gtcd=1
 
 }
 
-},dice: (data) => {
+},
 
-otemit("gamStar",roomId);
+///////////////////////////////////////////////
 
-gtcd=0
-
-lbmgd=0
-
-lbmgds=[0,0,0,0]
-
-flmgd=[]
-
-etmgd=[]
-
-plmgd=[]
-
-allmgd=[]
-
-alloutcd=[[],[],[],[]]
-
-daetp=[0,0,0,0]
-
-allmgds=65
-
-ephchick=0
-
-},befbegin: (card) => {
+befbegin: (card) => {
 
 otemit("begin",JSON.stringify([roomId]));
 
 gtcd=2
 
-},outcard: (outcardinf) => {
+},
+
+///////////////////////////////////////////////
+
+
+outcard: (outcardinf) => {
 
 winp=0
 
@@ -501,6 +523,8 @@ ple=allplad.indexOf(pled)
 alloutcd[ple].push(mtd)
 
 allmgd.push(mtd)
+
+console.log("收到捨牌",mtd,"來自",ple,"手牌",plmgd)
 
 if(ple==0){
 
@@ -535,6 +559,10 @@ sortCad()
 tsp=manum///組數
 
 tsp+=(crdeye>0)?1:0///組數
+
+
+console.log("組數",tsp,"手牌",plmgd)
+
 
 if(tsp+etmgd.length==6){
 
@@ -616,9 +644,15 @@ otemit("epghpk",JSON.stringify([roomId,0]));
 }
 }///if(ple!=0){
 
+console.log("回傳吃碰槓確認",ephchick)
+
 otemit("outchak",JSON.stringify([roomId,mtd]));
 
-},outchak: (outchakinf) => {
+},
+
+///////////////////////////////////////////////
+
+outchak: (outchakinf) => {
 
 mtd=JSON.parse(outchakinf)[1]
 mtd=Number(mtd)
@@ -669,7 +703,9 @@ otemit("needgetcard",JSON.stringify([roomId,pled,mtd]));
 
 }
 
-}
+
+
+};
 
 ///////////////////////////////////////////////
 
@@ -679,8 +715,8 @@ otemit("dice",roomId);
 
 }
 
-
 ////////////////////////////////////////////////////////////////////
+
 function getCantOutCards(card, epgtw) {
   const cantoutcd = [Number(card[1])]; // 中間牌必不能捨
 
@@ -828,6 +864,7 @@ plmgd = JSON.parse(JSON.stringify(plmgdbkgun));
   return false;
 }
 ////////////////////////////////////////////////////////////////////
+
 
 ///////////////////////////////////////
 function lonmds() {
@@ -1335,6 +1372,7 @@ function selectBestCompromiseDiscard(outcards, dangerCandidates) {
 ///////////////////////////////////////
 function outcard(card) {
 
+ephchick=0
 
 bkmgd=JSON.parse(JSON.stringify(plmgd))///複製
 
@@ -1564,6 +1602,7 @@ function countTotalKaozhang(plmgd, allmgd) {
 
 ///////////////////////////////////////
 
+
 ////////////////////////////////////////////////////////////////////
 
 function simulateEatPonGun(ple, mtd, hand, allmgd, etmgd, roomId) {
@@ -1745,7 +1784,7 @@ function countEffectiveTiles(tiles, allmgd, hand) {
 
 // ✅ 如果是被 Worker 執行
 if (!isMainThread) {
-console.log("maxsatk上線");
+console.log("maxatk上線");
 parentPort.on("message", (msg) => {
   handleMessage(msg);
 });
@@ -1761,6 +1800,7 @@ if (isMainThread) {
   // 你可以在這裡測試更多事件
   // handleMessage({ eventName: "something", data: ... });
 }
+
 
 
 

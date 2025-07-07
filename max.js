@@ -49,6 +49,25 @@ otemit("dice",roomId);
 
 ///////////////////////////////////////////////
 
+playerDisconnected: (datainf) => {
+
+  const idx = allplad.indexOf(datainf.playerId);
+  if (idx !== -1) allplad.splice(idx, 1);
+
+const allAI = allplad.every(item => typeof item === "string" && item.startsWith("AI"));
+
+if (allAI){
+
+  console.log("AI 判定任務結束，準備退出");
+  process.exit(0);
+
+
+}
+
+},
+
+///////////////////////////////////////////////
+
 wantinvit: (rooms) => {
 
 roomId=rooms
