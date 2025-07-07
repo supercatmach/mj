@@ -1744,6 +1744,12 @@ if (!isMainThread) {
 console.log("maxsatk上線");
 parentPort.on("message", (msg) => {
   handleMessage(msg);
+
+  if (msg.eventName === "exitNow") {
+    console.log("[AI] 收到 exit 指令，主動退出");
+    process.exit(0);
+  }
+
 });
 }
 

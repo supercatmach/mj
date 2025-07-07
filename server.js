@@ -202,37 +202,40 @@ if (foundRoomKey) {
 socket.on("disconnect", (reason) => {
   for (const roomId in rooms) {
     if (rooms[roomId].players.includes(socket.id)) {
+      // 移除玩家資訊
       rooms[roomId].playerpic = rooms[roomId].playerpic.filter(p => p.playerId !== socket.id);
-
       sendToClient(roomId, "allche", JSON.stringify(rooms[roomId].playerpic));
       sendToClient(roomId, "playerDisconnected", { playerId: socket.id });
 
+      // 房主離線或房間空了
       if (
         rooms[roomId].host === socket.id ||
         io.sockets.adapter.rooms.get(roomId)?.size === 0
       ) {
         rooms[roomId].ynstar = 0;
       } else {
-        // ✅ 正確結束 filter 函式
+        // 移除這名玩家
         rooms[roomId].players = rooms[roomId].players.filter(
-          (playerId) => playerId !== socket.id
+          playerId => playerId !== socket.id
         );
 
-        // ✅ 放在 filter 結束後
         const allAI = rooms[roomId].players.every(
-          item => typeof item === "string" && item.startsWith("AI")
+          id => typeof id === "string" && id.startsWith("AI")
         );
 
         if (allAI) {
-          for (let i = 0; i < rooms[roomId].players.length; i++) {
-            
-aiId=rooms[roomId].players[i]
-    if (aiWorkers[aiId]) {
-console.log("AI 判定任務結束，準備退出", aiId);
-      aiWorkers[aiId].terminate();  // 終止 Worker
-      delete aiWorkers[aiId];       // 刪除紀錄
-    }
+          // 終止所有 AI worker
+          for (const aiId of rooms[roomId].players) {
+            if (aiWorkers[aiId]) {
+              console.log("⚠️ AI 判定任務結束，準備退出", aiId);
+              aiWorkers[aiId].postMessage({ eventName: "exitNow" }); // 雙保險
+              aiWorkers[aiId].terminate();
+              delete aiWorkers[aiId];
+            }
           }
+
+          console.log("✅ 房間只剩 AI，刪除房間:", roomId);
+          delete rooms[roomId]; // ✅ 刪除整個房間
         }
       }
     }
