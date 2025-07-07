@@ -6363,6 +6363,8 @@ return
 
 if((128-allmgd)<5&&ephchick==1){///如果沒有吃碰槓胡則返回
 
+socket.emit("needgetcard",JSON.stringify([roomId,pled,mtd]));
+
 $(".cnatetpg").show()
 
 setTimeout(() => {
