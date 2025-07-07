@@ -561,7 +561,7 @@ tsp=manum///組數
 tsp+=(crdeye>0)?1:0///組數
 
 
-console.log("組數",mtd,"來自",ple,"手牌",plmgd)
+console.log("組數",tsp,"手牌",plmgd)
 
 
 if(tsp+etmgd.length==6){
