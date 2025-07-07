@@ -266,11 +266,13 @@ socket.on("wantinvit", (roomId) => {
 
 function runClient(name, jorooms = '') {
 
+const path = require('path');
 const scripts = ['max.js', 'maxatk.js', 'maxsafe.js'];
 
 const randomScript = scripts[Math.floor(Math.random() * scripts.length)];
+const scriptPath = path.join(__dirname, randomScript); // 絕對安全
 
-const worker = new Worker(randomScript, {
+const worker = new Worker(scriptPath, {
   workerData: { name, jorooms }
 });
 
