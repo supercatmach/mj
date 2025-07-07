@@ -644,6 +644,8 @@ otemit("epghpk",JSON.stringify([roomId,0]));
 }
 }///if(ple!=0){
 
+console.log("回傳吃碰槓確認",ephchick)
+
 otemit("outchak",JSON.stringify([roomId,mtd]));
 
 },
