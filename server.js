@@ -226,7 +226,10 @@ socket.on("disconnect", (reason) => {
         if (allAI) {
           for (let i = 0; i < rooms[roomId].players.length; i++) {
             console.log("AI 判定任務結束，準備退出", rooms[roomId].players[i]);
-            delete aiWorkers[rooms[roomId].players[i]];
+    if (aiWorkers[aiId]) {
+      aiWorkers[aiId].terminate();  // 終止 Worker
+      delete aiWorkers[aiId];       // 刪除紀錄
+    }
           }
         }
       }

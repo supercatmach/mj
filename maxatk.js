@@ -61,8 +61,6 @@ roomId=rooms
 
 console.log("加入房間",rooms);
 
-otemit("joinRoom", rooms);
-
 otemit("myche", JSON.stringify([roomId,"maxatkc"]));
 
 
