@@ -1,3 +1,5 @@
+console.log = () => {};
+
 const zutop = require("./zutop");
 const { parentPort , isMainThread} = require("worker_threads");
 
