@@ -524,6 +524,8 @@ alloutcd[ple].push(mtd)
 
 allmgd.push(mtd)
 
+console.log("收到捨牌",mtd,"來自",ple)
+
 if(ple==0){
 
 otemit("epghpk",JSON.stringify([roomId,0]));
