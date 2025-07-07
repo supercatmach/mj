@@ -1,4 +1,5 @@
-const zutop = require("./zutop")
+const zutop = require("./zutop.js");
+const { parentPort , isMainThread} = require("worker_threads");
 
 console.log(zutop["1"]);
 
@@ -6,75 +7,52 @@ plgamealread=0///是否開始遊戲
 
 lopal=0
 
-const io = require("socket.io-client");
+function otemit(ioname,iodata){
 
-const socket = io("https://mj-production-43c2.up.railway.app");
-
-setInterval(() => {
-  fetch("https://mj-production-43c2.up.railway.app/ping");
-}, 1 * 60 * 1000);
-
-socket.on("hi", (datainf) => {
-
-socket.emit("ingameAI", "maxsafe");
-
-})
-
-socket.on("playerJoined", (datainf) => {
-
-plgamealread=1///是否開始遊戲
-
-lopal++
-
-if(datainf.roomSize==4){
-
-plgamealread=2///是否開始遊戲
-
-lopal=4
-
-socket.emit("myname",roomId);
-
-socket.emit("dice",roomId);
-
-}
+parentPort.postMessage({
+  eventName: ioname,
+  data: iodata
 
 });
 
-
-socket.on("playerDisconnected", (datainf) => {
-
-lopal--
-
-if(allplad.length!=0&&plgamealread==2||plgamealread==1&&lopal==1){
-
-console.log(datainf.playerId+"斷線了");
-
-lop=allplad.indexOf(datainf.playerId)
-
-process.exit(0);
-
+}
+function handleMessage(msg) {
+  if (msg && msg.eventName && eventHandlers[msg.eventName]) {
+    eventHandlers[msg.eventName](msg.data);
+  } else {
+    console.warn("未知事件或格式錯誤", msg);
+  }
 }
 
-});
+const eventHandlers = {
 
-socket.on("wantinvit", (rooms) => {
-
-if(plgamealread==0){///尚未加入任何房間
+wantinvit: (rooms) => {
 
 roomId=rooms
 
 console.log("加入房間",rooms);
 
-socket.emit("joinRoom", rooms);
+otemit("myche", JSON.stringify([roomId,Math.floor((Math.random() * 4)+5) + "c"]));
 
-socket.emit("myche", JSON.stringify([roomId,Math.floor((Math.random() * 4)+5) + "c"]));
+},
+
+///////////////////////////////////////////////
+
+playerJoined: (datainf) => {
+
+if(datainf.roomSize==4){
+
+otemit("myname",roomId);
+
+otemit("dice",roomId);
 
 }
 
-});
+},
+
 ///////////////////////////////////////////////
 
-socket.on("myname", (data) => {
+myname: (data) => {
 
 idfme=JSON.parse(data)[0]
 allplad=JSON.parse(data)[1]
@@ -85,19 +63,13 @@ allplad=allplad.slice(myl).concat(allplad.slice(0, myl));
 
 console.log(allplad)
 
-});
+},
 
 ///////////////////////////////////////////////
 
-function begStar(){
+dice: (data) => {
 
-socket.emit("dice",roomId);
-
-}
-
-socket.on("dice", (data) => {
-
-socket.emit("gamStar",roomId);
+otemit("gamStar",roomId);
 
 gtcd=0
 
@@ -121,43 +93,36 @@ allmgds=65
 
 ephchick=0
 
-});
+},
 
+///////////////////////////////////////////////
 
-socket.on("getnewcard2", (ples) => {
+getnewcard2: (ples) => {
 
 console.log("剩下張數:",(128-allmgds))
 
 allmgds++
 
-})
+},
 
-socket.on("flower", (flowerinf) => {
+///////////////////////////////////////////////
 
-///allmgds++
-
-})
-
-////////////////////////////////////////////////////////////////////
-
-socket.on("nowin", (data) => {///流局
+nowin: (data) => {///流局
 
 setTimeout(begStar,500)
 
-})
+},
 
+///////////////////////////////////////////////
 
-////////////////////////////////////////////////
+needgetcard: (card) => {
 
-socket.on("needgetcard", (card) => {
+otemit("getnewcard",JSON.stringify([roomId,"new"]));
 
-socket.emit("getnewcard",JSON.stringify([roomId,"new"]));
+},
 
-})
-
-////////////////////////////////////////////
-
-socket.on("star", (card) => {
+///////////////////////////////////////////////
+star: (card) => {
 
 cantoutcd=[]///不能捨的牌
 
@@ -175,9 +140,9 @@ for(let i=9;i<17;i++){
 
 if(plmgd[i]>34){
 
-socket.emit("flower",JSON.stringify([roomId,plmgd[i]]));
+otemit("flower",JSON.stringify([roomId,plmgd[i]]));
 
-socket.emit("getnewcard",JSON.stringify([roomId]));
+otemit("getnewcard",JSON.stringify([roomId]));
 
 }
 
@@ -190,7 +155,7 @@ plmgd=plmgd.filter(Number)
 
 if(gtcd==0&&plmgd.length==16){
 
-socket.emit("befbegin",JSON.stringify([roomId]));
+otemit("befbegin",JSON.stringify([roomId]));
 
 gtcd=1
 
@@ -199,12 +164,11 @@ gtcd=1
 
 }, 2500);
 
+},
 
-});
+///////////////////////////////////////////////
 
-////////////////////////////////////////////////////////////////////
-
-socket.on("caneph", (data) => {
+caneph: (data) => {
 
 pled=JSON.parse(data)[0]
 card=JSON.parse(data)[1]
@@ -224,9 +188,9 @@ return
 
 if(ephchick==1&&ple!=0&&epgtw!="tin"){///如果有吃碰槓.但是被強制取消則返回
 
-///socket.emit("needgetcard",JSON.stringify([roomId,pled,card[1]]));
+///otemit("needgetcard",JSON.stringify([roomId,pled,card[1]]));
 
-socket.emit("noepgh",JSON.stringify([roomId,card[1]]));
+otemit("noepgh",JSON.stringify([roomId,card[1]]));
 
 ephchick=0
 
@@ -244,9 +208,9 @@ plmgd=plmgd.filter(Number)
 
 allmgd.push(card[3])
 
-socket.emit("needgetcardgun",JSON.stringify([roomId,allplad[ple]]));
+otemit("needgetcardgun",JSON.stringify([roomId,allplad[ple]]));
 
-socket.emit("epghpk",JSON.stringify([roomId,0]));
+otemit("epghpk",JSON.stringify([roomId,0]));
 
 }
 
@@ -288,9 +252,9 @@ plmgd=JSON.parse(JSON.stringify(bkmgd2))///複製
 
 plmgd.push(Number(card[3]))
 
-socket.emit("epghpk",JSON.stringify([roomId,3]));
+otemit("epghpk",JSON.stringify([roomId,3]));
 
-socket.emit("mywin",JSON.stringify([roomId,plmgd,lbmgd,flmgd,etmgd]));
+otemit("mywin",JSON.stringify([roomId,plmgd,lbmgd,flmgd,etmgd]));
 
 return
 
@@ -300,9 +264,9 @@ plmgd=JSON.parse(JSON.stringify(bkmgd2))///複製
 
 }///if(tsp+etmgd.length>=4&&lbmgd==0){
 
-socket.emit("needgetcardgun",JSON.stringify([roomId,allplad[ple]]));
+otemit("needgetcardgun",JSON.stringify([roomId,allplad[ple]]));
 
-socket.emit("epghpk",JSON.stringify([roomId,0]));
+otemit("epghpk",JSON.stringify([roomId,0]));
 
 return
 
@@ -331,7 +295,7 @@ allmgd.push(card[3])
 allmgd.push(card[3])
 allmgd.push(card[3])
 
-socket.emit("gunget",JSON.stringify([roomId]));
+otemit("gunget",JSON.stringify([roomId]));
 
 }
 
@@ -359,13 +323,14 @@ allmgd.push(card[0])
 allmgd.push(card[0])
 allmgd.push(card[0])
 
-socket.emit("gunget",JSON.stringify([roomId]));
+otemit("gunget",JSON.stringify([roomId]));
 
 }
 
 return
 
 }
+
 ////////////////////////////////
 
 if(epgtw=="win"){
@@ -415,9 +380,343 @@ outcard(card[1])
 
 }
 
+},
+
+///////////////////////////////////////////////
+
+getnewcard: (card) => {
+
+cantoutcd=[]///不能捨的牌
+
+gunall=[]
+
+if(Number(card)>34){
+
+otemit("flower",JSON.stringify([roomId,Number(card)]));
+
+otemit("getnewcard",JSON.stringify([roomId]));
+
+return
+
+}
+
+
+
+plmgd=plmgd.filter(num => num < 35);
+
+plmgd=plmgd.filter(Number)
+
+bkmgd=JSON.parse(JSON.stringify(plmgd))///複製
+
+wincard=Number(card)
+
+plmgd.push(wincard)
+
+plmgd.sort(function (a, b) {
+
+return a - b
+
 });
 
+if(gtcd==2){
+
+console.log("摸牌 :",plmgd,"進張 :",wincard)
+
+sortCad()
+
+tsp=manum///組數
+
+tsp+=(crdeye>0)?1:0///組數
+
+if(tsp+etmgd.length==6){
+
+plmgd=JSON.parse(JSON.stringify(bkmgd))///複製
+
+plmgd.push(wincard)
+
+otemit("epghpk",JSON.stringify([roomId,3]));
+
+otemit("mywin",JSON.stringify([roomId,plmgd,lbmgd,flmgd,etmgd]));
+
+return
+
+}
+
+plmgdbkgun = JSON.parse(JSON.stringify(plmgd));
+
+if (tryGunDecision(Number(card), lbmgd)) return;
+
+plmgd = JSON.parse(JSON.stringify(plmgdbkgun));
+
+
+
+if(lbmgd==0){
+
+setTimeout(() => {
+
+outcard(Number(card))
+
+},100)
+
+return
+
+}
+
+if(lbmgd==1){
+
+
+setTimeout(() => {
+
+
+console.log("捨牌 :",plmgd,"捨張 :",Number(card))
+
+  const idx = plmgd.indexOf(Number(card));
+  if (idx !== -1) plmgd.splice(idx, 1);
+  plmgd.sort((a, b) => a - b);
+
+otemit("outcard", JSON.stringify([roomId, Number(card)]));
+
+
+},300)
+
+
+}
+
+
+}
+
+if(gtcd==0&&plmgd.length==16){
+
+otemit("befbegin",JSON.stringify([roomId]));
+
+gtcd=1
+
+}
+
+},
+
+///////////////////////////////////////////////
+
+befbegin: (card) => {
+
+otemit("begin",JSON.stringify([roomId]));
+
+gtcd=2
+
+},
+
+///////////////////////////////////////////////
+
+
+outcard: (outcardinf) => {
+
+winp=0
+
+pled=JSON.parse(outcardinf)[0]
+mtd=JSON.parse(outcardinf)[1]
+mtd=Number(mtd)
+
+wincard=mtd
+
+ple=allplad.indexOf(pled)
+
+alloutcd[ple].push(mtd)
+
+allmgd.push(mtd)
+
+console.log("收到捨牌",mtd,"來自",ple,"手牌",plmgd)
+
+if(ple==0){
+
+otemit("epghpk",JSON.stringify([roomId,0]));
+
+otemit("outchak",JSON.stringify([roomId,mtd]));
+
+console.log("傳送確認吃碰槓")
+
+ephchick=0
+
+return
+
+}
+
+if(ple!=0){
+
+ephchick=0
+
+bkmgd=JSON.parse(JSON.stringify(plmgd))///複製
+
+plmgd.push(Number(mtd))
+
+plmgd.sort(function (a, b) {
+
+return a - b
+
+});
+
+sortCad()
+
+tsp=manum///組數
+
+tsp+=(crdeye>0)?1:0///組數
+
+
+console.log("組數",tsp,"手牌",plmgd)
+
+
+if(tsp+etmgd.length==6){
+
+plmgd=JSON.parse(JSON.stringify(bkmgd))///複製
+
+plmgd.push(Number(mtd))
+
+otemit("epghpk",JSON.stringify([roomId,3]));
+
+winp=1
+
+ephchick=1
+
+bkmgdwin=JSON.parse(JSON.stringify(plmgd))///複製
+
+}
+
+plmgd=JSON.parse(JSON.stringify(bkmgd))///複製
+
+if(lbmgd==0){
+
+cpf=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+plmgd.forEach(function(x) { cpf[x] = (cpf[x] || 0)+1; })///計算出現過的總張數
+
+if(cpf[mtd]==3&&ple!=3){
+
+otemit("epghpk",JSON.stringify([roomId,2]));
+
+ephchick=1
+
+}
+
+if(cpf[mtd]>=2&&lopal>=3){
+
+otemit("epghpk",JSON.stringify([roomId,2]));
+
+ephchick=1
+
+}
+
+mtd=Number(mtd)
+
+if(mtd<28&&ple==3&&lopal==4){///吃
+
+if(mtd>2&&cpf[mtd-1]>0&&cpf[mtd-2]>0&&Math.ceil((mtd-2)/9)==Math.ceil(mtd/9)&&Math.ceil((mtd-1)/9)==Math.ceil(mtd/9)){
+
+otemit("epghpk",JSON.stringify([roomId,1]));
+
+ephchick=1
+
+}
+
+if(mtd<26&&cpf[mtd+1]>0&&cpf[mtd+2]>0&&Math.ceil((mtd+2)/9)==Math.ceil(mtd/9)&&Math.ceil((mtd+1)/9)==Math.ceil(mtd/9)){
+
+otemit("epghpk",JSON.stringify([roomId,1]));
+
+ephchick=1
+
+}
+
+if(mtd<27&&mtd>1&&cpf[mtd+1]>0&&cpf[mtd-1]>0&&Math.ceil((mtd+1)/9)==Math.ceil(mtd/9)&&Math.ceil((mtd-1)/9)==Math.ceil(mtd/9)){
+
+otemit("epghpk",JSON.stringify([roomId,1]));
+
+ephchick=1
+
+}
+
+}///if(mtd<28&&ple==3&&lopal==4){///吃
+
+
+}///if(lbmgd==0){
+
+if(ephchick==0){///如果沒有吃碰槓胡則返回
+
+otemit("epghpk",JSON.stringify([roomId,0]));
+
+}
+}///if(ple!=0){
+
+console.log("回傳吃碰槓確認",ephchick)
+
+otemit("outchak",JSON.stringify([roomId,mtd]));
+
+},
+
+///////////////////////////////////////////////
+
+outchak: (outchakinf) => {
+
+mtd=JSON.parse(outchakinf)[1]
+mtd=Number(mtd)
+
+wincard=mtd
+
+bkmgds22=JSON.parse(JSON.stringify(plmgd))
+
+if(winp==1){
+
+plmgd=JSON.parse(JSON.stringify(bkmgdwin))///複製
+
+console.log("win")
+
+otemit("win",JSON.stringify([roomId,plmgd,lbmgd,flmgd,etmgd]));
+
+return
+
+}
+
+if(ephchick==1&&(128-allmgds)>=5&&ple!=0){
+
+///otemit("needgetcard",JSON.stringify([roomId,pled]));
+
+
+
+console.log("進入吃碰判斷",pled)
+
+setTimeout(() => {
+
+simulateEatPonGun(ple, mtd, plmgd, allmgd, etmgd, roomId);
+
+},300)
+
+console.log("離開吃碰判斷")
+
+
+return
+
+}
+
+if(ephchick==0||(128-allmgds)<5&&ephchick==1){///如果沒有吃碰槓胡則返回
+
+otemit("needgetcard",JSON.stringify([roomId,pled,mtd]));
+
+}
+
+
+}
+
+
+
+};
+
+///////////////////////////////////////////////
+
+function begStar(){
+
+otemit("dice",roomId);
+
+}
+
 ////////////////////////////////////////////////////////////////////
+
 function getCantOutCards(card, epgtw) {
   const cantoutcd = [Number(card[1])]; // 中間牌必不能捨
 
@@ -479,11 +778,11 @@ function tryGunDecision(card, lbmgd) {
       if (newTSP+1 >= baseTSP && newImproving >= baseImproving) {
         const caneph = ["X", "X",  "X", i];
 
-socket.emit("epghpk",JSON.stringify([roomId,2]));
+otemit("epghpk",JSON.stringify([roomId,2]));
 
 plmgd = JSON.parse(JSON.stringify(plmgdbkgun));
 
-        socket.emit("gun", JSON.stringify([roomId, caneph]));
+        otemit("gun", JSON.stringify([roomId, caneph]));
 
         console.log("執行暗槓", i);
 
@@ -516,11 +815,11 @@ plmgd = JSON.parse(JSON.stringify(plmgdbkgun));
           const caneph = [j, "X", "X", tile];
 
 
-socket.emit("epghpk",JSON.stringify([roomId,2]));
+otemit("epghpk",JSON.stringify([roomId,2]));
 
 plmgd = JSON.parse(JSON.stringify(plmgdbkgun));
 
-          socket.emit("gun", JSON.stringify([roomId, caneph]));
+          otemit("gun", JSON.stringify([roomId, caneph]));
 
           console.log("執行加槓（摸牌）", tile);
 
@@ -547,11 +846,11 @@ plmgd = JSON.parse(JSON.stringify(plmgdbkgun));
 
           const caneph = [j, "X", "X", tile];
 
-socket.emit("epghpk",JSON.stringify([roomId,2]));
+otemit("epghpk",JSON.stringify([roomId,2]));
 
 plmgd = JSON.parse(JSON.stringify(plmgdbkgun));
 
-          socket.emit("gun", JSON.stringify([roomId, caneph]));
+          otemit("gun", JSON.stringify([roomId, caneph]));
 
           console.log("執行加槓（手牌）", tile);
 
@@ -566,116 +865,6 @@ plmgd = JSON.parse(JSON.stringify(plmgdbkgun));
 }
 ////////////////////////////////////////////////////////////////////
 
-socket.on("getnewcard", (card) => {
-
-cantoutcd=[]///不能捨的牌
-
-gunall=[]
-
-if(Number(card)>34){
-
-socket.emit("flower",JSON.stringify([roomId,Number(card)]));
-
-socket.emit("getnewcard",JSON.stringify([roomId]));
-
-return
-
-}
-
-
-
-plmgd=plmgd.filter(num => num < 35);
-
-plmgd=plmgd.filter(Number)
-
-bkmgd=JSON.parse(JSON.stringify(plmgd))///複製
-
-wincard=Number(card)
-
-plmgd.push(wincard)
-
-plmgd.sort(function (a, b) {
-
-return a - b
-
-});
-
-if(gtcd==2){
-
-console.log("摸牌 :",plmgd,"進張 :",wincard)
-
-sortCad()
-
-tsp=manum///組數
-
-tsp+=(crdeye>0)?1:0///組數
-
-if(tsp+etmgd.length==6){
-
-plmgd=JSON.parse(JSON.stringify(bkmgd))///複製
-
-plmgd.push(wincard)
-
-socket.emit("epghpk",JSON.stringify([roomId,3]));
-
-socket.emit("mywin",JSON.stringify([roomId,plmgd,lbmgd,flmgd,etmgd]));
-
-return
-
-}
-
-plmgdbkgun = JSON.parse(JSON.stringify(plmgd));
-
-if (tryGunDecision(Number(card), lbmgd)) return;
-
-plmgd = JSON.parse(JSON.stringify(plmgdbkgun));
-
-
-
-if(lbmgd==0){
-
-setTimeout(() => {
-
-outcard(Number(card))
-
-},300)
-
-return
-
-}
-
-if(lbmgd==1){
-
-
-setTimeout(() => {
-
-
-console.log("捨牌 :",plmgd,"捨張 :",Number(card))
-
-  const idx = plmgd.indexOf(Number(card));
-  if (idx !== -1) plmgd.splice(idx, 1);
-  plmgd.sort((a, b) => a - b);
-
-socket.emit("outcard", JSON.stringify([roomId, Number(card)]));
-
-
-},300)
-
-
-}
-
-
-}
-
-if(gtcd==0&&plmgd.length==16){
-
-socket.emit("befbegin",JSON.stringify([roomId]));
-
-gtcd=1
-
-}
-
-});
 
 ///////////////////////////////////////
 function lonmds() {
@@ -1183,6 +1372,7 @@ function selectBestCompromiseDiscard(outcards, dangerCandidates) {
 ///////////////////////////////////////
 function outcard(card) {
 
+ephchick=0
 
 const tingCount = lbmgds.reduce((a, b) => a + b, 0);
 
@@ -1219,12 +1409,12 @@ if(v4.length>0){
 
 console.log("捨出聽牌 :",plmgd,"捨張 :",v4[0],v4)
 
-socket.emit("outcard", JSON.stringify([roomId, v4[0]]));
+otemit("outcard", JSON.stringify([roomId, v4[0]]));
 
 if(otlistenwho>4){
 
 lbmgd=1
-socket.emit("tin",JSON.stringify([roomId,v4[0]]));
+otemit("tin",JSON.stringify([roomId,v4[0]]));
 
 }
 
@@ -1237,9 +1427,7 @@ return
 }
 
 
-v1s = findBest(plmgd, allmgd, cantoutcd)
-
-v1=selectBestCompromiseDiscard(v1s, dangerCandidates);
+v1 = findBest(plmgd, allmgd, cantoutcd)
 
 if(v1.length>0){
 
@@ -1253,9 +1441,9 @@ if (result.ready) {
 
 console.log("捨牌 :",plmgd,"捨張 :",v1[0])
 
-socket.emit("outcard", JSON.stringify([roomId, v1[0]]));
+otemit("outcard", JSON.stringify([roomId, v1[0]]));
 
-socket.emit("tin",JSON.stringify([roomId,v1[0]]));
+otemit("tin",JSON.stringify([roomId,v1[0]]));
 
   const idx = plmgd.indexOf(v1[0]);
   if (idx !== -1) plmgd.splice(idx, 1);
@@ -1266,7 +1454,7 @@ return
 
 console.log("捨牌 :",plmgd,"捨張 :",v1[0])
 
-socket.emit("outcard", JSON.stringify([roomId, v1[0]]));
+otemit("outcard", JSON.stringify([roomId, v1[0]]));
 
   const idx = plmgd.indexOf(v1[0]);
   if (idx !== -1) plmgd.splice(idx, 1);
@@ -1276,9 +1464,7 @@ return
 
 }
 
-v2s=findIsolated(plmgd, allmgd, cantoutcd)
-
-v2=selectBestCompromiseDiscard(v2s, dangerCandidates);
+v2=findIsolated(plmgd, allmgd, cantoutcd)
 
 if(v2.length>0){
 
@@ -1292,9 +1478,9 @@ if (result.ready) {
 
 console.log("捨牌 :",plmgd,"捨張 :",v2[0])
 
-socket.emit("outcard", JSON.stringify([roomId, v2[0]]));
+otemit("outcard", JSON.stringify([roomId, v2[0]]));
 
-socket.emit("tin",JSON.stringify([roomId,v2[0]]));
+otemit("tin",JSON.stringify([roomId,v2[0]]));
 
 
   const idx = plmgd.indexOf(v2[0]);
@@ -1306,7 +1492,7 @@ return
 
 console.log("捨牌 :",plmgd,"捨張 :",v2[0])
 
-socket.emit("outcard", JSON.stringify([roomId, v2[0]]));
+otemit("outcard", JSON.stringify([roomId, v2[0]]));
 
   const idx = plmgd.indexOf(v2[0]);
   if (idx !== -1) plmgd.splice(idx, 1);
@@ -1317,9 +1503,7 @@ return
 }
 
 
-v3s=findBestDiscardByImprovingAndKaozhang(plmgd,etmgd.length, allmgd, cantoutcd );
-
-v3=selectBestCompromiseDiscard(v3s, dangerCandidates);
+v3=findBestDiscardByImprovingAndKaozhang(plmgd,etmgd.length, allmgd, cantoutcd );
 
 if(v3.length>0){
 
@@ -1334,9 +1518,9 @@ if (result.ready) {
 
 console.log("捨牌 :",plmgd,"捨張 :",v3[0])
 
-socket.emit("outcard", JSON.stringify([roomId, v3[0]]));
+otemit("outcard", JSON.stringify([roomId, v3[0]]));
 
-socket.emit("tin",JSON.stringify([roomId,v3[0]]));
+otemit("tin",JSON.stringify([roomId,v3[0]]));
 
   const idx = plmgd.indexOf(v3[0]);
   if (idx !== -1) plmgd.splice(idx, 1);
@@ -1348,7 +1532,7 @@ return
 
 console.log("捨牌 :",plmgd,"捨張 :",v3[0])
 
-socket.emit("outcard", JSON.stringify([roomId, v3[0]]));
+otemit("outcard", JSON.stringify([roomId, v3[0]]));
 
   const idx = plmgd.indexOf(v3[0]);
   if (idx !== -1) plmgd.splice(idx, 1);
@@ -1358,15 +1542,15 @@ return
 
 }
 
-console.log("捨牌 :",plmgd,"捨張 :",dangerCandidates[0].card)
+console.log("捨牌 :",plmgd,"捨張 :",plmgd[0])
 
-  const idx = plmgd.indexOf(dangerCandidates[0].card);
+  const idx = plmgd.indexOf(plmgd[0]);
   if (idx !== -1) plmgd.splice(idx, 1);
   plmgd.sort((a, b) => a - b);
 
 
 
-socket.emit("outcard", JSON.stringify([roomId, dangerCandidates[0].card]));
+otemit("outcard", JSON.stringify([roomId, plmgd[0]]));
 
 
 
@@ -1441,204 +1625,6 @@ function countTotalKaozhang(plmgd, allmgd) {
 
 ///////////////////////////////////////
 
-socket.on("befbegin", (card) => {
-
-socket.emit("begin",JSON.stringify([roomId]));
-
-gtcd=2
-
-})
-
-////////////////////////////////////
-
-socket.on("outcard", (outcardinf) => {
-
-winp=0
-
-pled=JSON.parse(outcardinf)[0]
-mtd=JSON.parse(outcardinf)[1]
-mtd=Number(mtd)
-
-wincard=mtd
-
-ple=allplad.indexOf(pled)
-
-alloutcd[ple].push(mtd)
-
-allmgd.push(mtd)
-
-
-if(ple==0){
-
-socket.emit("epghpk",JSON.stringify([roomId,0]));
-
-socket.emit("outchak",JSON.stringify([roomId,mtd]));
-
-console.log("傳送確認吃碰槓")
-
-ephchick=0
-
-return
-
-}
-
-
-
-if(ple!=0){
-
-ephchick=0
-
-bkmgd=JSON.parse(JSON.stringify(plmgd))///複製
-
-plmgd.push(Number(mtd))
-
-plmgd.sort(function (a, b) {
-
-return a - b
-
-});
-
-sortCad()
-
-tsp=manum///組數
-
-tsp+=(crdeye>0)?1:0///組數
-
-if(tsp+etmgd.length==6){
-
-plmgd=JSON.parse(JSON.stringify(bkmgd))///複製
-
-plmgd.push(Number(mtd))
-
-socket.emit("epghpk",JSON.stringify([roomId,3]));
-
-winp=1
-
-ephchick=1
-
-bkmgdwin=JSON.parse(JSON.stringify(plmgd))///複製
-
-}
-
-plmgd=JSON.parse(JSON.stringify(bkmgd))///複製
-
-if(lbmgd==0){
-
-cpf=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-
-plmgd.forEach(function(x) { cpf[x] = (cpf[x] || 0)+1; })///計算出現過的總張數
-
-if(cpf[mtd]==3&&ple!=3){
-
-socket.emit("epghpk",JSON.stringify([roomId,2]));
-
-ephchick=1
-
-}
-
-if(cpf[mtd]>=2&&lopal>=3){
-
-socket.emit("epghpk",JSON.stringify([roomId,2]));
-
-ephchick=1
-
-}
-
-mtd=Number(mtd)
-
-if(mtd<28&&ple==3&&lopal==4){///吃
-
-if(mtd>2&&cpf[mtd-1]>0&&cpf[mtd-2]>0&&Math.ceil((mtd-2)/9)==Math.ceil(mtd/9)&&Math.ceil((mtd-1)/9)==Math.ceil(mtd/9)){
-
-socket.emit("epghpk",JSON.stringify([roomId,1]));
-
-ephchick=1
-
-}
-
-if(mtd<26&&cpf[mtd+1]>0&&cpf[mtd+2]>0&&Math.ceil((mtd+2)/9)==Math.ceil(mtd/9)&&Math.ceil((mtd+1)/9)==Math.ceil(mtd/9)){
-
-socket.emit("epghpk",JSON.stringify([roomId,1]));
-
-ephchick=1
-
-}
-
-if(mtd<27&&mtd>1&&cpf[mtd+1]>0&&cpf[mtd-1]>0&&Math.ceil((mtd+1)/9)==Math.ceil(mtd/9)&&Math.ceil((mtd-1)/9)==Math.ceil(mtd/9)){
-
-socket.emit("epghpk",JSON.stringify([roomId,1]));
-
-ephchick=1
-
-}
-
-}///if(mtd<28&&ple==3&&lopal==4){///吃
-
-}///if(lbmgd==0){
-
-if(ephchick==0){///如果沒有吃碰槓胡則返回
-
-socket.emit("epghpk",JSON.stringify([roomId,0]));
-
-}
-
-}///if(ple!=0){
-
-socket.emit("outchak",JSON.stringify([roomId,mtd]));
-
-});
-
-
-socket.on("outchak", (outchakinf) => {
-
-mtd=JSON.parse(outchakinf)[1]
-mtd=Number(mtd)
-
-wincard=mtd
-
-bkmgds22=JSON.parse(JSON.stringify(plmgd))
-
-if(winp==1){
-
-plmgd=JSON.parse(JSON.stringify(bkmgdwin))///複製
-
-console.log("win")
-
-socket.emit("win",JSON.stringify([roomId,plmgd,lbmgd,flmgd,etmgd]));
-
-return
-
-}
-
-if(ephchick==1&&(128-allmgds)>=5&&ple!=0){
-
-///socket.emit("needgetcard",JSON.stringify([roomId,pled]));
-
-
-
-console.log("進入吃碰判斷",pled)
-
-setTimeout(() => {
-
-simulateEatPonGun(ple, mtd, plmgd, allmgd, etmgd, roomId);
-
-},300)
-
-console.log("離開吃碰判斷")
-
-
-return
-
-}
-
-if(ephchick==0||(128-allmgds)<5&&ephchick==1){///如果沒有吃碰槓胡則返回
-
-socket.emit("needgetcard",JSON.stringify([roomId,pled,mtd]));
-
-}
-
-
-});
 
 ////////////////////////////////////////////////////////////////////
 
@@ -1774,15 +1760,14 @@ console.log(result)
 if (result&&result.source!="V22") {
   console.log("吃碰槓 :", result.data, "吃的牌 :", result.data[0], "策略：", result.source,"捨出 : ",result.card);
 
-      socket.emit(result.data[1], JSON.stringify([roomId, result.data[0]]));
+      otemit(result.data[1], JSON.stringify([roomId, result.data[0]]));
 
   return;
 }else{
 
-
 ephchick=0
 
-socket.emit("noepgh",JSON.stringify([roomId,mtd]));
+otemit("noepgh",JSON.stringify([roomId,mtd]));
 
  console.log("不吃碰",plmgd)
 
@@ -1819,6 +1804,28 @@ function countEffectiveTiles(tiles, allmgd, hand) {
 }
 
 ////////////////////////////////////////////////////////////////////
+
+// ✅ 如果是被 Worker 執行
+if (!isMainThread) {
+console.log("maxatk上線");
+parentPort.on("message", (msg) => {
+  handleMessage(msg);
+});
+}
+
+// ✅ 如果是直接用 node ai.js 測試
+if (isMainThread) {
+  console.log("🧪 單機測試 AI...");
+
+  const mockData = JSON.stringify(["AI1", ["AI1", "B", "C", "D"]]);
+  handleMessage({ eventName: "myname", data: mockData });
+
+  // 你可以在這裡測試更多事件
+  // handleMessage({ eventName: "something", data: ... });
+}
+
+
+
 
 
 function sortCad(){///整理方式

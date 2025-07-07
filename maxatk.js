@@ -1372,6 +1372,7 @@ function selectBestCompromiseDiscard(outcards, dangerCandidates) {
 ///////////////////////////////////////
 function outcard(card) {
 
+ephchick=0
 
 bkmgd=JSON.parse(JSON.stringify(plmgd))///複製
 
