@@ -1,4 +1,4 @@
-const zutop = require("./zutop2")
+const zutop = require("./zutop")
 
 console.log(zutop["1"]);
 
@@ -9,6 +9,16 @@ lopal=0
 const io = require("socket.io-client");
 
 const socket = io("https://mj-production-43c2.up.railway.app");
+
+setInterval(() => {
+  fetch("https://mj-production-43c2.up.railway.app/ping");
+}, 1 * 60 * 1000);
+
+socket.on("hi", (datainf) => {
+
+socket.emit("ingameAI", "maxsafe");
+
+})
 
 socket.on("playerJoined", (datainf) => {
 
@@ -59,9 +69,6 @@ socket.emit("joinRoom", rooms);
 
 socket.emit("myche", JSON.stringify([roomId,Math.floor((Math.random() * 4)+5) + "c"]));
 
-setInterval(() => {
-  fetch("https://mj-production-43c2.up.railway.app/ping");
-}, 1 * 60 * 1000);
 }
 
 });
@@ -215,14 +222,19 @@ return
 
 }
 
-if(ephchick==1&&ple!=0&&epgtw!="gun"&&epgtw!="tin"){///如果有吃碰槓.但是被強制取消則返回
+if(ephchick==1&&ple!=0&&epgtw!="tin"){///如果有吃碰槓.但是被強制取消則返回
 
-socket.emit("needgetcard",JSON.stringify([roomId,pled]));
+///socket.emit("needgetcard",JSON.stringify([roomId,pled,card[1]]));
+
+socket.emit("noepgh",JSON.stringify([roomId,card[1]]));
 
 ephchick=0
+
 }
 
 if(epgtw=="gun"&&card[0]!="X"&&card[1]=="X"){
+
+ephchick=0
 
 if(ple==0){
 
@@ -301,6 +313,8 @@ return
 
 if(epgtw=="gun"&&card[0]=="X"){
 
+ephchick=0
+
 if(ple==0){
 
 delete plmgd[plmgd.indexOf(Number(card[3]))]
@@ -327,6 +341,8 @@ return
 
 
 if(epgtw=="gun"&&card[0]!="X"&&card[1]!="X"){
+
+ephchick=0
 
 if(ple==0){
 
@@ -363,6 +379,8 @@ setTimeout(begStar,11000)
 ///////////////////////////////////
 
 if(epgtw=="eat"||epgtw=="pon"){
+
+ephchick=0
 
 if(ple==0){
 
@@ -1450,6 +1468,22 @@ alloutcd[ple].push(mtd)
 allmgd.push(mtd)
 
 
+if(ple==0){
+
+socket.emit("epghpk",JSON.stringify([roomId,0]));
+
+socket.emit("outchak",JSON.stringify([roomId,mtd]));
+
+console.log("傳送確認吃碰槓")
+
+ephchick=0
+
+return
+
+}
+
+
+
 if(ple!=0){
 
 ephchick=0
@@ -1576,7 +1610,7 @@ return
 
 }
 
-if(ephchick==1&&(128-allmgds)>=5){
+if(ephchick==1&&(128-allmgds)>=5&&ple!=0){
 
 ///socket.emit("needgetcard",JSON.stringify([roomId,pled]));
 
@@ -1599,7 +1633,7 @@ return
 
 if(ephchick==0||(128-allmgds)<5&&ephchick==1){///如果沒有吃碰槓胡則返回
 
-socket.emit("needgetcard",JSON.stringify([roomId,pled]));
+socket.emit("needgetcard",JSON.stringify([roomId,pled,mtd]));
 
 }
 
@@ -1748,7 +1782,8 @@ if (result&&result.source!="V22") {
 
 ephchick=0
 
-socket.emit("needgetcard",JSON.stringify([roomId,pled]));
+socket.emit("noepgh",JSON.stringify([roomId,mtd]));
+
  console.log("不吃碰",plmgd)
 
 }
