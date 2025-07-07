@@ -236,13 +236,8 @@ servertoURL=null
 findLiveServer()
   .then(serverURL => {
     const socket = io(serverURL);
-servertoURL=serverURL
-    console.log("連到伺服器:", serverURL);
-  })
-  .catch(err => {
-    alert("目前所有伺服器都掛了，請稍後再試！");
-  });
 
+servertoURL=serverURL
 
 if(dps!=3){///連線
 
@@ -294,6 +289,15 @@ window.location.href = `/magi.html?room=${rooms.roomId}&server=${encodeURICompon
 },1000)
 
 });
+
+
+
+    console.log("連到伺服器:", serverURL);
+  })
+  .catch(err => {
+    alert("目前所有伺服器都掛了，請稍後再試！");
+  });
+
 
 }
 
