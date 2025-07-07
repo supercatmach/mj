@@ -24,7 +24,30 @@ function handleMessage(msg) {
   }
 }
 
+
 const eventHandlers = {
+
+playerJoined: (datainf) => {
+
+plgamealread=1///是否開始遊戲
+
+lopal++
+
+if(datainf.roomSize==4){
+
+plgamealread=2///是否開始遊戲
+
+lopal=4
+
+otemit("myname",roomId);
+
+otemit("dice",roomId);
+
+}
+
+},
+
+///////////////////////////////////////////////
 
 wantinvit: (rooms) => {
 
@@ -33,20 +56,6 @@ roomId=rooms
 console.log("加入房間",rooms);
 
 otemit("myche", JSON.stringify([roomId,Math.floor((Math.random() * 4)+5) + "c"]));
-
-},
-
-///////////////////////////////////////////////
-
-playerJoined: (datainf) => {
-
-if(datainf.roomSize==4){
-
-otemit("myname",roomId);
-
-otemit("dice",roomId);
-
-}
 
 },
 
@@ -122,6 +131,7 @@ otemit("getnewcard",JSON.stringify([roomId,"new"]));
 },
 
 ///////////////////////////////////////////////
+
 star: (card) => {
 
 cantoutcd=[]///不能捨的牌
@@ -164,6 +174,7 @@ gtcd=1
 
 }, 2500);
 
+
 },
 
 ///////////////////////////////////////////////
@@ -174,13 +185,15 @@ pled=JSON.parse(data)[0]
 card=JSON.parse(data)[1]
 epgtw=JSON.parse(data)[2]///哪一種狀態
 
+
 ple=allplad.indexOf(pled)
+
 
 if(epgtw=="tin"){
 
 lbmgds[ple]=1
 
-ephchick=(ephchick==1)?1:0
+ephchick=0
 
 return
 
@@ -195,6 +208,7 @@ otemit("noepgh",JSON.stringify([roomId,card[1]]));
 ephchick=0
 
 }
+
 
 if(epgtw=="gun"&&card[0]!="X"&&card[1]=="X"){
 
@@ -456,7 +470,7 @@ setTimeout(() => {
 
 outcard(Number(card))
 
-},100)
+},300)
 
 return
 
@@ -507,7 +521,6 @@ gtcd=2
 
 ///////////////////////////////////////////////
 
-
 outcard: (outcardinf) => {
 
 winp=0
@@ -524,7 +537,6 @@ alloutcd[ple].push(mtd)
 
 allmgd.push(mtd)
 
-console.log("收到捨牌",mtd,"來自",ple,"手牌",plmgd)
 
 if(ple==0){
 
@@ -559,10 +571,6 @@ sortCad()
 tsp=manum///組數
 
 tsp+=(crdeye>0)?1:0///組數
-
-
-console.log("組數",tsp,"手牌",plmgd)
-
 
 if(tsp+etmgd.length==6){
 
@@ -634,7 +642,6 @@ ephchick=1
 
 }///if(mtd<28&&ple==3&&lopal==4){///吃
 
-
 }///if(lbmgd==0){
 
 if(ephchick==0){///如果沒有吃碰槓胡則返回
@@ -642,9 +649,8 @@ if(ephchick==0){///如果沒有吃碰槓胡則返回
 otemit("epghpk",JSON.stringify([roomId,0]));
 
 }
-}///if(ple!=0){
 
-console.log("回傳吃碰槓確認",ephchick)
+}///if(ple!=0){
 
 otemit("outchak",JSON.stringify([roomId,mtd]));
 
@@ -705,9 +711,7 @@ otemit("needgetcard",JSON.stringify([roomId,pled,mtd]));
 
 
 
-};
-
-///////////////////////////////////////////////
+}
 
 function begStar(){
 
@@ -715,8 +719,8 @@ otemit("dice",roomId);
 
 }
 
-////////////////////////////////////////////////////////////////////
 
+////////////////////////////////////////////////////////////////////
 function getCantOutCards(card, epgtw) {
   const cantoutcd = [Number(card[1])]; // 中間牌必不能捨
 
@@ -1380,7 +1384,7 @@ dangerCandidates = findDefensiveByDangerScore(plmgd, allmgd, cantoutcd, alloutcd
 
 const totalTing = lbmgds.reduce((a, b) => a + b, 0);
 
-if (totalTing >= 1||(128-allmgds)<=24) {
+if (totalTing >= 1||(128-allmgds)<=20) {
 
   const idx = plmgd.indexOf(dangerCandidates[0].card);
   if (idx !== -1) plmgd.splice(idx, 1);
@@ -1427,7 +1431,9 @@ return
 }
 
 
-v1 = findBest(plmgd, allmgd, cantoutcd)
+v1s = findBest(plmgd, allmgd, cantoutcd)
+
+v1=selectBestCompromiseDiscard(v1s, dangerCandidates);
 
 if(v1.length>0){
 
@@ -1464,7 +1470,9 @@ return
 
 }
 
-v2=findIsolated(plmgd, allmgd, cantoutcd)
+v2s=findIsolated(plmgd, allmgd, cantoutcd)
+
+v2=selectBestCompromiseDiscard(v2s, dangerCandidates);
 
 if(v2.length>0){
 
@@ -1503,7 +1511,9 @@ return
 }
 
 
-v3=findBestDiscardByImprovingAndKaozhang(plmgd,etmgd.length, allmgd, cantoutcd );
+v3s=findBestDiscardByImprovingAndKaozhang(plmgd,etmgd.length, allmgd, cantoutcd );
+
+v3=selectBestCompromiseDiscard(v3s, dangerCandidates);
 
 if(v3.length>0){
 
@@ -1542,15 +1552,15 @@ return
 
 }
 
-console.log("捨牌 :",plmgd,"捨張 :",plmgd[0])
+console.log("捨牌 :",plmgd,"捨張 :",dangerCandidates[0].card)
 
-  const idx = plmgd.indexOf(plmgd[0]);
+  const idx = plmgd.indexOf(dangerCandidates[0].card);
   if (idx !== -1) plmgd.splice(idx, 1);
   plmgd.sort((a, b) => a - b);
 
 
 
-otemit("outcard", JSON.stringify([roomId, plmgd[0]]));
+otemit("outcard", JSON.stringify([roomId, dangerCandidates[0].card]));
 
 
 
@@ -1765,6 +1775,7 @@ if (result&&result.source!="V22") {
   return;
 }else{
 
+
 ephchick=0
 
 otemit("noepgh",JSON.stringify([roomId,mtd]));
@@ -1807,7 +1818,7 @@ function countEffectiveTiles(tiles, allmgd, hand) {
 
 // ✅ 如果是被 Worker 執行
 if (!isMainThread) {
-console.log("maxatk上線");
+console.log("maxsafe上線");
 parentPort.on("message", (msg) => {
   handleMessage(msg);
 });
@@ -1823,8 +1834,6 @@ if (isMainThread) {
   // 你可以在這裡測試更多事件
   // handleMessage({ eventName: "something", data: ... });
 }
-
-
 
 
 

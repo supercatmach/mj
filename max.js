@@ -1818,7 +1818,7 @@ function countEffectiveTiles(tiles, allmgd, hand) {
 
 // ✅ 如果是被 Worker 執行
 if (!isMainThread) {
-console.log("maxatk上線");
+console.log("max上線");
 parentPort.on("message", (msg) => {
   handleMessage(msg);
 });
