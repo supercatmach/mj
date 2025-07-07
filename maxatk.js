@@ -524,7 +524,7 @@ alloutcd[ple].push(mtd)
 
 allmgd.push(mtd)
 
-console.log("收到捨牌",mtd,"來自",ple)
+console.log("收到捨牌",mtd,"來自",ple,"手牌",pkmgd)
 
 if(ple==0){
 
@@ -559,6 +559,10 @@ sortCad()
 tsp=manum///組數
 
 tsp+=(crdeye>0)?1:0///組數
+
+
+console.log("組數",tsp,"手牌",pkmgd)
+
 
 if(tsp+etmgd.length==6){
 
