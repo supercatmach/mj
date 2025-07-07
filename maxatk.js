@@ -1,4 +1,4 @@
-const zutop = require("./zutop.js");
+const zutop = require("./zutop");
 const { parentPort , isMainThread} = require("worker_threads");
 
 console.log(zutop["1"]);
