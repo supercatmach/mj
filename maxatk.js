@@ -55,16 +55,12 @@ if (allAI){
 
 },wantinvit: (rooms) => {
 
-if(plgamealread==0){///尚未加入任何房間
-
 roomId=rooms
 
 console.log("加入房間",rooms);
 
 otemit("myche", JSON.stringify([roomId,"maxatkc"]));
 
-
-}
 
 },myname: (data) => {
 
