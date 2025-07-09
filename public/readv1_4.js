@@ -1,7 +1,34 @@
 ﻿
+$(".stanbylonding").show()
+
+$(".stanbylondingshap0").show()
+
+$(".stanbylondingshap100").animate({width:'100%'},10000);
+
 window.addEventListener("load", () => {
   // 所有圖片載入完才會執行這裡的程式碼
   console.log("圖片全部載入完成！");
+
+
+$(".stanbylondingshap100").stop();
+
+$(".stanbylondingshap100").animate({width:'100%'},1000);
+
+setTimeout(() => {
+
+$(".stanbylondingshap100").css("width","0px")
+
+$(".stanbylondingshap100").hide();
+
+$(".stanbylondingshap0").hide();
+
+$(".stanbylonding").hide();
+
+$(".pledstanby").show();
+
+},1000)
+
+
 ///$(".adown,.camera,.space,.etpghwordbk,.smoking,.camera,.space").show(); // 揭示主畫面、DOM操作等
 });
 
@@ -1324,11 +1351,13 @@ $(".playerpicn").hide()
 
 $(".stanbylonding").show()
 
+$(".stanbylondingshap0").show()
+
 $(".stanbylondingshap100").css("width","0px")
 
 $(".stanbylondingshap100").animate({width:'100%'},5000);
 
-setTimeout('$(".stanbylonding").hide();$(".pledstanby").show();$("#bk90").show()',5000)
+setTimeout('$(".stanbylonding").hide();$(".stanbylondingshap0").hide();$(".pledstanby").show();',5000)
 
 }
 
@@ -1450,12 +1479,6 @@ $("#bk90").show()
 
 },false);
 
-
-$(".stanbylonding").show()
-
-$(".stanbylondingshap100").animate({width:'100%'},5000);
-
-setTimeout('$(".stanbylonding").hide();$(".pledstanby").show()',5000)
 
 
 
