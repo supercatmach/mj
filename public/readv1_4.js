@@ -1,7 +1,12 @@
-﻿
-$(".stanbylonding").show()
+﻿  const bgImg = new Image();
+  bgImg.src = 'backg/endshure.jpg';
+  
+  bgImg.onload = () => {
+$(".stanbylonding").show();
 
 $(".stanbylondingshap100").animate({width:'100%'},10000);
+
+  };
 
 window.addEventListener("load", () => {
   // 所有圖片載入完才會執行這裡的程式碼
@@ -25,7 +30,7 @@ $(".pledstanby").show();
 },1000)
 
 
-///$(".adown,.camera,.space,.etpghwordbk,.smoking,.camera,.space").show(); // 揭示主畫面、DOM操作等
+$(".adown,.camera,.space,.etpghwordbk,.smoking,.scaler").show(); // 揭示主畫面、DOM操作等
 });
 
 document.oncontextmenu = function(){

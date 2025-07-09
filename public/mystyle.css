@@ -114,7 +114,7 @@ width:0px;
 height:110px;
 background-image: url('backg/londing100.png');
 }
-.tincode{
+.tincode,.stanbylonding{
 position:absolute;
 top:50%;
 left:50%;
@@ -125,17 +125,6 @@ height:900;
 overflow:hidden;
 display:none;
 }
-.stanbylonding{
-position:absolute;
-top:50%;
-left:50%;
-margin-left:-900;
-margin-top:-450;
-width:1800;
-height:900;
-overflow:hidden;
-}
-
 .tincode1,.tincode2,.tincode3,.tincode4{
 display:none;
 }
@@ -944,6 +933,7 @@ margin-top:-450;
   transform-origin: center center;
 
 background-image: url('backg/class2.jpg');
+display:none;
 }
 
 .camera{
