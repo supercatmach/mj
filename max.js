@@ -31,7 +31,11 @@ const eventHandlers = {
 
 playerJoined: (datainf) => {
 
+lopal++
+
 if(datainf.roomSize==4){
+
+lopal=4
 
 otemit("myname",roomId);
 

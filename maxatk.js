@@ -30,7 +30,11 @@ const eventHandlers = {
 
 playerJoined: (datainf) => {
 
+lopal++
+
 if(datainf.roomSize==4){
+
+lopal=4
 
 otemit("myname",roomId);
 
@@ -482,7 +486,11 @@ otemit("begin",JSON.stringify([roomId]));
 
 gtcd=2
 
-},outcard: (outcardinf) => {
+},
+
+
+
+outcard: (outcardinf) => {
 
 winp=0
 
