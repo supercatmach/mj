@@ -1,8 +1,6 @@
 ﻿
 $(".stanbylonding").show()
 
-$(".stanbylondingshap0").show()
-
 $(".stanbylondingshap100").animate({width:'100%'},10000);
 
 window.addEventListener("load", () => {
@@ -19,8 +17,6 @@ setTimeout(() => {
 $(".stanbylondingshap100").css("width","0px")
 
 $(".stanbylondingshap100").hide();
-
-$(".stanbylondingshap0").hide();
 
 $(".stanbylonding").hide();
 
@@ -41,7 +37,6 @@ v41.preload = "auto"
 
 
   const bgm = new Audio("music\\kawaii-dance-upbeat-japan-anime-edm-242104.mp3");
-  bgm.preload = "auto"
   bgm.loop = true;
   bgm.volume = 0.3; // 初始音量
   bgm.play();
@@ -1351,13 +1346,11 @@ $(".playerpicn").hide()
 
 $(".stanbylonding").show()
 
-$(".stanbylondingshap0").show()
-
 $(".stanbylondingshap100").css("width","0px")
 
 $(".stanbylondingshap100").animate({width:'100%'},5000);
 
-setTimeout('$(".stanbylonding").hide();$(".stanbylondingshap0").hide();$(".pledstanby").show();',5000)
+setTimeout('$(".stanbylonding").hide();$(".pledstanby").show();',5000)
 
 }
 
