@@ -68,7 +68,7 @@ roomId=rooms
 
 console.log("加入房間",rooms);
 
-otemit("myche", JSON.stringify([roomId,Math.floor((Math.random() * 4)+5) + "c"]));
+otemit("myche", JSON.stringify([roomId,"maxc"]));
 
 },
 
