@@ -8,7 +8,7 @@ $(".stanbylondingshap100").animate({width:'100%'},10000);
 
   };
 
-window.addEventListener("load", () => {
+document.addEventListener("DOMContentLoaded", () => {
   // 所有圖片載入完才會執行這裡的程式碼
   console.log("圖片全部載入完成！");
 
