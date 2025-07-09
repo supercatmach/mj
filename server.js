@@ -13,25 +13,25 @@ const io = new Server(server, {
     methods: ["GET", "POST"]
   }
 });
-
 const imageFolder = path.join(__dirname, "public/watse");
 app.use(express.static("public"));
 
-app.get("/watse", (req, res) => {
-  fs.readdir(imageFolder, (err, files) => {
+app.get("/imglist", (req, res) => {
+  const fs = require("fs");
+  const path = require("path");
+
+  const dirPath = path.join(__dirname, "public", "watse");
+
+  fs.readdir(dirPath, (err, files) => {
     if (err) {
-      return res.status(500).json({ error: "讀取圖片失敗" });
+      return res.status(500).json({ error: "讀取圖片清單失敗" });
     }
 
-    // 過濾只要 .jpg/.png/.webp/.jpeg 等
-    const imageFiles = files.filter(f =>
-      /\.(jpg|jpeg|png|webp|gif)$/i.test(f)
-    );
+    const imgUrls = files
+      .filter(file => /\.(jpg|png|jpeg|gif|webp)$/i.test(file))
+      .map(file => `watse/${file}`); // ✅ 修正這行
 
-    // 加上公開 URL 路徑（前端才能用）
-    const urls = imageFiles.map(file => `/images/${file}`);
-
-    res.json(urls);
+    res.json(imgUrls);
   });
 });
 

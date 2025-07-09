@@ -2948,19 +2948,23 @@ const roomId = urlParams.get("room");
 const serverURL = urlParams.get("server");
 
 fetch("/imglist")
-  .then(res => res.json())
+  .then(res => {
+    const contentType = res.headers.get("content-type");
+    if (!contentType || !contentType.includes("application/json")) {
+      throw new Error("不是 JSON 回應，實際回傳內容可能是 HTML！");
+    }
+    return res.json();
+  })
   .then(imgList => {
     imgList.forEach(url => {
       const img = new Image();
-      img.src = url; // ✅ 自動觸發瀏覽器下載
+      img.src = url;
     });
     console.log("圖片已開始預載入", imgList);
+  })
+  .catch(err => {
+    console.error("❌ 圖片列表載入失敗:", err);
   });
-
-if (!serverURL) {
-  alert("伺服器位址遺失，請回首頁重新進入");
-  throw new Error("無 server URL");
-}
 
 const socket = io(serverURL);
 
