@@ -1,9 +1,11 @@
-﻿
+﻿* {
+  box-sizing: border-box;
+}
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  width: 100%;
+width:100%;
   overflow: hidden;
     background-color: #000000;
     user-select: none;
@@ -115,14 +117,15 @@ height:110px;
 background-image: url('backg/londing100.png');
 }
 .tincode,.stanbylonding{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 1800px;
-  height: 900px;
-  overflow: hidden;
-  display: none;
+position:absolute;
+top:50%;
+left:50%;
+margin-left:-900px;
+margin-top:-450px;
+width:1800px;
+height:900px;
+overflow:hidden;
+display:none;
 }
 .tincode1,.tincode2,.tincode3,.tincode4{
 display:none;
@@ -662,7 +665,7 @@ transform-origin:right top;
 }
 .c5{
 transform-origin:center bottom;
-    transform:translateX(0px) translateY(-33px) translateZ(4px) rotateX(90deg);
+    transform:translateX(0px) translateY(-30px) rotateX(90deg);
 
 }
 .c6{
@@ -925,9 +928,11 @@ animation-fill-mode:forwards;
   width: 1800px;
   height: 900px;
   position: absolute;
-  top: 0px;
-  left: 0px;
-  transform-origin: top left;
+  top: 50%;
+  left: 50%;
+margin-left:-900;
+margin-top:-450;
+  transform-origin: center center;
 
 background-image: url('backg/class2.jpg');
 display:none;
