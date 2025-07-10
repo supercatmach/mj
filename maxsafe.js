@@ -31,13 +31,9 @@ const eventHandlers = {
 
 playerJoined: (datainf) => {
 
-plgamealread=1///是否開始遊戲
-
 lopal++
 
 if(datainf.roomSize==4){
-
-plgamealread=2///是否開始遊戲
 
 lopal=4
 

@@ -958,10 +958,7 @@ display:none;
 
 }
 .table{
-  position: absolute;
-  top: -43%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotateX(90deg);
-  transform-origin: center bottom;
-  display: block;
+    transform-origin:center bottom;
+    transform:translateX(-300px) translateY(-1500px) rotateX(90deg);
+display:none;
 }

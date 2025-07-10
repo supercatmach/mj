@@ -30,7 +30,7 @@ $(".pledstanby").show();
 },1000)
 
 
-$(".adown,.camera,.space,.etpghwordbk,.smoking,.scaler").show(); // 揭示主畫面、DOM操作等
+$(".adown,.camera,.space,.etpghwordbk,.smoking,.scaler,.table").show(); // 揭示主畫面、DOM操作等
 });
 
 document.oncontextmenu = function(){
