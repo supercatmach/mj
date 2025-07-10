@@ -63,7 +63,7 @@ roomId=rooms
 
 console.log("加入房間",rooms);
 
-otemit("myche", JSON.stringify([roomId,"maxatkc"]));
+otemit("myche", JSON.stringify([roomId,"maxatk2c"]));
 
 
 },myname: (data) => {
