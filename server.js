@@ -186,6 +186,7 @@ if (foundRoomKey) {
         socket.join(roomId);
         socket.emit("roomCreated", { roomId });
         console.log(`房間 ${roomId} 創建成功`);
+        io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
 
 }
 
@@ -197,6 +198,7 @@ if (foundRoomKey) {
         cleanEmptyRooms()
         socket.emit("roomCreated", { roomId });
         console.log(`房間 ${roomId} 創建成功`);
+        io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
 
     });
     // 玩家加入房間
@@ -208,6 +210,7 @@ if (foundRoomKey) {
 
         rooms[roomId].players.push(socket.id);
         socket.join(roomId);
+        io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
 
         io.to(socket.id).emit("reconnectConfirmed", JSON.stringify([socket.id]));
 
@@ -218,6 +221,7 @@ if (foundRoomKey) {
 
         if (rooms[roomId].players.length == 4) {
             befgame(roomId)
+        io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
             return;
         }
     });
@@ -230,7 +234,7 @@ socket.on("disconnect", (reason) => {
       rooms[roomId].playerpic = rooms[roomId].playerpic.filter(p => p.playerId !== socket.id);
       sendToClient(roomId, "allche", JSON.stringify(rooms[roomId].playerpic));
       sendToClient(roomId, "playerDisconnected", { playerId: socket.id });
-
+        io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
       // 房主離線或房間空了
       if (
         rooms[roomId].host === socket.id ||
@@ -260,6 +264,7 @@ socket.on("disconnect", (reason) => {
 
           console.log("✅ 房間只剩 AI，刪除房間:", roomId);
           delete rooms[roomId]; // ✅ 刪除整個房間
+        io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
         }
       }
     }
