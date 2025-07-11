@@ -362,6 +362,9 @@ console.log(eventName)
 if(eventName=="outcard"){
 io.emit("outcardtohall", [targetId,data]);
 }
+if(eventName=="caneph"){
+io.emit("canephtohall", [targetId,data]);
+}
     for (let pid of rooms[targetId].players) {
       if (aiWorkers[pid]) {
         aiWorkers[pid].postMessage({ eventName, data });
