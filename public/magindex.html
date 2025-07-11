@@ -8,38 +8,38 @@
 
 </head>
 <body>
-  <div id="app">
-    <h1 style="text-align:center;">超科學麻將社</h1>
-    <div class="table-area">
-      <div class="room" v-for="(room, roomId) in rooms" :key="roomId">
-  <!-- 🐞 debug log 每張桌子的內容 -->
-  {{ console.log("📦 roomId:", roomId, room) }}
-        <!-- 玩家 0 ~ 3 -->
-        <template v-for="(p, idx) in room.playerpic">
-          <div
-            class="player"
-            v-if="p"
-            :class="'player' + idx"
-            :key="p.playerId"
-          >
-            <img :src="'head/cv' + p.che + '.png'" />
-            <!-- 對話泡泡顯示出牌 -->
-<div
-  class="outcard-bubble"
-  v-if="hallOutcards[roomId] && hallOutcards[roomId][p.playerId]"
->
-  {{ hallOutcards[roomId][p.playerId] }}
-</div>
-          </div>
-        </template>
+<div id="app">
+  <h1 style="text-align:center;">超科學麻將社</h1>
+  <div style="text-align:center; margin-bottom: 10px;">
+    <span>線上總人數：{{ totalPlayers }}</span> |
+    <span>房間數：{{ totalRooms }}</span>
+  </div>
+  <div class="table-area">
+    <div class="room" v-for="(room, roomId) in rooms" :key="roomId">
+      <!-- 🐞 debug log 每張桌子的內容 -->
+      {{ console.log("📦 roomId:", roomId, room) }}
 
-        <!-- 桌子圖 -->
-        <div class="table">
-          <img src="backg/tablesmoll.png" />
-        </div>
+      <!-- 用 room.players 迴圈，順序照 players -->
+<template v-for="(playerId, idx) in room.players" :key="playerId">
+  <div class="player" :class="'player' + idx">
+    <img :src="'head/cv' + getCheByPlayerId(playerId, room.playerpic) + '.png'" />
+    <!-- 對話泡泡 -->
+    <div
+      class="outcard-bubble"
+      v-if="hallOutcards[roomId] && hallOutcards[roomId][playerId]"
+    >
+      {{ hallOutcards[roomId][playerId] }}
+    </div>
+  </div>
+</template>
+
+      <!-- 桌子圖 -->
+      <div class="table">
+        <img src="backg/tablesmoll.png" />
       </div>
     </div>
   </div>
+</div>
 
 <style>
     body {
@@ -134,6 +134,8 @@ createApp({
       hallOutcards: {},       // 出牌顯示暫存 { [roomId]: { [playerId]: "🀇" } }
       currentOutcardPlayer: null, // { roomId, playerId }，紀錄目前顯示誰的牌泡泡
       outcardTimeout: null,       // 定時器ID
+    totalPlayers: 0,
+    totalRooms: 0
     };
   },
   mounted() {
@@ -182,6 +184,11 @@ createApp({
         this.outcardTimeout = null;
       }, 3000);
     });
+this.socket.on("updateStats", (stats) => {
+  this.totalPlayers = stats.totalPlayers;
+  this.totalRooms = stats.totalRooms;
+});
+
 this.socket.on("canephtohall", (payload) => {
   const roomId = payload[0];
   const [playerId, , dwo] = JSON.parse(payload[1]);
@@ -239,6 +246,11 @@ this.socket.on("canephtohall", (payload) => {
     */
   },
   methods: {
+  getCheByPlayerId(playerId, playerpic) {
+    if (!playerpic || !Array.isArray(playerpic)) return "default";
+    const pic = playerpic.find(p => p && p.playerId === playerId);
+    return pic ? pic.che : "default"; // 找不到回傳預設圖片代號
+  },
     // 麻將牌數字轉 Unicode 字符
     cardToUnicode(num) {
       if (num >= 1 && num <= 9) return String.fromCodePoint(0x1F007 + (num - 1)); // 🀇~🀏 萬

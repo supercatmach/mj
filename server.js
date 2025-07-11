@@ -187,6 +187,7 @@ if (foundRoomKey) {
         socket.emit("roomCreated", { roomId });
         console.log(`房間 ${roomId} 創建成功`);
         io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
+broadcastStats(io, rooms)
 
 }
 
@@ -199,6 +200,7 @@ if (foundRoomKey) {
         socket.emit("roomCreated", { roomId });
         console.log(`房間 ${roomId} 創建成功`);
         io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
+broadcastStats(io, rooms)
 
     });
     // 玩家加入房間
@@ -211,6 +213,7 @@ if (foundRoomKey) {
         rooms[roomId].players.push(socket.id);
         socket.join(roomId);
         io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
+broadcastStats(io, rooms)
 
         io.to(socket.id).emit("reconnectConfirmed", JSON.stringify([socket.id]));
 
@@ -222,6 +225,7 @@ if (foundRoomKey) {
         if (rooms[roomId].players.length == 4) {
             befgame(roomId)
         io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
+broadcastStats(io, rooms)
             return;
         }
     });
@@ -235,6 +239,7 @@ socket.on("disconnect", (reason) => {
       sendToClient(roomId, "allche", JSON.stringify(rooms[roomId].playerpic));
       sendToClient(roomId, "playerDisconnected", { playerId: socket.id });
         io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
+broadcastStats(io, rooms)
       // 房主離線或房間空了
       if (
         rooms[roomId].host === socket.id ||
@@ -265,6 +270,7 @@ socket.on("disconnect", (reason) => {
           console.log("✅ 房間只剩 AI，刪除房間:", roomId);
           delete rooms[roomId]; // ✅ 刪除整個房間
         io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
+broadcastStats(io, rooms)
         }
       }
     }
@@ -273,6 +279,7 @@ socket.on("disconnect", (reason) => {
     // 獲取房間清單
     socket.on("getRooms", () => {
         socket.emit("updateRooms", rooms);
+broadcastStats(io, rooms)
     });
 
 socket.on("wantinvit", (roomId) => {
@@ -299,10 +306,12 @@ socket.on("wantinvit", (roomId) => {
 
         sendToClient(roomId, "playerJoined", { playerId: aiId, roomSize: rooms[roomId].players.length });
 io.emit("updateRooms", rooms);
+broadcastStats(io, rooms)
 
         if (rooms[roomId].players.length == 4) {
             befgame(roomId)
 io.emit("updateRooms", rooms);
+broadcastStats(io, rooms)
             return;
         }
 
@@ -404,6 +413,7 @@ rooms[roomId].playerpic.push({"che":JSON.parse(che)[1],"playerId":from});
 io.to(roomId).emit("allche", JSON.stringify(rooms[roomId].playerpic));
 
 io.emit("updateRooms", rooms);
+broadcastStats(io, rooms)
 
 },
 
@@ -1217,7 +1227,21 @@ eventHandlers["needgetcard"](roomIdinf,socket.id);
 
 ///////////////////////////
 
+function getTotalPlayers(rooms) {
+  let count = 0;
+  for (const roomId in rooms) {
+    count += rooms[roomId].players.length;
+  }
+  return count;
+}
 
+function broadcastStats(io, rooms) {
+  const stats = {
+    totalRooms: Object.keys(rooms).length,
+    totalPlayers: getTotalPlayers(rooms),
+  };
+  io.emit("updateStats", stats);
+}
 
 
 
@@ -1266,7 +1290,7 @@ rooms[roomId].card=[]
     }
 
 io.emit("updateRooms", rooms);
-
+broadcastStats(io, rooms)
 }
 
 
