@@ -20,7 +20,7 @@
             :class="'player' + idx"
             :key="p.playerId"
           >
-            <img :src="'head/cv' + p.che + 'c.png'" />
+            <img :src="'head/cv' + p.che + '.png'" />
             <!-- 對話泡泡顯示出牌 -->
 <div
   class="outcard-bubble"
@@ -142,6 +142,7 @@
         this.socket.on("outcardtohall", (outcard) => {
           const playerId = outcard[0];
           const [roomId, cardText] = JSON.parse(outcard[1]);
+console.log(outcard)
 
           // 轉換牌文字為對應符號
           const cardSymbol = this.cardToUnicode(cardText);

@@ -356,6 +356,9 @@ function sendToClient(targetId, eventName, data) {
   if (rooms[targetId]) {
     // ✅ 發送給整個房間的所有玩家 + AI
     io.to(targetId).emit(eventName, data);
+
+console.log(eventName)
+
 if(eventName=="outcard"){
 socket.emit("outcardtohall", [targetId,data]);
 }
