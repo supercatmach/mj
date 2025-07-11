@@ -298,9 +298,11 @@ socket.on("wantinvit", (roomId) => {
         console.log("玩家",aiId,"加入房間",roomId);
 
         sendToClient(roomId, "playerJoined", { playerId: aiId, roomSize: rooms[roomId].players.length });
+socket.emit("updateRooms", rooms);
 
         if (rooms[roomId].players.length == 4) {
             befgame(roomId)
+socket.emit("updateRooms", rooms);
             return;
         }
 
@@ -354,7 +356,9 @@ function sendToClient(targetId, eventName, data) {
   if (rooms[targetId]) {
     // ✅ 發送給整個房間的所有玩家 + AI
     io.to(targetId).emit(eventName, data);
-
+if(eventName=="outcard"){
+socket.emit("outcardtohall", [targetId,data]);
+}
     for (let pid of rooms[targetId].players) {
       if (aiWorkers[pid]) {
         aiWorkers[pid].postMessage({ eventName, data });
@@ -392,6 +396,8 @@ const  roomId=JSON.parse(che)[0]
 rooms[roomId].playerpic.push({"che":JSON.parse(che)[1],"playerId":from});
 
 io.to(roomId).emit("allche", JSON.stringify(rooms[roomId].playerpic));
+
+socket.emit("updateRooms", rooms);
 
 },
 
@@ -1252,6 +1258,8 @@ rooms[roomId].card=[]
         let j = Math.floor(Math.random() * (i + 1)); // 產生 0 到 i 之間的隨機索引
         [rooms[roomId].players[i], rooms[roomId].players[j]] = [rooms[roomId].players[j], rooms[roomId].players[i]]; // 交換位置
     }
+
+socket.emit("updateRooms", rooms);
 
 }
 

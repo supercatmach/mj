@@ -8,78 +8,192 @@
 
 </head>
 <body>
- <div id="app">
-  <h1>麻將大廳</h1>
-  <div class="room-list">
-    <div class="room-card" v-for="(room, id) in rooms" :key="id">
-      <h2>房間：{{ id }}</h2>
-      <div class="table">
-        <div v-for="(player, i) in room.players" :key="i" :class="'seat seat-'+i">
-          <div class="player">{{ player.name || '無名氏' }}</div>
-          <div class="last-card">出牌：{{ player.lastCard || '無' }}</div>
-        </div>
-        <div v-for="n in (4 - room.players.length)" :key="'empty'+n" class="seat empty">
-          <button @click="joinRoom(id)">入座</button>
+  <div id="app">
+    <h1 style="text-align:center;">超科學麻將社</h1>
+    <div class="table-area">
+      <div class="room" v-for="(room, roomId) in rooms" :key="roomId">
+        <!-- 玩家 0 ~ 3 -->
+        <template v-for="(p, idx) in room.playerpic">
+          <div
+            class="player"
+            v-if="p"
+            :class="'player' + idx"
+            :key="p.playerId"
+          >
+            <img :src="'head/cv' + p.che + 'c.png'" />
+            <!-- 對話泡泡顯示出牌 -->
+<div
+  class="outcard-bubble"
+  v-if="hallOutcards[roomId] && hallOutcards[roomId][p.playerId]"
+>
+  {{ hallOutcards[roomId][p.playerId] }}
+</div>
+          </div>
+        </template>
+
+        <!-- 桌子圖 -->
+        <div class="table">
+          <img src="backg/tablesmoll.png" />
         </div>
       </div>
     </div>
   </div>
-</div>
+
 <style>
-.room-list {
+    body {
+      font-family: sans-serif;
+      background: #eee;
+    }
+.table-area {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 24px;
+  justify-content: center;
 }
-.room-card {
-  border: 1px solid #ccc;
+
+.room {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  background: #f0f0f0;
   border-radius: 12px;
-  padding: 12px;
-  width: 300px;
-  background: #f5f5f5;
+  overflow: hidden;
 }
+
 .table {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  transform: translate(-50%, -50%);
 }
-.seat {
-  background: #fff;
-  border: 1px dashed #aaa;
-  padding: 10px;
-  border-radius: 8px;
-  min-height: 60px;
+
+.player {
+  position: absolute;
+  z-index: 2; /* ✅ 讓玩家圖像在桌子下面就調成 0 */
 }
-.empty button {
-  width: 100%;
+
+.player0 {
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
+.player1 {
+  top: 50%;
+  left: 80%;
+  transform: translate(-50%, -50%);
+}
+.player2 {
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.player3 {
+  top: 50%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+}
+
+.player img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid #555;
+  background: white;
+}
+
+    .outcard-bubble {
+      margin-top: 4px;
+      padding: 2px 6px;
+      background: white;
+      border-radius: 8px;
+      border: 1px solid #aaa;
+      font-size: 20px;
+      line-height: 1.2;
+      animation: fadeout 3s forwards;
+    }
+
+    @keyframes fadeout {
+      0% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0; }
+    }
 </style>
     <script>
     const { createApp } = Vue;
-
     createApp({
       data() {
         return {
           socket: null,
-          rooms: {}
+          rooms: {},
+          hallOutcards: {}  // 出牌顯示暫存 { [roomId]: { [playerId]: "🀇" } }
         };
       },
       mounted() {
         this.socket = io("https://mj-sp1.up.railway.app");
-
         this.socket.emit("getRooms");
 
+        // 更新房間資料
         this.socket.on("updateRooms", (rooms) => {
           this.rooms = rooms;
         });
+
+        // 玩家打牌
+        this.socket.on("outcardtohall", (outcard) => {
+          const playerId = outcard[0];
+          const [roomId, cardText] = JSON.parse(outcard[1]);
+
+          // 轉換牌文字為對應符號
+          const cardSymbol = this.cardToUnicode(cardText);
+          if (!this.hallOutcards[roomId]) this.hallOutcards[roomId] = {};
+          this.hallOutcards[roomId][playerId] = cardSymbol;
+
+          // 3秒後自動移除
+          setTimeout(() => {
+            if (this.hallOutcards[roomId]) {
+              delete this.hallOutcards[roomId][playerId];
+            }
+          }, 3000);
+        });
+
+        // 👉 測試假資料用
+        /*
+        this.rooms = {
+          A001: {
+            playerpic: [
+              { che: "01", playerId: "a1" },
+              { che: "02", playerId: "a2" },
+              null,
+              { che: "03", playerId: "a4" }
+            ]
+          }
+        };
+
+        setTimeout(() => {
+          this.socket.emit("outcardtohall", [
+            "a1",
+            JSON.stringify(["A001", "1萬"])
+          ]);
+        }, 1000);
+        */
       },
       methods: {
-        createRoom() {
-          this.socket.emit("createRoom");
-        },
-        joinRoom(roomId) {
-          window.location.href = `/magi.html?room=${roomId}`;
-        }
+        // 麻將牌文字轉 Unicode 字符
+cardToUnicode(num) {
+  if (num >= 1 && num <= 9) return String.fromCodePoint(0x1F007 + (num - 1)); // 🀇~🀏 萬
+  if (num >= 10 && num <= 18) return String.fromCodePoint(0x1F019 + (num - 10)); // 🀙~🀡 筒
+  if (num >= 19 && num <= 27) return String.fromCodePoint(0x1F010 + (num - 19)); // 🀐~🀘 條
+  const honors = {
+    28: 0x1F000, // 東
+    29: 0x1F001, // 南
+    30: 0x1F002, // 西
+    31: 0x1F003, // 北
+    32: 0x1F004, // 中
+    33: 0x1F005, // 發
+    34: 0x1F006  // 白
+  };
+  return String.fromCodePoint(honors[num] || 0x2753); // ？(未知)
+}
       }
     }).mount("#app");
     </script>
