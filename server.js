@@ -31,7 +31,11 @@ app.use(
         "'unsafe-inline'",
         "https://cdnjs.cloudflare.com"   // <-- 新增允許 FontAwesome CSS 來源
       ],
-      imgSrc: ["'self'", "data:"],
+imgSrc: [
+  "'self'",
+  "data:",
+  "https://supercatmach.github.io"
+],
       connectSrc: [
         "'self'",
         "https://mj-5x4w.onrender.com",
@@ -56,26 +60,6 @@ app.use(
 );
 app.get("/ping", (req, res) => {
   res.send("pong");
-});
-
-const longCacheFolders = [
-  'backg',
-  'mach',
-  'madh',
-  'mati',
-  'meup',
-  'music',
-  'stanbypled',
-  'watse',
-  'word'
-];
-
-// 1. 先設定 longCacheFolders 的靜態路由（長快取）
-longCacheFolders.forEach(folder => {
-  app.use(`/${folder}`, express.static(path.join(__dirname, 'public', folder), {
-    maxAge: '1y',
-    immutable: true
-  }));
 });
 
 // 2. zutop.js 長快取
