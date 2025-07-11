@@ -201,7 +201,8 @@ if (foundRoomKey) {
         socket.join(roomId);
         socket.emit("roomCreated", { roomId });
         console.log(`房間 ${roomId} 創建成功`);
-
+        io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
+broadcastStats(io, rooms)
 
 }
 
@@ -213,7 +214,8 @@ if (foundRoomKey) {
         cleanEmptyRooms()
         socket.emit("roomCreated", { roomId });
         console.log(`房間 ${roomId} 創建成功`);
-
+        io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
+broadcastStats(io, rooms)
 
     });
     // 玩家加入房間
@@ -225,7 +227,8 @@ if (foundRoomKey) {
 
         rooms[roomId].players.push(socket.id);
         socket.join(roomId);
-
+        io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
+broadcastStats(io, rooms)
 
         io.to(socket.id).emit("reconnectConfirmed", JSON.stringify([socket.id]));
 
@@ -236,7 +239,8 @@ if (foundRoomKey) {
 
         if (rooms[roomId].players.length == 4) {
             befgame(roomId)
-
+        io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
+broadcastStats(io, rooms)
             return;
         }
     });
@@ -262,7 +266,8 @@ socket.on("disconnect", (reason) => {
         rooms[roomId].players = rooms[roomId].players.filter(
           playerId => playerId !== socket.id
         );
-
+        io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
+broadcastStats(io, rooms)
         const allAI = rooms[roomId].players.every(
           id => typeof id === "string" && id.startsWith("AI")
         );
@@ -280,7 +285,8 @@ socket.on("disconnect", (reason) => {
 
           console.log("✅ 房間只剩 AI，刪除房間:", roomId);
           delete rooms[roomId]; // ✅ 刪除整個房間
-
+        io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
+broadcastStats(io, rooms)
         }
       }
     }
@@ -315,11 +321,13 @@ socket.on("wantinvit", (roomId) => {
         console.log("玩家",aiId,"加入房間",roomId);
 
         sendToClient(roomId, "playerJoined", { playerId: aiId, roomSize: rooms[roomId].players.length });
-
+io.emit("updateRooms", rooms);
+broadcastStats(io, rooms)
 
         if (rooms[roomId].players.length == 4) {
             befgame(roomId)
-
+io.emit("updateRooms", rooms);
+broadcastStats(io, rooms)
             return;
         }
 
@@ -374,6 +382,14 @@ function sendToClient(targetId, eventName, data) {
     // ✅ 發送給整個房間的所有玩家 + AI
     io.to(targetId).emit(eventName, data);
 
+console.log(eventName)
+
+if(eventName=="outcard"){
+io.emit("outcardtohall", [targetId,data]);
+}
+if(eventName=="caneph"){
+io.emit("canephtohall", [targetId,data]);
+}
     for (let pid of rooms[targetId].players) {
       if (aiWorkers[pid]) {
         aiWorkers[pid].postMessage({ eventName, data });
@@ -411,6 +427,9 @@ const  roomId=JSON.parse(che)[0]
 rooms[roomId].playerpic.push({"che":JSON.parse(che)[1],"playerId":from});
 
 io.to(roomId).emit("allche", JSON.stringify(rooms[roomId].playerpic));
+
+io.emit("updateRooms", rooms);
+broadcastStats(io, rooms)
 
 },
 
@@ -1286,6 +1305,8 @@ rooms[roomId].card=[]
         [rooms[roomId].players[i], rooms[roomId].players[j]] = [rooms[roomId].players[j], rooms[roomId].players[i]]; // 交換位置
     }
 
+io.emit("updateRooms", rooms);
+broadcastStats(io, rooms)
 }
 
 
