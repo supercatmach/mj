@@ -1923,7 +1923,15 @@ for(let i=1;i<18;i++){
 
 cadlink=$("."+pldname[0]+" div .d"+i+" .c1").html().toString()
 
-if(otlistenod.indexOf(Number(cadlink.substring(15,cadlink.indexOf(".png?v=3"))))==-1){
+const match = cadlink.match(/\/mach\/(\d+)\.png/);
+if (match) {
+  const cardNum = Number(match[1]); // 例如 31
+  mdt = plmgd[pled].indexOf(cardNum);
+} else {
+  mdt = -1; // 沒找到圖片數字
+}
+
+if(otlistenod.indexOf(mdt)==-1){
 
 $("."+pldname[0]+" div .d"+i+" div").css("filter","sepia(100%) brightness(50%)")
 
@@ -2301,7 +2309,8 @@ plmgd[i].push(Math.ceil(n/4))///放入玩家的手牌
 const cardIndex = plmgd[i].length;
 
 const img = new Image();
-img.src = "mach/"+Math.ceil(n/4)+".png?v=3";
+
+img.src = "https://supercatmach.github.io/pic/mach/"+Math.ceil(n/4)+".png?v=3";
 
 img.onload = function () {
   $("."+pldname[i]+" div .d"+cardIndex+" .c1").html(img);
@@ -2321,7 +2330,7 @@ plmgd[i].push(n)///放入玩家的手牌
 const cardIndex = plmgd[i].length;
 
 const img = new Image();
-img.src = "mach/"+n+".png?v=3";
+img.src = "https://supercatmach.github.io/pic/mach/"+n+".png?v=3";
 
 img.onload = function () {
   $("."+pldname[i]+" div .d"+cardIndex+" .c1").html(img);
@@ -3519,7 +3528,7 @@ plednow=pled
 
 
 const img = new Image();
-img.src = "mach/"+n+".png?v=3";
+img.src = "https://supercatmach.github.io/pic/mach/"+n+".png?v=3";
 
 img.onload = function () {
   $("."+pldname[plednow]+" div .d17 .c1").html(img);
@@ -3678,7 +3687,7 @@ return
 plednow=pled
 
 const img = new Image();
-img.src = "mach/"+Math.ceil(n/4)+".png?v=3";
+img.src = "https://supercatmach.github.io/pic/mach/"+Math.ceil(n/4)+".png?v=3";
 
 img.onload = function () {
   $("."+pldname[plednow]+" div .d17 .c1").html(img);
@@ -5945,7 +5954,15 @@ for(let i=1;i<18;i++){
 
 cadlink=$("."+pldname[0]+" div .d"+i+" .c1").html().toString()
 
-if(etallshow.indexOf(Number(cadlink.substring(15,cadlink.indexOf(".png?v=3"))))==-1){
+const match = cadlink.match(/\/mach\/(\d+)\.png/);
+if (match) {
+  const cardNum = Number(match[1]); // 例如 31
+  mdt = plmgd[pled].indexOf(cardNum);
+} else {
+  mdt = -1; // 沒找到圖片數字
+}
+
+if(etallshow.indexOf(mdt)==-1){
 
 $("."+pldname[0]+" div .d"+i+" div").css("filter","sepia(100%) brightness(50%)")
 
@@ -5972,7 +5989,13 @@ return
 
 cadlink=$("."+pldname[0]+" div .d"+res+" .c1").html().toString()
 
-res=plmgd[pled].indexOf(Number(cadlink.substring(15,cadlink.indexOf(".png?v=3"))))
+const match = cadlink.match(/\/mach\/(\d+)\.png/);
+if (match) {
+  const cardNum = Number(match[1]); // 例如 31
+  res = plmgd[pled].indexOf(cardNum);
+} else {
+  res = -1; // 沒找到圖片數字
+}
 
 fiseat.push(plmgd[pled][res])
 
@@ -6028,11 +6051,20 @@ for(let i=1;i<18;i++){
 
 cadlink=$("."+pldname[0]+" div .d"+i+" .c1").html().toString()
 
-if(etallshow.indexOf(Number(cadlink.substring(15,cadlink.indexOf(".png?v=3"))))==-1){
+const match = cadlink.match(/\/mach\/(\d+)\.png/);
+if (match) {
+  const cardNum = Number(match[1]); // 例如 31
+  mdt = plmgd[pled].indexOf(cardNum);
+} else {
+  mdt = -1; // 沒找到圖片數字
+}
+
+if(etallshow.indexOf(mdt)==-1){
 
 $("."+pldname[0]+" div .d"+i+" div").css("filter","sepia(100%) brightness(50%)")
 
 }
+
 
 }
 
@@ -6051,8 +6083,13 @@ return
 
 cadlink=$("."+pldname[0]+" div .d"+res2+" .c1").html().toString()
 
-res2=plmgd[pled].indexOf(Number(cadlink.substring(15,cadlink.indexOf(".png?v=3"))))
-
+const match = cadlink.match(/\/mach\/(\d+)\.png/);
+if (match) {
+  const cardNum = Number(match[1]); // 例如 31
+  res2 = plmgd[pled].indexOf(cardNum);
+} else {
+  res2 = -1; // 沒找到圖片數字
+}
 fiseat.push(plmgd[pled][res2])
 
 fiseat.length=2
@@ -6324,9 +6361,13 @@ function outMyself2(mdt){
 if(epgmow==0&&otlisten.length!=0){
 
 cadlink=$("."+pldname[0]+" div .d"+mdt+" .c1").html().toString()
-
-mdt=plmgd[pled].indexOf(Number(cadlink.substring(15,cadlink.indexOf(".png?v=3"))))
-
+const match = cadlink.match(/\/mach\/(\d+)\.png/);
+if (match) {
+  const cardNum = Number(match[1]); // 例如 31
+  mdt = plmgd[pled].indexOf(cardNum);
+} else {
+  mdt = -1; // 沒找到圖片數字
+}
 $("."+pldname[pled]+" div .d17").hide()
 
 }
@@ -6345,8 +6386,13 @@ $("."+pldname[pled]+" div .d17").hide()
 
 cadlink=$("."+pldname[0]+" div .d"+mdt+" .c1").html().toString()
 
-mdt=plmgd[pled].indexOf(Number(cadlink.substring(15,cadlink.indexOf(".png?v=3"))))
-
+const match = cadlink.match(/\/mach\/(\d+)\.png/);
+if (match) {
+  const cardNum = Number(match[1]); // 例如 31
+  mdt = plmgd[pled].indexOf(cardNum);
+} else {
+  mdt = -1; // 沒找到圖片數字
+}
 }
 
 if(epgmow==1){
@@ -6363,8 +6409,13 @@ return a - b
 
 cadlink=$("."+pldname[0]+" div .d"+mdt+" .c1").html().toString()
 
-mdt=plmgd[pled].indexOf(Number(cadlink.substring(15,cadlink.indexOf(".png?v=3"))))
-
+const match = cadlink.match(/\/mach\/(\d+)\.png/);
+if (match) {
+  const cardNum = Number(match[1]); // 例如 31
+  mdt = plmgd[pled].indexOf(cardNum);
+} else {
+  mdt = -1; // 沒找到圖片數字
+}
 ethan[pled]++
 
 for(let i=1;i<16-plmgd[0].length;i++){
@@ -6720,7 +6771,15 @@ for(let i=1;i<18;i++){
 
 cadlink=$("."+pldname[0]+" div .d"+i+" .c1").html().toString()
 
-if(cantoutcd.indexOf(Number(cadlink.substring(15,cadlink.indexOf(".png?v=3"))))!=-1){
+const match = cadlink.match(/\/mach\/(\d+)\.png/);
+if (match) {
+  const cardNum = Number(match[1]); // 例如 31
+  mdt = plmgd[pled].indexOf(cardNum);
+} else {
+  mdt = -1; // 沒找到圖片數字
+}
+
+if(cantoutcd.indexOf(mdt)!=-1){
 
 $("."+pldname[0]+" div .d"+i+" div").css("filter","sepia(100%) brightness(50%)")
 
@@ -6738,7 +6797,15 @@ for(let i=1;i<18;i++){
 
 cadlink=$("."+pldname[0]+" div .d"+i+" .c1").html().toString()
 
-if(rlmgd[0][rlmgd[0].length-1]==Number(cadlink.substring(15,cadlink.indexOf(".png?v=3")))){
+const match = cadlink.match(/\/mach\/(\d+)\.png/);
+if (match) {
+  const cardNum = Number(match[1]); // 例如 31
+  mdt = plmgd[pled].indexOf(cardNum);
+} else {
+  mdt = -1; // 沒找到圖片數字
+}
+
+if(rlmgd[0][rlmgd[0].length-1]==mdt){
 
 $("."+pldname[0]+" div .d"+i+" div").css("filter","sepia(100%) brightness(50%)")
 
@@ -6755,7 +6822,15 @@ for(let i=1;i<18;i++){
 
 cadlink=$("."+pldname[0]+" div .d"+i+" .c1").html().toString()
 
-if(rlmgd[0][rlmgd[0].length-1]==Number(cadlink.substring(15,cadlink.indexOf(".png?v=3")))){
+const match = cadlink.match(/\/mach\/(\d+)\.png/);
+if (match) {
+  const cardNum = Number(match[1]); // 例如 31
+  mdt = plmgd[pled].indexOf(cardNum);
+} else {
+  mdt = -1; // 沒找到圖片數字
+}
+
+if(rlmgd[0][rlmgd[0].length-1]==mdt){
 
 $("."+pldname[0]+" div .d"+i+" div").css("filter","sepia(100%) brightness(50%)")
 
