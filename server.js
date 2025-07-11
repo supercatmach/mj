@@ -13,27 +13,6 @@ const io = new Server(server, {
     methods: ["GET", "POST"]
   }
 });
-const imageFolder = path.join(__dirname, "public/watse");
-app.use(express.static("public"));
-
-app.get("/imglist", (req, res) => {
-  const fs = require("fs");
-  const path = require("path");
-
-  const dirPath = path.join(__dirname, "public", "watse");
-
-  fs.readdir(dirPath, (err, files) => {
-    if (err) {
-      return res.status(500).json({ error: "讀取圖片清單失敗" });
-    }
-
-    const imgUrls = files
-      .filter(file => /\.(jpg|png|jpeg|gif|webp)$/i.test(file))
-      .map(file => `watse/${file}`); // ✅ 修正這行
-
-    res.json(imgUrls);
-  });
-});
 
 app.use(
   helmet.contentSecurityPolicy({
