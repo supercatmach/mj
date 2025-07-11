@@ -201,8 +201,8 @@ socket.on("disconnect", (reason) => {
       rooms[roomId].playerpic = rooms[roomId].playerpic.filter(p => p.playerId !== socket.id);
       sendToClient(roomId, "allche", JSON.stringify(rooms[roomId].playerpic));
       sendToClient(roomId, "playerDisconnected", { playerId: socket.id });
-        io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
-broadcastStats(io, rooms)
+
+
       // 房主離線或房間空了
       if (
         rooms[roomId].host === socket.id ||
@@ -214,7 +214,8 @@ broadcastStats(io, rooms)
         rooms[roomId].players = rooms[roomId].players.filter(
           playerId => playerId !== socket.id
         );
-
+        io.emit("updateRooms", rooms);  // 通知所有人更新房間清單
+broadcastStats(io, rooms)
         const allAI = rooms[roomId].players.every(
           id => typeof id === "string" && id.startsWith("AI")
         );
