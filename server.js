@@ -14,6 +14,16 @@ const io = new Server(server, {
   }
 });
 
+const cors = require('cors');
+
+app.use(cors({
+  origin: [
+    "https://mj-5x4w.onrender.com", // ✅ 你的 Render 前端網址
+    "https://supercatmach.github.io" // ✅ 如果你用 GitHub Pages 做前端
+  ],
+  credentials: true // 如果有使用 cookie/session
+}));
+
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
