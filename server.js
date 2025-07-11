@@ -47,15 +47,15 @@ imgSrc: [
   "https://supercatmach.github.io"
 ],
       connectSrc: [
-        "'self'",
-        "https://mj-5x4w.onrender.com",
-        "wss://mj-5x4w.onrender.com",
-        "https://catchat-a7zb.onrender.com",
-        "wss://catchat-a7zb.onrender.com",
-        "https://mj-sp1.up.railway.app",
-        "wss://mj-sp2.up.railway.app",
-        "https://mj-sp1.up.railway.app",
-        "wss://mj-sp2.up.railway.app"
+  "'self'",
+  "https://mj-5x4w.onrender.com",
+  "wss://mj-5x4w.onrender.com",
+  "https://catchat-a7zb.onrender.com",
+  "wss://catchat-a7zb.onrender.com",
+  "https://mj-sp1.up.railway.app",
+  "wss://mj-sp1.up.railway.app", // ✅ 新增這行！
+  "https://mj-sp2.up.railway.app",
+  "wss://mj-sp2.up.railway.app"
       ],
       fontSrc: [
         "'self'",
