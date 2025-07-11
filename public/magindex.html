@@ -1,50 +1,87 @@
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="connect-src 'self' https://mj-production-43c2.up.railway.app wss://mj-production-43c2.up.railway.app https://catchat-a7zb.onrender.com https://mj-5x4w.onrender.com wss://mj-5x4w.onrender.com;">
+<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/socket.io-client@4.7.5/dist/socket.io.min.js"></script>
+
 </head>
 <body>
-    <h1>多人遊戲大廳</h1>
-    <button id="createRoom">建立新房間</button>
-    <h2>可加入的房間</h2>
-    <ul id="roomList"></ul>
-
+ <div id="app">
+  <h1>麻將大廳</h1>
+  <div class="room-list">
+    <div class="room-card" v-for="(room, id) in rooms" :key="id">
+      <h2>房間：{{ id }}</h2>
+      <div class="table">
+        <div v-for="(player, i) in room.players" :key="i" :class="'seat seat-'+i">
+          <div class="player">{{ player.name || '無名氏' }}</div>
+          <div class="last-card">出牌：{{ player.lastCard || '無' }}</div>
+        </div>
+        <div v-for="n in (4 - room.players.length)" :key="'empty'+n" class="seat empty">
+          <button @click="joinRoom(id)">入座</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+.room-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.room-card {
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 12px;
+  width: 300px;
+  background: #f5f5f5;
+}
+.table {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+.seat {
+  background: #fff;
+  border: 1px dashed #aaa;
+  padding: 10px;
+  border-radius: 8px;
+  min-height: 60px;
+}
+.empty button {
+  width: 100%;
+}
+</style>
     <script>
-        const socket = io("https://mj-production-43c2.up.railway.app");
+    const { createApp } = Vue;
 
-        // 建立新房間
-        document.getElementById("createRoom").addEventListener("click", () => {
-            socket.emit("createRoom");
+    createApp({
+      data() {
+        return {
+          socket: null,
+          rooms: {}
+        };
+      },
+      mounted() {
+        this.socket = io("https://mj-sp1.up.railway.app");
+
+        this.socket.emit("getRooms");
+
+        this.socket.on("updateRooms", (rooms) => {
+          this.rooms = rooms;
         });
-
-        // 更新房間清單
-        socket.on("updateRooms", (rooms) => {
-            const roomList = document.getElementById("roomList");
-            roomList.innerHTML = "";
-
-            for (const roomId in rooms) {
-                const room = rooms[roomId];
-                const li = document.createElement("li");
-                li.innerHTML = `房間ID: ${roomId} | 人數: ${room.players.length} `;
-
-                if (room.players.length < 4) {
-                    const joinButton = document.createElement("button");
-                    joinButton.innerText = "加入";
-                    joinButton.onclick = () => {
-                        window.location.href = `/magi.html?room=${roomId}`;
-                    };
-                    li.appendChild(joinButton);
-                } else {
-                    li.innerHTML += "（已滿）";
-                }
-                roomList.appendChild(li);
-            }
-        });
-
-        // 初次加載時獲取房間清單
-        socket.emit("getRooms");
+      },
+      methods: {
+        createRoom() {
+          this.socket.emit("createRoom");
+        },
+        joinRoom(roomId) {
+          window.location.href = `/magi.html?room=${roomId}`;
+        }
+      }
+    }).mount("#app");
     </script>
 </body>
 </html>

@@ -270,6 +270,10 @@ socket.on("disconnect", (reason) => {
     }
   }
 });
+    // 獲取房間清單
+    socket.on("getRooms", () => {
+        socket.emit("updateRooms", rooms);
+    });
 
 socket.on("wantinvit", (roomId) => {
   console.log("收到房間邀請AI", roomId);
