@@ -298,11 +298,11 @@ socket.on("wantinvit", (roomId) => {
         console.log("玩家",aiId,"加入房間",roomId);
 
         sendToClient(roomId, "playerJoined", { playerId: aiId, roomSize: rooms[roomId].players.length });
-socket.emit("updateRooms", rooms);
+io.emit("updateRooms", rooms);
 
         if (rooms[roomId].players.length == 4) {
             befgame(roomId)
-socket.emit("updateRooms", rooms);
+io.emit("updateRooms", rooms);
             return;
         }
 
@@ -360,7 +360,7 @@ function sendToClient(targetId, eventName, data) {
 console.log(eventName)
 
 if(eventName=="outcard"){
-socket.emit("outcardtohall", [targetId,data]);
+io.emit("outcardtohall", [targetId,data]);
 }
     for (let pid of rooms[targetId].players) {
       if (aiWorkers[pid]) {
@@ -400,7 +400,7 @@ rooms[roomId].playerpic.push({"che":JSON.parse(che)[1],"playerId":from});
 
 io.to(roomId).emit("allche", JSON.stringify(rooms[roomId].playerpic));
 
-socket.emit("updateRooms", rooms);
+io.emit("updateRooms", rooms);
 
 },
 
@@ -1262,7 +1262,7 @@ rooms[roomId].card=[]
         [rooms[roomId].players[i], rooms[roomId].players[j]] = [rooms[roomId].players[j], rooms[roomId].players[i]]; // 交換位置
     }
 
-socket.emit("updateRooms", rooms);
+io.emit("updateRooms", rooms);
 
 }
 
