@@ -3132,7 +3132,7 @@ socket.emit("wantinvit", roomId);
 });
 
 setInterval(() => {
-  fetch("https://"+serverURL+"/ping");
+  fetch(serverURL+"/ping");
 }, 1 * 60 * 1000);
 
 //////////////////////////////////////////////////////
