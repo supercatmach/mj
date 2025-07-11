@@ -3132,7 +3132,7 @@ socket.emit("wantinvit", roomId);
 });
 
 setInterval(() => {
-  fetch("https://mj-production-43c2.up.railway.app/ping");
+  fetch("https://"+urlParams+"/ping");
 }, 1 * 60 * 1000);
 
 //////////////////////////////////////////////////////
