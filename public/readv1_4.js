@@ -1925,13 +1925,10 @@ cadlink=$("."+pldname[0]+" div .d"+i+" .c1").html().toString()
 
 const match = cadlink.match(/\/mach\/(\d+)\.png/);
 if (match) {
-  const cardNum = Number(match[1]); // 例如 31
-  mdt = plmgd[pled].indexOf(cardNum);
-} else {
-  mdt = -1; // 沒找到圖片數字
+  cardNum = Number(match[1]); // 例如 31
 }
 
-if(otlistenod.indexOf(mdt)==-1){
+if(otlistenod.indexOf(cardNum)==-1){
 
 $("."+pldname[0]+" div .d"+i+" div").css("filter","sepia(100%) brightness(50%)")
 
@@ -5956,13 +5953,10 @@ cadlink=$("."+pldname[0]+" div .d"+i+" .c1").html().toString()
 
 const match = cadlink.match(/\/mach\/(\d+)\.png/);
 if (match) {
-  const cardNum = Number(match[1]); // 例如 31
-  mdt = plmgd[pled].indexOf(cardNum);
-} else {
-  mdt = -1; // 沒找到圖片數字
+  cardNum = Number(match[1]); // 例如 31
 }
 
-if(etallshow.indexOf(mdt)==-1){
+if(etallshow.indexOf(cardNum)==-1){
 
 $("."+pldname[0]+" div .d"+i+" div").css("filter","sepia(100%) brightness(50%)")
 
@@ -5991,7 +5985,7 @@ cadlink=$("."+pldname[0]+" div .d"+res+" .c1").html().toString()
 
 const match = cadlink.match(/\/mach\/(\d+)\.png/);
 if (match) {
-  const cardNum = Number(match[1]); // 例如 31
+  cardNum = Number(match[1]); // 例如 31
   res = plmgd[pled].indexOf(cardNum);
 } else {
   res = -1; // 沒找到圖片數字
@@ -6053,13 +6047,10 @@ cadlink=$("."+pldname[0]+" div .d"+i+" .c1").html().toString()
 
 const match = cadlink.match(/\/mach\/(\d+)\.png/);
 if (match) {
-  const cardNum = Number(match[1]); // 例如 31
-  mdt = plmgd[pled].indexOf(cardNum);
-} else {
-  mdt = -1; // 沒找到圖片數字
-}
+  cardNum = Number(match[1]); // 例如 31
+  }
 
-if(etallshow.indexOf(mdt)==-1){
+if(etallshow.indexOf(cardNum)==-1){
 
 $("."+pldname[0]+" div .d"+i+" div").css("filter","sepia(100%) brightness(50%)")
 
@@ -6085,7 +6076,7 @@ cadlink=$("."+pldname[0]+" div .d"+res2+" .c1").html().toString()
 
 const match = cadlink.match(/\/mach\/(\d+)\.png/);
 if (match) {
-  const cardNum = Number(match[1]); // 例如 31
+  cardNum = Number(match[1]); // 例如 31
   res2 = plmgd[pled].indexOf(cardNum);
 } else {
   res2 = -1; // 沒找到圖片數字
@@ -6363,7 +6354,7 @@ if(epgmow==0&&otlisten.length!=0){
 cadlink=$("."+pldname[0]+" div .d"+mdt+" .c1").html().toString()
 const match = cadlink.match(/\/mach\/(\d+)\.png/);
 if (match) {
-  const cardNum = Number(match[1]); // 例如 31
+  cardNum = Number(match[1]); // 例如 31
   mdt = plmgd[pled].indexOf(cardNum);
 } else {
   mdt = -1; // 沒找到圖片數字
@@ -6388,7 +6379,7 @@ cadlink=$("."+pldname[0]+" div .d"+mdt+" .c1").html().toString()
 
 const match = cadlink.match(/\/mach\/(\d+)\.png/);
 if (match) {
-  const cardNum = Number(match[1]); // 例如 31
+  cardNum = Number(match[1]); // 例如 31
   mdt = plmgd[pled].indexOf(cardNum);
 } else {
   mdt = -1; // 沒找到圖片數字
@@ -6411,7 +6402,7 @@ cadlink=$("."+pldname[0]+" div .d"+mdt+" .c1").html().toString()
 
 const match = cadlink.match(/\/mach\/(\d+)\.png/);
 if (match) {
-  const cardNum = Number(match[1]); // 例如 31
+  cardNum = Number(match[1]); // 例如 31
   mdt = plmgd[pled].indexOf(cardNum);
 } else {
   mdt = -1; // 沒找到圖片數字
@@ -6773,13 +6764,11 @@ cadlink=$("."+pldname[0]+" div .d"+i+" .c1").html().toString()
 
 const match = cadlink.match(/\/mach\/(\d+)\.png/);
 if (match) {
-  const cardNum = Number(match[1]); // 例如 31
-  mdt = plmgd[pled].indexOf(cardNum);
-} else {
-  mdt = -1; // 沒找到圖片數字
+  cardNum = Number(match[1]); // 例如 31
+ 
 }
 
-if(cantoutcd.indexOf(mdt)!=-1){
+if(cantoutcd.indexOf(cardNum)!=-1){
 
 $("."+pldname[0]+" div .d"+i+" div").css("filter","sepia(100%) brightness(50%)")
 
@@ -6799,13 +6788,10 @@ cadlink=$("."+pldname[0]+" div .d"+i+" .c1").html().toString()
 
 const match = cadlink.match(/\/mach\/(\d+)\.png/);
 if (match) {
-  const cardNum = Number(match[1]); // 例如 31
-  mdt = plmgd[pled].indexOf(cardNum);
-} else {
-  mdt = -1; // 沒找到圖片數字
+  cardNum = Number(match[1]); // 例如 31
 }
 
-if(rlmgd[0][rlmgd[0].length-1]==mdt){
+if(rlmgd[0][rlmgd[0].length-1]==cardNum){
 
 $("."+pldname[0]+" div .d"+i+" div").css("filter","sepia(100%) brightness(50%)")
 
@@ -6824,13 +6810,10 @@ cadlink=$("."+pldname[0]+" div .d"+i+" .c1").html().toString()
 
 const match = cadlink.match(/\/mach\/(\d+)\.png/);
 if (match) {
-  const cardNum = Number(match[1]); // 例如 31
-  mdt = plmgd[pled].indexOf(cardNum);
-} else {
-  mdt = -1; // 沒找到圖片數字
+  cardNum = Number(match[1]); // 例如 31
 }
 
-if(rlmgd[0][rlmgd[0].length-1]==mdt){
+if(rlmgd[0][rlmgd[0].length-1]==cardNum){
 
 $("."+pldname[0]+" div .d"+i+" div").css("filter","sepia(100%) brightness(50%)")
 
