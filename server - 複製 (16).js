@@ -14,28 +14,6 @@ const io = new Server(server, {
   }
 });
 
-const imageFolder = path.join(__dirname, "public/watse");
-app.use(express.static("public"));
-
-app.get("/imglist", (req, res) => {
-  const fs = require("fs");
-  const path = require("path");
-
-  const dirPath = path.join(__dirname, "public", "watse");
-
-  fs.readdir(dirPath, (err, files) => {
-    if (err) {
-      return res.status(500).json({ error: "讀取圖片清單失敗" });
-    }
-
-    const imgUrls = files
-      .filter(file => /\.(jpg|png|jpeg|gif|webp)$/i.test(file))
-      .map(file => `watse/${file}`); // ✅ 修正這行
-
-    res.json(imgUrls);
-  });
-});
-
 const cors = require('cors');
 
 app.use(cors({
@@ -92,26 +70,6 @@ imgSrc: [
 );
 app.get("/ping", (req, res) => {
   res.send("pong");
-});
-
-const longCacheFolders = [
-  'backg',
-  'mach',
-  'madh',
-  'mati',
-  'meup',
-  'music',
-  'stanbypled',
-  'watse',
-  'word'
-];
-
-// 1. 先設定 longCacheFolders 的靜態路由（長快取）
-longCacheFolders.forEach(folder => {
-  app.use(`/${folder}`, express.static(path.join(__dirname, 'public', folder), {
-    maxAge: '1y',
-    immutable: true
-  }));
 });
 
 // 2. zutop.js 長快取
