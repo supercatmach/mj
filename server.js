@@ -17,23 +17,33 @@ const io = new Server(server, {
 const imageFolder = path.join(__dirname, "public/watse");
 app.use(express.static("public"));
 
-app.get("/imglist", (req, res) => {
-  const fs = require("fs");
-  const path = require("path");
+const fs = require("fs");
 
-  const dirPath = path.join(__dirname, "public", "watse");
+app.get("/imglist", async (req, res) => {
+  const folders = ["watse", "backg", "mach", "mati", "meup", "stanbypled", "word"];
+  const cdnBase = "https://cdn.jsdelivr.net/gh/supercatmach/pic@main";
 
-  fs.readdir(dirPath, (err, files) => {
-    if (err) {
-      return res.status(500).json({ error: "讀取圖片清單失敗" });
+  const imgUrls = [];
+
+  for (const folder of folders) {
+    const dirPath = path.join(__dirname, "public", folder);
+
+    try {
+      const files = fs.readdirSync(dirPath);
+
+      const imgs = files
+        .filter(file => /\.(jpg|jpeg|png|gif|webp)$/i.test(file))
+        .map(file => `${cdnBase}/${folder}/${file}`);
+
+      imgUrls.push(...imgs);
+
+    } catch (err) {
+      console.error(`❌ 無法讀取資料夾 ${folder}:`, err.message);
+      // 你也可以選擇 res.status(500) 回傳錯誤，但這裡我們忽略錯誤資料夾
     }
+  }
 
-    const imgUrls = files
-      .filter(file => /\.(jpg|png|jpeg|gif|webp)$/i.test(file))
-      .map(file => `watse/${file}`); // ✅ 修正這行
-
-    res.json(imgUrls);
-  });
+  res.json(imgUrls);
 });
 
 const cors = require('cors');
