@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/socket.io-client@4.7.5/dist/socket.io.min.js"></script>
+
+</head>
+<body>
+<div id="app">
+  <h1 style="text-align:center;">超科學麻將社</h1>
+  <div style="text-align:center; margin-bottom: 10px;">
+    <span>線上總人數：{{ totalPlayers }}</span> |
+    <span>房間數：{{ totalRooms }}</span>
+  </div>
+  <div class="table-area">
+    <div class="room" v-for="(room, roomId) in rooms" :key="roomId">
+      <!-- 🐞 debug log 每張桌子的內容 -->
+      {{ console.log("📦 roomId:", roomId, room) }}
+
+      <!-- 用 room.players 迴圈，順序照 players -->
+<template v-for="(playerId, idx) in room.players" :key="playerId">
+  <div class="player" :class="'player' + idx">
+    <img :src="'head/cv' + getCheByPlayerId(playerId, room.playerpic) + '.png'" />
+    <!-- 對話泡泡 -->
+    <div
+      class="outcard-bubble"
+      v-if="hallOutcards[roomId] && hallOutcards[roomId][playerId]"
+    >
+      {{ hallOutcards[roomId][playerId] }}
+    </div>
+  </div>
+</template>
+
+      <!-- 桌子圖 -->
+      <div class="table">
+        <img src="backg/tablesmoll.png" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+    body {
+      font-family: sans-serif;
+      background: #eee;
+    }
+.table-area {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+}
+
+.room {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  background: #f0f0f0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.table {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+}
+
+.player {
+  position: absolute;
+  z-index: 2; /* ✅ 讓玩家圖像在桌子下面就調成 0 */
+}
+
+.player0 {
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.player1 {
+  top: 50%;
+  left: 80%;
+  transform: translate(-50%, -50%);
+}
+.player2 {
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.player3 {
+  top: 50%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+}
+
+.player img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid #555;
+  background: white;
+}
+
+.outcard-bubble {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background-color: #fffbe6;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 28px;
+  padding: 2px 6px;
+  z-index: 10;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
+}
+
+    @keyframes fadeout {
+      0% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+</style>
+    <script>
+const { createApp } = Vue;
+createApp({
+  data() {
+    return {
+      socket: null,
+      rooms: {},
+      hallOutcards: {},       // 出牌顯示暫存 { [roomId]: { [playerId]: "🀇" } }
+      currentOutcardPlayer: null, // { roomId, playerId }，紀錄目前顯示誰的牌泡泡
+      outcardTimeout: null,       // 定時器ID
+    totalPlayers: 0,
+    totalRooms: 0
+    };
+  },
+  mounted() {
+    this.socket = io("https://mj-sp1.up.railway.app");
+    this.socket.emit("getRooms");
+
+    // 更新房間資料
+    this.socket.on("updateRooms", (rooms) => {
+      this.rooms = rooms;
+    });
+
+    // 玩家打牌
+    this.socket.on("outcardtohall", (outcard) => {
+      const roomId = outcard[0];
+      const [playerId, cardNum] = JSON.parse(outcard[1]);
+      console.log("outcardtohall", outcard);
+
+      // 轉換牌文字為對應符號
+      const cardSymbol = this.cardToUnicode(cardNum);
+
+      if (!this.hallOutcards[roomId]) this.hallOutcards[roomId] = {};
+
+      // 先清掉上一個玩家的牌泡泡（如果存在且不等於現在這位）
+      if (this.currentOutcardPlayer) {
+        const { roomId: oldRoomId, playerId: oldPlayerId } = this.currentOutcardPlayer;
+        if (oldRoomId !== roomId || oldPlayerId !== playerId) {
+          if (this.hallOutcards[oldRoomId]) {
+            delete this.hallOutcards[oldRoomId][oldPlayerId];
+          }
+        }
+      }
+
+      // 清除前一次timeout
+      if (this.outcardTimeout) clearTimeout(this.outcardTimeout);
+
+      // 顯示新玩家出牌泡泡
+      this.hallOutcards[roomId][playerId] = cardSymbol;
+      this.currentOutcardPlayer = { roomId, playerId };
+
+      // 3秒後隱藏泡泡
+      this.outcardTimeout = setTimeout(() => {
+        if (this.hallOutcards[roomId]) {
+          delete this.hallOutcards[roomId][playerId];
+        }
+        this.currentOutcardPlayer = null;
+        this.outcardTimeout = null;
+      }, 3000);
+    });
+this.socket.on("updateStats", (stats) => {
+  this.totalPlayers = stats.totalPlayers;
+  this.totalRooms = stats.totalRooms;
+});
+
+this.socket.on("canephtohall", (payload) => {
+  const roomId = payload[0];
+  const [playerId, , dwo] = JSON.parse(payload[1]);
+
+  if (!this.hallOutcards[roomId]) this.hallOutcards[roomId] = {};
+
+  // 清除上一個玩家泡泡（如果跟新玩家不同）
+  if (this.currentOutcardPlayer) {
+    const { roomId: oldRoomId, playerId: oldPlayerId } = this.currentOutcardPlayer;
+    if (oldRoomId !== roomId || oldPlayerId !== playerId) {
+      if (this.hallOutcards[oldRoomId]) {
+        delete this.hallOutcards[oldRoomId][oldPlayerId];
+      }
+    }
+  }
+
+  const actionMap = {
+    eat: "吃",
+    pon: "碰",
+    gun: "槓",
+    win: "胡",
+    mywin: "自摸",
+  };
+
+  this.hallOutcards[roomId][playerId] = actionMap[dwo] || dwo;
+  this.currentOutcardPlayer = { roomId, playerId };
+});
+
+    // 👉 測試假資料用
+    /*
+    this.rooms = {
+      A001: {
+        playerpic: [
+          { che: "01", playerId: "a1" },
+          { che: "02", playerId: "a2" },
+          null,
+          { che: "03", playerId: "a4" }
+        ]
+      }
+    };
+
+    setTimeout(() => {
+      this.socket.emit("outcardtohall", [
+        "A001",
+        JSON.stringify(["a1", 1])
+      ]);
+    }, 1000);
+
+    setTimeout(() => {
+      this.socket.emit("outcardtohall", [
+        "A001",
+        JSON.stringify(["a2", 10])
+      ]);
+    }, 2000);
+    */
+  },
+  methods: {
+  getCheByPlayerId(playerId, playerpic) {
+    if (!playerpic || !Array.isArray(playerpic)) return "default";
+    const pic = playerpic.find(p => p && p.playerId === playerId);
+    return pic ? pic.che : "default"; // 找不到回傳預設圖片代號
+  },
+    // 麻將牌數字轉 Unicode 字符
+    cardToUnicode(num) {
+      if (num >= 1 && num <= 9) return String.fromCodePoint(0x1F007 + (num - 1)); // 🀇~🀏 萬
+      if (num >= 10 && num <= 18) return String.fromCodePoint(0x1F019 + (num - 10)); // 🀙~🀡 筒
+      if (num >= 19 && num <= 27) return String.fromCodePoint(0x1F010 + (num - 19)); // 🀐~🀘 條
+      const honors = {
+        28: 0x1F000, // 東
+        29: 0x1F001, // 南
+        30: 0x1F002, // 西
+        31: 0x1F003, // 北
+        32: 0x1F004, // 中
+        33: 0x1F005, // 發
+        34: 0x1F006  // 白
+      };
+      return String.fromCodePoint(honors[num] || 0x2753); // ？(未知)
+    }
+  }
+}).mount("#app");
+
+    </script>
+</body>
+</html>
