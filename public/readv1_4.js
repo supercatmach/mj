@@ -240,8 +240,7 @@ function isValidBase64(str) {
 ////////////////////////////////////////////
 
 const serverList = [
-  "https://mj-sp1.up.railway.app",
-  "https://mj-sp2.up.railway.app"
+  "https://mj-5x4w.onrender.com"
 ];
 
 async function findLiveServer() {

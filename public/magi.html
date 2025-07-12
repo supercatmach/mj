@@ -3116,14 +3116,26 @@ setInterval(() => {
   fetch(serverURL+"/ping");
 }, 1 * 60 * 1000);
 
-fetch(serverURL+"/imglist")
-  .then(res => res.json())
-  .then(imgUrls => {
-    imgUrls.forEach(url => {
+
+fetch("/imglist")
+  .then(res => {
+    const contentType = res.headers.get("content-type");
+    if (!contentType || !contentType.includes("application/json")) {
+      throw new Error("不是 JSON 回應，實際回傳內容可能是 HTML！");
+    }
+    return res.json();
+  })
+  .then(imgList => {
+    imgList.forEach(url => {
       const img = new Image();
       img.src = url;
     });
+    console.log("圖片已開始預載入", imgList);
+  })
+  .catch(err => {
+    console.error("❌ 圖片列表載入失敗:", err);
   });
+
 
 //////////////////////////////////////////////////////
 
