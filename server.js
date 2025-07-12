@@ -51,6 +51,7 @@ const cors = require('cors');
 app.use(cors({
   origin: [
     "https://mj-5x4w.onrender.com", // ✅ 你的 Render 前端網址
+    "https://mjdx.onrender.com",
     "https://supercatmach.github.io" // ✅ 如果你用 GitHub Pages 做前端
   ],
   credentials: true // 如果有使用 cookie/session
@@ -78,17 +79,19 @@ imgSrc: [
   "data:",
   "https://supercatmach.github.io"
 ],
-      connectSrc: [
+connectSrc: [
   "'self'",
   "https://mj-5x4w.onrender.com",
   "wss://mj-5x4w.onrender.com",
   "https://catchat-a7zb.onrender.com",
   "wss://catchat-a7zb.onrender.com",
   "https://mj-sp1.up.railway.app",
-  "wss://mj-sp1.up.railway.app", // ✅ 新增這行！
+  "wss://mj-sp1.up.railway.app",
   "https://mj-sp2.up.railway.app",
-  "wss://mj-sp2.up.railway.app"
-      ],
+  "wss://mj-sp2.up.railway.app",
+  "https://mjdx.onrender.com",
+  "wss://mjdx.onrender.com"
+],
       fontSrc: [
         "'self'",
         "https://fonts.googleapis.com",
