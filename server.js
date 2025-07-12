@@ -50,12 +50,13 @@ const cors = require('cors');
 
 app.use(cors({
   origin: [
-    "https://mj-5x4w.onrender.com", // ✅ 你的 Render 前端網址
+    "https://mj-5x4w.onrender.com",
     "https://mjdx.onrender.com",
-    "https://supercatmach.github.io" // ✅ 如果你用 GitHub Pages 做前端
+    "https://supercatmach.github.io"
   ],
-  credentials: true // 如果有使用 cookie/session
+  credentials: true // 若有 cookie 或 session 要帶過去才需要
 }));
+
 
 app.use(
   helmet.contentSecurityPolicy({
