@@ -310,7 +310,7 @@ $(".londingshap100").animate({width:'100%'},1000);
 
 setTimeout(() => {
 
-window.location.href = `/magi.html?room=${rooms.roomId}&server=${encodeURIComponent(servertoURL)}`
+window.location.href = `/magi.html?room=${rooms.roomId}&server=${servertoURL}`
 
 },1000)
 
