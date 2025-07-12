@@ -7,12 +7,26 @@ const helmet = require("helmet");
 
 const app = express();
 const server = http.createServer(app);
+
+
+const cors = require('cors');
+
+app.use(cors({
+  origin: [
+    "https://mj-5x4w.onrender.com",
+    "https://mjdx.onrender.com",
+    "https://supercatmach.github.io"
+  ],
+  credentials: true // 若有 cookie 或 session 要帶過去才需要
+}));
+
 const io = new Server(server, {
   cors: {
     origin: "*",
     methods: ["GET", "POST"]
   }
 });
+
 
 const imageFolder = path.join(__dirname, "public/watse");
 app.use(express.static("public"));
@@ -45,18 +59,6 @@ app.get("/imglist", async (req, res) => {
 
   res.json(imgUrls);
 });
-
-const cors = require('cors');
-
-app.use(cors({
-  origin: [
-    "https://mj-5x4w.onrender.com",
-    "https://mjdx.onrender.com",
-    "https://supercatmach.github.io"
-  ],
-  credentials: true // 若有 cookie 或 session 要帶過去才需要
-}));
-
 
 app.use(
   helmet.contentSecurityPolicy({
