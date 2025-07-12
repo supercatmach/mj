@@ -29,6 +29,19 @@ $(".pledstanby").show();
 
 },1000)
 
+setTimeout(() => {
+
+$(".stanbylondingshap100").css("width","0px")
+
+$(".stanbylondingshap100").hide();
+
+$(".stanbylonding").hide();
+
+$(".pledstanby").show();
+
+},3000)
+
+
 
 $(".adown,.camera,.space,.etpghwordbk,.smoking,.scaler,.table").show(); // 揭示主畫面、DOM操作等
 });
