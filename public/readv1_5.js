@@ -29,6 +29,8 @@ $(".pledstanby").show();
 
 },1000)
 
+});
+
 setTimeout(() => {
 
 $(".stanbylondingshap100").css("width","0px")
@@ -43,8 +45,6 @@ $(".pledstanby").show();
 
 
 
-$(".adown,.camera,.space,.etpghwordbk,.smoking,.scaler,.table").show(); // 揭示主畫面、DOM操作等
-});
 
 document.oncontextmenu = function(){
     event.returnValue = false;
@@ -251,13 +251,24 @@ function isValidBase64(str) {
     }
 }
 ////////////////////////////////////////////
-
 const serverList = [
-  "https://mj-5x4w.onrender.com"
+  "https://mj-5x4w.onrender.com",
+  "https://mj-2-r1j0.onrender.com"
 ];
 
+// 洗牌函式（Fisher–Yates Shuffle）
+function shuffleArray(arr) {
+  const result = arr.slice(); // 複製一份避免改到原陣列
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
+
 async function findLiveServer() {
-  for (let url of serverList) {
+  const shuffledList = shuffleArray(serverList); // 隨機排序
+  for (let url of shuffledList) {
     try {
       const res = await fetch(url + "/ping", { timeout: 2000 });
       if (res.ok) return url;
@@ -267,7 +278,6 @@ async function findLiveServer() {
   }
   throw new Error("找不到可用伺服器");
 }
-
 function sufpvpn(dps){
 
 servertoURL=null
@@ -386,7 +396,7 @@ $(".table").show()
 
 ///$(".adown,.camera,.mycad,.nextcad,.fontcad,.lastcad,.space,.etpghwordbk,.smoking").show()
 
-$(".camera,.mycad,.nextcad,.fontcad,.lastcad,.space,.etpghwordbk,.smoking").show()
+///$(".camera,.mycad,.nextcad,.fontcad,.lastcad,.space,.etpghwordbk,.smoking").show()
 
 $(".bk60").hide()
 

@@ -15,6 +15,7 @@ app.use(cors({
   origin: [
     "https://mj-5x4w.onrender.com",
     "https://mjdx.onrender.com",
+    "https://mj-2-r1j0.onrender.com",
     "https://supercatmach.github.io"
   ],
   credentials: true // 若有 cookie 或 session 要帶過去才需要
