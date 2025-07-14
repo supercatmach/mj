@@ -22,6 +22,9 @@ app.use(cors({
 }));
 
 const io = new Server(server, {
+  perMessageDeflate: false, // 關閉壓縮
+  transports: ['websocket'], // 只允許 WebSocket
+  allowUpgrades: false, // 不允許升級 polling
   cors: {
     origin: "*",
     methods: ["GET", "POST"]
