@@ -1485,6 +1485,17 @@ rooms[roomId].card=[]
 
 console.log("新莊家:"+rooms[roomId].makrs)
 
+rooms[roomId].epgh.splice(i, 1);
+
+rooms[roomId].epghpk={}
+
+rooms[roomId].card=[]
+
+rooms[roomId].alps=0
+
+
+return
+
 }///if(rooms[roomId].epgh[i].dwo=="win"||rooms[roomId].epgh[i].dwo=="mywin"){
 
 rooms[roomId].epgh.splice(i, 1);
