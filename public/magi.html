@@ -2961,7 +2961,9 @@ const urlParams = new URLSearchParams(window.location.search);
 const roomId = urlParams.get("room");
 const serverURL = decodeURIComponent(urlParams.get("server"));
 
-const socket = io(serverURL);
+const socket = io(serverURL, {
+  transports: ['websocket'],       // ✅ 明確指定只用 WebSocket
+});
 
         if (roomId) {
             socket.emit("joinRoom", roomId);

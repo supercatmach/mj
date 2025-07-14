@@ -284,7 +284,9 @@ servertoURL=null
 
 findLiveServer()
   .then(serverURL => {
-    const socket = io(serverURL);
+    const socket = io(serverURL, {
+  transports: ['websocket'],       // ✅ 明確指定只用 WebSocket
+});
 
 servertoURL=serverURL
 
