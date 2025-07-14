@@ -42,6 +42,8 @@ $(".stanbylonding").hide();
 
 $(".pledstanby").show();
 
+$(".adown,.camera,.mycad,.nextcad,.fontcad,.lastcad,.space,.etpghwordbk,.smoking,.table").show()
+
 },3000)
 
 
