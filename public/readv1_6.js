@@ -1,8 +1,4 @@
-﻿const oldIo = io;
-window.io = function(...args) {
-  console.warn("呼叫 io()，參數:", args);
-  return oldIo(...args);
-};
+﻿
   const bgImg = new Image();
   bgImg.src = 'backg/endshure.jpg';
   
