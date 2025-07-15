@@ -384,6 +384,7 @@ const worker = new Worker(scriptPath, {
 return worker;
 
 }
+
 socket.on("invit", (data) => {
 
   const friendPin = data[0];

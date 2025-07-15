@@ -2706,7 +2706,7 @@
 <div class="playerpicn" style="position:absolute;top:0%;left:636px;height:900px;width:500px;"></div>
 <div class="playerpicup" style="position:absolute;top:0%;left:636px;">
   <!-- Label 包住顯示區塊，讓使用者點擊會觸發 input -->
-  <label for="imgupload" style="
+  <div style="
       display: block;
       background: #ffffff;
       height: 900px;
@@ -2722,11 +2722,10 @@
       color: #000000;
       cursor: pointer;
     ">
-    自己上傳人物<br>(最大 500x900pt，限去背 .png 檔)
-  </label>
-
-  <!-- 隱藏 input，但可被 label 點擊 -->
-  <input type="file" id="imgupload" accept=".png,image/png" style="display: none;">
+    自己上傳人物<br><br>
+<br>(最大 500x900pt，限去背 .png 檔)
+  </div>
+<input type="text" class="mypic" placeholder="輸入人物網址"  style="position:absolute;top:420px;left:50%;font-size:26px;margin-left:-230px;width:460px;height:50px;">
 </div>
 <img class="arrowL" src="https://cdn.jsdelivr.net/gh/supercatmach/pic@main/backg/arrowL.jpg" style="position:absolute;top:0%;left:528px;filter:opacity(0.6);">
 <img class="arrowR" src="https://cdn.jsdelivr.net/gh/supercatmach/pic@main/backg/arrowR.jpg" style="position:absolute;top:0%;left:100%;margin-left:-600px;filter:opacity(0.6);">
@@ -2841,7 +2840,7 @@ window.addEventListener("resize", scaleContent);
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/supercatmach/pic@main/zutop.js"></script>
 <script type="text/javascript" src="people.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/supercatmach/pic@main/readv1_8.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/supercatmach/pic@main/readv1_8.js?v=2"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.0.4/pako.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>

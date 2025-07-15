@@ -11,7 +11,7 @@ $(".stanbylondingshap100").animate({width:'100%'},10000);
 
 document.addEventListener("DOMContentLoaded", () => {
   // 所有圖片載入完才會執行這裡的程式碼
-  ///console.log("圖片全部載入完成！");
+  console.log("圖片全部載入完成！");
 
 
 $(".stanbylondingshap100").stop();
@@ -109,11 +109,12 @@ plerinfor[i].cho=localStorage.getItem("ch"+i);
 }
 
 
-pledpicmyslef="-1"
+pledpicmyslef=-1
 
-if (!localStorage.getItem("uploadedImage")) {
-  localStorage.setItem("uploadedImage", 1);
-} 
+
+localStorage.setItem('uploadedImage', 1);
+
+    localStorage.setItem('imgData', 1);
 
 $("#bk90").hide()
 
@@ -496,9 +497,7 @@ epgmow=JSON.parse(localStorage.getItem("epgmow"))///吃碰槓的場合
 
 cantoutcd=JSON.parse(localStorage.getItem("cantoutcd"))///吃碰後不能捨的牌
 
-savedImage = JSON.parse(localStorage.getItem('uploadedImage'));  
-
-///console.log(savedImage)
+savedImage = localStorage.getItem('uploadedImage');  
 
 tinyk=0
 
@@ -510,7 +509,7 @@ pled=makrs
 
 lassave=1
 
-pledpicmyslef="-1"
+pledpicmyslef=-1
 
 chnwind=JSON.parse(localStorage.getItem("chun"))
 ////最後一次圈
@@ -887,15 +886,12 @@ $(".pler"+i).html('<img src="https://cdn.jsdelivr.net/gh/supercatmach/pic@main/w
 
 }
 
-if(plerK[0]=="-1"){
+if(plerK[0]==-1){
 
 pledpicmyslef = document.createElement('img');
 pledpicmyslef.src = savedImage;
-pledpicmyslef.style.height = "900px";
-pledpicmyslef.style.width = "auto";
-pledpicmyslef.style.display = "block";
+pledpicmyslef.style.width=("width:500px")
 
-///console.log(pledpicmyslef)
 
 }
 
@@ -1287,39 +1283,66 @@ $(".made").toggle()
 
 },false);
 
-const input = document.querySelector(".mypic");
+const input = document.getElementById('imgupload');
 const playerpicDiv = document.querySelector(".playerpic");
 
 // 儲存圖片到 localStorage
+function saveImageToLocalStorage(base64Data) {
+    localStorage.setItem('uploadedImage', base64Data); // 儲存圖片的 Base64 字串
 
-input.addEventListener("input", () => {
-  const url = input.value.trim();
+}
+// 顯示圖片
+function displayImageFromLocalStorage() {
+    const base64Image = localStorage.getItem('uploadedImage');
+    if (base64Image) {
+        const imgElement = document.createElement('img');
 
-  if (url.length !== 0) {
-    $(".playerpicup").hide();
+        imgElement.style.width = "500px";  // 設置圖片寬度
+        imgElement.src = base64Image;
+        playerpicDiv.innerHTML = '';  // 清除之前的圖片
+        playerpicDiv.appendChild(imgElement);  // 顯示新的圖片
+$(".playerpicup").hide()
+pledpicmyslef = document.createElement('img');
+pledpicmyslef.src = base64Image;
+pledpicmyslef.style.width=("width:500px")
 
-    // 移除舊圖片（避免重複）
-    document.querySelector(".playerpic").innerHTML = "";
+sessionStorage.setItem("charich", base64Image);
 
-    // 建立新圖片
-    pledpicmyslef = document.createElement("img");
-    pledpicmyslef.src = url;
-    pledpicmyslef.style.height = "900px";
-    pledpicmyslef.style.width = "auto";
-    pledpicmyslef.style.display = "block";
+    }
+}
 
+// 當用戶選擇圖片後
 
-///console.log(pledpicmyslef)
+input.addEventListener('change', (e) => {
+    const file = e.target.files[0]; // 取得選擇的檔案
+if (!file) return;
 
-
-    // 加到 .playerpic 裡
-    document.querySelector(".playerpic").appendChild(pledpicmyslef);
-sessionStorage.setItem("charich", url);
-localStorage.setItem('uploadedImage', JSON.stringify(url))
-
-
+const maxSize = 1 * 1024 * 1024;
+  if (file.size > maxSize) {
+    alert("圖片太大！請選擇小於 1MB 的 PNG 圖片！");
+    input.value = ""; // 清除選擇的檔案
+    return;
   }
+
+    if (file) {
+        const reader = new FileReader();
+
+        // 讀取圖片並轉換為 Base64 格式
+        reader.readAsDataURL(file);
+
+        reader.onload = function (e) {
+            const base64Data = reader.result; // 取得 Base64 字串
+
+saveImageToLocalStorage(base64Data);
+
+displayImageFromLocalStorage()
+
+        };
+    } else {
+
+    }
 });
+
 
 function bkindex(){
 
@@ -1329,7 +1352,7 @@ nobackch=1///無返回主畫面
 
 pledpic=1
 
-pledpicmyslef="-1"
+pledpicmyslef=-1
 
 $(".adown,.camera,.mycad,.nextcad,.fontcad,.lastcad,.space,.etpghwordbk,.smoking").hide()
 
@@ -1375,15 +1398,11 @@ $(".playerpic").html('<img src="https://cdn.jsdelivr.net/gh/supercatmach/pic@mai
 
 plerK[0]=plerinfor[pledpic].pic
 
-plerK[0]=(plerK[0]=="-1")?"-1":plerK[0]
-
-///console.log(plerK[0])
-
-///console.log(pledpicmyslef)
+plerK[0]=(plerK[0]=="-1")?null:plerK[0]
 
 sessionStorage.setItem("charich", plerK[0]);
 
-pledpicmyslef="-1"
+pledpicmyslef=-1
 
 if(plerinfor[pledpic].cho==0){
 
@@ -1430,15 +1449,11 @@ $(".playerpic").html('<img src="https://cdn.jsdelivr.net/gh/supercatmach/pic@mai
 
 plerK[0]=plerinfor[pledpic].pic
 
-plerK[0]=(plerK[0]=="-1")?"-1":plerK[0]
-
-///console.log(plerK[0])
-
-///console.log(pledpicmyslef)
+plerK[0]=(plerK[0]=="-1")?null:plerK[0]
 
 sessionStorage.setItem("charich", plerK[0]);
 
-pledpicmyslef="-1"
+pledpicmyslef=-1
 
 if(plerinfor[pledpic].cho==0){
 
@@ -2675,10 +2690,9 @@ $(".winco").html(winco)///得分
 
 $(".winpler").html('<img src="https://cdn.jsdelivr.net/gh/supercatmach/pic@main/watse/mtkv'+plerK[pled]+'.png">')///人物
 
-if(pled==0&&pledpicmyslef!="-1"){
+if(pled==0&&pledpicmyslef!=-1){
 
-$(".winpler").html($(pledpicmyslef));
-
+$(".winpler").html(pledpicmyslef)///人物
 
 }
 
