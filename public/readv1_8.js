@@ -1,6 +1,6 @@
 ﻿
   const bgImg = new Image();
-  bgImg.src = 'backg/endshure.jpg';
+  bgImg.src = 'https://cdn.jsdelivr.net/gh/supercatmach/pic@main/backg/endshure.jpg';
   
   bgImg.onload = () => {
 $(".stanbylonding").show();
@@ -9,7 +9,7 @@ $(".stanbylondingshap100").animate({width:'100%'},10000);
 
   };
 
-document.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("load", () => {
   // 所有圖片載入完才會執行這裡的程式碼
   ///console.log("圖片全部載入完成！");
 
