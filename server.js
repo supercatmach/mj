@@ -3,15 +3,11 @@ const path = require("path");
 const http = require("http");
 const { Server } = require("socket.io");
 const helmet = require("helmet");
-const { createAdapter } = require("@socket.io/redis-adapter");
+require("dotenv").config();
 const { createClient } = require("redis");
+const { createAdapter } = require("@socket.io/redis-adapter");
 
-const pubClient = createClient({ url: "redis://localhost:6379" });
-const subClient = pubClient.duplicate();
 
-Promise.all([pubClient.connect(), subClient.connect()]).then(() => {
-  io.adapter(createAdapter(pubClient, subClient));
-});
 
 const app = express();
 const server = http.createServer(app);
@@ -29,6 +25,8 @@ app.use(cors({
   credentials: true // 若有 cookie 或 session 要帶過去才需要
 }));
 
+
+
 const io = new Server(server, {
   perMessageDeflate: false, // 關閉壓縮
   transports: ['websocket'], // 只允許 WebSocket
@@ -39,6 +37,25 @@ const io = new Server(server, {
   }
 });
 
+
+const pubClient = createClient({
+  url: process.env.REDIS_URL,
+  socket: {
+    tls: true,
+    rejectUnauthorized: false // 需要時才加，避免憑證問題
+  }
+});
+
+const subClient = pubClient.duplicate();
+
+Promise.all([pubClient.connect(), subClient.connect()])
+  .then(() => {
+    io.adapter(createAdapter(pubClient, subClient));
+    console.log("✅ Redis Adapter 已連線！");
+  })
+  .catch((err) => {
+    console.error("❌ Redis 連線失敗", err);
+  });
 
 const imageFolder = path.join(__dirname, "public/watse");
 app.use(express.static("public"));
