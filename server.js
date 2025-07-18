@@ -417,11 +417,7 @@ socket.on("invit", (data) => {
 
 console.log(roomId)
 
-if(io.sockets.sockets.has(friendPin)){
-
 io.to(friendPin).emit("roomCreated", { roomId: data[1]});
-
-}
 
 });
 
