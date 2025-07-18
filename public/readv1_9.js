@@ -337,12 +337,27 @@ $(".londingshap100").animate({width:'100%'},1000);
 
 setTimeout(() => {
 
-window.location.href = `${rooms.roomId}`
+window.location.href = `/magi.html?room=${rooms.roomId}&server=${encodeURIComponent(servertoURL)}`
 
 },1000)
 
 });
 
+socket.on("roomCreated2", (rooms) => {
+
+console.log(rooms.roomId)
+
+$(".londingshap100").stop();
+
+$(".londingshap100").animate({width:'100%'},1000);
+
+setTimeout(() => {
+
+window.location.href = `${rooms.roomId}`
+
+},1000)
+
+});
 
 
     console.log("連到伺服器:", serverURL);
