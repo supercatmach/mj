@@ -1212,6 +1212,11 @@ for (let i = 0; i < originalHand.length; i++) {
   const card = originalHand[i];
   if (seen.has(card)) continue;
   seen.add(card);
+
+
+    if (cantoutcd.includes(card)) continue; // ❗ 避免打出不能打的牌
+
+
   const dangerScore = dangerMap[card] || 0;
   candidates.push({ card, dangerScore });
 }

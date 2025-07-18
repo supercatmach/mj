@@ -72,7 +72,7 @@ roomId=rooms
 
 console.log("加入房間",rooms);
 
-otemit("myche", JSON.stringify([roomId,"max2c"]));
+otemit("myche", JSON.stringify([roomId,"max3c"]));
 
 },
 
@@ -1266,6 +1266,11 @@ for (let i = 0; i < originalHand.length; i++) {
   const card = originalHand[i];
   if (seen.has(card)) continue;
   seen.add(card);
+
+
+    if (cantoutcd.includes(card)) continue; // ❗ 避免打出不能打的牌
+
+
   const dangerScore = dangerMap[card] || 0;
   candidates.push({ card, dangerScore });
 }
