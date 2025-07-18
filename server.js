@@ -3,7 +3,15 @@ const path = require("path");
 const http = require("http");
 const { Server } = require("socket.io");
 const helmet = require("helmet");
+const { createAdapter } = require("@socket.io/redis-adapter");
+const { createClient } = require("redis");
 
+const pubClient = createClient({ url: "redis://localhost:6379" });
+const subClient = pubClient.duplicate();
+
+Promise.all([pubClient.connect(), subClient.connect()]).then(() => {
+  io.adapter(createAdapter(pubClient, subClient));
+});
 
 const app = express();
 const server = http.createServer(app);
@@ -392,7 +400,11 @@ socket.on("invit", (data) => {
 
 console.log(roomId)
 
-io.to(friendPin).emit("roomCreated", { roomId: data[1] });
+if(io.sockets.sockets.has(friendPin)){
+
+io.to(friendPin).emit("roomCreated", { roomId: data[1]});
+
+}
 
 });
 
