@@ -3112,9 +3112,9 @@ yoridis=idinf
 
 $("#snedBtn").click(function() {
 
-console.log(urlParams)
+console.log(window.location.href)
 
-socket.emit("invit", [$(".friendpin").val(),urlParams]);
+socket.emit("invit", [$(".friendpin").val(),window.location.href]);
 
 $(".friendpin").val("")
 
