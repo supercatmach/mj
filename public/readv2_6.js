@@ -1,4 +1,5 @@
-﻿
+﻿$(".connect-box").hide()
+
   const bgImg = new Image();
   bgImg.src = 'https://cdn.jsdelivr.net/gh/supercatmach/pic@main/backg/endshure.jpg';
   
