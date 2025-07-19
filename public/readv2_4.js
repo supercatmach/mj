@@ -13,9 +13,9 @@ window.addEventListener("load", () => {
   // 所有圖片載入完才會執行這裡的程式碼
   ///console.log("圖片全部載入完成！");
 
-$(".spinner-wrapper").hide()
-
 stopCountdown()
+
+$(".spinner-wrapper").hide()
 
 $(".stanbylondingshap100").stop();
 
@@ -329,6 +329,11 @@ $(".londingshap100").animate({width:'100%'},10000);
 socket.on("hi", (plid) => {
 
 console.log(plid+"伺服器確認重連成功");
+
+$(".connect-box").hide()///顯示倒數
+
+clearInterval(intervalId);
+spinner.style.animation = 'none';
 
 $(".mypin").val(plid)
 
