@@ -9,8 +9,9 @@
 <meta property="og:image:height" content="630">
 <meta property="og:title" content="超科學麻將社">
 <meta property="og:description" content="打麻將嘍!!">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/supercatmach/pic@main/mystylev1_2.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/supercatmach/pic@main/mystylev1_3.css">
 <title>超科學麻將社</title>
+
 
   <div class="spinner-wrapper">
     <div class="spinner"></div>
@@ -2794,13 +2795,7 @@
 </div>
 </div>
 
-<div class="loading-box">
-  <div class="spinner-wrapper">
-    <div class="spinner"></div>
-    <div class="spinner-text" id="spinner-seconds">0</div>
-  </div>
-  <div class="spinner-message">伺服器連線中</div>
-</div>
+
 
 
 <div id="bk90" style="position:absolute;top:50%;left:50%;margin-left:-900px;margin-top:-450px;width:1800px;height:900px;display:none;" onclick="$('#bk90').hide();">
@@ -2823,6 +2818,16 @@
 
 </div>
 </div>
+
+
+<div class="connect-box">
+  <div class="connect-spinner-container">
+    <div class="connect-spinner"></div>
+    <div class="connect-count" id="connect-seconds">0</div>
+  </div>
+  <div class="connect-message">伺服器連線中</div>
+</div>
+
 <script>
 function scaleContent() {
   const designWidth = 1800;
@@ -2865,6 +2870,7 @@ window.addEventListener("resize", scaleContent);
 
     // 啟動倒數
     startCountdown();
+
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/socket.io-client@4.7.5/dist/socket.io.min.js"></script>
@@ -2872,7 +2878,7 @@ window.addEventListener("resize", scaleContent);
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/supercatmach/pic@main/zutop.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/supercatmach/pic@main/people.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/supercatmach/pic@main/readv2_2.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/supercatmach/pic@main/readv2_3.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.0.4/pako.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
