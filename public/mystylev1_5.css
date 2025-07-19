@@ -48,7 +48,7 @@ transform:translateX(250px) translateY(-430px) translateZ(-250px) rotateY(-88deg
   width: 400px;
   height: 400px;
   background-color: #ffffff;
-  display: none;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;

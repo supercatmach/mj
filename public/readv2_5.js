@@ -388,6 +388,13 @@ window.location.href = `${rooms.roomId}`
     console.log("連到伺服器:", serverURL);
   })
   .catch(err => {
+
+
+$(".connect-box").hide()///顯示倒數
+
+clearInterval(intervalId);
+spinner.style.animation = 'none';
+
     alert("目前所有伺服器都掛了，請稍後再試！");
   });
 
