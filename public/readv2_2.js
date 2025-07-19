@@ -13,6 +13,7 @@ window.addEventListener("load", () => {
   // 所有圖片載入完才會執行這裡的程式碼
   ///console.log("圖片全部載入完成！");
 
+stopCountdown()
 
 $(".stanbylondingshap100").stop();
 
@@ -284,6 +285,16 @@ async function findLiveServer() {
 }
 function sufpvpn(dps){
 
+$(".loading-box").show()///顯示倒數
+
+let seconds = 0;
+const display = document.getElementById('spinner-seconds');
+const spinner = document.querySelector('.spinner');
+let intervalId = setInterval(() => {
+  seconds++;
+  display.textContent = seconds;
+}, 1000);
+
 servertoURL=null
 
 findLiveServer()
@@ -297,6 +308,11 @@ servertoURL=serverURL
 if(dps!=3){///連線
 
 $(".pledstanby").hide()
+
+$(".loading-box").hide()///顯示倒數
+
+clearInterval(intervalId);
+spinner.style.animation = 'none';
 
 $('#bk90').hide()
 
